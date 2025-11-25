@@ -1,0 +1,88 @@
+# SEO Configuration for VIP Card Website
+
+SITE_TITLE=VIP Gold Card - Exclusive Membership Application
+SITE_DESCRIPTION=Apply for our exclusive VIP Gold Card membership. Enjoy premium benefits, exclusive offers, and priority service. Join the elite today!
+SITE_KEYWORDS=VIP card, exclusive membership, premium benefits, gold card, elite membership, special offers
+
+META_ROBOTS=index, follow
+CANONICAL_URL=https://yourdomain.com/
+
+OPEN_GRAPH:
+og:title=VIP Gold Card - Exclusive Membership
+og:description=Apply for our exclusive VIP Gold Card and enjoy premium benefits
+og:image=https://yourdomain.com/images/vip-card-preview.jpg
+og:url=https://yourdomain.com/
+og:type=website
+
+TWITTER_CARD:
+twitter:card=summary_large_image
+twitter:title=VIP Gold Card - Exclusive Membership
+twitter:description=Apply for our exclusive VIP Gold Card membership
+twitter:image=https://yourdomain.com/images/vip-card-preview.jpg
+
+STRUCTURED_DATA:
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "VIP Gold Card Membership",
+  "description": "Exclusive VIP membership card with premium benefits",
+  "provider": {
+    "@type": "Organization",
+    "name": "VIP Card Services"
+  },
+  "areaServed": "Worldwide",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "VIP Membership Plans",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Basic VIP Membership"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Premium VIP Membership"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Elite VIP Membership"
+        }
+      }
+    ]
+  }
+}
+
+SITEMAP_URLS:
+- https://yourdomain.com/
+- https://yourdomain.com/calculator
+- https://yourdomain.com/benefits
+- https://yourdomain.com/apply
+
+ROBOTS_TXT:
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Sitemap: https://yourdomain.com/sitemap.xml
+
+PERFORMANCE_OPTIMIZATION:
+- Enable GZIP compression
+- Minify CSS and JavaScript
+- Optimize images (WebP format)
+- Implement lazy loading
+- Use CDN for static assets
+- Enable browser caching
+
+SECURITY_HEADERS:
+- X-Frame-Options: DENY
+- X-Content-Type-Options: nosniff
+- Strict-Transport-Security: max-age=31536000
+- Content-Security-Policy: default-src 'self'

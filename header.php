@@ -1,0 +1,545 @@
+<?php
+// Start session if not already started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Set canonical URL
+$currentUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$canonicalUrl = htmlspecialchars($currentUrl, ENT_QUOTES, 'UTF-8');
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Canonical URL -->
+    <link rel="canonical" href="<?php echo $canonicalUrl; ?>">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/assets/css/main.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Meta Tags -->
+    <meta name="author" content="90storezon">
+    <meta name="robots" content="index, follow">
+</head>
+<body>
+<header class="site-header">
+    <div class="header-container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <a href="/index.php" class="logo">
+                <span class="logo-black">90</span><span class="logo-blue">storezon</span>
+            </a>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav">
+            <ul class="nav-menu">
+                <li><a href="/index.php" class="nav-link">Home</a></li>
+                <li><a href="/calculators/" class="nav-link">Calculators</a></li>
+                <li><a href="/pages/about.php" class="nav-link">About</a></li>
+                <li><a href="/pages/contact.php" class="nav-link">Contact</a></li>
+                <li><a href="/pages/privacy.php" class="nav-link">Privacy Policy</a></li>
+            </ul>
+        </nav>
+
+        <!-- Right Side Actions -->
+        <div class="header-actions">
+            <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+                <!-- User Profile Dropdown -->
+                <div class="user-profile">
+                    <div class="profile-trigger">
+                        <span class="profile-name"><?php echo htmlspecialchars($_SESSION['user_name'] ?? 'User'); ?></span>
+                        <span class="profile-icon">▼</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <a href="/auth/profile.php" class="dropdown-item">Profile</a>
+                        <a href="/auth/settings.php" class="dropdown-item">Settings</a>
+                        <a href="/auth/logout.php" class="dropdown-item">Logout</a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <!-- Auth Buttons -->
+                <div class="auth-buttons">
+                    <a href="/auth/signin.php" class="btn btn-outline">Sign In</a>
+                    <a href="/auth/signup.php" class="btn btn-primary">Sign Up</a>
+                </div>
+            <?php endif; ?>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="menuToggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-nav">
+            <ul class="mobile-nav-menu">
+                <li><a href="/index.php" class="mobile-nav-link">Home</a></li>
+                <li><a href="/calculators/" class="mobile-nav-link">Calculators</a></li>
+                <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+                    <li><a href="/auth/profile.php" class="mobile-nav-link">Profile</a></li>
+                    <li><a href="/auth/settings.php" class="mobile-nav-link">Settings</a></li>
+                    <li><a href="/auth/logout.php" class="mobile-nav-link">Logout</a></li>
+                <?php else: ?>
+                    <li><a href="/auth/signin.php" class="mobile-nav-link">Sign In</a></li>
+                    <li><a href="/auth/signup.php" class="mobile-nav-link">Sign Up</a></li>
+                <?php endif; ?>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<style>
+    .site-header {
+        background: #ffffff;
+        border-bottom: 1px solid #dadce0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 70px;
+    }
+
+    /* Logo Styles */
+    .logo-container {
+        flex-shrink: 0;
+    }
+
+    .logo {
+        text-decoration: none;
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+        transform: scale(1.05);
+    }
+
+    .logo-black {
+        color: #000000;
+    }
+
+    .logo-blue {
+        color: #0052FF;
+    }
+
+    /* Desktop Navigation */
+    .desktop-nav {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 40px;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: #202124;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 12px 0;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+        color: #0052FF;
+        transform: translateY(-2px);
+    }
+
+    .nav-link:hover::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: #0052FF;
+        border-radius: 2px;
+    }
+
+    /* Header Actions */
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-shrink: 0;
+        position: relative;
+    }
+    
+    /* Ensure proper spacing between auth buttons and mobile menu toggle */
+    @media (max-width: 1023px) {
+        .header-actions {
+            gap: 10px;
+        }
+    }
+
+    /* Auth Buttons */
+    .auth-buttons {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+    
+    .btn {
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+    }
+    
+    .btn-outline {
+        background: transparent;
+        color: #0052FF;
+        border-color: #0052FF;
+    }
+    
+    .btn-outline:hover {
+        background: rgba(0, 82, 255, 0.05);
+    }
+    
+    .btn-primary {
+        background: #0052FF;
+        color: white;
+    }
+    
+    .btn-primary:hover {
+        background: #0041cc;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 82, 255, 0.2);
+    }
+    
+    /* User Profile Dropdown */
+    .user-profile {
+        position: relative;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .profile-trigger {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: #f8f9fa;
+        border-radius: 20px;
+        border: 1px solid #dadce0;
+        transition: all 0.3s ease;
+    }
+
+    .profile-trigger:hover {
+        background: #e8eaed;
+    }
+
+    .profile-name {
+        font-size: 14px;
+        font-weight: 500;
+        color: #202124;
+    }
+
+    .profile-icon {
+        font-size: 12px;
+        color: #5f6368;
+    }
+
+    .profile-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border: 1px solid #dadce0;
+        width: 200px;
+        z-index: 1001;
+        display: none;
+        margin-top: 8px;
+    }
+
+    .profile-dropdown.show {
+        display: block;
+    }
+
+    .dropdown-item {
+        display: block;
+        padding: 12px 16px;
+        color: #202124;
+        text-decoration: none;
+        font-size: 14px;
+        border-bottom: 1px solid #f1f3f4;
+        transition: all 0.2s ease;
+    }
+
+    .dropdown-item:last-child {
+        border-bottom: none;
+    }
+
+    .dropdown-item:hover {
+        background: #f8f9fa;
+        color: #0052FF;
+    }
+
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+        margin-left: 10px; /* Add some spacing */
+    }
+
+    .mobile-menu-toggle:hover {
+        background: #f8f9fa;
+    }
+
+    .hamburger-line {
+        width: 24px;
+        height: 3px;
+        background: #202124;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+    
+    /* Adjust mobile toggle for smaller screens */
+    @media (max-width: 480px) {
+        .mobile-menu-toggle {
+            padding: 8px;
+        }
+        
+        .hamburger-line {
+            width: 20px;
+            height: 2px;
+        }
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #ffffff;
+        padding: 30px;
+        transform: translateY(-100%);
+        transition: transform 0.4s ease;
+        z-index: 999;
+        overflow-y: auto;
+        display: none;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .mobile-menu.show {
+        transform: translateY(0);
+    }
+
+    .mobile-nav-menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .mobile-nav-link {
+        display: block;
+        padding: 18px 0;
+        text-decoration: none;
+        color: #202124;
+        font-size: 18px;
+        font-weight: 500;
+        border-bottom: 1px solid #f1f3f4;
+        transition: all 0.3s ease;
+    }
+
+    .mobile-nav-link:hover {
+        color: #0052FF;
+        padding-left: 10px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1023px) {
+        .desktop-nav {
+            display: none;
+        }
+
+        .mobile-menu-toggle {
+            display: flex;
+        }
+
+        .mobile-menu {
+            display: block;
+        }
+
+        .header-container {
+            padding: 0 16px;
+        }
+        
+        /* Keep auth buttons visible on mobile */
+        .auth-buttons {
+            display: flex;
+        }
+        
+        /* Adjust mobile menu toggle position when auth buttons are visible */
+        .mobile-menu-toggle {
+            margin-left: 10px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .logo {
+            font-size: 24px;
+        }
+
+        .header-container {
+            height: 60px;
+        }
+
+        .mobile-menu {
+            top: 60px;
+        }
+        
+        /* Make auth buttons smaller on mobile */
+        .auth-buttons {
+            gap: 8px;
+        }
+        
+        .btn {
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .logo {
+            font-size: 22px;
+        }
+        
+        .header-container {
+            padding: 0 12px;
+            height: 56px;
+        }
+        
+        .mobile-menu {
+            top: 56px;
+            padding: 20px;
+        }
+        
+        .mobile-nav-link {
+            font-size: 16px;
+            padding: 16px 0;
+        }
+        
+        /* Further adjust auth buttons for small screens */
+        .auth-buttons {
+            gap: 6px;
+        }
+        
+        .btn {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        
+        .profile-name {
+            font-size: 13px;
+        }
+    }
+</style>
+
+<script>
+    // Mobile menu functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const hamburgerLines = document.querySelectorAll('.hamburger-line');
+
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.toggle('show');
+            
+            // Animate hamburger to X
+            if (mobileMenu.classList.contains('show')) {
+                hamburgerLines[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+                hamburgerLines[1].style.opacity = '0';
+                hamburgerLines[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+            } else {
+                hamburgerLines[0].style.transform = 'none';
+                hamburgerLines[1].style.opacity = '1';
+                hamburgerLines[2].style.transform = 'none';
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('show');
+                hamburgerLines[0].style.transform = 'none';
+                hamburgerLines[1].style.opacity = '1';
+                hamburgerLines[2].style.transform = 'none';
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!menuToggle.contains(event.target) && !mobileMenu.contains(event.target)) {
+                mobileMenu.classList.remove('show');
+                hamburgerLines[0].style.transform = 'none';
+                hamburgerLines[1].style.opacity = '1';
+                hamburgerLines[2].style.transform = 'none';
+            }
+        });
+
+        // Profile dropdown functionality
+        const profileTrigger = document.querySelector('.profile-trigger');
+        const profileDropdown = document.querySelector('.profile-dropdown');
+        
+        if (profileTrigger && profileDropdown) {
+            profileTrigger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('show');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function() {
+                profileDropdown.classList.remove('show');
+            });
+
+            // Prevent closing when clicking inside dropdown
+            profileDropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
+    });
+</script>
+</header>

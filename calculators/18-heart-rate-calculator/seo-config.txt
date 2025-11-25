@@ -1,0 +1,45 @@
+# 18-Free Heart Rate Calculator - SEO Configuration
+
+Title: 18-Free Heart Rate Calculator - Target HR Zones & Maximum HR
+Meta Description: Free heart rate calculator to determine your maximum heart rate, target heart rate zones for exercise, and resting heart rate analysis. Optimize your workouts.
+
+Primary Keywords:
+- heart rate calculator
+- target heart rate calculator
+- maximum heart rate calculator
+- heart rate zones
+- resting heart rate calculator
+- exercise heart rate
+- cardio zones
+- HR training
+
+Secondary Keywords:
+- how to calculate heart rate zones
+- Karvonen formula
+- fat burning zone
+- aerobic heart rate
+- anaerobic threshold
+- heart rate reserve
+- training zones
+- workout intensity
+
+SEO Tags:
+<meta name="keywords" content="heart rate calculator, target heart rate, maximum heart rate, heart rate zones, resting heart rate, cardio training">
+<meta name="author" content="18-Free Heart Rate Calculator">
+<meta property="og:title" content="18-Free Heart Rate Calculator - Target HR Zones & Maximum HR">
+<meta property="og:description" content="Calculate your maximum heart rate, target zones for exercise, and resting heart rate analysis. Optimize your workouts.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="18-Free Heart Rate Calculator">
+<meta name="twitter:description" content="Free heart rate calculator for exercise optimization">
+
+Structured Data:
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "18-Free Heart Rate Calculator",
+  "description": "Free heart rate calculator for exercise and fitness training",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "permissions": "none"
+}

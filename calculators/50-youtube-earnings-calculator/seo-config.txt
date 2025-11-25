@@ -1,0 +1,29 @@
+Title: Free YouTube Earnings Calculator | Estimate Your YouTube Revenue
+Description: Free YouTube earnings calculator. Estimate your potential YouTube revenue based on views, RPM, niche, and engagement. Calculate CPM, monthly, and yearly earnings with detailed breakdown.
+Keywords: youtube earnings calculator, youtube revenue, youtube money, rpm calculator, cpm calculator, youtube income, youtube monetization, ad revenue, youtube channel earnings
+
+Header Tags:
+H1: YouTube Earnings Calculator
+H2: Understanding YouTube Earnings
+H3: YouTube Earnings Examples
+
+Meta Tags:
+viewport: width=device-width, initial-scale=1.0
+robots: index, follow
+author: Calculator Team
+og:title: Free YouTube Earnings Calculator - Estimate Your YouTube Revenue
+og:description: Calculate your potential YouTube earnings based on views, RPM, niche, and engagement. Get detailed revenue breakdown and growth insights.
+og:type: website
+og:url: https://yourwebsite.com/youtube-earnings-calculator
+
+Structured Data:
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "YouTube Earnings Calculator",
+  "description": "Estimate YouTube revenue based on channel metrics and monetization settings",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "permissions": "none",
+  "featureList": "RPM calculation, CPM estimation, Revenue breakdown, Growth insights, Multiple revenue streams"
+}

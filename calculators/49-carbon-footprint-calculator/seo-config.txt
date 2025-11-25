@@ -1,0 +1,29 @@
+Title: Free Carbon Footprint Calculator | Calculate Your Environmental Impact
+Description: Free online carbon footprint calculator. Calculate your CO2 emissions from transportation, energy, diet, and lifestyle. Get personalized tips to reduce your environmental impact and combat climate change.
+Keywords: carbon footprint calculator, co2 emissions, environmental impact, climate change, carbon calculator, eco footprint, sustainability, green living, emissions calculator, carbon footprint
+
+Header Tags:
+H1: Carbon Footprint Calculator
+H2: Understanding Carbon Footprint
+H3: Your Carbon Footprint Results
+
+Meta Tags:
+viewport: width=device-width, initial-scale=1.0
+robots: index, follow
+author: Calculator Team
+og:title: Free Carbon Footprint Calculator - Calculate Your Environmental Impact
+og:description: Calculate your CO2 emissions and get personalized recommendations to reduce your carbon footprint. Help combat climate change today.
+og:type: website
+og:url: https://yourwebsite.com/carbon-footprint-calculator
+
+Structured Data:
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Carbon Footprint Calculator",
+  "description": "Calculate CO2 emissions from transportation, energy, diet, and lifestyle",
+  "applicationCategory": "EnvironmentalApplication",
+  "operatingSystem": "Any",
+  "permissions": "none",
+  "featureList": "Transportation emissions, Home energy calculation, Diet impact analysis, Lifestyle assessment, Personalized recommendations"
+}

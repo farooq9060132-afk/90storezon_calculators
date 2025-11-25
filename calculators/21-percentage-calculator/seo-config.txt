@@ -1,0 +1,71 @@
+
+# SEO Configuration File
+# 21 Free Percentage Calculator
+# Generated: 2024
+
+=== BASIC SEO SETTINGS ===
+SITE_TITLE: 21 Free Percentage Calculator - Accurate Online Tools
+META_DESCRIPTION: Free percentage calculators for all your needs. Calculate discounts, taxes, tips, grades, and more with our 21 professional tools. 100% accurate and instant results.
+KEYWORDS: percentage calculator, discount calculator, tax calculator, tip calculator, grade calculator, percentage tools, free calculator
+
+=== TECHNICAL SEO ===
+CANONICAL_URL: https://yourdomain.com/percentage-calculator/
+SITEMAP_URL: https://yourdomain.com/sitemap.xml
+ROBOTS_TXT: https://yourdomain.com/robots.txt
+
+=== OPEN GRAPH TAGS ===
+OG_TITLE: 21 Free Percentage Calculator - Professional Tools
+OG_DESCRIPTION: Calculate percentages instantly with our 21 free professional tools. Accurate results for discounts, taxes, tips, and more.
+OG_IMAGE: https://yourdomain.com/images/percentage-calculator-og.jpg
+OG_TYPE: website
+
+=== TWITTER CARD ===
+TWITTER_CARD: summary_large_image
+TWITTER_TITLE: Free Percentage Calculator Tools
+TWITTER_DESCRIPTION: 21 professional percentage calculators for all your calculation needs.
+
+=== STRUCTURED DATA (JSON-LD) ===
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "21 Free Percentage Calculator",
+  "description": "Free online percentage calculator with 21 professional tools",
+  "url": "https://yourdomain.com/percentage-calculator",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "permissions": "browser",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+
+=== PAGE-SPECIFIC SEO ===
+
+## Home Page
+PAGE: /
+TITLE: 21 Free Percentage Calculator - Professional Online Tools
+META_DESCRIPTION: 21 free percentage calculators for discounts, taxes, tips, grades, and more. Instant, accurate results. 100% free professional tools.
+H1: 21 Free Percentage Calculators
+KEYWORDS: percentage calculator, free calculator, online tools, math calculator
+
+## Calculator Pages
+PAGE: /calculator.php
+TITLE_DYNAMIC: [Tool Name] - Free Percentage Calculator
+META_DESCRIPTION_DYNAMIC: Free [Tool Name] - Calculate percentages instantly and accurately. Professional tool with instant results.
+H1_DYNAMIC: [Tool Name]
+
+=== PERFORMANCE SETTINGS ===
+PRELOAD_CSS: true
+LAZY_LOAD_IMAGES: true
+COMPRESSION: gzip
+CACHE_STRATEGY: aggressive
+
+=== ANALYTICS ===
+GOOGLE_ANALYTICS_ID: GA-TRACKING-ID
+GOOGLE_SEARCH_CONSOLE_VERIFICATION: google-site-verification-code
+
+=== SOCIAL MEDIA ===
+FACEBOOK_PAGE: https://facebook.com/yourpage
+TWITTER_HANDLE: @yourhandle

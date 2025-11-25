@@ -1,0 +1,239 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
+}
+
+.header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.vip-card-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.vip-card {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    border-radius: 20px;
+    padding: 30px;
+    width: 400px;
+    height: 250px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    color: #333;
+    position: relative;
+    overflow: hidden;
+}
+
+.vip-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: rotate(45deg);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.card-chip {
+    width: 50px;
+    height: 40px;
+    background: linear-gradient(135deg, #C0C0C0, #808080);
+    border-radius: 8px;
+    position: relative;
+}
+
+.card-chip::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 4px;
+}
+
+.card-type {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.card-number {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.card-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.card-holder label,
+.card-expiry label {
+    display: block;
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-bottom: 5px;
+}
+
+.card-holder .name,
+.card-expiry .date {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.vip-form {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    margin-bottom: 40px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.features {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.features h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.benefit {
+    text-align: center;
+    padding: 20px;
+}
+
+.benefit .icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.benefit h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.benefit p {
+    color: #666;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .vip-card {
+        width: 350px;
+        height: 220px;
+        padding: 20px;
+    }
+    
+    .card-number {
+        font-size: 1.2rem;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+}

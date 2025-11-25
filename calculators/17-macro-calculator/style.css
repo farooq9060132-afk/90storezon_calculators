@@ -1,0 +1,469 @@
+:root {
+    --primary: #ff6b35;
+    --primary-dark: #e55a2b;
+    --secondary: #2ec4b6;
+    --protein: #ff6b6b;
+    --carbs: #4ecdc4;
+    --fats: #45b7d1;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --gray: #6c757d;
+    --light-gray: #e9ecef;
+    --orange-light: #ffe8d6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+    background-color: #fff9f5;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+main {
+    padding: 2rem 0;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid var(--primary);
+}
+
+.intro h2 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.calculator-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.input-section, .results-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.input-section h3, .results-section h3 {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--light-gray);
+}
+
+.user-profile, .activity-goals, .workout-details {
+    margin-bottom: 2rem;
+}
+
+.user-profile h3, .activity-goals h3, .workout-details h3 {
+    color: var(--secondary);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.input-group input, .input-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus, .input-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 1rem;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.calorie-summary {
+    margin-bottom: 1.5rem;
+}
+
+.main-calories {
+    text-align: center;
+    padding: 2rem;
+    background: var(--orange-light);
+    border-radius: 10px;
+    border: 2px solid var(--primary);
+}
+
+.calorie-amount {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 1rem 0;
+}
+
+.calorie-note {
+    font-size: 1rem;
+    color: var(--gray);
+}
+
+.macro-breakdown {
+    margin-bottom: 1.5rem;
+}
+
+.macro-breakdown h4 {
+    margin-bottom: 1rem;
+    color: var(--secondary);
+}
+
+.macro-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.macro-card {
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 10px;
+    border: 2px solid;
+    transition: transform 0.3s ease;
+}
+
+.macro-card:hover {
+    transform: translateY(-5px);
+}
+
+.macro-card.protein {
+    border-color: var(--protein);
+    background: linear-gradient(135deg, #fff5f5, #ffe5e5);
+}
+
+.macro-card.carbs {
+    border-color: var(--carbs);
+    background: linear-gradient(135deg, #f0fffd, #e0f7f5);
+}
+
+.macro-card.fats {
+    border-color: var(--fats);
+    background: linear-gradient(135deg, #f0f9ff, #e0f2ff);
+}
+
+.macro-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.macro-card h5 {
+    color: var(--dark);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.macro-amount {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.macro-card.protein .macro-amount {
+    color: var(--protein);
+}
+
+.macro-card.carbs .macro-amount {
+    color: var(--carbs);
+}
+
+.macro-card.fats .macro-amount {
+    color: var(--fats);
+}
+
+.macro-percent {
+    font-size: 1rem;
+    color: var(--gray);
+    margin-bottom: 0.5rem;
+}
+
+.macro-calories {
+    font-size: 0.9rem;
+    color: var(--gray);
+}
+
+.macro-chart {
+    margin-bottom: 1.5rem;
+}
+
+.macro-chart h4 {
+    margin-bottom: 1rem;
+    color: var(--secondary);
+}
+
+.chart-container {
+    height: 300px;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--light-gray);
+}
+
+.meal-planning {
+    margin-bottom: 1.5rem;
+}
+
+.meal-planning h4 {
+    margin-bottom: 1rem;
+    color: var(--secondary);
+}
+
+.meal-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.meal-tab {
+    flex: 1;
+    padding: 0.75rem;
+    background: var(--light);
+    border: 1px solid var(--light-gray);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.meal-tab.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.meal-distribution {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--light-gray);
+}
+
+.meal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background: var(--light);
+    border-radius: 5px;
+    border-left: 4px solid var(--primary);
+}
+
+.meal:last-child {
+    margin-bottom: 0;
+}
+
+.meal-name {
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.meal-macros {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.food-suggestions {
+    margin-bottom: 1.5rem;
+}
+
+.food-suggestions h4 {
+    margin-bottom: 1rem;
+    color: var(--secondary);
+}
+
+.food-categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.food-category {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--light-gray);
+}
+
+.food-category h5 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.food-category ul {
+    list-style-type: none;
+}
+
+.food-category li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.food-category li:before {
+    content: "•";
+    color: var(--secondary);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.food-category li:last-child {
+    border-bottom: none;
+}
+
+.macro-tips {
+    margin-bottom: 1.5rem;
+}
+
+.macro-tips h4 {
+    margin-bottom: 1rem;
+    color: var(--secondary);
+}
+
+.tips-list {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--light-gray);
+}
+
+.tip {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background: var(--light);
+    border-radius: 5px;
+}
+
+.tip:last-child {
+    margin-bottom: 0;
+}
+
+.tip-icon {
+    font-size: 1.2rem;
+}
+
+footer {
+    background: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+}
+
+footer p {
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .calculator-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .input-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .macro-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .food-categories {
+        grid-template-columns: 1fr;
+    }
+    
+    .meal-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .meal-tab {
+        flex: none;
+        width: calc(50% - 0.5rem);
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .calorie-amount {
+        font-size: 2.5rem;
+    }
+}

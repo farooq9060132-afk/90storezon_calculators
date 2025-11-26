@@ -1,23 +1,15 @@
 <?php
 /**
- * Plugin Name: Free Retirement Planner
+ * Retirement Planner
  * Description: Free online retirement planner tool. Calculate your retirement savings needs, investment growth, and monthly income.
- * Version: 1.0
- * Author: Your Name
  */
 
 // Prevent direct access
-if (!defined('ABSPATH')) {
-    exit;
+if (!defined('CALCULATOR_LOADED')) {
+    define('CALCULATOR_LOADED', true);
 }
 
-function retirement_planner_enqueue_scripts() {
-    wp_enqueue_style('retirement-planner-style', plugins_url('style.css', __FILE__));
-    wp_enqueue_script('retirement-planner-script', plugins_url('script.js', __FILE__), array('jquery'), '1.0', true);
-}
-add_action('wp_enqueue_scripts', 'retirement_planner_enqueue_scripts');
-
-function retirement_planner_shortcode() {
+function get_retirement_planner_html() {
     ob_start();
     ?>
     <div class="retirement-planner-plugin">
@@ -100,5 +92,9 @@ function retirement_planner_shortcode() {
     <?php
     return ob_get_clean();
 }
-add_shortcode('retirement_planner', 'retirement_planner_shortcode');
+
+// If this file is accessed directly, show the calculator
+if (basename($_SERVER['PHP_SELF']) == 'calculator.php') {
+    echo get_retirement_planner_html();
+}
 ?>

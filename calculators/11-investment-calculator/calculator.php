@@ -1,23 +1,15 @@
 <?php
 /**
- * Plugin Name: Free Investment Calculator
+ * Investment Calculator
  * Description: Free online investment calculator tool. Calculate investment returns, ROI, and growth projections.
- * Version: 1.0
- * Author: Your Name
  */
 
 // Prevent direct access
-if (!defined('ABSPATH')) {
-    exit;
+if (!defined('CALCULATOR_LOADED')) {
+    define('CALCULATOR_LOADED', true);
 }
 
-function investment_calculator_enqueue_scripts() {
-    wp_enqueue_style('investment-calculator-style', plugins_url('style.css', __FILE__));
-    wp_enqueue_script('investment-calculator-script', plugins_url('script.js', __FILE__), array('jquery'), '1.0', true);
-}
-add_action('wp_enqueue_scripts', 'investment_calculator_enqueue_scripts');
-
-function investment_calculator_shortcode() {
+function get_investment_calculator_html() {
     ob_start();
     ?>
     <div class="investment-calculator-plugin">
@@ -88,5 +80,9 @@ function investment_calculator_shortcode() {
     <?php
     return ob_get_clean();
 }
-add_shortcode('investment_calculator', 'investment_calculator_shortcode');
+
+// If this file is accessed directly, show the calculator
+if (basename($_SERVER['PHP_SELF']) == 'calculator.php') {
+    echo get_investment_calculator_html();
+}
 ?>

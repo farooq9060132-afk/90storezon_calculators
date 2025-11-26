@@ -1,23 +1,15 @@
 <?php
 /**
- * Plugin Name: Free Password Generator
+ * Password Generator
  * Description: Free online password generator tool. Create strong, secure passwords with custom length and character types.
- * Version: 1.0
- * Author: Your Name
  */
 
 // Prevent direct access
-if (!defined('ABSPATH')) {
-    exit;
+if (!defined('CALCULATOR_LOADED')) {
+    define('CALCULATOR_LOADED', true);
 }
 
-function password_generator_enqueue_scripts() {
-    wp_enqueue_style('password-generator-style', plugins_url('style.css', __FILE__));
-    wp_enqueue_script('password-generator-script', plugins_url('script.js', __FILE__), array('jquery'), '1.0', true);
-}
-add_action('wp_enqueue_scripts', 'password_generator_enqueue_scripts');
-
-function password_generator_shortcode() {
+function get_password_generator_html() {
     ob_start();
     ?>
     <div class="password-generator-plugin">
@@ -111,5 +103,9 @@ function password_generator_shortcode() {
     <?php
     return ob_get_clean();
 }
-add_shortcode('password_generator', 'password_generator_shortcode');
+
+// If this file is accessed directly, show the calculator
+if (basename($_SERVER['PHP_SELF']) == 'calculator.php') {
+    echo get_password_generator_html();
+}
 ?>

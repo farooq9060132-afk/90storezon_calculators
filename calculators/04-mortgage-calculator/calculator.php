@@ -1,23 +1,15 @@
 <?php
 /**
- * Plugin Name: Free Mortgage Calculator
+ * Mortgage Calculator
  * Description: Free online mortgage calculator tool. Calculate your monthly home loan payments, interest, and amortization schedule.
- * Version: 1.0
- * Author: Your Name
  */
 
 // Prevent direct access
-if (!defined('ABSPATH')) {
-    exit;
+if (!defined('CALCULATOR_LOADED')) {
+    define('CALCULATOR_LOADED', true);
 }
 
-function mortgage_calculator_enqueue_scripts() {
-    wp_enqueue_style('mortgage-calculator-style', plugins_url('style.css', __FILE__));
-    wp_enqueue_script('mortgage-calculator-script', plugins_url('script.js', __FILE__), array('jquery'), '1.0', true);
-}
-add_action('wp_enqueue_scripts', 'mortgage_calculator_enqueue_scripts');
-
-function mortgage_calculator_shortcode() {
+function get_mortgage_calculator_html() {
     ob_start();
     ?>
     <div class="mortgage-calculator-plugin">
@@ -109,5 +101,9 @@ function mortgage_calculator_shortcode() {
     <?php
     return ob_get_clean();
 }
-add_shortcode('mortgage_calculator', 'mortgage_calculator_shortcode');
+
+// If this file is accessed directly, show the calculator
+if (basename($_SERVER['PHP_SELF']) == 'calculator.php') {
+    echo get_mortgage_calculator_html();
+}
 ?>

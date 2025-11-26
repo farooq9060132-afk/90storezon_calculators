@@ -1,23 +1,15 @@
 <?php
 /**
- * Plugin Name: Free Tax Calculator
+ * Tax Calculator
  * Description: Free online tax calculator tool. Calculate your income tax, deductions, and net salary instantly.
- * Version: 1.0
- * Author: Your Name
  */
 
 // Prevent direct access
-if (!defined('ABSPATH')) {
-    exit;
+if (!defined('CALCULATOR_LOADED')) {
+    define('CALCULATOR_LOADED', true);
 }
 
-function tax_calculator_enqueue_scripts() {
-    wp_enqueue_style('tax-calculator-style', plugins_url('style.css', __FILE__));
-    wp_enqueue_script('tax-calculator-script', plugins_url('script.js', __FILE__), array('jquery'), '1.0', true);
-}
-add_action('wp_enqueue_scripts', 'tax_calculator_enqueue_scripts');
-
-function tax_calculator_shortcode() {
+function get_tax_calculator_html() {
     ob_start();
     ?>
     <div class="tax-calculator-plugin">
@@ -95,5 +87,9 @@ function tax_calculator_shortcode() {
     <?php
     return ob_get_clean();
 }
-add_shortcode('tax_calculator', 'tax_calculator_shortcode');
+
+// If this file is accessed directly, show the calculator
+if (basename($_SERVER['PHP_SELF']) == 'calculator.php') {
+    echo get_tax_calculator_html();
+}
 ?>

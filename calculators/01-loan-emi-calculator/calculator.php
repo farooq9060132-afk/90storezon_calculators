@@ -1,23 +1,15 @@
 <?php
 /**
- * Plugin Name: Free Loan EMI Calculator
+ * Loan EMI Calculator
  * Description: Free online EMI calculator tool. Calculate monthly loan payments with our easy-to-use calculator.
- * Version: 1.0
- * Author: Your Name
  */
 
 // Prevent direct access
-if (!defined('ABSPATH')) {
-    exit;
+if (!defined('CALCULATOR_LOADED')) {
+    define('CALCULATOR_LOADED', true);
 }
 
-function loan_emi_calculator_enqueue_scripts() {
-    wp_enqueue_style('emi-calculator-style', plugins_url('style.css', __FILE__));
-    wp_enqueue_script('emi-calculator-script', plugins_url('script.js', __FILE__), array('jquery'), '1.0', true);
-}
-add_action('wp_enqueue_scripts', 'loan_emi_calculator_enqueue_scripts');
-
-function loan_emi_calculator_shortcode() {
+function get_loan_emi_calculator_html() {
     ob_start();
     ?>
     <div class="emi-calculator-plugin">
@@ -100,5 +92,9 @@ function loan_emi_calculator_shortcode() {
     <?php
     return ob_get_clean();
 }
-add_shortcode('emi_calculator', 'loan_emi_calculator_shortcode');
+
+// If this file is accessed directly, show the calculator
+if (basename($_SERVER['PHP_SELF']) == 'calculator.php') {
+    echo get_loan_emi_calculator_html();
+}
 ?>

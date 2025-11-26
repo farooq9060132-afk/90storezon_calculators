@@ -1,24 +1,15 @@
 <?php
 /**
- * Plugin Name: Free QR Code Generator
+ * QR Code Generator
  * Description: Free online QR code generator tool. Create custom QR codes for URLs, text, emails, WiFi, and more.
- * Version: 1.0
- * Author: Your Name
  */
 
 // Prevent direct access
-if (!defined('ABSPATH')) {
-    exit;
+if (!defined('CALCULATOR_LOADED')) {
+    define('CALCULATOR_LOADED', true);
 }
 
-function qr_code_generator_enqueue_scripts() {
-    wp_enqueue_style('qr-code-generator-style', plugins_url('style.css', __FILE__));
-    wp_enqueue_script('qrcode-js', 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js', array(), '1.5.3', true);
-    wp_enqueue_script('qr-code-generator-script', plugins_url('script.js', __FILE__), array('jquery', 'qrcode-js'), '1.0', true);
-}
-add_action('wp_enqueue_scripts', 'qr_code_generator_enqueue_scripts');
-
-function qr_code_generator_shortcode() {
+function get_qr_code_generator_html() {
     ob_start();
     ?>
     <div class="qr-code-generator-plugin">
@@ -84,5 +75,9 @@ function qr_code_generator_shortcode() {
     <?php
     return ob_get_clean();
 }
-add_shortcode('qr_code_generator', 'qr_code_generator_shortcode');
+
+// If this file is accessed directly, show the calculator
+if (basename($_SERVER['PHP_SELF']) == 'calculator.php') {
+    echo get_qr_code_generator_html();
+}
 ?>

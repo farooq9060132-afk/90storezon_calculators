@@ -115,6 +115,22 @@
                 <i class="fas fa-calculator"></i> Calculate EMI
             </button>
 
+            <div class="result-container" id="resultContainer" style="display: none;">
+                <h3><i class="fas fa-chart-bar"></i> Calculation Results</h3>
+                <div class="result-item">
+                    <span>Monthly EMI:</span>
+                    <span id="monthlyEMI">£0</span>
+                </div>
+                <div class="result-item">
+                    <span>Total Interest:</span>
+                    <span id="totalInterest">£0</span>
+                </div>
+                <div class="result-item total-amount">
+                    <span>Total Amount:</span>
+                    <span id="totalAmount">£0</span>
+                </div>
+            </div>
+
             <div class="amortization-container" id="amortizationContainer" style="display: none;">
                 <h3><i class="fas fa-table"></i> Amortization Schedule</h3>
                 <div class="table-container">
@@ -139,24 +155,9 @@
                 [AD_MIDDLE_BANNER]
             </div>
 
-            <div class="result-container" id="resultContainer">
-                <h3><i class="fas fa-chart-bar"></i> Calculation Results</h3>
-                <div class="result-item">
-                    <span>Monthly EMI:</span>
-                    <span id="monthlyEMI">£0</span>
-                </div>
-                <div class="result-item">
-                    <span>Total Interest:</span>
-                    <span id="totalInterest">£0</span>
-                </div>
-                <div class="result-item total-amount">
-                    <span>Total Amount:</span>
-                    <span id="totalAmount">£0</span>
-                </div>
-            </div>
-
             <div class="backlink-paragraph">
                 <p>Loan calculation for UK residents. Our <a href="/calculators/04-mortgage-calculator/">mortgage calculator</a> helps with home loans, while our <a href="/calculators/05-compound-interest-calculator/">compound interest calculator</a> shows investment growth. For financial planning, use our <a href="/calculators/11-investment-calculator/">investment calculator</a> and <a href="/calculators/10-retirement-planner/">retirement planner</a>. Compare loan options with our <a href="/calculators/01-loan-emi-calculator/">EMI calculator</a>, calculate taxes with our <a href="/calculators/09-tax-calculator/">tax calculator</a>, and manage budgets with our <a href="/calculators/13-budget-planner/">budget planner</a>. For business loans, our <a href="/calculators/01-loan-emi-calculator/uk.php">UK loan calculator</a> provides accurate estimates. International users can calculate loans in <a href="/calculators/01-loan-emi-calculator/usa.php">USA</a>, <a href="/calculators/01-loan-emi-calculator/canada.php">Canada</a>, <a href="/calculators/01-loan-emi-calculator/india.php">India</a>, <a href="/calculators/01-loan-emi-calculator/australia.php">Australia</a>, and <a href="/calculators/01-loan-emi-calculator/germany.php">Germany</a>.</p>
+                <p>Backlink: <a href="https://90storezon.com">90storezon</a></p>
             </div>
         </div>
 
@@ -202,45 +203,39 @@
 
     <!-- Example Calculation -->
     <section class="example-section">
-        <h2>Example Calculation for UK Loans</h2>
+        <h2>Example Calculation</h2>
         <div class="example-box">
-            <h3>For a £250,000 home loan at 4.5% interest for 20 years:</h3>
-            <ul>
-                <li>Monthly EMI: £1,581.84</li>
-                <li>Total Interest: £129,640.80</li>
-                <li>Total Payment: £379,640.80</li>
-            </ul>
-            <p>This example shows a typical UK mortgage calculation with current interest rates. Your actual payments may vary based on loan terms, fees, and other factors.</p>
+            <h3>For a £150,000 loan at 4.5% interest for 20 years:</h3>
+            <div class="example-result">
+                <p><strong>Monthly EMI:</strong> £952.38</p>
+                <p><strong>Total Interest:</strong> £78,571.49</p>
+                <p><strong>Total Payment:</strong> £228,571.49</p>
+            </div>
         </div>
     </section>
 
     <!-- FAQ Section -->
     <section class="faq-section">
-        <h2>Frequently Asked Questions about UK Loans</h2>
-        
+        <h2>Frequently Asked Questions</h2>
         <div class="faq-item">
-            <h3>What is the current average mortgage rate in the UK?</h3>
-            <p>As of 2024, the average 25-year fixed mortgage rate in the UK ranges from 4-6%, while 15-year fixed rates are typically 0.25-0.5% lower. Our calculator uses a default rate of 4.5% for general loan calculations.</p>
+            <h3>What is an EMI?</h3>
+            <p>EMI (Equated Monthly Installment) is a fixed payment amount made by a borrower to a lender at a specified date each calendar month. It consists of both principal and interest components.</p>
         </div>
-        
         <div class="faq-item">
-            <h3>How do I calculate my auto loan payment in the UK?</h3>
-            <p>Auto loan payments in the UK are calculated using the same EMI formula. For example, a £25,000 car loan at 5% interest for 4 years would result in a monthly payment of approximately £576.23.</p>
+            <h3>How does the interest rate affect my EMI?</h3>
+            <p>Higher interest rates increase your EMI amount and total interest paid, while lower rates reduce both. Even a 0.5% difference can significantly impact your total payment.</p>
         </div>
-        
         <div class="faq-item">
-            <h3>What factors affect loan interest rates in the UK?</h3>
-            <p>UK loan interest rates are affected by credit score, loan term, down payment, debt-to-income ratio, employment history, and current market conditions. Higher credit scores typically qualify for lower interest rates.</p>
+            <h3>Can I prepay my loan to reduce EMI?</h3>
+            <p>Yes, prepaying your loan can reduce your EMI or loan tenure. Check with your lender about prepayment charges before making extra payments.</p>
         </div>
-        
         <div class="faq-item">
-            <h3>Are there any additional costs for UK loans?</h3>
-            <p>Yes, UK loans often include additional costs such as arrangement fees, valuation fees, legal fees, and stamp duty (for property purchases). These can add 1-3% to the total loan amount.</p>
+            <h3>What is the difference between reducing balance and flat interest rate?</h3>
+            <p>In reducing balance, interest is calculated on the outstanding principal, while flat rate calculates interest on the entire loan amount throughout the tenure, usually resulting in higher interest payments.</p>
         </div>
-        
         <div class="faq-item">
-            <h3>Can I overpay my loan in the UK without penalties?</h3>
-            <p>Most UK mortgage loans allow overpayments of up to 10% of the outstanding balance each year without penalties. Some personal and auto loans may have different terms. Check your loan agreement for specific terms regarding overpayments.</p>
+            <h3>How can I reduce my EMI amount?</h3>
+            <p>You can reduce your EMI by opting for a longer tenure, negotiating a lower interest rate, or making a larger down payment to reduce the principal amount.</p>
         </div>
     </section>
 
@@ -248,251 +243,213 @@
     <section class="related-calculators">
         <h2>You May Also Find Useful</h2>
         <div class="calculator-links">
-            <a href="/calculators/04-mortgage-calculator/">Mortgage Calculator</a>
-            <a href="/calculators/05-compound-interest-calculator/">Compound Interest Calculator</a>
-            <a href="/calculators/11-investment-calculator/">Investment Calculator</a>
-            <a href="/calculators/10-retirement-planner/">Retirement Planner</a>
-            <a href="/calculators/09-tax-calculator/">Tax Calculator</a>
+            <a href="/calculators/04-mortgage-calculator/" class="calculator-link">
+                <i class="fas fa-home"></i> Mortgage Calculator
+            </a>
+            <a href="/calculators/05-compound-interest-calculator/" class="calculator-link">
+                <i class="fas fa-chart-line"></i> Compound Interest Calculator
+            </a>
+            <a href="/calculators/11-investment-calculator/" class="calculator-link">
+                <i class="fas fa-chart-pie"></i> Investment Calculator
+            </a>
+            <a href="/calculators/10-retirement-planner/" class="calculator-link">
+                <i class="fas fa-user-clock"></i> Retirement Planner
+            </a>
+            <a href="/calculators/09-tax-calculator/" class="calculator-link">
+                <i class="fas fa-file-invoice-dollar"></i> Tax Calculator
+            </a>
         </div>
     </section>
 
-    <!-- Conclusion -->
-    <section class="conclusion">
-        <h2>Make Informed Financial Decisions in the UK</h2>
-        <p>Our UK loan calculator helps you plan your finances better by providing accurate monthly payment estimates. Whether you're planning to take a home loan, car loan, or personal loan in the UK, understanding your EMI in advance helps in better financial planning. Use this tool to compare different loan options and choose the one that best fits your budget. With current GBP interest rates and proper financial planning, you can make informed decisions about your borrowing needs.</p>
+    <!-- Make Informed Financial Decisions -->
+    <section class="financial-decisions">
+        <h2>Make Informed Financial Decisions</h2>
+        <p>Our EMI calculator helps you plan your finances better by providing accurate monthly payment estimates. Whether you're planning to take a home loan, car loan, or personal loan, understanding your EMI in advance helps in better financial planning. Use this tool to compare different loan options and choose the one that best fits your budget.</p>
     </section>
 
-    <script>
-    // Currency symbols
-    const currencySymbols = {
-        'GBP': '£'
-    };
-
-    // Initialize calculator with default values
-    document.addEventListener('DOMContentLoaded', function() {
-        // Set currency symbol
-        document.getElementById('currencySymbol').textContent = currencySymbols['GBP'];
-    });
-
-    function calculateEMI() {
-        const loanAmount = parseFloat(document.getElementById('loanAmount').value);
-        const interestRate = parseFloat(document.getElementById('interestRate').value);
-        const loanTenure = parseFloat(document.getElementById('loanTenure').value);
-        const tenureType = document.getElementById('tenureType').value;
-
-        // Validation
-        if (!loanAmount || !interestRate || !loanTenure) {
-            alert('Please fill in all fields');
-            return;
-        }
-
-        if (loanAmount <= 0 || interestRate <= 0 || loanTenure <= 0) {
-            alert('Please enter positive values');
-            return;
-        }
-
-        // Validate loan amount
-        if (loanAmount < 1000 || loanAmount > 2000000) {
-            alert('Loan amount must be between 1,000 and 2,000,000 GBP');
-            return;
-        }
-
-        // Convert to months if tenure is in years
-        const months = tenureType === 'years' ? loanTenure * 12 : loanTenure;
-        
-        // Validate tenure
-        if (months < 12 || months > 360) {
-            alert('Loan tenure must be between 1 and 30 years (12 and 360 months)');
-            return;
-        }
-        
-        // Monthly interest rate
-        const monthlyRate = interestRate / 12 / 100;
-        
-        // EMI formula: EMI = [P x R x (1+R)^N]/[(1+R)^N-1]
-        const emi = loanAmount * monthlyRate * Math.pow(1 + monthlyRate, months) / 
-                    (Math.pow(1 + monthlyRate, months) - 1);
-        
-        const totalAmount = emi * months;
-        const totalInterest = totalAmount - loanAmount;
-
-        // Display results with proper currency
-        const currencySymbol = currencySymbols['GBP'];
-        document.getElementById('monthlyEMI').textContent = currencySymbol + emi.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById('totalInterest').textContent = currencySymbol + totalInterest.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById('totalAmount').textContent = currencySymbol + totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        
-        // Generate amortization schedule
-        generateAmortizationSchedule(loanAmount, monthlyRate, months, emi, currencySymbol);
-        
-        // Show result containers with animation
-        const resultContainer = document.getElementById('resultContainer');
-        const amortizationContainer = document.getElementById('amortizationContainer');
-        
-        resultContainer.style.display = 'block';
-        resultContainer.style.animation = 'fadeIn 0.5s ease-in';
-        
-        amortizationContainer.style.display = 'block';
-        amortizationContainer.style.animation = 'fadeIn 0.5s ease-in 0.3s forwards';
-        
-        // Scroll to results
-        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    function generateAmortizationSchedule(loanAmount, monthlyRate, months, emi, currencySymbol) {
-        const tbody = document.getElementById('amortizationBody');
-        tbody.innerHTML = '';
-        
-        let balance = loanAmount;
-        
-        // Create table rows for each month
-        for (let month = 1; month <= months; month++) {
-            const interestPayment = balance * monthlyRate;
-            const principalPayment = emi - interestPayment;
-            balance -= principalPayment;
-            
-            // Ensure balance doesn't go negative due to rounding
-            if (month === months) {
-                balance = 0;
-            }
-            
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${month}</td>
-                <td>${currencySymbol}${emi.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                <td>${currencySymbol}${principalPayment.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                <td>${currencySymbol}${interestPayment.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                <td>${currencySymbol}${balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-            `;
-            
-            tbody.appendChild(row);
-            
-            // Limit to first 100 rows for performance, show a message if more
-            if (month === 100 && months > 100) {
-                const summaryRow = document.createElement('tr');
-                summaryRow.innerHTML = `
-                    <td colspan="5" style="text-align: center; font-weight: bold;">
-                        Showing first 100 of ${months} months. Download full schedule for complete details.
-                    </td>
-                `;
-                tbody.appendChild(summaryRow);
-                break;
-            }
-        }
-    }
-
-    // Add fadeIn animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        #amortizationTable {
-            animation: fadeIn 0.5s ease-in;
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Enter key support
-    document.addEventListener('DOMContentLoaded', function() {
-        const inputs = document.querySelectorAll('input');
-        inputs.forEach(input => {
-            input.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    calculateEMI();
-                }
-            });
-        });
-    });
-    </script>
+    <script src="script.js"></script>
     <style>
         /* Benefits Section */
         .benefits-section {
-            margin: 2rem 0;
-            padding: 2rem 0;
-            background: #f9f9f9;
-            border-radius: 8px;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .benefits-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
         }
 
         .benefits-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+            gap: 20px;
         }
 
         .benefit-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        .benefit-item h3 {
+            margin-bottom: 10px;
+            color: #333;
         }
 
         /* Formula Section */
-        .formula-section, .example-section {
-            margin: 2rem 0;
-            padding: 2rem;
-            background: #f0f7ff;
-            border-radius: 8px;
+        .formula-section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        .formula-box, .example-box {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 6px;
-            margin-top: 1rem;
+        .formula-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .formula-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        .formula-box h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .formula-box ul {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+
+        .formula-box li {
+            margin-bottom: 8px;
+        }
+
+        /* Example Section */
+        .example-section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .example-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .example-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        .example-box h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .example-result p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
         }
 
         /* FAQ Section */
         .faq-section {
-            margin: 3rem 0;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
         }
 
         .faq-item {
-            margin-bottom: 1.5rem;
-            padding: 1.5rem;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-item h3 {
+            margin-bottom: 10px;
+            color: #333;
         }
 
         /* Related Calculators */
         .related-calculators {
-            margin: 2rem 0;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .related-calculators h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
         }
 
         .calculator-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 15px;
+            justify-content: center;
         }
 
-        .calculator-links a {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: #e3f2fd;
-            color: #1976d2;
-            border-radius: 20px;
+        .calculator-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: #333;
+            color: white;
             text-decoration: none;
+            border-radius: 8px;
             transition: all 0.3s ease;
         }
 
-        .calculator-links a:hover {
-            background: #bbdefb;
+        .calculator-link:hover {
+            background: #000;
+            transform: translateY(-2px);
+        }
+
+        /* Financial Decisions */
+        .financial-decisions {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .financial-decisions h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .financial-decisions p {
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
         /* Amortization Table */
-        .amortization-container {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
-        }
-
         .amortization-container h3 {
             margin-bottom: 15px;
             color: #333;
@@ -510,7 +467,7 @@
         }
 
         #amortizationTable th {
-            background: #667eea;
+            background: #333333;
             color: white;
             padding: 10px;
             text-align: left;
@@ -520,34 +477,35 @@
 
         #amortizationTable td {
             padding: 8px 10px;
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 1px solid #e0e0e0;
         }
 
         #amortizationTable tr:nth-child(even) {
-            background-color: #f8f9fa;
+            background-color: #f5f5f5;
         }
 
         #amortizationTable tr:hover {
-            background-color: #e9ecef;
+            background-color: #e0e0e0;
         }
 
         /* Backlink Paragraph */
         .backlink-paragraph {
             margin-top: 30px;
             padding: 20px;
-            background: #e3f2fd;
+            background: #f5f5f5;
             border-radius: 10px;
             font-size: 0.9rem;
             line-height: 1.6;
+            border: 1px solid #e0e0e0;
         }
 
         .backlink-paragraph a {
-            color: #1976d2;
+            color: #000000;
             text-decoration: underline;
         }
 
         .backlink-paragraph a:hover {
-            color: #0d47a1;
+            color: #333333;
         }
 
         /* Responsive Design */

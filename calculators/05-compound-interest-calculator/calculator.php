@@ -1,24 +1,15 @@
 <?php
 /**
- * Plugin Name: Free Compound Interest Calculator
+ * Compound Interest Calculator
  * Description: Free online compound interest calculator tool. Calculate your investment growth with compound interest.
- * Version: 1.0
- * Author: Your Name
  */
 
 // Prevent direct access
-if (!defined('ABSPATH')) {
-    exit;
+if (!defined('CALCULATOR_LOADED')) {
+    define('CALCULATOR_LOADED', true);
 }
 
-function compound_interest_calculator_enqueue_scripts() {
-    wp_enqueue_style('compound-interest-calculator-style', plugins_url('style.css', __FILE__));
-    wp_enqueue_script('compound-interest-calculator-script', plugins_url('script.js', __FILE__), array('jquery'), '1.0', true);
-    wp_enqueue_script('chart-js', 'https://cdn.jsdelivr.net/npm/chart.js', array(), '3.7.0', true);
-}
-add_action('wp_enqueue_scripts', 'compound_interest_calculator_enqueue_scripts');
-
-function compound_interest_calculator_shortcode() {
+function get_compound_interest_calculator_html() {
     ob_start();
     ?>
     <div class="compound-interest-calculator-plugin">
@@ -94,5 +85,9 @@ function compound_interest_calculator_shortcode() {
     <?php
     return ob_get_clean();
 }
-add_shortcode('compound_interest_calculator', 'compound_interest_calculator_shortcode');
+
+// If this file is accessed directly, show the calculator
+if (basename($_SERVER['PHP_SELF']) == 'calculator.php') {
+    echo get_compound_interest_calculator_html();
+}
 ?>

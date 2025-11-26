@@ -1,23 +1,15 @@
 <?php
 /**
- * Plugin Name: Free BMI Calculator
+ * BMI Calculator
  * Description: Free online BMI calculator tool. Check your body mass index instantly with our accurate calculator.
- * Version: 1.0
- * Author: Your Name
  */
 
 // Prevent direct access
-if (!defined('ABSPATH')) {
-    exit;
+if (!defined('CALCULATOR_LOADED')) {
+    define('CALCULATOR_LOADED', true);
 }
 
-function bmi_calculator_enqueue_scripts() {
-    wp_enqueue_style('bmi-calculator-style', plugins_url('style.css', __FILE__));
-    wp_enqueue_script('bmi-calculator-script', plugins_url('script.js', __FILE__), array('jquery'), '1.0', true);
-}
-add_action('wp_enqueue_scripts', 'bmi_calculator_enqueue_scripts');
-
-function bmi_calculator_shortcode() {
+function get_bmi_calculator_html() {
     ob_start();
     ?>
     <div class="bmi-calculator-plugin">
@@ -76,5 +68,9 @@ function bmi_calculator_shortcode() {
     <?php
     return ob_get_clean();
 }
-add_shortcode('bmi_calculator', 'bmi_calculator_shortcode');
+
+// If this file is accessed directly, show the calculator
+if (basename($_SERVER['PHP_SELF']) == 'calculator.php') {
+    echo get_bmi_calculator_html();
+}
 ?>

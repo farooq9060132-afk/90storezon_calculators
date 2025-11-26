@@ -1,4 +1,88 @@
-TITLE: Free Mortgage Calculator Online - Calculate Home Loan Payments 2024
-DESCRIPTION: Free online mortgage calculator tool. Calculate your monthly home loan payments, interest, and amortization schedule. Perfect for home buyers. No registration required!
-KEYWORDS: free mortgage calculator, home loan calculator, mortgage payment, amortization schedule, house payment calculator
-ADS SPOTS: [AD_TOP_BANNER], [AD_MIDDLE_BANNER], [AD_BOTTOM_BANNER]
+# SEO Configuration File - World Calculators Hub
+# Generated on: 2024
+# Website: yourdomain.com
+
+# ===== BASIC SEO SETTINGS =====
+SITE_TITLE: World Calculators Hub - Country Specific Calculators
+SITE_DESCRIPTION: Free online calculators for USA, UK, India, Pakistan, UAE, Saudi Arabia, and more countries. Currency converters, tax calculators, and financial tools.
+SITE_KEYWORDS: online calculators, currency converter, tax calculator, financial tools, USA calculator, UK calculator, India calculator, Pakistan calculator
+
+# ===== GOOGLE SEARCH CONSOLE =====
+GOOGLE_SITE_VERIFICATION: [Your Google Search Console Verification Code]
+
+# ===== BING WEBMASTER TOOLS =====
+BING_VERIFICATION: [Your Bing Webmaster Tools Verification Code]
+
+# ===== SOCIAL MEDIA META TAGS =====
+OG_TITLE: World Calculators Hub
+OG_DESCRIPTION: Free online calculators for various countries including currency, tax, and financial calculators.
+OG_IMAGE: /assets/images/og-image.jpg
+OG_URL: https://yourdomain.com
+TWITTER_CARD: summary_large_image
+TWITTER_SITE: @yourtwitterhandle
+
+# ===== SITEMAP CONFIGURATION =====
+SITEMAP_URL: /sitemap.xml
+ROBOTS_TXT: /robots.txt
+PRIORITY_HIGH: 1.0
+PRIORITY_MEDIUM: 0.7
+PRIORITY_LOW: 0.5
+
+# ===== PAGE SPECIFIC SEO =====
+# Home Page
+INDEX_TITLE: World Calculators Hub - Free Online Calculators
+INDEX_DESCRIPTION: Access specialized calculators for different countries including USA, UK, India, Pakistan, UAE, Saudi Arabia and more.
+
+# Calculator Page
+CALCULATOR_TITLE: Universal Calculator - Free Online Tool
+CALCULATOR_DESCRIPTION: Free online calculator with basic and advanced functions for all your mathematical needs.
+
+# Country Specific Pages
+USA_TITLE: USA Calculators - Currency, Tax & Financial Tools
+USA_DESCRIPTION: Free USA specific calculators including currency converter, tax calculator, and financial tools.
+
+UK_TITLE: UK Calculators - GBP Currency & Tax Calculators
+UK_DESCRIPTION: United Kingdom calculators for currency conversion, VAT calculation, and financial planning.
+
+INDIA_TITLE: India Calculators - INR Currency & Financial Tools
+INDIA_DESCRIPTION: Indian calculators for rupee conversion, GST calculation, and financial planning.
+
+PAKISTAN_TITLE: Pakistan Calculators - PKR Currency & Tax Tools
+PAKISTAN_DESCRIPTION: Pakistani calculators for currency conversion, tax calculation, and financial tools.
+
+UAE_TITLE: UAE Calculators - AED Currency & VAT Tools
+UAE_DESCRIPTION: United Arab Emirates calculators for dirham conversion, VAT calculation, and financial planning.
+
+SAUDI_ARABIA_TITLE: Saudi Arabia Calculators - SAR Currency & Financial Tools
+SAUDI_ARABIA_DESCRIPTION: Saudi Arabian calculators for riyal conversion and financial calculations.
+
+# ===== PERFORMANCE SETTINGS =====
+CANONICAL_URLS: enabled
+LAZY_LOADING: enabled
+IMAGE_OPTIMIZATION: enabled
+BROTLI_COMPRESSION: enabled
+
+# ===== STRUCTURED DATA =====
+SCHEMA_TYPE: Website
+SCHEMA_NAME: World Calculators Hub
+SCHEMA_DESCRIPTION: Free online calculators for various countries
+
+# ===== ANALYTICS =====
+GOOGLE_ANALYTICS: [Your GA4 Measurement ID]
+GOOGLE_TAG_MANAGER: [Your GTM Container ID]
+
+# ===== SECURITY HEADERS =====
+HSTS: enabled
+CSP: enabled
+X_FRAME_OPTIONS: DENY
+X_CONTENT_TYPE_OPTIONS: nosniff
+
+# ===== URL STRUCTURE =====
+URL_REWRITING: enabled
+TRAILING_SLASH: disabled
+LOWERCASE_URLS: enabled
+
+# ===== CRAWLING SETTINGS =====
+CRAWL_DELAY: 10
+REQUEST_RATE: 1.0
+MAX_CRAWL_DEPTH: 5

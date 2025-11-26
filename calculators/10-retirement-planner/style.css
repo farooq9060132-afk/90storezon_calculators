@@ -341,13 +341,28 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .vip-header h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+    }
+    
+    .vip-header p {
+        font-size: 1rem;
     }
     
     .calculator-container {
         padding: 20px;
+        margin: 10px;
+    }
+    
+    .input-group label {
+        font-size: 1rem;
+    }
+    
+    .input-group input, 
+    .input-group select {
+        padding: 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
     }
     
     .input-row {
@@ -355,18 +370,26 @@ body {
         gap: 15px;
     }
     
+    .calculate-btn {
+        padding: 16px;
+        font-size: 16px;
+    }
+    
     .summary-cards {
         grid-template-columns: 1fr;
+        gap: 15px;
     }
     
     .strategy-grid {
         grid-template-columns: 1fr;
+        gap: 12px;
     }
     
     .summary-card {
         flex-direction: column;
         text-align: center;
         gap: 10px;
+        padding: 20px;
     }
     
     .card-icon {
@@ -379,7 +402,54 @@ body {
         font-size: 1.5rem;
     }
     
+    .card-label {
+        font-size: 0.8rem;
+    }
+    
     .input-section {
         padding: 20px;
+    }
+    
+    .input-section h3 {
+        font-size: 1.1rem;
+    }
+    
+    .recommendations-grid {
+        gap: 12px;
+    }
+    
+    .recommendation-item {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+    
+    .strategy-item {
+        padding: 12px;
+    }
+    
+    .strategy-item span {
+        font-size: 0.8rem;
+    }
+    
+    .strategy-item strong {
+        font-size: 1rem;
+    }
+    
+    /* Fix for mobile display issues */
+    .result-container {
+        display: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .result-container.show {
+        display: block;
+    }
+    
+    /* Ensure calculator is properly displayed on mobile */
+    .retirement-planner-plugin {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
     }
 }

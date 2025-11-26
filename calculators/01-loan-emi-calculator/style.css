@@ -6,10 +6,10 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #ffffff;
     min-height: 100vh;
     padding: 20px;
-    color: #333;
+    color: #000000;
     margin: 0;
 }
 
@@ -20,19 +20,18 @@ body {
 
 .vip-header {
     text-align: center;
-    color: white;
+    color: #000000;
     margin-bottom: 30px;
     padding: 30px 20px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    background: #f5f5f5;
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid #e0e0e0;
 }
 
 .vip-header h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    color: #333333;
 }
 
 .vip-header h1 .fas {
@@ -46,21 +45,21 @@ body {
 }
 
 .ad-slot {
-    background: rgba(255, 255, 255, 0.1);
+    background: #f5f5f5;
     padding: 20px;
     border-radius: 10px;
     margin: 20px 0;
     text-align: center;
-    color: white;
-    border: 1px dashed rgba(255, 255, 255, 0.3);
+    color: #000000;
+    border: 1px dashed #cccccc;
 }
 
 .calculator-container {
-    background: rgba(255, 255, 255, 0.95);
+    background: #ffffff;
     padding: 40px;
     border-radius: 25px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
 }
 
 .input-group {
@@ -124,7 +123,7 @@ body {
 .calculate-btn {
     width: 100%;
     padding: 18px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: #333333;
     color: white;
     border: none;
     border-radius: 12px;
@@ -137,43 +136,59 @@ body {
 
 .calculate-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    background: #000000;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .result-container {
     margin-top: 30px;
     padding: 25px;
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: #f5f5f5;
     border-radius: 15px;
-    color: white;
+    color: #000000;
+    border: 1px solid #e0e0e0;
 }
 
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
     body {
-        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        background: #121212;
+        color: #ffffff;
     }
     
     .calculator-container {
-        background: rgba(30, 30, 40, 0.95);
-        color: #e0e0e0;
+        background: #1e1e1e;
+        color: #ffffff;
+        border: 1px solid #333333;
+    }
+    
+    .vip-header {
+        background: #2d2d2d;
+        color: #ffffff;
+        border: 1px solid #333333;
     }
     
     .input-group label {
-        color: #e0e0e0;
+        color: #ffffff;
     }
     
     .input-group input, 
     .input-group select {
-        background: #2d2d3a;
+        background: #2d2d2d;
         border-color: #444;
-        color: #e0e0e0;
+        color: #ffffff;
+    }
+    
+    .result-container {
+        background: #2d2d2d;
+        color: #ffffff;
+        border: 1px solid #333333;
     }
     
     .amortization-container {
-        background: #2d2d3a;
-        border-color: #444;
-        color: #e0e0e0;
+        background: #2d2d2d;
+        border-color: #333333;
+        color: #ffffff;
     }
     
     #amortizationTable th {
@@ -189,8 +204,8 @@ body {
     }
     
     .backlink-paragraph {
-        background: #1a237e;
-        color: #e0e0e0;
+        background: #1a1a1a;
+        color: #ffffff;
     }
     
     .backlink-paragraph a {
@@ -224,7 +239,7 @@ body {
 .total-amount {
     font-weight: bold;
     font-size: 20px;
-    color: #FFD700;
+    color: #000000;
 }
 
 /* Amortization Table */
@@ -292,9 +307,13 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .vip-header h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+    }
+    
+    .vip-header p {
+        font-size: 1rem;
     }
     
     .calculator-container {
@@ -302,8 +321,28 @@ body {
         margin: 10px;
     }
     
+    .input-group label {
+        font-size: 1rem;
+    }
+    
+    .input-group input, 
+    .input-group select {
+        padding: 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
     .tenure-input {
         flex-direction: column;
+    }
+    
+    .tenure-input input,
+    .tenure-input select {
+        width: 100%;
+    }
+    
+    .calculate-btn {
+        padding: 16px;
+        font-size: 16px;
     }
     
     .table-container {
@@ -317,6 +356,14 @@ body {
     #amortizationTable th,
     #amortizationTable td {
         padding: 6px 8px;
+    }
+    
+    .result-item {
+        font-size: 16px;
+    }
+    
+    .total-amount {
+        font-size: 18px;
     }
     
     .backlink-paragraph {

@@ -30,6 +30,8 @@ const currencySymbols = {
 
 // Initialize calculator with default country
 document.addEventListener('DOMContentLoaded', function() {
+    // Set default country to Pakistan
+    document.getElementById('country').value = 'PK';
     updateCountrySettings();
 });
 
@@ -159,10 +161,8 @@ function calculateEMI() {
     // Ensure containers are displayed
     resultContainer.style.display = 'block';
     resultContainer.classList.add('show');
-    resultContainer.style.animation = 'fadeIn 0.5s ease-in';
     
     amortizationContainer.style.display = 'block';
-    amortizationContainer.style.animation = 'fadeIn 0.5s ease-in 0.3s forwards';
     
     // Scroll to results
     resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });

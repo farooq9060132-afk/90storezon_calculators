@@ -237,13 +237,28 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .vip-header h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+    }
+    
+    .vip-header p {
+        font-size: 1rem;
     }
     
     .calculator-container {
         padding: 20px;
+        margin: 10px;
+    }
+    
+    .input-group label {
+        font-size: 1rem;
+    }
+    
+    .input-group input, 
+    .input-group select {
+        padding: 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
     }
     
     .input-row {
@@ -251,16 +266,34 @@ body {
         gap: 15px;
     }
     
+    .calculate-btn {
+        padding: 16px;
+        font-size: 16px;
+    }
+    
     .results-grid {
         grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .result-item {
+        padding: 16px;
     }
     
     .result-item.main-result {
         grid-column: 1;
     }
     
+    .result-item strong {
+        font-size: 1.5rem;
+    }
+    
     .chart-container {
         height: 250px;
+    }
+    
+    .table-container {
+        max-height: 300px;
     }
     
     .breakdown-table {
@@ -270,5 +303,23 @@ body {
     .breakdown-table th,
     .breakdown-table td {
         padding: 8px 5px;
+    }
+    
+    /* Fix for mobile display issues */
+    .result-container {
+        display: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .result-container.show {
+        display: block;
+    }
+    
+    /* Ensure calculator is properly displayed on mobile */
+    .compound-interest-calculator-plugin {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
     }
 }

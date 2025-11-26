@@ -862,9 +862,22 @@ body {
     .dashboard-grid {
         grid-template-columns: 1fr 1fr;
     }
+    
+    .dashboard-card {
+        padding: 20px;
+    }
+    
+    .progress-circle {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .progress-text span {
+        font-size: 1.2rem;
+    }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .container {
         padding: 10px;
     }
@@ -872,37 +885,147 @@ body {
     .header {
         flex-direction: column;
         text-align: center;
+        padding: 20px;
+    }
+    
+    .header-content h1 {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+    }
+    
+    .header-content p {
+        font-size: 1rem;
     }
     
     .header-stats {
         justify-content: center;
+        gap: 20px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
     }
     
     .dashboard-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
     
     .schedule-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .day-column {
+        padding: 12px;
+        min-height: 300px;
     }
     
     .tab-header {
         flex-direction: column;
         align-items: flex-start;
+        margin-bottom: 24px;
+        gap: 12px;
+    }
+    
+    .tab-header h2 {
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+    }
+    
+    .tab-header p {
+        font-size: 1rem;
+    }
+    
+    .add-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
     }
     
     .subjects-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .subject-card {
+        padding: 20px;
+    }
+    
+    .subject-title {
+        font-size: 1.1rem;
+    }
+    
+    .content-area {
+        padding: 20px;
+    }
+    
+    .sidebar {
+        padding: 20px;
+    }
+    
+    .sidebar-section h3 {
+        font-size: 1rem;
+        margin-bottom: 12px;
+    }
+    
+    .sidebar-btn {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .session-timer {
+        padding: 16px;
+    }
+    
+    .timer-display {
+        font-size: 2rem;
+    }
+    
+    .timer-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .preset-btn {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+    
+    .task-filters {
+        gap: 8px;
+    }
+    
+    .filter-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .task-item {
+        padding: 16px;
+    }
+    
+    .task-title {
+        font-size: 0.9rem;
+    }
+    
+    .task-meta {
+        font-size: 0.7rem;
+        gap: 12px;
     }
 }
 
 @media (max-width: 480px) {
     .header-content h1 {
-        font-size: 2rem;
+        font-size: 1.6rem;
     }
     
     .content-area {
-        padding: 20px;
+        padding: 16px;
     }
     
     .timer-controls {
@@ -915,5 +1038,38 @@ body {
     
     .form-actions {
         flex-direction: column;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 0;
+    }
+    
+    .modal-header, .modal form {
+        padding: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 16px;
+    }
+    
+    .form-group label {
+        font-size: 0.9rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 10px 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    .form-actions {
+        margin-top: 16px;
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 10px 20px;
+        font-size: 0.9rem;
     }
 }

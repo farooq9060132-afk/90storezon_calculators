@@ -406,13 +406,28 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .vip-header h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+    }
+    
+    .vip-header p {
+        font-size: 1rem;
     }
     
     .calculator-container {
         padding: 20px;
+        margin: 10px;
+    }
+    
+    .input-group label {
+        font-size: 1rem;
+    }
+    
+    .input-group input, 
+    .input-group select {
+        padding: 12px;
+        font-size: 16px; /* Prevents zoom on iOS */
     }
     
     .input-row {
@@ -420,14 +435,30 @@ body {
         gap: 15px;
     }
     
+    .calculate-btn {
+        padding: 16px;
+        font-size: 16px;
+    }
+    
     .options-grid {
         grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .checkbox-label {
+        padding: 12px;
+        font-size: 0.9rem;
     }
     
     .password-item {
         flex-direction: column;
         text-align: center;
         gap: 10px;
+        padding: 12px;
+    }
+    
+    .password-text {
+        font-size: 1rem;
     }
     
     .password-actions {
@@ -436,18 +467,58 @@ body {
     
     .action-btn {
         width: 100%;
+        padding: 12px;
+        font-size: 0.9rem;
     }
     
     .tips-grid {
         grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .tip-item {
+        font-size: 0.9rem;
     }
     
     .stats-grid {
         grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .stat-item {
+        padding: 8px;
+        font-size: 0.9rem;
     }
     
     .slider-container {
         flex-direction: column;
         gap: 10px;
+    }
+    
+    #lengthValue {
+        font-size: 0.9rem;
+        min-width: 80px;
+    }
+    
+    .strength-label {
+        font-size: 1rem;
+    }
+    
+    /* Fix for mobile display issues */
+    .result-container {
+        display: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .result-container.show {
+        display: block;
+    }
+    
+    /* Ensure calculator is properly displayed on mobile */
+    .password-generator-plugin {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
     }
 }

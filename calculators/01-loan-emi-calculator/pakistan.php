@@ -157,6 +157,7 @@
 
             <div class="backlink-paragraph">
                 <p>Loan calculation for Pakistan residents. Our <a href="/calculators/04-mortgage-calculator/">mortgage calculator</a> helps with home loans, while our <a href="/calculators/05-compound-interest-calculator/">compound interest calculator</a> shows investment growth. For financial planning, use our <a href="/calculators/11-investment-calculator/">investment calculator</a> and <a href="/calculators/10-retirement-planner/">retirement planner</a>. Compare loan options with our <a href="/calculators/01-loan-emi-calculator/">EMI calculator</a>, calculate taxes with our <a href="/calculators/09-tax-calculator/">tax calculator</a>, and manage budgets with our <a href="/calculators/13-budget-planner/">budget planner</a>. For business loans, our <a href="/calculators/01-loan-emi-calculator/pakistan.php">Pakistan loan calculator</a> provides accurate estimates. International users can calculate loans in <a href="/calculators/01-loan-emi-calculator/usa.php">USA</a>, <a href="/calculators/01-loan-emi-calculator/uk.php">UK</a>, <a href="/calculators/01-loan-emi-calculator/canada.php">Canada</a>, <a href="/calculators/01-loan-emi-calculator/india.php">India</a>, and <a href="/calculators/01-loan-emi-calculator/australia.php">Australia</a>.</p>
+                <p>Backlink: <a href="https://90storezon.com">90storezon</a></p>
             </div>
         </div>
 
@@ -412,7 +413,7 @@
         .benefits-section {
             margin: 2rem 0;
             padding: 2rem 0;
-            background: #f9f9f9;
+            background: #f5f5f5;
             border-radius: 8px;
         }
 
@@ -428,13 +429,14 @@
             padding: 1.5rem;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
         }
 
         /* Formula Section */
         .formula-section, .example-section {
             margin: 2rem 0;
             padding: 2rem;
-            background: #f0f7ff;
+            background: #f5f5f5;
             border-radius: 8px;
         }
 
@@ -443,6 +445,7 @@
             padding: 1.5rem;
             border-radius: 6px;
             margin-top: 1rem;
+            border: 1px solid #e0e0e0;
         }
 
         /* FAQ Section */
@@ -456,6 +459,7 @@
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
         }
 
         /* Related Calculators */
@@ -473,24 +477,25 @@
         .calculator-links a {
             display: inline-block;
             padding: 0.5rem 1rem;
-            background: #e3f2fd;
-            color: #1976d2;
+            background: #f5f5f5;
+            color: #000000;
             border-radius: 20px;
             text-decoration: none;
             transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
         }
 
         .calculator-links a:hover {
-            background: #bbdefb;
+            background: #e0e0e0;
         }
 
         /* Amortization Table */
         .amortization-container {
             margin-top: 30px;
             padding: 20px;
-            background: #f8f9fa;
+            background: #ffffff;
             border-radius: 10px;
-            border: 1px solid #e9ecef;
+            border: 1px solid #e0e0e0;
         }
 
         .amortization-container h3 {
@@ -510,7 +515,7 @@
         }
 
         #amortizationTable th {
-            background: #667eea;
+            background: #333333;
             color: white;
             padding: 10px;
             text-align: left;
@@ -520,34 +525,35 @@
 
         #amortizationTable td {
             padding: 8px 10px;
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 1px solid #e0e0e0;
         }
 
         #amortizationTable tr:nth-child(even) {
-            background-color: #f8f9fa;
+            background-color: #f5f5f5;
         }
 
         #amortizationTable tr:hover {
-            background-color: #e9ecef;
+            background-color: #e0e0e0;
         }
 
         /* Backlink Paragraph */
         .backlink-paragraph {
             margin-top: 30px;
             padding: 20px;
-            background: #e3f2fd;
+            background: #f5f5f5;
             border-radius: 10px;
             font-size: 0.9rem;
             line-height: 1.6;
+            border: 1px solid #e0e0e0;
         }
 
         .backlink-paragraph a {
-            color: #1976d2;
+            color: #000000;
             text-decoration: underline;
         }
 
         .backlink-paragraph a:hover {
-            color: #0d47a1;
+            color: #333333;
         }
 
         /* Responsive Design */

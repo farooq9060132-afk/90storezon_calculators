@@ -2,8 +2,8 @@
 // Start session
 session_start();
 
-// Include database connection
-require_once 'db.php';
+// Include user manager
+require_once 'user-manager.php';
 
 // Check if request method is POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -46,31 +46,23 @@ if (!$terms) {
     $errors[] = 'You must agree to the Terms of Service and Privacy Policy.';
 }
 
-// Check if email already exists in database
+// Process signup if no errors
 if (empty($errors)) {
     try {
-        // Check if email already exists
-        $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
-        $stmt->execute([$email]);
+        $userManager = new UserManager();
         
-        if ($stmt->rowCount() > 0) {
+        // Check if email already exists
+        if ($userManager->emailExists($email)) {
             $errors[] = 'This email is already registered. Please use a different email or sign in.';
         } else {
-            // Hash the password
-            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+            // Create new user
+            $user = $userManager->createUser($name, $email, $password, $newsletter);
             
-            // Insert new user into database
-            $stmt = $pdo->prepare("INSERT INTO users (name, email, password_hash, newsletter) VALUES (?, ?, ?, ?)");
-            $result = $stmt->execute([$name, $email, $password_hash, $newsletter ? 1 : 0]);
-            
-            if ($result) {
-                // Get the new user's ID
-                $userId = $pdo->lastInsertId();
-                
+            if ($user) {
                 // Set session variables
-                $_SESSION['user_id'] = $userId;
-                $_SESSION['user_name'] = $name;
-                $_SESSION['user_email'] = $email;
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_name'] = $user['name'];
+                $_SESSION['user_email'] = $user['email'];
                 $_SESSION['logged_in'] = true;
                 $_SESSION['login_method'] = 'email';
                 
@@ -84,11 +76,14 @@ if (empty($errors)) {
                 $errors[] = 'Registration failed. Please try again.';
             }
         }
-    } catch (PDOException $e) {
-        error_log('Database error: ' . $e->getMessage());
-        $errors[] = 'A database error occurred. Please try again.';
+    } catch (Exception $e) {
+        error_log('Registration error: ' . $e->getMessage());
+        $errors[] = 'An error occurred during registration. Please try again.';
     }
-} else {
+}
+
+// Handle errors
+if (!empty($errors)) {
     // Store errors in session and redirect back to signup
     $_SESSION['error'] = implode('<br>', $errors);
     $_SESSION['form_data'] = $_POST;

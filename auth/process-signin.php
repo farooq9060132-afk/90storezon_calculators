@@ -2,6 +2,9 @@
 // auth/process-signin.php (Additional file for form processing)
 session_start();
 
+// Include user manager
+require_once 'user-manager.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'] ?? '';
@@ -20,8 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     
-    // Database verification would go here
-    $user = verifyUserCredentials($email, $password);
+    // Verify user credentials
+    $userManager = new UserManager();
+    $user = $userManager->verifyUserCredentials($email, $password);
     
     if ($user) {
         // Set session variables
@@ -33,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         // Set remember me cookie if requested
         if ($remember) {
-            setRememberMeCookie($user['id']);
+            setRememberMeCookie($user['id'], $userManager);
         }
         
         // Redirect to appropriate page
@@ -55,25 +59,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-function verifyUserCredentials($email, $password) {
-    // Database query to verify user credentials
-    // Return user array if valid, false otherwise
-    return false; // Placeholder
-}
-
-function setRememberMeCookie($userId) {
+function setRememberMeCookie($userId, $userManager) {
     // Generate and set remember me token
     $token = bin2hex(random_bytes(32));
     $expiry = time() + (30 * 24 * 60 * 60); // 30 days
     
-    // Store token in database
-    storeRememberToken($userId, $token, $expiry);
+    // Store token
+    $userManager->storeRememberToken($userId, $token, $expiry);
     
     // Set cookie
     setcookie('remember_token', $token, $expiry, '/', '', true, true);
-}
-
-function storeRememberToken($userId, $token, $expiry) {
-    // Database query to store remember token
 }
 ?>

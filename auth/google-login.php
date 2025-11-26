@@ -2,6 +2,7 @@
 // auth/google-logic.php
 session_start();
 require_once 'google-config.php';
+require_once 'user-manager.php';
 
 if (isset($_GET['code'])) {
     try {
@@ -14,7 +15,8 @@ if (isset($_GET['code'])) {
             
             if ($userInfo) {
                 // Process user login/registration
-                processGoogleUser($userInfo);
+                $userManager = new UserManager();
+                processGoogleUser($userInfo, $userManager);
                 
                 // Redirect to appropriate page
                 redirectAfterLogin();
@@ -80,66 +82,31 @@ function getUserInfo($accessToken) {
     return json_decode($response, true);
 }
 
-function processGoogleUser($userInfo) {
+function processGoogleUser($userInfo, $userManager) {
     // Extract user information
     $googleId = $userInfo['id'];
     $email = $userInfo['email'];
     $name = $userInfo['name'] ?? '';
     $picture = $userInfo['picture'] ?? '';
     
-    // Check if user exists in database
-    $user = findUserByGoogleId($googleId);
+    // Check if user exists by email
+    $user = $userManager->getUserByEmail($email);
     
     if (!$user) {
-        // Check if user exists by email
-        $user = findUserByEmail($email);
-        
-        if ($user) {
-            // Link Google account to existing user
-            linkGoogleAccount($user['id'], $googleId, $picture);
-        } else {
-            // Create new user
-            $user = createUserFromGoogle($name, $email, $googleId, $picture);
-        }
+        // Create new user from Google data
+        // For simplicity, we'll use a placeholder password since this is Google login
+        $user = $userManager->createUser($name, $email, uniqid(), false);
     }
     
     // Set session variables
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['user_email'] = $user['email'];
     $_SESSION['user_name'] = $user['name'];
-    $_SESSION['user_picture'] = $user['picture'] ?? '';
+    $_SESSION['user_picture'] = $picture;
     $_SESSION['logged_in'] = true;
     $_SESSION['login_method'] = 'google';
     
     return $user;
-}
-
-function findUserByGoogleId($googleId) {
-    // Database query to find user by Google ID
-    // Return user array or false
-    return false; // Placeholder
-}
-
-function findUserByEmail($email) {
-    // Database query to find user by email
-    // Return user array or false
-    return false; // Placeholder
-}
-
-function linkGoogleAccount($userId, $googleId, $picture) {
-    // Database query to link Google account to existing user
-    // Update user record with Google ID and picture
-}
-
-function createUserFromGoogle($name, $email, $googleId, $picture) {
-    // Database query to create new user
-    // Return user array
-    return [
-        'id' => 1, // Placeholder
-        'name' => $name,
-        'email' => $email,
-        'picture' => $picture
-    ];
 }
 
 function redirectAfterLogin() {

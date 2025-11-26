@@ -408,8 +408,6 @@
             color: white;
             padding: 10px;
             text-align: left;
-            position: sticky;
-            top: 0;
         }
 
         #amortizationTable td {
@@ -469,13 +467,12 @@
             }
             
             .result-container {
-                display: none;
                 width: 100%;
                 box-sizing: border-box;
             }
             
             .result-container.show {
-                display: block;
+                display: block !important;
             }
             
             /* Fix for bold text not appearing properly on mobile */

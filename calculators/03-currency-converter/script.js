@@ -42,8 +42,14 @@ function convertCurrency() {
     
     // Show result container
     const resultContainer = document.getElementById('resultContainer');
-    resultContainer.style.display = 'block';
+    // Add class for mobile responsiveness
+    resultContainer.classList.add('show');
     resultContainer.style.animation = 'fadeIn 0.5s ease-in';
+    
+    // Ensure proper display on mobile devices
+    setTimeout(function() {
+        resultContainer.style.display = 'block';
+    }, 100);
 }
 
 function swapCurrencies() {

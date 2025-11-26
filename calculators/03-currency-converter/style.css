@@ -219,6 +219,7 @@ body {
     
     .calculator-container {
         padding: 20px;
+        margin: 10px;
     }
     
     .currency-row {
@@ -244,5 +245,36 @@ body {
     
     .currency-grid {
         grid-template-columns: 1fr;
+    }
+    
+    /* Fix for mobile display issues */
+    .result-container {
+        display: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .result-container.show {
+        display: block;
+    }
+    
+    /* Ensure calculator is properly displayed on mobile */
+    .currency-converter-plugin {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    /* Fix for bold text not appearing properly */
+    .equals {
+        font-weight: bold !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .exchange-rate {
+        font-weight: 500;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 }

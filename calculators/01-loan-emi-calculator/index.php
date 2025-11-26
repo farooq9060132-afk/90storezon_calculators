@@ -461,6 +461,35 @@
             .formula-section, .example-section {
                 padding: 1rem;
             }
+            
+            /* Fix for mobile calculator display */
+            .calculator-container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            .result-container {
+                display: none;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .result-container.show {
+                display: block;
+            }
+            
+            /* Fix for bold text not appearing properly on mobile */
+            .total-amount {
+                font-weight: bold !important;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+            
+            .result-item {
+                font-weight: 500;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
         }
     </style>
     <?php include '../../footer.php'; ?>

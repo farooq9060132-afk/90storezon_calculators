@@ -156,7 +156,8 @@ function calculateEMI() {
     const resultContainer = document.getElementById('resultContainer');
     const amortizationContainer = document.getElementById('amortizationContainer');
     
-    resultContainer.style.display = 'block';
+    // Add class for mobile responsiveness
+    resultContainer.classList.add('show');
     resultContainer.style.animation = 'fadeIn 0.5s ease-in';
     
     amortizationContainer.style.display = 'block';
@@ -164,6 +165,11 @@ function calculateEMI() {
     
     // Scroll to results
     resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    
+    // Ensure proper display on mobile devices
+    setTimeout(function() {
+        resultContainer.style.display = 'block';
+    }, 100);
 }
 
 function generateAmortizationSchedule(loanAmount, monthlyRate, months, emi, currencySymbol) {

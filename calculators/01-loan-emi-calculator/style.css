@@ -303,6 +303,7 @@ body {
     
     .calculator-container {
         padding: 20px;
+        margin: 10px;
     }
     
     .tenure-input {
@@ -325,5 +326,36 @@ body {
     .backlink-paragraph {
         padding: 15px;
         font-size: 0.8rem;
+    }
+    
+    /* Fix for mobile display issues */
+    .result-container {
+        display: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .result-container.show {
+        display: block;
+    }
+    
+    /* Ensure calculator is properly displayed on mobile */
+    .emi-calculator-plugin {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    /* Fix for bold text not appearing properly */
+    .total-amount {
+        font-weight: bold !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .result-item {
+        font-weight: 500;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 }

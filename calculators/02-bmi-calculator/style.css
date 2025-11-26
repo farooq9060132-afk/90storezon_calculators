@@ -186,6 +186,7 @@ body {
     
     .calculator-container {
         padding: 20px;
+        margin: 10px;
     }
     
     .height-input, .weight-input {
@@ -198,5 +199,36 @@ body {
     
     .bmi-value {
         font-size: 2.5rem;
+    }
+    
+    /* Fix for mobile display issues */
+    .result-container {
+        display: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .result-container.show {
+        display: block;
+    }
+    
+    /* Ensure calculator is properly displayed on mobile */
+    .bmi-calculator-plugin {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    /* Fix for bold text not appearing properly */
+    .bmi-value {
+        font-weight: bold !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .bmi-category {
+        font-weight: 600;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 }

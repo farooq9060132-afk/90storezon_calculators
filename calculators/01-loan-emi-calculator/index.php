@@ -1,6 +1,12 @@
 <?php
 // Available countries with their details
 $countries = [
+    'bangladesh' => [
+        'name' => 'Bangladesh',
+        'currency' => '৳',
+        'flag' => 'https://flagcdn.com/w80/bd.png',
+        'loan_types' => ['Home Loan', 'Car Loan', 'Personal Loan', 'Business Loan']
+    ],
     'pakistan' => [
         'name' => 'Pakistan',
         'currency' => 'PKR',

@@ -43,37 +43,27 @@ $government_grants = [
     'Step-Up CPF Housing Grant' => 'Up to S$15,000 for second-timers'
 ];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Singapore Mortgage Calculator - Calculate HDB & Bank Loan Payments | Singapore Property Finance</title>
-    <meta name="description" content="Free Singapore mortgage calculator with HDB loans, CPF grants. Calculate mortgage payments for HDB flats, condominiums, landed properties in S$.">
-    
-    <!-- VIP Backlinks -->
-    <link rel="canonical" href="https://90storezon.com/calculators/01-loan-emi-calculator/singapore.php">
-    <link rel="preconnect" href="https://gmpg.org">
-    <link rel="preconnect" href="https://www.google.com.sg">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FinancialService",
-        "name": "Singapore Mortgage Calculator",
-        "description": "Free online mortgage calculator for Singapore property buyers including HDB loans and CPF housing grants",
-        "url": "https://90storezon.com/calculators/01-loan-emi-calculator/singapore.php",
-        "areaServed": "SG",
-        "serviceType": "Mortgage Calculator"
-    }
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="calculator-container">
+<?php include '../../header.php'; ?>
+
+<!-- SEO Elements -->
+<link rel="canonical" href="https://90storezon.com/calculators/04-mortgage-calculator/singapore.php">
+<meta name="description" content="Free Singapore mortgage calculator with HDB loans, CPF grants. Calculate mortgage payments for HDB flats, condominiums, landed properties in S$.">
+<meta name="keywords" content="Singapore mortgage calculator, HDB loan calculator, CPF housing grant calculator, home loan calculator, Singapore property calculator">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Singapore Mortgage Calculator",
+    "description": "Free online mortgage calculator for Singapore property buyers including HDB loans and CPF housing grants",
+    "url": "https://90storezon.com/calculators/04-mortgage-calculator/singapore.php",
+    "areaServed": "SG",
+    "serviceType": "Mortgage Calculator"
+}
+</script>
+
+<div class="calculator-container">
         <div class="header">
             <h1 class="title">Singapore Mortgage Calculator</h1>
             <div class="country-badge">
@@ -580,5 +570,5 @@ $government_grants = [
         border-left: 4px solid #ffc107;
     }
     </style>
-</body>
-</html>
+
+<?php include '../../footer.php'; ?>

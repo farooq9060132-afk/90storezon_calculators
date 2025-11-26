@@ -52,37 +52,27 @@ $government_schemes = [
     'Skim Rumah Pertamaku' => 'First home scheme by Bank Negara'
 ];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malaysia Home Loan Calculator - Calculate Housing Loan Repayment | Malaysian Property Finance</title>
-    <meta name="description" content="Free Malaysia home loan calculator with Islamic financing, MyFirst Home Scheme. Calculate housing loan for Maybank, CIMB, Public Bank in RM for KL, Selangor, Penang properties.">
-    
-    <!-- VIP Backlinks -->
-    <link rel="canonical" href="https://90storezon.com/calculators/01-loan-emi-calculator/malaysia.php">
-    <link rel="preconnect" href="https://gmpg.org">
-    <link rel="preconnect" href="https://www.google.com.my">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FinancialService",
-        "name": "Malaysia Home Loan Calculator",
-        "description": "Free online home loan calculator for Malaysian property buyers including Islamic financing and government housing schemes",
-        "url": "https://90storezon.com/calculators/01-loan-emi-calculator/malaysia.php",
-        "areaServed": "MY",
-        "serviceType": "Home Loan Calculator"
-    }
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="calculator-container">
+<?php include '../../header.php'; ?>
+
+<!-- SEO Elements -->
+<link rel="canonical" href="https://90storezon.com/calculators/04-mortgage-calculator/malaysia.php">
+<meta name="description" content="Free Malaysia home loan calculator with Islamic financing, MyFirst Home Scheme. Calculate housing loan for Maybank, CIMB, Public Bank in RM for KL, Selangor, Penang properties.">
+<meta name="keywords" content="Malaysia mortgage calculator, home loan calculator, Islamic financing calculator, MyFirst Home Scheme, Malaysian property finance">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Malaysia Home Loan Calculator",
+    "description": "Free online home loan calculator for Malaysian property buyers including Islamic financing and government housing schemes",
+    "url": "https://90storezon.com/calculators/04-mortgage-calculator/malaysia.php",
+    "areaServed": "MY",
+    "serviceType": "Home Loan Calculator"
+}
+</script>
+
+<div class="calculator-container">
         <div class="header">
             <h1 class="title">Kalkulator Pinjaman Perumahan Malaysia</h1>
             <div class="country-badge">
@@ -680,5 +670,4 @@ $government_schemes = [
         border-left: 4px solid #007bff;
     }
     </style>
-</body>
-</html>
+<?php include '../../footer.php'; ?>

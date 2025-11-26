@@ -36,37 +36,27 @@ $regions = [
     'London' => 'London Help to Buy'
 ];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UK Mortgage Calculator - Calculate Home Loan Payments | UK Property Finance</title>
-    <meta name="description" content="Free UK mortgage calculator with stamp duty, help to buy schemes. Calculate buy to let, fixed rate mortgages for England, Scotland, Wales & Northern Ireland.">
-    
-    <!-- VIP Backlinks -->
-    <link rel="canonical" href="https://yourwebsite.com/uk.php">
-    <link rel="preconnect" href="https://gmpg.org">
-    <link rel="preconnect" href="https://www.google.co.uk">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FinancialService",
-        "name": "UK Mortgage Calculator",
-        "description": "Free online mortgage calculator for UK property buyers including England, Scotland, Wales and Northern Ireland",
-        "url": "https://yourwebsite.com/uk.php",
-        "areaServed": "GB",
-        "serviceType": "Mortgage Calculator"
-    }
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="calculator-container">
+<?php include '../../header.php'; ?>
+
+<!-- SEO Elements -->
+<link rel="canonical" href="https://90storezon.com/calculators/04-mortgage-calculator/uk.php">
+<meta name="description" content="Free UK mortgage calculator with stamp duty, help to buy schemes. Calculate buy to let, fixed rate mortgages for England, Scotland, Wales & Northern Ireland.">
+<meta name="keywords" content="UK mortgage calculator, home loan calculator, Help to Buy calculator, stamp duty calculator, buy to let calculator">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "UK Mortgage Calculator",
+    "description": "Free online mortgage calculator for UK property buyers including England, Scotland, Wales and Northern Ireland",
+    "url": "https://90storezon.com/calculators/04-mortgage-calculator/uk.php",
+    "areaServed": "GB",
+    "serviceType": "Mortgage Calculator"
+}
+</script>
+
+<div class="calculator-container">
         <div class="header">
             <h1 class="title">UK Mortgage Calculator</h1>
             <div class="country-badge">
@@ -355,5 +345,5 @@ $regions = [
         calculateStampDuty();
     });
     </script>
-</body>
-</html>
+
+<?php include '../../footer.php'; ?>

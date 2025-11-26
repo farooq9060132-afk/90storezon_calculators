@@ -43,37 +43,27 @@ $first_home_grants = [
     'First Home Super Saver Scheme' => 'Save through superannuation'
 ];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Australia Mortgage Calculator - Calculate Home Loan Payments | AU Property Finance</title>
-    <meta name="description" content="Free Australia mortgage calculator with stamp duty, first home grants. Calculate variable, fixed rate home loans for Sydney, Melbourne, Brisbane properties.">
-    
-    <!-- VIP Backlinks -->
-    <link rel="canonical" href="https://yourwebsite.com/australia.php">
-    <link rel="preconnect" href="https://gmpg.org">
-    <link rel="preconnect" href="https://www.google.com.au">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FinancialService",
-        "name": "Australia Mortgage Calculator",
-        "description": "Free online mortgage calculator for Australian home buyers including first home owner grants and stamp duty calculations",
-        "url": "https://yourwebsite.com/australia.php",
-        "areaServed": "AU",
-        "serviceType": "Mortgage Calculator"
-    }
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="calculator-container">
+<?php include '../../header.php'; ?>
+
+<!-- SEO Elements -->
+<link rel="canonical" href="https://90storezon.com/calculators/04-mortgage-calculator/australia.php">
+<meta name="description" content="Free Australia mortgage calculator with stamp duty, first home grants. Calculate variable, fixed rate home loans for Sydney, Melbourne, Brisbane properties.">
+<meta name="keywords" content="Australia mortgage calculator, home loan calculator, stamp duty calculator, first home grant calculator, Australian mortgage calculator">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Australia Mortgage Calculator",
+    "description": "Free online mortgage calculator for Australian home buyers including first home owner grants and stamp duty calculations",
+    "url": "https://90storezon.com/calculators/04-mortgage-calculator/australia.php",
+    "areaServed": "AU",
+    "serviceType": "Mortgage Calculator"
+}
+</script>
+
+<div class="calculator-container">
         <div class="header">
             <h1 class="title">Australia Mortgage Calculator</h1>
             <div class="country-badge">
@@ -431,5 +421,5 @@ $first_home_grants = [
         calculateStampDuty();
     });
     </script>
-</body>
-</html>
+
+<?php include '../../footer.php'; ?>

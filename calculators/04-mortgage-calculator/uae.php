@@ -43,37 +43,27 @@ $islamic_financing = [
     'Diminishing Musharaka' => 'Gradual ownership'
 ];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UAE Mortgage Calculator - Calculate Home Loan Payments | Dubai Property Finance</title>
-    <meta name="description" content="Free UAE mortgage calculator with Islamic financing, salary transfer. Calculate mortgage payments for Dubai, Abu Dhabi, Sharjah properties in AED.">
-    
-    <!-- VIP Backlinks -->
-    <link rel="canonical" href="https://90storezon.com/calculators/01-loan-emi-calculator/uae.php">
-    <link rel="preconnect" href="https://gmpg.org">
-    <link rel="preconnect" href="https://www.google.ae">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FinancialService",
-        "name": "UAE Mortgage Calculator",
-        "description": "Free online mortgage calculator for UAE property buyers including Islamic financing and expatriate mortgage options",
-        "url": "https://90storezon.com/calculators/01-loan-emi-calculator/uae.php",
-        "areaServed": "AE",
-        "serviceType": "Mortgage Calculator"
-    }
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="calculator-container">
+<?php include '../../header.php'; ?>
+
+<!-- SEO Elements -->
+<link rel="canonical" href="https://90storezon.com/calculators/04-mortgage-calculator/uae.php">
+<meta name="description" content="Free UAE mortgage calculator with Islamic financing, salary transfer. Calculate mortgage payments for Dubai, Abu Dhabi, Sharjah properties in AED.">
+<meta name="keywords" content="UAE mortgage calculator, Dubai mortgage calculator, Islamic financing calculator, home loan calculator, UAE property calculator">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "UAE Mortgage Calculator",
+    "description": "Free online mortgage calculator for UAE property buyers including Islamic financing and expatriate mortgage options",
+    "url": "https://90storezon.com/calculators/04-mortgage-calculator/uae.php",
+    "areaServed": "AE",
+    "serviceType": "Mortgage Calculator"
+}
+</script>
+
+<div class="calculator-container">
         <div class="header">
             <h1 class="title">UAE Mortgage Calculator</h1>
             <div class="country-badge">
@@ -481,5 +471,5 @@ $islamic_financing = [
         border: 1px solid #f5c6cb;
     }
     </style>
-</body>
-</html>
+
+<?php include '../../footer.php'; ?>

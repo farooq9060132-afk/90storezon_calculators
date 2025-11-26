@@ -36,37 +36,27 @@ $provinces = [
     'Manitoba' => 'Winnipeg - Low cost'
 ];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canada Mortgage Calculator - Calculate Home Loan Payments | Canadian Property Finance</title>
-    <meta name="description" content="Free Canada mortgage calculator with CMHC insurance, land transfer tax. Calculate mortgage payments for Toronto, Vancouver, Montreal, Calgary properties.">
-    
-    <!-- VIP Backlinks -->
-    <link rel="canonical" href="https://90storezon.com/calculators/01-loan-emi-calculator/canada.php">
-    <link rel="preconnect" href="https://gmpg.org">
-    <link rel="preconnect" href="https://www.google.ca">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FinancialService",
-        "name": "Canada Mortgage Calculator",
-        "description": "Free online mortgage calculator for Canadian home buyers including CMHC insurance and land transfer tax calculations",
-        "url": "https://90storezon.com/calculators/01-loan-emi-calculator/canada.php",
-        "areaServed": "CA",
-        "serviceType": "Mortgage Calculator"
-    }
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="calculator-container">
+<?php include '../../header.php'; ?>
+
+<!-- SEO Elements -->
+<link rel="canonical" href="https://90storezon.com/calculators/04-mortgage-calculator/canada.php">
+<meta name="description" content="Free Canada mortgage calculator with CMHC insurance, land transfer tax. Calculate mortgage payments for Toronto, Vancouver, Montreal, Calgary properties.">
+<meta name="keywords" content="Canada mortgage calculator, home loan calculator, CMHC insurance calculator, land transfer tax calculator, Canadian mortgage calculator">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Canada Mortgage Calculator",
+    "description": "Free online mortgage calculator for Canadian home buyers including CMHC insurance and land transfer tax calculations",
+    "url": "https://90storezon.com/calculators/04-mortgage-calculator/canada.php",
+    "areaServed": "CA",
+    "serviceType": "Mortgage Calculator"
+}
+</script>
+
+<div class="calculator-container">
         <div class="header">
             <h1 class="title">Canada Mortgage Calculator</h1>
             <div class="country-badge">
@@ -413,5 +403,5 @@ $provinces = [
         updateCalculations();
     });
     </script>
-</body>
-</html>
+
+<?php include '../../footer.php'; ?>

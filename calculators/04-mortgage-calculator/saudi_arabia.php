@@ -43,37 +43,27 @@ $government_programs = [
     'Real Estate Refinance' => 'Saudi Real Estate Refinance Company'
 ];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saudi Arabia Mortgage Calculator - Calculate Home Loan Payments | Saudi Property Finance</title>
-    <meta name="description" content="Free Saudi Arabia mortgage calculator with Sakani program, Islamic financing. Calculate mortgage payments for Riyadh, Jeddah, Dammam properties in SAR.">
-    
-    <!-- VIP Backlinks -->
-    <link rel="canonical" href="https://90storezon.com/calculators/01-loan-emi-calculator/saudi_arabia.php">
-    <link rel="preconnect" href="https://gmpg.org">
-    <link rel="preconnect" href="https://www.google.sa">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FinancialService",
-        "name": "Saudi Arabia Mortgage Calculator",
-        "description": "Free online mortgage calculator for Saudi Arabia property buyers including Sakani program and Islamic financing options",
-        "url": "https://90storezon.com/calculators/01-loan-emi-calculator/saudi_arabia.php",
-        "areaServed": "SA",
-        "serviceType": "Mortgage Calculator"
-    }
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="calculator-container">
+<?php include '../../header.php'; ?>
+
+<!-- SEO Elements -->
+<link rel="canonical" href="https://90storezon.com/calculators/04-mortgage-calculator/saudi_arabia.php">
+<meta name="description" content="Free Saudi Arabia mortgage calculator with Sakani program, Islamic financing. Calculate mortgage payments for Riyadh, Jeddah, Dammam properties in SAR.">
+<meta name="keywords" content="Saudi Arabia mortgage calculator, Sakani program calculator, Islamic financing calculator, home loan calculator, Saudi property calculator">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Saudi Arabia Mortgage Calculator",
+    "description": "Free online mortgage calculator for Saudi Arabia property buyers including Sakani program and Islamic financing options",
+    "url": "https://90storezon.com/calculators/04-mortgage-calculator/saudi_arabia.php",
+    "areaServed": "SA",
+    "serviceType": "Mortgage Calculator"
+}
+</script>
+
+<div class="calculator-container">
         <div class="header">
             <h1 class="title">Saudi Arabia Mortgage Calculator</h1>
             <div class="country-badge">
@@ -544,5 +534,5 @@ $government_programs = [
         margin: 10px 0;
     }
     </style>
-</body>
-</html>
+
+<?php include '../../footer.php'; ?>

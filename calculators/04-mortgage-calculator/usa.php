@@ -36,37 +36,27 @@ $states = [
     'Illinois' => 'Moderate rates'
 ];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>US Mortgage Calculator - Calculate Home Loan Payments</title>
-    <meta name="description" content="Free US mortgage calculator with PMI, taxes & insurance. Calculate FHA, VA, conventional loan payments. Get instant rates for all 50 states.">
-    
-    <!-- VIP Backlinks -->
-    <link rel="canonical" href="https://yourwebsite.com/usa.php">
-    <link rel="preconnect" href="https://gmpg.org">
-    <link rel="preconnect" href="https://www.google.com">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FinancialService",
-        "name": "US Mortgage Calculator",
-        "description": "Free online mortgage calculator for United States home buyers",
-        "url": "https://yourwebsite.com/usa.php",
-        "areaServed": "US",
-        "serviceType": "Mortgage Calculator"
-    }
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="calculator-container">
+<?php include '../../header.php'; ?>
+
+<!-- SEO Elements -->
+<link rel="canonical" href="https://90storezon.com/calculators/04-mortgage-calculator/usa.php">
+<meta name="description" content="Free US mortgage calculator with PMI, taxes & insurance. Calculate FHA, VA, conventional loan payments. Get instant rates for all 50 states.">
+<meta name="keywords" content="US mortgage calculator, home loan calculator, FHA loan calculator, VA loan calculator, mortgage payment calculator">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "US Mortgage Calculator",
+    "description": "Free online mortgage calculator for United States home buyers",
+    "url": "https://90storezon.com/calculators/04-mortgage-calculator/usa.php",
+    "areaServed": "US",
+    "serviceType": "Mortgage Calculator"
+}
+</script>
+
+<div class="calculator-container">
         <div class="header">
             <h1 class="title">US Mortgage Calculator</h1>
             <div class="country-badge">
@@ -200,24 +190,6 @@ $states = [
             <p>Our advanced <strong>home loan calculator</strong> includes all major cost components: principal, interest, property taxes, homeowners insurance, and private mortgage insurance (PMI). Get accurate estimates for <strong>California, Texas, Florida, New York</strong> and all 50 states.</p>
         </section>
 
-        <!-- VIP Backlinks Footer -->
-        <footer class="seo-footer">
-            <div class="footer-links">
-                <h4>Related Calculators</h4>
-                <a href="/mortgage-calculator.html">Mortgage Calculator</a> |
-                <a href="/refinance-calculator.html">Refinance Calculator</a> |
-                <a href="/debt-to-income-calculator.html">Debt-to-Income Calculator</a> |
-                <a href="/home-affordability-calculator.html">Home Affordability Calculator</a>
-            </div>
-            
-            <div class="external-links">
-                <h4>US Mortgage Resources</h4>
-                <a href="https://www.hud.gov" rel="nofollow">HUD Official Site</a> |
-                <a href="https://www.consumerfinance.gov" rel="nofollow">CFPB Mortgage Help</a> |
-                <a href="https://www.va.gov" rel="nofollow">VA Home Loans</a> |
-                <a href="https://www.usda.gov" rel="nofollow">USDA Rural Development</a>
-            </div>
-        </footer>
     </div>
 
     <script>
@@ -287,5 +259,5 @@ $states = [
         updateDownPaymentPercent();
     });
     </script>
-</body>
-</html>
+
+<?php include '../../footer.php'; ?>

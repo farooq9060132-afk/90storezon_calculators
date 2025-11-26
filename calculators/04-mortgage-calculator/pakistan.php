@@ -44,37 +44,27 @@ $government_schemes = [
     'Youth Loan Scheme' => 'Special rates for youth'
 ];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pakistan Home Loan Calculator - Calculate EMI for Housing Loan | Pakistani Property Finance</title>
-    <meta name="description" content="Free Pakistan home loan calculator with Mera Pakistan Mera Ghar subsidy, bank rates. Calculate EMI for HBL, UBL, MCB home loans in Rs for Karachi, Lahore, Islamabad properties.">
-    
-    <!-- VIP Backlinks -->
-    <link rel="canonical" href="https://90storezon.com/calculators/01-loan-emi-calculator/pakistan.php">
-    <link rel="preconnect" href="https://gmpg.org">
-    <link rel="preconnect" href="https://www.google.com.pk">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FinancialService",
-        "name": "Pakistan Home Loan Calculator",
-        "description": "Free online home loan EMI calculator for Pakistani property buyers including Mera Pakistan Mera Ghar subsidy and bank interest rates",
-        "url": "https://90storezon.com/calculators/01-loan-emi-calculator/pakistan.php",
-        "areaServed": "PK",
-        "serviceType": "Home Loan Calculator"
-    }
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="calculator-container">
+<?php include '../../header.php'; ?>
+
+<!-- SEO Elements -->
+<link rel="canonical" href="https://90storezon.com/calculators/04-mortgage-calculator/pakistan.php">
+<meta name="description" content="Free Pakistan home loan calculator with Mera Pakistan Mera Ghar subsidy, bank rates. Calculate EMI for HBL, UBL, MCB home loans in Rs for Karachi, Lahore, Islamabad properties.">
+<meta name="keywords" content="Pakistan home loan calculator, EMI calculator, Mera Pakistan Mera Ghar calculator, Pakistani mortgage calculator, housing loan calculator">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Pakistan Home Loan Calculator",
+    "description": "Free online home loan EMI calculator for Pakistani property buyers including Mera Pakistan Mera Ghar subsidy and bank interest rates",
+    "url": "https://90storezon.com/calculators/04-mortgage-calculator/pakistan.php",
+    "areaServed": "PK",
+    "serviceType": "Home Loan Calculator"
+}
+</script>
+
+<div class="calculator-container">
         <div class="header">
             <h1 class="title">پاکستان ہوم لون کیلکولیٹر</h1>
             <div class="country-badge">
@@ -623,5 +613,5 @@ $government_schemes = [
         border-left: 4px solid #ffc107;
     }
     </style>
-</body>
-</html>
+
+<?php include '../../footer.php'; ?>

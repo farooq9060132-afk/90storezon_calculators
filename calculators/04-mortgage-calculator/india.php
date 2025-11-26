@@ -45,37 +45,27 @@ $government_schemes = [
     'Women Ownership' => 'Lower interest rates'
 ];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>India Home Loan Calculator - Calculate EMI for Housing Loan | Indian Property Finance</title>
-    <meta name="description" content="Free India home loan calculator with PMAY subsidy, bank rates. Calculate EMI for SBI, HDFC, ICICI home loans in ₹ for Mumbai, Delhi, Bangalore properties.">
-    
-    <!-- VIP Backlinks -->
-    <link rel="canonical" href="https://90storezon.com/calculators/01-loan-emi-calculator/india.php">
-    <link rel="preconnect" href="https://gmpg.org">
-    <link rel="preconnect" href="https://www.google.co.in">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FinancialService",
-        "name": "India Home Loan Calculator",
-        "description": "Free online home loan EMI calculator for Indian property buyers including PMAY subsidy and bank interest rates",
-        "url": "https://90storezon.com/calculators/01-loan-emi-calculator/india.php",
-        "areaServed": "IN",
-        "serviceType": "Home Loan Calculator"
-    }
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="calculator-container">
+<?php include '../../header.php'; ?>
+
+<!-- SEO Elements -->
+<link rel="canonical" href="https://90storezon.com/calculators/04-mortgage-calculator/india.php">
+<meta name="description" content="Free India home loan calculator with PMAY subsidy, bank rates. Calculate EMI for SBI, HDFC, ICICI home loans in ₹ for Mumbai, Delhi, Bangalore properties.">
+<meta name="keywords" content="India home loan calculator, EMI calculator, PMAY subsidy calculator, Indian mortgage calculator, housing loan calculator">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "India Home Loan Calculator",
+    "description": "Free online home loan EMI calculator for Indian property buyers including PMAY subsidy and bank interest rates",
+    "url": "https://90storezon.com/calculators/04-mortgage-calculator/india.php",
+    "areaServed": "IN",
+    "serviceType": "Home Loan Calculator"
+}
+</script>
+
+<div class="calculator-container">
         <div class="header">
             <h1 class="title">भारत गृह ऋण कैलकुलेटर</h1>
             <div class="country-badge">
@@ -624,5 +614,5 @@ $government_schemes = [
         border-left: 4px solid #ffc107;
     }
     </style>
-</body>
-</html>
+
+<?php include '../../footer.php'; ?>

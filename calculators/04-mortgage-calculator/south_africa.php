@@ -45,37 +45,27 @@ $banks = [
     'Capitec Bank' => 'Fastest growing bank'
 ];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>South Africa Home Loan Calculator - Calculate Bond Repayments | SA Property Finance</title>
-    <meta name="description" content="Free South Africa home loan calculator with bond registration, transfer costs. Calculate bond repayments for Standard Bank, FNB, Nedbank in R for Johannesburg, Cape Town properties.">
-    
-    <!-- VIP Backlinks -->
-    <link rel="canonical" href="https://90storezon.com/calculators/01-loan-emi-calculator/south_africa.php">
-    <link rel="preconnect" href="https://gmpg.org">
-    <link rel="preconnect" href="https://www.google.co.za">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FinancialService",
-        "name": "South Africa Home Loan Calculator",
-        "description": "Free online home loan calculator for South African property buyers including bond registration costs and bank interest rates",
-        "url": "https://90storezon.com/calculators/01-loan-emi-calculator/south_africa.php",
-        "areaServed": "ZA",
-        "serviceType": "Home Loan Calculator"
-    }
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="calculator-container">
+<?php include '../../header.php'; ?>
+
+<!-- SEO Elements -->
+<link rel="canonical" href="https://90storezon.com/calculators/04-mortgage-calculator/south_africa.php">
+<meta name="description" content="Free South Africa home loan calculator with bond registration, transfer costs. Calculate bond repayments for Standard Bank, FNB, Nedbank in R for Johannesburg, Cape Town properties.">
+<meta name="keywords" content="South Africa home loan calculator, bond repayment calculator, property bond calculator, South African mortgage calculator, home loan calculator">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "South Africa Home Loan Calculator",
+    "description": "Free online home loan calculator for South African property buyers including bond registration costs and bank interest rates",
+    "url": "https://90storezon.com/calculators/04-mortgage-calculator/south_africa.php",
+    "areaServed": "ZA",
+    "serviceType": "Home Loan Calculator"
+}
+</script>
+
+<div class="calculator-container">
         <div class="header">
             <h1 class="title">South Africa Home Loan Calculator</h1>
             <div class="country-badge">
@@ -604,5 +594,5 @@ $banks = [
         border: 1px solid #f5c6cb;
     }
     </style>
-</body>
-</html>
+
+<?php include '../../footer.php'; ?>

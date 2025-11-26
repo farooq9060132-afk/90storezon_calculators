@@ -1,532 +1,457 @@
+<?php
+$country = 'pakistan';
+$country_name = 'Pakistan';
+$currency = 'Rs';
+
+// Loan calculation function
+function calculateEMI($principal, $interest_rate, $tenure_months) {
+    $monthly_rate = ($interest_rate / 12) / 100;
+    $emi = $principal * $monthly_rate * pow(1 + $monthly_rate, $tenure_months) / 
+           (pow(1 + $monthly_rate, $tenure_months) - 1);
+    return round($emi, 2);
+}
+
+// Pakistan specific loan data
+$loan_types = [
+    'Home Loan' => [
+        'min_amount' => 500000, 
+        'max_amount' => 50000000, 
+        'min_tenure' => 5, 
+        'max_tenure' => 25,
+        'interest_range' => '12% - 16%'
+    ],
+    'Car Loan' => [
+        'min_amount' => 300000, 
+        'max_amount' => 10000000, 
+        'min_tenure' => 1, 
+        'max_tenure' => 7,
+        'interest_range' => '13% - 18%'
+    ],
+    'Personal Loan' => [
+        'min_amount' => 50000, 
+        'max_amount' => 5000000, 
+        'min_tenure' => 1, 
+        'max_tenure' => 5,
+        'interest_range' => '15% - 22%'
+    ],
+    'Business Loan' => [
+        'min_amount' => 100000, 
+        'max_amount' => 50000000, 
+        'min_tenure' => 1, 
+        'max_tenure' => 10,
+        'interest_range' => '14% - 20%'
+    ],
+    'Agricultural Loan' => [
+        'min_amount' => 50000, 
+        'max_amount' => 5000000, 
+        'min_tenure' => 6, 
+        'max_tenure' => 5,
+        'interest_range' => '8% - 12%'
+    ]
+];
+
+// Pakistani banks reference rates
+$banks = [
+    'HBL' => '12% - 15%',
+    'UBL' => '12.5% - 15.5%',
+    'MCB' => '12.25% - 15.25%',
+    'Allied Bank' => '12.75% - 15.75%',
+    'Bank Alfalah' => '13% - 16%'
+];
+
+// Provincial schemes
+$provincial_schemes = [
+    'Punjab' => 'Kissan Card, Youth Loan Scheme',
+    'Sindh' => 'Sindh Youth Loan Program',
+    'KPK' => 'Khyber Pakhtunkhwa Loan Scheme',
+    'Balochistan' => 'Balochistan Entrepreneurship Program'
+];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loan Calculator in Pakistan | Calculate EMI for Home, Car & Personal Loans</title>
-    <meta name="description" content="Free online loan calculator for Pakistan residents to estimate monthly EMI payments. Calculate home loans, car loans & personal loans with current Pakistani interest rates. Get instant results with amortization schedule.">
-    <meta name="keywords" content="Pakistan loan calculator, Pakistani EMI calculator, Pakistan mortgage calculator, home loan calculator Pakistan, car loan calculator Pakistan, personal loan calculator Pakistan, PKR loan calculator, rupee loan calculator">
-    <meta name="author" content="90storezon">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://90storezon.com/calculators/01-loan-emi-calculator/pakistan.php">
-    <meta property="og:title" content="Loan Calculator in Pakistan | Calculate EMI for Home, Car & Personal Loans">
-    <meta property="og:description" content="Free online loan calculator for Pakistan residents to estimate monthly EMI payments. Calculate home loans, car loans & personal loans with current Pakistani interest rates.">
-    <meta property="og:image" content="https://90storezon.com/assets/images/emi-calculator-og.jpg">
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Loan Calculator in Pakistan | Calculate EMI for Home, Car & Personal Loans">
-    <meta name="twitter:description" content="Free online loan calculator for Pakistan residents to estimate monthly EMI payments. Calculate home loans, car loans & personal loans with current Pakistani interest rates.">
-    <meta name="twitter:image" content="https://90storezon.com/assets/images/emi-calculator-twitter.jpg">
-    
-    <link rel="canonical" href="https://90storezon.com/calculators/01-loan-emi-calculator/pakistan.php">
+    <title>Loan Calculator - Pakistan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-    <!-- Schema.org for rich snippets -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Loan Calculator in Pakistan | Calculate EMI for Home, Car & Personal Loans",
-      "description": "Free online loan calculator for Pakistan residents to estimate monthly EMI payments. Calculate home loans, car loans & personal loans with current Pakistani interest rates.",
-      "url": "https://www.90storezon.com/calculators/01-loan-emi-calculator/pakistan.php",
-      "mainEntity": {
-        "@type": "FAQPage",
-        "mainEntity": [{
-          "@type": "Question",
-          "name": "What is the average interest rate for loans in Pakistan?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "As of 2024, average interest rates in Pakistan vary by loan type: home mortgages range from 12-20%, auto loans from 10-18%, and personal loans from 15-30% depending on credit score. Our calculator uses a default rate of 15.0% for general loan calculations."
-          }
-        }, {
-          "@type": "Question",
-          "name": "How does the Pakistan loan calculator work?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Our Pakistan loan calculator uses the standard EMI formula: EMI = [P x R x (1+R)^N]/[(1+R)^N-1] where P is principal loan amount, R is monthly interest rate, and N is loan tenure in months. For Pakistani loans, we use PKR currency and typical Pakistani interest rates."
-          }
-        }, {
-          "@type": "Question",
-          "name": "What types of loans can I calculate with this Pakistan calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "This Pakistan loan calculator works for various loan types including home mortgages, auto loans, personal loans, student loans, and business loans. You can adjust the loan amount and interest rate according to your specific loan type."
-          }
-        }, {
-          "@type": "Question",
-          "name": "Are Pakistan loan interest rates fixed or variable?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Pakistani loan interest rates can be either fixed or variable. Fixed rates remain constant throughout the loan term, while variable rates can change based on market conditions. Our calculator allows you to input your specific interest rate for accurate calculations."
-          }
-        }, {
-          "@type": "Question",
-          "name": "How do I use this Pakistan loan calculator effectively?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "To use our Pakistan loan calculator effectively: 1) Enter your loan amount in PKR (₨), 2) Input the applicable interest rate (default is 15.0%), 3) Specify loan tenure in months or years, 4) Click Calculate EMI to see results including monthly payment, total interest, and amortization schedule."
-          }
-        }]
-      }
-    }
-    </script>
+    <style>
+        .pakistan-theme {
+            --primary-color: #01411C;
+            --secondary-color: #FFFFFF;
+            --accent-color: #00401A;
+        }
+        
+        .pakistan-badge {
+            background: linear-gradient(90deg, #01411C 33%, #FFFFFF 33%, #FFFFFF 66%, #01411C 66%);
+            color: #01411C;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            border: 2px solid #01411C;
+        }
+        
+        .bank-rates {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-right: 5px solid #01411C;
+        }
+        
+        .bank-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .bank-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-bottom: 3px solid #01411C;
+        }
+        
+        .scheme-badge {
+            background: #01411C;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        
+        .urdu-text {
+            font-family: 'Jameel Noori Nastaleeq', 'Alvi Lahori', 'Urdu Typesetting', serif;
+            direction: rtl;
+            font-size: 1.1rem;
+        }
+        
+        .province-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .province-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #01411C;
+        }
+    </style>
 </head>
-<body>
-    <?php include '../../header.php'; ?>
-    <div class="vip-container">
-        <header class="vip-header">
-            <h1><i class="fas fa-calculator"></i> Loan Calculator in Pakistan</h1>
-            <p class="subtitle">Calculate your monthly loan payments in Pakistan with current PKR interest rates</p>
-        </header>
-
-        <!-- Google Ads Slot -->
-        <div class="ad-slot top-ad">
-            [AD_TOP_BANNER]
-        </div>
-
-        <div class="calculator-container">
-            <div class="input-group">
-                <label for="loanAmount"><i class="fas fa-money-bill-wave"></i> Loan Amount (<span id="currencySymbol">₨</span>)</label>
-                <input type="number" id="loanAmount" placeholder="Enter loan amount between 10,000 and 50,000,000" min="10000" max="50000000" value="1000000">
-            </div>
-
-            <div class="input-group">
-                <label for="interestRate"><i class="fas fa-percentage"></i> Interest Rate (% per year)</label>
-                <input type="number" id="interestRate" placeholder="Enter interest rate" min="0" step="0.1" value="15.0">
-            </div>
-
-            <div class="input-group">
-                <label for="loanTenure"><i class="fas fa-calendar-alt"></i> Loan Tenure</label>
-                <div class="tenure-input">
-                    <input type="number" id="loanTenure" placeholder="Enter tenure between 1 and 30" min="1" max="30" value="10">
-                    <select id="tenureType">
-                        <option value="years">Years</option>
-                        <option value="months">Months</option>
-                    </select>
-                </div>
-            </div>
-
-            <button class="calculate-btn" onclick="calculateEMI()">
-                <i class="fas fa-calculator"></i> Calculate EMI
-            </button>
-
-            <div class="result-container" id="resultContainer" style="display: none;">
-                <h3><i class="fas fa-chart-bar"></i> Calculation Results</h3>
-                <div class="result-item">
-                    <span>Monthly EMI:</span>
-                    <span id="monthlyEMI">₨0</span>
-                </div>
-                <div class="result-item">
-                    <span>Total Interest:</span>
-                    <span id="totalInterest">₨0</span>
-                </div>
-                <div class="result-item total-amount">
-                    <span>Total Amount:</span>
-                    <span id="totalAmount">₨0</span>
-                </div>
-            </div>
-
-            <div class="amortization-container" id="amortizationContainer" style="display: none;">
-                <h3><i class="fas fa-table"></i> Amortization Schedule</h3>
-                <div class="table-container">
-                    <table id="amortizationTable">
-                        <thead>
-                            <tr>
-                                <th>Month</th>
-                                <th>EMI</th>
-                                <th>Principal</th>
-                                <th>Interest</th>
-                                <th>Balance</th>
-                            </tr>
-                        </thead>
-                        <tbody id="amortizationBody">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Google Ads Slot -->
-            <div class="ad-slot middle-ad">
-                [AD_MIDDLE_BANNER]
-            </div>
-
-            <div class="backlink-paragraph">
-                <p>Loan calculation for Pakistan residents. Our <a href="/calculators/04-mortgage-calculator/">mortgage calculator</a> helps with home loans, while our <a href="/calculators/05-compound-interest-calculator/">compound interest calculator</a> shows investment growth. For financial planning, use our <a href="/calculators/11-investment-calculator/">investment calculator</a> and <a href="/calculators/10-retirement-planner/">retirement planner</a>. Compare loan options with our <a href="/calculators/01-loan-emi-calculator/">EMI calculator</a>, calculate taxes with our <a href="/calculators/09-tax-calculator/">tax calculator</a>, and manage budgets with our <a href="/calculators/13-budget-planner/">budget planner</a>. For business loans, our <a href="/calculators/01-loan-emi-calculator/pakistan.php">Pakistan loan calculator</a> provides accurate estimates. International users can calculate loans in <a href="/calculators/01-loan-emi-calculator/usa.php">USA</a>, <a href="/calculators/01-loan-emi-calculator/uk.php">UK</a>, <a href="/calculators/01-loan-emi-calculator/canada.php">Canada</a>, <a href="/calculators/01-loan-emi-calculator/india.php">India</a>, and <a href="/calculators/01-loan-emi-calculator/australia.php">Australia</a>.</p>
-                <p>Backlink: <a href="https://90storezon.com">90storezon</a></p>
+<body class="pakistan-theme">
+    <div class="calculator-container">
+        <div class="header">
+            <h1 class="title">پاکستان لوں کیلکولیٹر</h1>
+            <div class="country-badge">
+                <img src="https://flagcdn.com/w80/pk.png" alt="Pakistan Flag" class="flag">
+                <span class="pakistan-badge">Pakistan</span>
             </div>
         </div>
 
-        <!-- Google Ads Slot -->
-        <div class="ad-slot bottom-ad">
-            [AD_BOTTOM_BANNER]
+        <!-- Bank Rates Section -->
+        <div class="bank-rates">
+            <h3 style="margin: 0 0 15px 0; color: #333; text-align: center;">🏦 موجودہ بینک ہوم لوں ریٹس / Current Bank Home Loan Rates</h3>
+            <div class="bank-grid">
+                <?php foreach($banks as $bank => $rate): ?>
+                    <div class="bank-card">
+                        <div style="font-weight: 600; color: #01411C;"><?php echo $bank; ?></div>
+                        <div style="color: #01411C; font-weight: 500;"><?php echo $rate; ?></div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="calculator-card">
+            <div class="loan-type-selector">
+                <label for="loanType">قرض کی قسم / Loan Type</label>
+                <select id="loanType" onchange="updateLoanLimits()">
+                    <?php foreach($loan_types as $type => $limits): ?>
+                        <option value="<?php echo $type; ?>"><?php echo $type; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="loanAmount">قرض کی رقم / Loan Amount (<?php echo $currency; ?>)</label>
+                <input type="number" id="loanAmount" placeholder="Enter loan amount" min="50000" step="1000">
+                <div class="limit-info" id="amountLimit"></div>
+            </div>
+
+            <div class="input-group">
+                <label for="interestRate">سود کی شرح / Interest Rate (% per year)</label>
+                <input type="number" id="interestRate" placeholder="Enter interest rate" min="1" max="30" step="0.1" value="13.5">
+                <div class="rate-info" id="interestRange">عام شرحیں: <span id="typicalRate">-</span></div>
+            </div>
+
+            <div class="input-group">
+                <label for="loanTenure">قرض کی مدت / Loan Tenure (Years)</label>
+                <input type="number" id="loanTenure" placeholder="Enter tenure in years" min="1" max="25" step="1">
+                <div class="limit-info" id="tenureLimit"></div>
+            </div>
+
+            <div class="additional-options">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="youthScheme" onchange="toggleYouthScheme()">
+                    <span class="checkmark"></span>
+                    Youth Entrepreneurship Scheme (2% less) <span class="scheme-badge">Scheme</span>
+                </label>
+                
+                <label class="checkbox-container">
+                    <input type="checkbox" id="womenScheme" onchange="toggleWomenScheme()">
+                    <span class="checkmark"></span>
+                    Women Business Loan (1.5% less) <span class="scheme-badge">Scheme</span>
+                </label>
+
+                <label class="checkbox-container">
+                    <input type="checkbox" id="kissanCard" onchange="toggleKissanCard()">
+                    <span class="checkmark"></span>
+                    Kissan Card Scheme (Agricultural) <span class="scheme-badge">Scheme</span>
+                </label>
+            </div>
+
+            <button class="calculate-btn" onclick="calculateLoan()">EMI حساب کریں / Calculate EMI</button>
+
+            <div id="results" class="results-container" style="display: none;">
+                <div class="result-header">
+                    <h3>قرض کا خلاصہ / Loan Summary</h3>
+                    <p id="schemeInfo" class="scheme-info"></p>
+                </div>
+                <div class="result-grid">
+                    <div class="result-card">
+                        <h4>ماہانہ قسط / Monthly EMI</h4>
+                        <p id="monthlyEMI" class="result-amount">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h4>کل ادائیگی / Total Payment</h4>
+                        <p id="totalPayment" class="result-amount">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h4>کل سود / Total Interest</h4>
+                        <p id="totalInterest" class="result-amount">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h4>موثر شرح / Effective Rate</h4>
+                        <p id="effectiveRate" class="result-amount">-</p>
+                    </div>
+                </div>
+                
+                <div class="breakdown-section">
+                    <h4>ادائیگی کی تفصیل / Payment Breakdown</h4>
+                    <div class="breakdown-chart">
+                        <div class="chart-bar">
+                            <div class="chart-label">اصل رقم / Principal</div>
+                            <div class="chart-value" id="principalAmount">-</div>
+                            <div class="chart-fill principal-fill" id="principalFill"></div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="chart-label">سود / Interest</div>
+                            <div class="chart-value" id="interestAmount">-</div>
+                            <div class="chart-fill interest-fill" id="interestFill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quarterly Preview -->
+                <div class="schedule-preview">
+                    <h4>پہلے سال کی جھلکی / First Year Preview</h4>
+                    <div class="schedule-grid">
+                        <div class="schedule-header">
+                            <span>Month</span>
+                            <span>Principal</span>
+                            <span>Interest</span>
+                            <span>Balance</span>
+                        </div>
+                        <div id="amortizationPreview"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Provincial Schemes Info -->
+        <div class="info-section">
+            <h3>صوبائی اسکیمیں / Provincial Schemes</h3>
+            <div class="province-grid">
+                <?php foreach($provincial_schemes as $province => $schemes): ?>
+                    <div class="province-card">
+                        <h4 style="color: #01411C; margin: 0 0 10px 0;">🏛️ <?php echo $province; ?></h4>
+                        <p style="margin: 0; color: #555;"><?php echo $schemes; ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <!-- Additional Pakistan Specific Info -->
+        <div class="info-section">
+            <h3>پاکستان میں قرض کی معلومات / Loan Information in Pakistan</h3>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>🏠 ہاؤس بلڈنگ فنانس</h4>
+                    <p>State Bank of Pakistan</p>
+                    <p>Markup: 12% - 16%</p>
+                    <p>Max tenure: 25 years</p>
+                </div>
+                <div class="info-card">
+                    <h4>🚗 کار لون</h4>
+                    <p>New & Used cars</p>
+                    <p>Markup: 13% - 18%</p>
+                    <p>Max tenure: 7 years</p>
+                </div>
+                <div class="info-card">
+                    <h4>🌾 کسان اسکیمیں</h4>
+                    <p>Kissan Card</p>
+                    <p>Subsidized rates</p>
+                    <p>Agricultural loans</p>
+                </div>
+                <div class="info-card">
+                    <h4>💼 نوجوانوں کے لئے</h4>
+                    <p>Youth Loan Scheme</p>
+                    <p>Entrepreneurship</p>
+                    <p>Special discounts</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Benefits Section -->
-    <section class="benefits-section">
-        <h2>Why Use Our Pakistan Loan Calculator?</h2>
-        <div class="benefits-grid">
-            <div class="benefit-item">
-                <h3>Instant Results</h3>
-                <p>Get your EMI calculation in seconds with our fast and responsive tool.</p>
-            </div>
-            <div class="benefit-item">
-                <h3>Accurate Calculations</h3>
-                <p>Our calculator uses the standard EMI formula used by Pakistani banks for precise results.</p>
-            </div>
-            <div class="benefit-item">
-                <h3>No Registration</h3>
-                <p>Use our calculator for free without any sign-up or registration required.</p>
-            </div>
-        </div>
-    </section>
+    <script>
+        const loanLimits = <?php echo json_encode($loan_types); ?>;
+        let youthScheme = false;
+        let womenScheme = false;
+        let kissanCard = false;
 
-    <!-- Formula Explanation -->
-    <section class="formula-section">
-        <h2>How is EMI Calculated in Pakistan?</h2>
-        <div class="formula-box">
-            <h3>EMI Calculation Formula</h3>
-            <p>EMI = [P x R x (1+R)^N]/[(1+R)^N-1]</p>
-            <p>Where:</p>
-            <ul>
-                <li>P = Principal loan amount in PKR (₨)</li>
-                <li>R = Monthly interest rate (annual rate/12/100)</li>
-                <li>N = Loan tenure in months</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Example Calculation -->
-    <section class="example-section">
-        <h2>Example Calculation</h2>
-        <div class="example-box">
-            <h3>For a ₨1,000,000 loan at 15% interest for 10 years:</h3>
-            <div class="example-result">
-                <p><strong>Monthly EMI:</strong> ₨17,247.46</p>
-                <p><strong>Total Interest:</strong> ₨1,069,695.61</p>
-                <p><strong>Total Payment:</strong> ₨2,069,695.61</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-item">
-            <h3>What is an EMI?</h3>
-            <p>EMI (Equated Monthly Installment) is a fixed payment amount made by a borrower to a lender at a specified date each calendar month. It consists of both principal and interest components.</p>
-        </div>
-        <div class="faq-item">
-            <h3>How does the interest rate affect my EMI?</h3>
-            <p>Higher interest rates increase your EMI amount and total interest paid, while lower rates reduce both. Even a 0.5% difference can significantly impact your total payment.</p>
-        </div>
-        <div class="faq-item">
-            <h3>Can I prepay my loan to reduce EMI?</h3>
-            <p>Yes, prepaying your loan can reduce your EMI or loan tenure. Check with your lender about prepayment charges before making extra payments.</p>
-        </div>
-        <div class="faq-item">
-            <h3>What is the difference between reducing balance and flat interest rate?</h3>
-            <p>In reducing balance, interest is calculated on the outstanding principal, while flat rate calculates interest on the entire loan amount throughout the tenure, usually resulting in higher interest payments.</p>
-        </div>
-        <div class="faq-item">
-            <h3>How can I reduce my EMI amount?</h3>
-            <p>You can reduce your EMI by opting for a longer tenure, negotiating a lower interest rate, or making a larger down payment to reduce the principal amount.</p>
-        </div>
-    </section>
-
-    <!-- Related Calculators -->
-    <section class="related-calculators">
-        <h2>You May Also Find Useful</h2>
-        <div class="calculator-links">
-            <a href="/calculators/04-mortgage-calculator/" class="calculator-link">
-                <i class="fas fa-home"></i> Mortgage Calculator
-            </a>
-            <a href="/calculators/05-compound-interest-calculator/" class="calculator-link">
-                <i class="fas fa-chart-line"></i> Compound Interest Calculator
-            </a>
-            <a href="/calculators/11-investment-calculator/" class="calculator-link">
-                <i class="fas fa-chart-pie"></i> Investment Calculator
-            </a>
-            <a href="/calculators/10-retirement-planner/" class="calculator-link">
-                <i class="fas fa-user-clock"></i> Retirement Planner
-            </a>
-            <a href="/calculators/09-tax-calculator/" class="calculator-link">
-                <i class="fas fa-file-invoice-dollar"></i> Tax Calculator
-            </a>
-        </div>
-    </section>
-
-    <!-- Make Informed Financial Decisions -->
-    <section class="financial-decisions">
-        <h2>Make Informed Financial Decisions</h2>
-        <p>Our EMI calculator helps you plan your finances better by providing accurate monthly payment estimates. Whether you're planning to take a home loan, car loan, or personal loan, understanding your EMI in advance helps in better financial planning. Use this tool to compare different loan options and choose the one that best fits your budget.</p>
-    </section>
-
-    <script src="script.js"></script>
-    <style>
-        /* Benefits Section */
-        .benefits-section {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
+        function updateLoanLimits() {
+            const loanType = document.getElementById('loanType').value;
+            const limits = loanLimits[loanType];
+            
+            document.getElementById('loanAmount').min = limits.min_amount;
+            document.getElementById('loanAmount').max = limits.max_amount;
+            document.getElementById('loanTenure').min = limits.min_tenure;
+            document.getElementById('loanTenure').max = limits.max_tenure;
+            
+            document.getElementById('amountLimit').textContent = 
+                `Range: Rs ${limits.min_amount.toLocaleString('en-PK')} - Rs ${limits.max_amount.toLocaleString('en-PK')}`;
+            document.getElementById('tenureLimit').textContent = 
+                `Range: ${limits.min_tenure} - ${limits.max_tenure} years`;
+            document.getElementById('typicalRate').textContent = limits.interest_range;
         }
 
-        .benefits-section h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
+        function toggleYouthScheme() {
+            youthScheme = document.getElementById('youthScheme').checked;
         }
 
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+        function toggleWomenScheme() {
+            womenScheme = document.getElementById('womenScheme').checked;
         }
 
-        .benefit-item {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
+        function toggleKissanCard() {
+            kissanCard = document.getElementById('kissanCard').checked;
         }
 
-        .benefit-item h3 {
-            margin-bottom: 10px;
-            color: #333;
+        function calculateLoan() {
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            let rate = parseFloat(document.getElementById('interestRate').value);
+            const tenure = parseFloat(document.getElementById('loanTenure').value);
+            
+            if (!amount || !rate || !tenure) {
+                alert('براہ کرم تمام فیلڈز پُر کریں / Please fill all fields');
+                return;
+            }
+
+            // Apply schemes discounts
+            if (youthScheme) {
+                rate -= 2;
+            }
+            if (womenScheme) {
+                rate -= 1.5;
+            }
+            if (kissanCard) {
+                rate -= 3; // Additional discount for agricultural loans
+            }
+
+            const monthlyRate = rate / 12 / 100;
+            const months = tenure * 12;
+            const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / 
+                        (Math.pow(1 + monthlyRate, months) - 1);
+            const totalPayment = emi * months;
+            const totalInterest = totalPayment - amount;
+
+            // Update results
+            document.getElementById('monthlyEMI').textContent = 
+                'Rs ' + emi.toLocaleString('en-PK', {maximumFractionDigits: 2});
+            document.getElementById('totalPayment').textContent = 
+                'Rs ' + totalPayment.toLocaleString('en-PK', {maximumFractionDigits: 2});
+            document.getElementById('totalInterest').textContent = 
+                'Rs ' + totalInterest.toLocaleString('en-PK', {maximumFractionDigits: 2});
+            
+            let rateInfo = rate.toFixed(2) + '%';
+            if (youthScheme) rateInfo += ' (Youth Scheme)';
+            if (womenScheme) rateInfo += ' (Women Scheme)';
+            if (kissanCard) rateInfo += ' (Kissan Card)';
+            
+            document.getElementById('effectiveRate').textContent = rateInfo;
+            document.getElementById('principalAmount').textContent = 
+                'Rs ' + amount.toLocaleString('en-PK', {maximumFractionDigits: 2});
+            document.getElementById('interestAmount').textContent = 
+                'Rs ' + totalInterest.toLocaleString('en-PK', {maximumFractionDigits: 2});
+
+            // Update scheme info
+            let schemeInfo = '';
+            if (youthScheme) {
+                schemeInfo += 'Youth Scheme Applied (2% less) • ';
+            }
+            if (womenScheme) {
+                schemeInfo += 'Women Scheme Applied (1.5% less) • ';
+            }
+            if (kissanCard) {
+                schemeInfo += 'Kissan Card Applied (3% less) • ';
+            }
+            document.getElementById('schemeInfo').textContent = schemeInfo || 'No special schemes applied';
+
+            // Update chart visualization
+            const principalPercent = (amount / totalPayment * 100).toFixed(1);
+            const interestPercent = (totalInterest / totalPayment * 100).toFixed(1);
+            
+            document.getElementById('principalFill').style.width = principalPercent + '%';
+            document.getElementById('interestFill').style.width = interestPercent + '%';
+
+            // Show amortization preview
+            showAmortizationPreview(amount, monthlyRate, months, emi);
+
+            document.getElementById('results').style.display = 'block';
         }
 
-        /* Formula Section */
-        .formula-section {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .formula-section h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        .formula-box {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
-        }
-
-        .formula-box h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .formula-box ul {
-            margin-top: 15px;
-            padding-left: 20px;
-        }
-
-        .formula-box li {
-            margin-bottom: 8px;
-        }
-
-        /* Example Section */
-        .example-section {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .example-section h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        .example-box {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
-        }
-
-        .example-box h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .example-result p {
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-
-        /* FAQ Section */
-        .faq-section {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .faq-section h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        .faq-item {
-            margin-bottom: 25px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .faq-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .faq-item h3 {
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        /* Related Calculators */
-        .related-calculators {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .related-calculators h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        .calculator-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .calculator-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 20px;
-            background: #333;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .calculator-link:hover {
-            background: #000;
-            transform: translateY(-2px);
-        }
-
-        /* Financial Decisions */
-        .financial-decisions {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .financial-decisions h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .financial-decisions p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        /* Amortization Table */
-        .amortization-container h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .table-container {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        #amortizationTable {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-
-        #amortizationTable th {
-            background: #333333;
-            color: white;
-            padding: 10px;
-            text-align: left;
-            position: sticky;
-            top: 0;
-        }
-
-        #amortizationTable td {
-            padding: 8px 10px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        #amortizationTable tr:nth-child(even) {
-            background-color: #f5f5f5;
-        }
-
-        #amortizationTable tr:hover {
-            background-color: #e0e0e0;
-        }
-
-        /* Backlink Paragraph */
-        .backlink-paragraph {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f5f5f5;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            border: 1px solid #e0e0e0;
-        }
-
-        .backlink-paragraph a {
-            color: #000000;
-            text-decoration: underline;
-        }
-
-        .backlink-paragraph a:hover {
-            color: #333333;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .benefits-grid {
-                grid-template-columns: 1fr;
+        function showAmortizationPreview(principal, monthlyRate, months, emi) {
+            let balance = principal;
+            let previewHTML = '';
+            
+            for (let month = 1; month <= Math.min(12, months); month++) {
+                const interest = balance * monthlyRate;
+                const principalPaid = emi - interest;
+                balance -= principalPaid;
+                
+                previewHTML += `
+                    <div class="schedule-row">
+                        <span>${month}</span>
+                        <span>Rs ${principalPaid.toLocaleString('en-PK', {maximumFractionDigits: 2})}</span>
+                        <span>Rs ${interest.toLocaleString('en-PK', {maximumFractionDigits: 2})}</span>
+                        <span>Rs ${balance.toLocaleString('en-PK', {maximumFractionDigits: 2})}</span>
+                    </div>
+                `;
             }
             
-            .calculator-links {
-                flex-direction: column;
-            }
-            
-            .calculator-links a {
-                text-align: center;
-            }
-            
-            .formula-section, .example-section {
-                padding: 1rem;
-            }
+            document.getElementById('amortizationPreview').innerHTML = previewHTML;
         }
-    </style>
-    <?php include '../../footer.php'; ?>
+
+        // Initialize limits on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLoanLimits();
+        });
+    </script>
 </body>
 </html>

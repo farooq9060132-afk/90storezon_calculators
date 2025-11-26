@@ -1,574 +1,719 @@
+<?php
+$country = 'usa';
+$country_name = 'United States';
+$currency = '$';
+
+// Loan calculation function
+function calculateEMI($principal, $interest_rate, $tenure_months) {
+    $monthly_rate = ($interest_rate / 12) / 100;
+    $emi = $principal * $monthly_rate * pow(1 + $monthly_rate, $tenure_months) / 
+           (pow(1 + $monthly_rate, $tenure_months) - 1);
+    return round($emi, 2);
+}
+
+// USA specific loan data
+$loan_types = [
+    'Mortgage' => [
+        'min_amount' => 50000, 
+        'max_amount' => 5000000, 
+        'min_tenure' => 10, 
+        'max_tenure' => 30,
+        'interest_range' => '5.5% - 7.5%',
+        'loan_categories' => ['Conventional', 'FHA', 'VA', 'USDA']
+    ],
+    'Auto Loan' => [
+        'min_amount' => 5000, 
+        'max_amount' => 150000, 
+        'min_tenure' => 2, 
+        'max_tenure' => 7,
+        'interest_range' => '4% - 12%',
+        'loan_categories' => ['New Car', 'Used Car', 'Refinance']
+    ],
+    'Personal Loan' => [
+        'min_amount' => 1000, 
+        'max_amount' => 100000, 
+        'min_tenure' => 1, 
+        'max_tenure' => 7,
+        'interest_range' => '6% - 36%',
+        'loan_categories' => ['Debt Consolidation', 'Home Improvement', 'Medical']
+    ],
+    'Student Loan' => [
+        'min_amount' => 1000, 
+        'max_amount' => 500000, 
+        'min_tenure' => 5, 
+        'max_tenure' => 25,
+        'interest_range' => '4% - 12%',
+        'loan_categories' => ['Federal', 'Private', 'Refinance']
+    ],
+    'Business Loan' => [
+        'min_amount' => 10000, 
+        'max_amount' => 5000000, 
+        'min_tenure' => 1, 
+        'max_tenure' => 25,
+        'interest_range' => '5% - 15%',
+        'loan_categories' => ['SBA', 'Term Loan', 'Line of Credit']
+    ]
+];
+
+// USA banks reference rates
+$banks = [
+    'Chase' => '5.75% - 7.25%',
+    'Bank of America' => '5.65% - 7.15%',
+    'Wells Fargo' => '5.85% - 7.35%',
+    'Citibank' => '5.70% - 7.20%',
+    'US Bank' => '5.80% - 7.30%'
+];
+
+// US States
+$states = [
+    'California' => 'High cost areas',
+    'Texas' => 'No state income tax',
+    'New York' => 'High property taxes',
+    'Florida' => 'No state income tax',
+    'Illinois' => 'Moderate rates',
+    'Pennsylvania' => 'Affordable housing',
+    'Ohio' => 'Low cost of living',
+    'Georgia' => 'Growing market',
+    'North Carolina' => 'Tech hub growth',
+    'Michigan' => 'Auto industry focus'
+];
+
+// Credit Score Tiers
+$credit_score_tiers = [
+    'Excellent' => ['min' => 800, 'max' => 850, 'rate_adjustment' => -1.0],
+    'Very Good' => ['min' => 740, 'max' => 799, 'rate_adjustment' => -0.5],
+    'Good' => ['min' => 670, 'max' => 739, 'rate_adjustment' => 0],
+    'Fair' => ['min' => 580, 'max' => 669, 'rate_adjustment' => 1.5],
+    'Poor' => ['min' => 300, 'max' => 579, 'rate_adjustment' => 3.0]
+];
+
+// Government Programs
+$government_programs = [
+    'FHA Loan' => '3.5% down payment, lower credit scores accepted',
+    'VA Loan' => '0% down payment for veterans and military',
+    'USDA Loan' => '0% down payment for rural areas',
+    'Fannie Mae' => 'Conventional loans, 3% down payment',
+    'Freddie Mac' => 'Conventional loans, flexible terms'
+];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loan Calculator in USA | Calculate EMI for Home, Car & Personal Loans</title>
-    <meta name="description" content="Free online loan calculator for USA residents to estimate monthly EMI payments. Calculate home loans, car loans & personal loans with current US interest rates. Get instant results with amortization schedule.">
-    <meta name="keywords" content="USA loan calculator, US EMI calculator, American loan calculator, home loan calculator USA, car loan calculator USA, personal loan calculator USA, USD loan calculator, mortgage calculator USA">
-    <meta name="author" content="90storezon">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://90storezon.com/calculators/01-loan-emi-calculator/usa.php">
-    <meta property="og:title" content="Loan Calculator in USA | Calculate EMI for Home, Car & Personal Loans">
-    <meta property="og:description" content="Free online loan calculator for USA residents to estimate monthly EMI payments. Calculate home loans, car loans & personal loans with current US interest rates.">
-    <meta property="og:image" content="https://90storezon.com/assets/images/emi-calculator-og.jpg">
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Loan Calculator in USA | Calculate EMI for Home, Car & Personal Loans">
-    <meta name="twitter:description" content="Free online loan calculator for USA residents to estimate monthly EMI payments. Calculate home loans, car loans & personal loans with current US interest rates.">
-    <meta name="twitter:image" content="https://90storezon.com/assets/images/emi-calculator-twitter.jpg">
-    
-    <link rel="canonical" href="https://90storezon.com/calculators/01-loan-emi-calculator/usa.php">
+    <title>Loan Calculator - United States</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-    <!-- Schema.org for rich snippets -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Loan Calculator in USA | Calculate EMI for Home, Car & Personal Loans",
-      "description": "Free online loan calculator for USA residents to estimate monthly EMI payments. Calculate home loans, car loans & personal loans with current US interest rates.",
-      "url": "https://www.90storezon.com/calculators/01-loan-emi-calculator/usa.php",
-      "mainEntity": {
-        "@type": "FAQPage",
-        "mainEntity": [{
-          "@type": "Question",
-          "name": "What is the average interest rate for loans in the USA?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "As of 2024, average interest rates in the USA vary by loan type: home mortgages range from 6-8%, auto loans from 4-7%, and personal loans from 6-36% depending on credit score. Our calculator uses a default rate of 5.5% for general loan calculations."
-          }
-        }, {
-          "@type": "Question",
-          "name": "How does the USA loan calculator work?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Our USA loan calculator uses the standard EMI formula: EMI = [P x R x (1+R)^N]/[(1+R)^N-1] where P is principal loan amount, R is monthly interest rate, and N is loan tenure in months. For USA loans, we use USD currency and typical American interest rates."
-          }
-        }, {
-          "@type": "Question",
-          "name": "What types of loans can I calculate with this USA calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "This USA loan calculator works for various loan types including home mortgages, auto loans, personal loans, student loans, and business loans. You can adjust the loan amount and interest rate according to your specific loan type."
-          }
-        }, {
-          "@type": "Question",
-          "name": "Are USA loan interest rates fixed or variable?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "USA loan interest rates can be either fixed or variable. Fixed rates remain constant throughout the loan term, while variable rates can change based on market conditions. Our calculator allows you to input your specific interest rate for accurate calculations."
-          }
-        }, {
-          "@type": "Question",
-          "name": "How do I use this USA loan calculator effectively?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "To use our USA loan calculator effectively: 1) Enter your loan amount in USD, 2) Input the applicable interest rate (default is 5.5%), 3) Specify loan tenure in months or years, 4) Click Calculate EMI to see results including monthly payment, total interest, and amortization schedule."
-          }
-        }]
-      }
-    }
-    </script>
+    <style>
+        .usa-theme {
+            --primary-color: #3C3B6E;
+            --secondary-color: #B22234;
+            --accent-color: #FFFFFF;
+        }
+        
+        .usa-badge {
+            background: linear-gradient(90deg, #3C3B6E 33%, #B22234 33%, #B22234 66%, #3C3B6E 66%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            border: 2px solid #3C3B6E;
+        }
+        
+        .bank-rates {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-right: 5px solid #3C3B6E;
+        }
+        
+        .bank-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .bank-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-bottom: 3px solid #3C3B6E;
+        }
+        
+        .scheme-badge {
+            background: #B22234;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        
+        .state-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .state-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #3C3B6E;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .program-card {
+            background: linear-gradient(135deg, #3C3B6E, #B22234);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .credit-score-section {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #3C3B6E;
+        }
+        
+        .tax-calculator {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .loan-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .loan-category {
+            background: #3C3B6E;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        
+        .credit-meter {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .credit-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+    </style>
 </head>
-<body>
-    <?php include '../../header.php'; ?>
-    <div class="vip-container">
-        <header class="vip-header">
-            <h1><i class="fas fa-calculator"></i> Loan Calculator in USA</h1>
-            <p class="subtitle">Calculate your monthly loan payments in USA with current USD interest rates</p>
-        </header>
-
-        <!-- Google Ads Slot -->
-        <div class="ad-slot top-ad">
-            [AD_TOP_BANNER]
-        </div>
-
-        <div class="calculator-container">
-            <div class="input-group">
-                <label for="loanAmount"><i class="fas fa-money-bill-wave"></i> Loan Amount (<span id="currencySymbol">$</span>)</label>
-                <input type="number" id="loanAmount" placeholder="Enter loan amount between 1,000 and 5,000,000" min="1000" max="5000000" value="100000">
-            </div>
-
-            <div class="input-group">
-                <label for="interestRate"><i class="fas fa-percentage"></i> Interest Rate (% per year)</label>
-                <input type="number" id="interestRate" placeholder="Enter interest rate" min="0" step="0.1" value="5.5">
-            </div>
-
-            <div class="input-group">
-                <label for="loanTenure"><i class="fas fa-calendar-alt"></i> Loan Tenure</label>
-                <div class="tenure-input">
-                    <input type="number" id="loanTenure" placeholder="Enter tenure between 1 and 30" min="1" max="30" value="15">
-                    <select id="tenureType">
-                        <option value="years">Years</option>
-                        <option value="months">Months</option>
-                    </select>
-                </div>
-            </div>
-
-            <button class="calculate-btn" onclick="calculateEMI()">
-                <i class="fas fa-calculator"></i> Calculate EMI
-            </button>
-
-            <div class="amortization-container" id="amortizationContainer" style="display: none;">
-                <h3><i class="fas fa-table"></i> Amortization Schedule</h3>
-                <div class="table-container">
-                    <table id="amortizationTable">
-                        <thead>
-                            <tr>
-                                <th>Month</th>
-                                <th>EMI</th>
-                                <th>Principal</th>
-                                <th>Interest</th>
-                                <th>Balance</th>
-                            </tr>
-                        </thead>
-                        <tbody id="amortizationBody">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Google Ads Slot -->
-            <div class="ad-slot middle-ad">
-                [AD_MIDDLE_BANNER]
-            </div>
-
-            <div class="result-container" id="resultContainer">
-                <h3><i class="fas fa-chart-bar"></i> Calculation Results</h3>
-                <div class="result-item">
-                    <span>Monthly EMI:</span>
-                    <span id="monthlyEMI">$0</span>
-                </div>
-                <div class="result-item">
-                    <span>Total Interest:</span>
-                    <span id="totalInterest">$0</span>
-                </div>
-                <div class="result-item total-amount">
-                    <span>Total Amount:</span>
-                    <span id="totalAmount">$0</span>
-                </div>
-            </div>
-
-            <div class="backlink-paragraph">
-                <p>Loan calculation for USA residents. Our <a href="/calculators/04-mortgage-calculator/">mortgage calculator</a> helps with home loans, while our <a href="/calculators/05-compound-interest-calculator/">compound interest calculator</a> shows investment growth. For financial planning, use our <a href="/calculators/11-investment-calculator/">investment calculator</a> and <a href="/calculators/10-retirement-planner/">retirement planner</a>. Compare loan options with our <a href="/calculators/01-loan-emi-calculator/">EMI calculator</a>, calculate taxes with our <a href="/calculators/09-tax-calculator/">tax calculator</a>, and manage budgets with our <a href="/calculators/13-budget-planner/">budget planner</a>. For business loans, our <a href="/calculators/01-loan-emi-calculator/usa.php">USA loan calculator</a> provides accurate estimates. International users can calculate loans in <a href="/calculators/01-loan-emi-calculator/uk.php">UK</a>, <a href="/calculators/01-loan-emi-calculator/canada.php">Canada</a>, <a href="/calculators/01-loan-emi-calculator/india.php">India</a>, <a href="/calculators/01-loan-emi-calculator/australia.php">Australia</a>, and <a href="/calculators/01-loan-emi-calculator/germany.php">Germany</a>.</p>
+<body class="usa-theme">
+    <div class="calculator-container">
+        <div class="header">
+            <h1 class="title">US Loan Calculator</h1>
+            <div class="country-badge">
+                <img src="https://flagcdn.com/w80/us.png" alt="USA Flag" class="flag">
+                <span class="usa-badge">United States</span>
             </div>
         </div>
 
-        <!-- Google Ads Slot -->
-        <div class="ad-slot bottom-ad">
-            [AD_BOTTOM_BANNER]
+        <!-- Bank Rates Section -->
+        <div class="bank-rates">
+            <h3 style="margin: 0 0 15px 0; color: #333; text-align: center;">🏦 Current Mortgage Rates</h3>
+            <div class="bank-grid">
+                <?php foreach($banks as $bank => $rate): ?>
+                    <div class="bank-card">
+                        <div style="font-weight: 600; color: #3C3B6E;"><?php echo $bank; ?></div>
+                        <div style="color: #B22234; font-weight: 500;"><?php echo $rate; ?></div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="calculator-card">
+            <div class="loan-type-selector">
+                <label for="loanType">Loan Type</label>
+                <select id="loanType" onchange="updateLoanLimits()">
+                    <?php foreach($loan_types as $type => $limits): ?>
+                        <option value="<?php echo $type; ?>"><?php echo $type; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <!-- Loan Categories -->
+            <div id="loanCategories" class="loan-categories"></div>
+
+            <div class="input-group">
+                <label for="state">State</label>
+                <select id="state" onchange="updateStateInfo()">
+                    <?php foreach($states as $state => $info): ?>
+                        <option value="<?php echo $state; ?>"><?php echo $state; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <div class="limit-info" id="stateInfo"></div>
+            </div>
+
+            <!-- Credit Score Section -->
+            <div class="credit-score-section">
+                <h4 style="margin: 0 0 10px 0; color: #3C3B6E;">📊 Credit Score Impact</h4>
+                <div class="input-group">
+                    <label for="creditScore">Credit Score</label>
+                    <input type="range" id="creditScore" min="300" max="850" value="700" oninput="updateCreditScore()">
+                    <div class="limit-info" id="creditScoreInfo"></div>
+                </div>
+                <div class="credit-meter">
+                    <div class="credit-fill" id="creditFill"></div>
+                </div>
+                <div id="creditTierInfo" style="font-weight: 600; color: #3C3B6E;"></div>
+            </div>
+
+            <div class="input-group">
+                <label for="loanAmount">Loan Amount (<?php echo $currency; ?>)</label>
+                <input type="number" id="loanAmount" placeholder="Enter loan amount" min="1000" step="1000">
+                <div class="limit-info" id="amountLimit"></div>
+            </div>
+
+            <div class="input-group">
+                <label for="interestRate">Interest Rate (% APR)</label>
+                <input type="number" id="interestRate" placeholder="Enter interest rate" min="0.5" max="40" step="0.1" value="6.5">
+                <div class="rate-info" id="interestRange">Typical rates: <span id="typicalRate">-</span></div>
+            </div>
+
+            <div class="input-group">
+                <label for="loanTenure">Loan Term (Years)</label>
+                <input type="number" id="loanTenure" placeholder="Enter loan term" min="1" max="30" step="1">
+                <div class="limit-info" id="tenureLimit"></div>
+            </div>
+
+            <!-- Down Payment Calculator -->
+            <div class="tax-calculator">
+                <h4 style="margin: 0 0 10px 0; color: #856404;">🏠 Down Payment Calculator</h4>
+                <div class="input-group">
+                    <label for="downPaymentPercent">Down Payment (%)</label>
+                    <input type="range" id="downPaymentPercent" min="0" max="50" value="20" oninput="updateDownPayment()">
+                    <div class="limit-info" id="downPaymentInfo"></div>
+                </div>
+                <div id="downPaymentResult" style="font-weight: 600; color: #856404;"></div>
+            </div>
+
+            <div class="additional-options">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="fhaLoan" onchange="toggleFHALoan()">
+                    <span class="checkmark"></span>
+                    FHA Loan <span class="scheme-badge">Government</span>
+                </label>
+                
+                <label class="checkbox-container">
+                    <input type="checkbox" id="vaLoan" onchange="toggleVALoan()">
+                    <span class="checkmark"></span>
+                    VA Loan <span class="scheme-badge">Veterans</span>
+                </label>
+
+                <label class="checkbox-container">
+                    <input type="checkbox" id="fixedRate" onchange="toggleFixedRate()">
+                    <span class="checkmark"></span>
+                    Fixed Rate Mortgage
+                </label>
+
+                <label class="checkbox-container">
+                    <input type="checkbox" id="debtConsolidation" onchange="toggleDebtConsolidation()">
+                    <span class="checkmark"></span>
+                    Debt Consolidation
+                </label>
+            </div>
+
+            <button class="calculate-btn" onclick="calculateLoan()">Calculate Monthly Payment</button>
+
+            <div id="results" class="results-container" style="display: none;">
+                <div class="result-header">
+                    <h3>Loan Summary</h3>
+                    <p id="schemeInfo" class="scheme-info"></p>
+                </div>
+                <div class="result-grid">
+                    <div class="result-card">
+                        <h4>Monthly Payment</h4>
+                        <p id="monthlyEMI" class="result-amount">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h4>Total Payment</h4>
+                        <p id="totalPayment" class="result-amount">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h4>Total Interest</h4>
+                        <p id="totalInterest" class="result-amount">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h4>APR Rate</h4>
+                        <p id="effectiveRate" class="result-amount">-</p>
+                    </div>
+                </div>
+                
+                <!-- Debt-to-Income Ratio -->
+                <div class="affordability-card">
+                    <h4>Debt-to-Income (DTI) Ratio</h4>
+                    <div class="affordability-meter">
+                        <div class="affordability-fill" id="dtiFill"></div>
+                    </div>
+                    <p id="dtiText" class="affordability-text"></p>
+                </div>
+                
+                <div class="breakdown-section">
+                    <h4>Payment Breakdown</h4>
+                    <div class="breakdown-chart">
+                        <div class="chart-bar">
+                            <div class="chart-label">Principal</div>
+                            <div class="chart-value" id="principalAmount">-</div>
+                            <div class="chart-fill principal-fill" id="principalFill"></div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="chart-label">Interest</div>
+                            <div class="chart-value" id="interestAmount">-</div>
+                            <div class="chart-fill interest-fill" id="interestFill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Amortization Schedule -->
+                <div class="schedule-preview">
+                    <h4>First Year Amortization</h4>
+                    <div class="schedule-grid">
+                        <div class="schedule-header">
+                            <span>Month</span>
+                            <span>Principal</span>
+                            <span>Interest</span>
+                            <span>Balance</span>
+                        </div>
+                        <div id="amortizationPreview"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Government Programs -->
+        <div class="info-section">
+            <h3>US Government Loan Programs</h3>
+            <div class="program-grid">
+                <?php foreach($government_programs as $program => $details): ?>
+                    <div class="program-card">
+                        <h4 style="margin: 0 0 10px 0;">🏛️ <?php echo $program; ?></h4>
+                        <p style="margin: 0; opacity: 0.9;"><?php echo $details; ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <!-- States Information -->
+        <div class="info-section">
+            <h3>US States Information</h3>
+            <div class="state-grid">
+                <?php foreach($states as $state => $info): ?>
+                    <div class="state-card">
+                        <h4 style="color: #3C3B6E; margin: 0 0 10px 0;">🗽 <?php echo $state; ?></h4>
+                        <p style="margin: 0; color: #555;"><?php echo $info; ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <!-- US Specific Information -->
+        <div class="info-section">
+            <h3>Loan Information in United States</h3>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>🏠 Mortgages</h4>
+                    <p>30-year fixed common</p>
+                    <p>FHA: 3.5% down</p>
+                    <p>VA: 0% down for veterans</p>
+                </div>
+                <div class="info-card">
+                    <h4>🚗 Auto Loans</h4>
+                    <p>New cars: 2-7 years</p>
+                    <p>Used cars: higher rates</p>
+                    <p>Refinancing available</p>
+                </div>
+                <div class="info-card">
+                    <h4>🎓 Student Loans</h4>
+                    <p>Federal & Private</p>
+                    <p>Income-driven plans</p>
+                    <p>Forgiveness programs</p>
+                </div>
+                <div class="info-card">
+                    <h4>💳 Personal Loans</h4>
+                    <p>Debt consolidation</p>
+                    <p>Credit score based</p>
+                    <p>APR 6-36%</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Benefits Section -->
-    <section class="benefits-section">
-        <h2>Why Use Our USA Loan Calculator?</h2>
-        <div class="benefits-grid">
-            <div class="benefit-item">
-                <h3>Instant Results</h3>
-                <p>Get your EMI calculation in seconds with our fast and responsive tool.</p>
-            </div>
-            <div class="benefit-item">
-                <h3>Accurate Calculations</h3>
-                <p>Our calculator uses the standard EMI formula used by US banks for precise results.</p>
-            </div>
-            <div class="benefit-item">
-                <h3>No Registration</h3>
-                <p>Use our calculator for free without any sign-up or registration required.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Formula Explanation -->
-    <section class="formula-section">
-        <h2>How is EMI Calculated in USA?</h2>
-        <div class="formula-box">
-            <h3>EMI Calculation Formula</h3>
-            <p>EMI = [P x R x (1+R)^N]/[(1+R)^N-1]</p>
-            <p>Where:</p>
-            <ul>
-                <li>P = Principal loan amount in USD</li>
-                <li>R = Monthly interest rate (annual rate/12/100)</li>
-                <li>N = Loan tenure in months</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Example Calculation -->
-    <section class="example-section">
-        <h2>Example Calculation for USA Loans</h2>
-        <div class="example-box">
-            <h3>For a $200,000 home loan at 5.5% interest for 15 years:</h3>
-            <ul>
-                <li>Monthly EMI: $1,634.62</li>
-                <li>Total Interest: $94,231.60</li>
-                <li>Total Payment: $294,231.60</li>
-            </ul>
-            <p>This example shows a typical US mortgage calculation with current interest rates. Your actual payments may vary based on loan terms, fees, and other factors.</p>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <h2>Frequently Asked Questions about USA Loans</h2>
-        
-        <div class="faq-item">
-            <h3>What is the current average mortgage rate in the USA?</h3>
-            <p>As of 2024, the average 30-year fixed mortgage rate in the USA ranges from 6-8%, while 15-year fixed rates are typically 0.5-1% lower. Our calculator uses a default rate of 5.5% for general loan calculations.</p>
-        </div>
-        
-        <div class="faq-item">
-            <h3>How do I calculate my auto loan payment in the USA?</h3>
-            <p>Auto loan payments in the USA are calculated using the same EMI formula. For example, a $30,000 car loan at 6% interest for 5 years would result in a monthly payment of approximately $579.91.</p>
-        </div>
-        
-        <div class="faq-item">
-            <h3>What factors affect loan interest rates in the USA?</h3>
-            <p>US loan interest rates are affected by credit score, loan term, down payment, debt-to-income ratio, employment history, and current market conditions. Higher credit scores typically qualify for lower interest rates.</p>
-        </div>
-        
-        <div class="faq-item">
-            <h3>Are there any additional costs for USA loans?</h3>
-            <p>Yes, USA loans often include additional costs such as origination fees, appraisal fees, title insurance, and closing costs. These can add 2-5% to the total loan amount.</p>
-        </div>
-        
-        <div class="faq-item">
-            <h3>Can I prepay my loan in the USA without penalties?</h3>
-            <p>Most US mortgage loans do not have prepayment penalties, but some personal and auto loans may. Check your loan agreement for specific terms regarding prepayment penalties.</p>
-        </div>
-    </section>
-
-    <!-- Related Calculators -->
-    <section class="related-calculators">
-        <h2>You May Also Find Useful</h2>
-        <div class="calculator-links">
-            <a href="/calculators/04-mortgage-calculator/">Mortgage Calculator</a>
-            <a href="/calculators/05-compound-interest-calculator/">Compound Interest Calculator</a>
-            <a href="/calculators/11-investment-calculator/">Investment Calculator</a>
-            <a href="/calculators/10-retirement-planner/">Retirement Planner</a>
-            <a href="/calculators/09-tax-calculator/">Tax Calculator</a>
-        </div>
-    </section>
-
-    <!-- Conclusion -->
-    <section class="conclusion">
-        <h2>Make Informed Financial Decisions in the USA</h2>
-        <p>Our USA loan calculator helps you plan your finances better by providing accurate monthly payment estimates. Whether you're planning to take a home loan, car loan, or personal loan in the USA, understanding your EMI in advance helps in better financial planning. Use this tool to compare different loan options and choose the one that best fits your budget. With current USD interest rates and proper financial planning, you can make informed decisions about your borrowing needs.</p>
-    </section>
-
     <script>
-    // Currency symbols
-    const currencySymbols = {
-        'USD': '$'
-    };
+        const loanLimits = <?php echo json_encode($loan_types); ?>;
+        const states = <?php echo json_encode($states); ?>;
+        const creditTiers = <?php echo json_encode($credit_score_tiers); ?>;
+        let fhaLoan = false;
+        let vaLoan = false;
+        let fixedRate = false;
+        let debtConsolidation = false;
+        let currentCreditTier = 'Good';
+        let creditAdjustment = 0;
 
-    // Initialize calculator with default values
-    document.addEventListener('DOMContentLoaded', function() {
-        // Set currency symbol
-        document.getElementById('currencySymbol').textContent = currencySymbols['USD'];
-    });
-
-    function calculateEMI() {
-        const loanAmount = parseFloat(document.getElementById('loanAmount').value);
-        const interestRate = parseFloat(document.getElementById('interestRate').value);
-        const loanTenure = parseFloat(document.getElementById('loanTenure').value);
-        const tenureType = document.getElementById('tenureType').value;
-
-        // Validation
-        if (!loanAmount || !interestRate || !loanTenure) {
-            alert('Please fill in all fields');
-            return;
-        }
-
-        if (loanAmount <= 0 || interestRate <= 0 || loanTenure <= 0) {
-            alert('Please enter positive values');
-            return;
-        }
-
-        // Validate loan amount
-        if (loanAmount < 1000 || loanAmount > 5000000) {
-            alert('Loan amount must be between 1,000 and 5,000,000 USD');
-            return;
-        }
-
-        // Convert to months if tenure is in years
-        const months = tenureType === 'years' ? loanTenure * 12 : loanTenure;
-        
-        // Validate tenure
-        if (months < 12 || months > 360) {
-            alert('Loan tenure must be between 1 and 30 years (12 and 360 months)');
-            return;
-        }
-        
-        // Monthly interest rate
-        const monthlyRate = interestRate / 12 / 100;
-        
-        // EMI formula: EMI = [P x R x (1+R)^N]/[(1+R)^N-1]
-        const emi = loanAmount * monthlyRate * Math.pow(1 + monthlyRate, months) / 
-                    (Math.pow(1 + monthlyRate, months) - 1);
-        
-        const totalAmount = emi * months;
-        const totalInterest = totalAmount - loanAmount;
-
-        // Display results with proper currency
-        const currencySymbol = currencySymbols['USD'];
-        document.getElementById('monthlyEMI').textContent = currencySymbol + emi.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById('totalInterest').textContent = currencySymbol + totalInterest.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById('totalAmount').textContent = currencySymbol + totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        
-        // Generate amortization schedule
-        generateAmortizationSchedule(loanAmount, monthlyRate, months, emi, currencySymbol);
-        
-        // Show result containers with animation
-        const resultContainer = document.getElementById('resultContainer');
-        const amortizationContainer = document.getElementById('amortizationContainer');
-        
-        resultContainer.style.display = 'block';
-        resultContainer.style.animation = 'fadeIn 0.5s ease-in';
-        
-        amortizationContainer.style.display = 'block';
-        amortizationContainer.style.animation = 'fadeIn 0.5s ease-in 0.3s forwards';
-        
-        // Scroll to results
-        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    function generateAmortizationSchedule(loanAmount, monthlyRate, months, emi, currencySymbol) {
-        const tbody = document.getElementById('amortizationBody');
-        tbody.innerHTML = '';
-        
-        let balance = loanAmount;
-        
-        // Create table rows for each month
-        for (let month = 1; month <= months; month++) {
-            const interestPayment = balance * monthlyRate;
-            const principalPayment = emi - interestPayment;
-            balance -= principalPayment;
+        function updateLoanLimits() {
+            const loanType = document.getElementById('loanType').value;
+            const limits = loanLimits[loanType];
             
-            // Ensure balance doesn't go negative due to rounding
-            if (month === months) {
-                balance = 0;
-            }
+            document.getElementById('loanAmount').min = limits.min_amount;
+            document.getElementById('loanAmount').max = limits.max_amount;
+            document.getElementById('loanTenure').min = limits.min_tenure;
+            document.getElementById('loanTenure').max = limits.max_tenure;
             
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${month}</td>
-                <td>${currencySymbol}${emi.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                <td>${currencySymbol}${principalPayment.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                <td>${currencySymbol}${interestPayment.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                <td>${currencySymbol}${balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-            `;
-            
-            tbody.appendChild(row);
-            
-            // Limit to first 100 rows for performance, show a message if more
-            if (month === 100 && months > 100) {
-                const summaryRow = document.createElement('tr');
-                summaryRow.innerHTML = `
-                    <td colspan="5" style="text-align: center; font-weight: bold;">
-                        Showing first 100 of ${months} months. Download full schedule for complete details.
-                    </td>
-                `;
-                tbody.appendChild(summaryRow);
-                break;
-            }
-        }
-    }
+            document.getElementById('amountLimit').textContent = 
+                `Range: $${limits.min_amount.toLocaleString('en-US')} - $${limits.max_amount.toLocaleString('en-US')}`;
+            document.getElementById('tenureLimit').textContent = 
+                `Range: ${limits.min_tenure} - ${limits.max_tenure} years`;
+            document.getElementById('typicalRate').textContent = limits.interest_range;
 
-    // Add fadeIn animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        #amortizationTable {
-            animation: fadeIn 0.5s ease-in;
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Enter key support
-    document.addEventListener('DOMContentLoaded', function() {
-        const inputs = document.querySelectorAll('input');
-        inputs.forEach(input => {
-            input.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    calculateEMI();
-                }
+            // Update loan categories
+            const categoriesContainer = document.getElementById('loanCategories');
+            categoriesContainer.innerHTML = '';
+            limits.loan_categories.forEach(category => {
+                const categoryElement = document.createElement('div');
+                categoryElement.className = 'loan-category';
+                categoryElement.textContent = category;
+                categoriesContainer.appendChild(categoryElement);
             });
+        }
+
+        function updateStateInfo() {
+            const state = document.getElementById('state').value;
+            document.getElementById('stateInfo').textContent = states[state];
+        }
+
+        function updateCreditScore() {
+            const creditScore = parseInt(document.getElementById('creditScore').value);
+            document.getElementById('creditScoreInfo').textContent = `Credit Score: ${creditScore}`;
+            
+            // Update credit meter color
+            const creditFill = document.getElementById('creditFill');
+            const creditPercentage = ((creditScore - 300) / (850 - 300)) * 100;
+            creditFill.style.width = creditPercentage + '%';
+            
+            // Determine credit tier and adjustment
+            for (const [tier, data] of Object.entries(creditTiers)) {
+                if (creditScore >= data.min && creditScore <= data.max) {
+                    currentCreditTier = tier;
+                    creditAdjustment = data.rate_adjustment;
+                    break;
+                }
+            }
+            
+            // Update credit tier info with color coding
+            const tierInfo = document.getElementById('creditTierInfo');
+            tierInfo.textContent = `Credit Tier: ${currentCreditTier} (Rate ${creditAdjustment >= 0 ? '+' : ''}${creditAdjustment}%)`;
+            
+            // Color coding for credit tiers
+            const tierColors = {
+                'Excellent': '#28a745',
+                'Very Good': '#20c997',
+                'Good': '#ffc107',
+                'Fair': '#fd7e14',
+                'Poor': '#dc3545'
+            };
+            
+            creditFill.style.background = tierColors[currentCreditTier];
+            tierInfo.style.color = tierColors[currentCreditTier];
+        }
+
+        function updateDownPayment() {
+            const downPaymentPercent = parseInt(document.getElementById('downPaymentPercent').value);
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value) || 0;
+            
+            document.getElementById('downPaymentInfo').textContent = `Down Payment: ${downPaymentPercent}%`;
+            
+            if (loanAmount > 0) {
+                const downPaymentAmount = (loanAmount * downPaymentPercent) / 100;
+                const loanAfterDownPayment = loanAmount - downPaymentAmount;
+                
+                document.getElementById('downPaymentResult').textContent = 
+                    `Down Payment: $${downPaymentAmount.toLocaleString('en-US')} | Loan Amount: $${loanAfterDownPayment.toLocaleString('en-US')}`;
+                
+                // Update loan amount if needed
+                document.getElementById('loanAmount').value = loanAfterDownPayment;
+            }
+        }
+
+        function toggleFHALoan() {
+            fhaLoan = document.getElementById('fhaLoan').checked;
+            if (fhaLoan) {
+                document.getElementById('vaLoan').checked = false;
+                vaLoan = false;
+            }
+        }
+
+        function toggleVALoan() {
+            vaLoan = document.getElementById('vaLoan').checked;
+            if (vaLoan) {
+                document.getElementById('fhaLoan').checked = false;
+                fhaLoan = false;
+            }
+        }
+
+        function toggleFixedRate() {
+            fixedRate = document.getElementById('fixedRate').checked;
+        }
+
+        function toggleDebtConsolidation() {
+            debtConsolidation = document.getElementById('debtConsolidation').checked;
+        }
+
+        function calculateLoan() {
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            let rate = parseFloat(document.getElementById('interestRate').value);
+            const tenure = parseFloat(document.getElementById('loanTenure').value);
+            const creditScore = parseInt(document.getElementById('creditScore').value);
+            
+            if (!amount || !rate || !tenure) {
+                alert('Please fill all required fields');
+                return;
+            }
+
+            // Apply credit score adjustment
+            rate += creditAdjustment;
+
+            // Apply government program adjustments
+            if (fhaLoan) {
+                rate -= 0.5; // FHA typically has lower rates
+            }
+            if (vaLoan) {
+                rate -= 0.75; // VA loans have the lowest rates
+            }
+
+            const monthlyRate = rate / 12 / 100;
+            const months = tenure * 12;
+            const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / 
+                        (Math.pow(1 + monthlyRate, months) - 1);
+            const totalPayment = emi * months;
+            const totalInterest = totalPayment - amount;
+
+            // Update results
+            document.getElementById('monthlyEMI').textContent = 
+                '$' + emi.toLocaleString('en-US', {maximumFractionDigits: 2});
+            document.getElementById('totalPayment').textContent = 
+                '$' + totalPayment.toLocaleString('en-US', {maximumFractionDigits: 2});
+            document.getElementById('totalInterest').textContent = 
+                '$' + totalInterest.toLocaleString('en-US', {maximumFractionDigits: 2});
+            
+            let rateInfo = rate.toFixed(2) + '% APR';
+            if (fhaLoan) rateInfo += ' (FHA)';
+            if (vaLoan) rateInfo += ' (VA)';
+            if (fixedRate) rateInfo += ' (Fixed)';
+            
+            document.getElementById('effectiveRate').textContent = rateInfo;
+            document.getElementById('principalAmount').textContent = 
+                '$' + amount.toLocaleString('en-US', {maximumFractionDigits: 2});
+            document.getElementById('interestAmount').textContent = 
+                '$' + totalInterest.toLocaleString('en-US', {maximumFractionDigits: 2});
+
+            // Update scheme info
+            let schemeInfo = '';
+            if (fhaLoan) {
+                schemeInfo += 'FHA Loan • ';
+            }
+            if (vaLoan) {
+                schemeInfo += 'VA Loan • ';
+            }
+            if (fixedRate) {
+                schemeInfo += 'Fixed Rate • ';
+            }
+            if (debtConsolidation) {
+                schemeInfo += 'Debt Consolidation • ';
+            }
+            document.getElementById('schemeInfo').textContent = schemeInfo || 'Standard loan terms';
+
+            // Debt-to-Income Ratio (assuming average US income)
+            const averageIncome = 63000;
+            const annualEMI = emi * 12;
+            const dtiRatio = (annualEMI / averageIncome * 100);
+            const dtiFill = document.getElementById('dtiFill');
+            const dtiText = document.getElementById('dtiText');
+            
+            dtiFill.style.width = Math.min(dtiRatio, 100) + '%';
+            
+            if (dtiRatio <= 28) {
+                dtiFill.style.background = '#28a745';
+                dtiText.textContent = `DTI Ratio: ${dtiRatio.toFixed(1)}% - Good (Below 28%)`;
+            } else if (dtiRatio <= 36) {
+                dtiFill.style.background = '#ffc107';
+                dtiText.textContent = `DTI Ratio: ${dtiRatio.toFixed(1)}% - Acceptable (28-36%)`;
+            } else {
+                dtiFill.style.background = '#dc3545';
+                dtiText.textContent = `DTI Ratio: ${dtiRatio.toFixed(1)}% - High (Above 36%)`;
+            }
+
+            // Update chart visualization
+            const principalPercent = (amount / totalPayment * 100).toFixed(1);
+            const interestPercent = (totalInterest / totalPayment * 100).toFixed(1);
+            
+            document.getElementById('principalFill').style.width = principalPercent + '%';
+            document.getElementById('interestFill').style.width = interestPercent + '%';
+
+            // Show amortization preview
+            showAmortizationPreview(amount, monthlyRate, months, emi);
+
+            document.getElementById('results').style.display = 'block';
+        }
+
+        function showAmortizationPreview(principal, monthlyRate, months, emi) {
+            let balance = principal;
+            let previewHTML = '';
+            
+            for (let month = 1; month <= Math.min(12, months); month++) {
+                const interest = balance * monthlyRate;
+                const principalPaid = emi - interest;
+                balance -= principalPaid;
+                
+                previewHTML += `
+                    <div class="schedule-row">
+                        <span>${month}</span>
+                        <span>$${principalPaid.toLocaleString('en-US', {maximumFractionDigits: 2})}</span>
+                        <span>$${interest.toLocaleString('en-US', {maximumFractionDigits: 2})}</span>
+                        <span>$${balance.toLocaleString('en-US', {maximumFractionDigits: 2})}</span>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('amortizationPreview').innerHTML = previewHTML;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLoanLimits();
+            updateStateInfo();
+            updateCreditScore();
+            updateDownPayment();
         });
-    });
     </script>
-    <style>
-        /* Benefits Section */
-        .benefits-section {
-            margin: 2rem 0;
-            padding: 2rem 0;
-            background: #f9f9f9;
-            border-radius: 8px;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .benefit-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        /* Formula Section */
-        .formula-section, .example-section {
-            margin: 2rem 0;
-            padding: 2rem;
-            background: #f0f7ff;
-            border-radius: 8px;
-        }
-
-        .formula-box, .example-box {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 6px;
-            margin-top: 1rem;
-        }
-
-        /* FAQ Section */
-        .faq-section {
-            margin: 3rem 0;
-        }
-
-        .faq-item {
-            margin-bottom: 1.5rem;
-            padding: 1.5rem;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        /* Related Calculators */
-        .related-calculators {
-            margin: 2rem 0;
-        }
-
-        .calculator-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .calculator-links a {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: #e3f2fd;
-            color: #1976d2;
-            border-radius: 20px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .calculator-links a:hover {
-            background: #bbdefb;
-        }
-
-        /* Amortization Table */
-        .amortization-container {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
-        }
-
-        .amortization-container h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .table-container {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        #amortizationTable {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-
-        #amortizationTable th {
-            background: #667eea;
-            color: white;
-            padding: 10px;
-            text-align: left;
-            position: sticky;
-            top: 0;
-        }
-
-        #amortizationTable td {
-            padding: 8px 10px;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        #amortizationTable tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-
-        #amortizationTable tr:hover {
-            background-color: #e9ecef;
-        }
-
-        /* Backlink Paragraph */
-        .backlink-paragraph {
-            margin-top: 30px;
-            padding: 20px;
-            background: #e3f2fd;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .backlink-paragraph a {
-            color: #1976d2;
-            text-decoration: underline;
-        }
-
-        .backlink-paragraph a:hover {
-            color: #0d47a1;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .benefits-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .calculator-links {
-                flex-direction: column;
-            }
-            
-            .calculator-links a {
-                text-align: center;
-            }
-            
-            .formula-section, .example-section {
-                padding: 1rem;
-            }
-        }
-    </style>
-    <?php include '../../footer.php'; ?>
 </body>
 </html>

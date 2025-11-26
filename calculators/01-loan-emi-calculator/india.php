@@ -1,430 +1,389 @@
+<?php
+$country = 'india';
+$country_name = 'India';
+$currency = '₹';
+
+// Loan calculation function
+function calculateEMI($principal, $interest_rate, $tenure_months) {
+    $monthly_rate = ($interest_rate / 12) / 100;
+    $emi = $principal * $monthly_rate * pow(1 + $monthly_rate, $tenure_months) / 
+           (pow(1 + $monthly_rate, $tenure_months) - 1);
+    return round($emi, 2);
+}
+
+// India specific loan data
+$loan_types = [
+    'Home Loan' => [
+        'min_amount' => 500000, 
+        'max_amount' => 50000000, 
+        'min_tenure' => 5, 
+        'max_tenure' => 30,
+        'interest_range' => '6.5% - 9.5%'
+    ],
+    'Car Loan' => [
+        'min_amount' => 100000, 
+        'max_amount' => 5000000, 
+        'min_tenure' => 1, 
+        'max_tenure' => 7,
+        'interest_range' => '7.5% - 12.5%'
+    ],
+    'Personal Loan' => [
+        'min_amount' => 50000, 
+        'max_amount' => 4000000, 
+        'min_tenure' => 1, 
+        'max_tenure' => 5,
+        'interest_range' => '10% - 18%'
+    ],
+    'Gold Loan' => [
+        'min_amount' => 10000, 
+        'max_amount' => 5000000, 
+        'min_tenure' => 3, 
+        'max_tenure' => 3,
+        'interest_range' => '7% - 15%'
+    ],
+    'Education Loan' => [
+        'min_amount' => 50000, 
+        'max_amount' => 20000000, 
+        'min_tenure' => 1, 
+        'max_tenure' => 15,
+        'interest_range' => '8% - 12%'
+    ]
+];
+
+// Indian banks reference rates
+$banks = [
+    'SBI' => '6.80% - 7.30%',
+    'HDFC' => '6.90% - 7.60%',
+    'ICICI' => '6.90% - 7.65%',
+    'PNB' => '6.80% - 7.35%',
+    'Axis Bank' => '6.90% - 7.70%'
+];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loan Calculator in India | Calculate EMI for Home, Car & Personal Loans</title>
-    <meta name="description" content="Free online loan calculator for India residents to estimate monthly EMI payments. Calculate home loans, car loans & personal loans with current Indian interest rates. Get instant results with amortization schedule.">
-    <meta name="keywords" content="India loan calculator, Indian EMI calculator, India mortgage calculator, home loan calculator India, car loan calculator India, personal loan calculator India, INR loan calculator, rupee loan calculator">
-    <meta name="author" content="90storezon">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://90storezon.com/calculators/01-loan-emi-calculator/india.php">
-    <meta property="og:title" content="Loan Calculator in India | Calculate EMI for Home, Car & Personal Loans">
-    <meta property="og:description" content="Free online loan calculator for India residents to estimate monthly EMI payments. Calculate home loans, car loans & personal loans with current Indian interest rates.">
-    <meta property="og:image" content="https://90storezon.com/assets/images/emi-calculator-og.jpg">
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Loan Calculator in India | Calculate EMI for Home, Car & Personal Loans">
-    <meta name="twitter:description" content="Free online loan calculator for India residents to estimate monthly EMI payments. Calculate home loans, car loans & personal loans with current Indian interest rates.">
-    <meta name="twitter:image" content="https://90storezon.com/assets/images/emi-calculator-twitter.jpg">
-    
-    <link rel="canonical" href="https://90storezon.com/calculators/01-loan-emi-calculator/india.php">
+    <title>Loan Calculator - India</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-    <!-- Schema.org for rich snippets -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Loan Calculator in India | Calculate EMI for Home, Car & Personal Loans",
-      "description": "Free online loan calculator for India residents to estimate monthly EMI payments. Calculate home loans, car loans & personal loans with current Indian interest rates.",
-      "url": "https://www.90storezon.com/calculators/01-loan-emi-calculator/india.php",
-      "mainEntity": {
-        "@type": "FAQPage",
-        "mainEntity": [{
-          "@type": "Question",
-          "name": "What is the average interest rate for loans in India?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "As of 2024, average interest rates in India vary by loan type: home mortgages range from 8-12%, auto loans from 8-12%, and personal loans from 10-24% depending on credit score. Our calculator uses a default rate of 9.5% for general loan calculations."
-          }
-        }, {
-          "@type": "Question",
-          "name": "How does the India loan calculator work?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Our India loan calculator uses the standard EMI formula: EMI = [P x R x (1+R)^N]/[(1+R)^N-1] where P is principal loan amount, R is monthly interest rate, and N is loan tenure in months. For Indian loans, we use INR currency and typical Indian interest rates."
-          }
-        }, {
-          "@type": "Question",
-          "name": "What types of loans can I calculate with this India calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "This India loan calculator works for various loan types including home mortgages, auto loans, personal loans, student loans, and business loans. You can adjust the loan amount and interest rate according to your specific loan type."
-          }
-        }, {
-          "@type": "Question",
-          "name": "Are India loan interest rates fixed or variable?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Indian loan interest rates can be either fixed or variable. Fixed rates remain constant throughout the loan term, while variable rates can change based on market conditions. Our calculator allows you to input your specific interest rate for accurate calculations."
-          }
-        }, {
-          "@type": "Question",
-          "name": "How do I use this India loan calculator effectively?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "To use our India loan calculator effectively: 1) Enter your loan amount in INR (₹), 2) Input the applicable interest rate (default is 9.5%), 3) Specify loan tenure in months or years, 4) Click Calculate EMI to see results including monthly payment, total interest, and amortization schedule."
-          }
-        }]
-      }
-    }
-    </script>
+    <style>
+        .indian-theme {
+            --primary-color: #FF9933;
+            --secondary-color: #138808;
+            --accent-color: #000080;
+        }
+        
+        .tricolor-badge {
+            background: linear-gradient(90deg, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%);
+            color: #000080;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            border: 2px solid #000080;
+        }
+        
+        .bank-rates {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .bank-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .bank-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .scheme-badge {
+            background: var(--secondary-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+    </style>
 </head>
-<body>
-    <?php include '../../header.php'; ?>
-    <div class="vip-container">
-        <header class="vip-header">
-            <h1><i class="fas fa-calculator"></i> Loan Calculator in India</h1>
-            <p class="subtitle">Calculate your monthly loan payments in India with current INR interest rates</p>
-        </header>
-
-        <!-- Google Ads Slot -->
-        <div class="ad-slot top-ad">
-            [AD_TOP_BANNER]
-        </div>
-
-        <div class="calculator-container">
-            <div class="input-group">
-                <label for="loanAmount"><i class="fas fa-money-bill-wave"></i> Loan Amount (<span id="currencySymbol">₹</span>)</label>
-                <input type="number" id="loanAmount" placeholder="Enter loan amount between 10,000 and 100,000,000" min="10000" max="100000000" value="5000000">
-            </div>
-
-            <div class="input-group">
-                <label for="interestRate"><i class="fas fa-percentage"></i> Interest Rate (% per year)</label>
-                <input type="number" id="interestRate" placeholder="Enter interest rate" min="0" step="0.1" value="9.5">
-            </div>
-
-            <div class="input-group">
-                <label for="loanTenure"><i class="fas fa-calendar-alt"></i> Loan Tenure</label>
-                <div class="tenure-input">
-                    <input type="number" id="loanTenure" placeholder="Enter tenure between 1 and 30" min="1" max="30" value="20">
-                    <select id="tenureType">
-                        <option value="years">Years</option>
-                        <option value="months">Months</option>
-                    </select>
-                </div>
-            </div>
-
-            <button class="calculate-btn" onclick="calculateEMI()">
-                <i class="fas fa-calculator"></i> Calculate EMI
-            </button>
-
-            <div class="amortization-container" id="amortizationContainer" style="display: none;">
-                <h3><i class="fas fa-table"></i> Amortization Schedule</h3>
-                <div class="table-container">
-                    <table id="amortizationTable">
-                        <thead>
-                            <tr>
-                                <th>Month</th>
-                                <th>EMI</th>
-                                <th>Principal</th>
-                                <th>Interest</th>
-                                <th>Balance</th>
-                            </tr>
-                        </thead>
-                        <tbody id="amortizationBody">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Google Ads Slot -->
-            <div class="ad-slot middle-ad">
-                [AD_MIDDLE_BANNER]
-            </div>
-
-            <div class="result-container" id="resultContainer">
-                <h3><i class="fas fa-chart-bar"></i> Calculation Results</h3>
-                <div class="result-item">
-                    <span>Monthly EMI:</span>
-                    <span id="monthlyEMI">₹0</span>
-                </div>
-                <div class="result-item">
-                    <span>Total Interest:</span>
-                    <span id="totalInterest">₹0</span>
-                </div>
-                <div class="result-item total-amount">
-                    <span>Total Amount:</span>
-                    <span id="totalAmount">₹0</span>
-                </div>
-            </div>
-
-            <div class="backlink-paragraph">
-                <p>Loan calculation for India residents. Our <a href="/calculators/04-mortgage-calculator/">mortgage calculator</a> helps with home loans, while our <a href="/calculators/05-compound-interest-calculator/">compound interest calculator</a> shows investment growth. For financial planning, use our <a href="/calculators/11-investment-calculator/">investment calculator</a> and <a href="/calculators/10-retirement-planner/">retirement planner</a>. Compare loan options with our <a href="/calculators/01-loan-emi-calculator/">EMI calculator</a>, calculate taxes with our <a href="/calculators/09-tax-calculator/">tax calculator</a>, and manage budgets with our <a href="/calculators/13-budget-planner/">budget planner</a>. For business loans, our <a href="/calculators/01-loan-emi-calculator/india.php">India loan calculator</a> provides accurate estimates. International users can calculate loans in <a href="/calculators/01-loan-emi-calculator/usa.php">USA</a>, <a href="/calculators/01-loan-emi-calculator/uk.php">UK</a>, <a href="/calculators/01-loan-emi-calculator/canada.php">Canada</a>, <a href="/calculators/01-loan-emi-calculator/australia.php">Australia</a>, and <a href="/calculators/01-loan-emi-calculator/germany.php">Germany</a>.</p>
+<body class="indian-theme">
+    <div class="calculator-container">
+        <div class="header">
+            <h1 class="title">भारत लोन कैलकुलेटर</h1>
+            <div class="country-badge">
+                <img src="https://flagcdn.com/w80/in.png" alt="India Flag" class="flag">
+                <span class="tricolor-badge">India</span>
             </div>
         </div>
 
-        <!-- Google Ads Slot -->
-        <div class="ad-slot bottom-ad">
-            [AD_BOTTOM_BANNER]
+        <!-- Bank Rates Section -->
+        <div class="bank-rates">
+            <h3 style="margin: 0 0 15px 0; color: #333; text-align: center;">🏦 Current Bank Home Loan Rates</h3>
+            <div class="bank-grid">
+                <?php foreach($banks as $bank => $rate): ?>
+                    <div class="bank-card">
+                        <div style="font-weight: 600; color: #000080;"><?php echo $bank; ?></div>
+                        <div style="color: #138808; font-weight: 500;"><?php echo $rate; ?></div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="calculator-card">
+            <div class="loan-type-selector">
+                <label for="loanType">लोन प्रकार / Loan Type</label>
+                <select id="loanType" onchange="updateLoanLimits()">
+                    <?php foreach($loan_types as $type => $limits): ?>
+                        <option value="<?php echo $type; ?>"><?php echo $type; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="loanAmount">लोन राशि / Loan Amount (<?php echo $currency; ?>)</label>
+                <input type="number" id="loanAmount" placeholder="Enter loan amount" min="10000" step="1000">
+                <div class="limit-info" id="amountLimit"></div>
+            </div>
+
+            <div class="input-group">
+                <label for="interestRate">ब्याज दर / Interest Rate (% per year)</label>
+                <input type="number" id="interestRate" placeholder="Enter interest rate" min="1" max="25" step="0.1" value="7.5">
+                <div class="rate-info" id="interestRange">Typical rates: <span id="typicalRate">-</span></div>
+            </div>
+
+            <div class="input-group">
+                <label for="loanTenure">लोन अवधि / Loan Tenure (Years)</label>
+                <input type="number" id="loanTenure" placeholder="Enter tenure in years" min="1" max="30" step="1">
+                <div class="limit-info" id="tenureLimit"></div>
+            </div>
+
+            <div class="additional-options">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="womenDiscount" onchange="toggleWomenDiscount()">
+                    <span class="checkmark"></span>
+                    Women Interest Discount (0.25% less) <span class="scheme-badge">Scheme</span>
+                </label>
+                
+                <label class="checkbox-container">
+                    <input type="checkbox" id="gstIncluded" onchange="toggleGST()">
+                    <span class="checkmark"></span>
+                    Include GST (18% on processing fee)
+                </label>
+            </div>
+
+            <button class="calculate-btn" onclick="calculateLoan()">EMI कैलकुलेट करें / Calculate EMI</button>
+
+            <div id="results" class="results-container" style="display: none;">
+                <div class="result-header">
+                    <h3>लोन सारांश / Loan Summary</h3>
+                    <p id="schemeInfo" class="scheme-info"></p>
+                </div>
+                <div class="result-grid">
+                    <div class="result-card">
+                        <h4>मासिक किस्त / Monthly EMI</h4>
+                        <p id="monthlyEMI" class="result-amount">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h4>कुल भुगतान / Total Payment</h4>
+                        <p id="totalPayment" class="result-amount">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h4>कुल ब्याज / Total Interest</h4>
+                        <p id="totalInterest" class="result-amount">-</p>
+                    </div>
+                    <div class="result-card">
+                        <h4>प्रभावी दर / Effective Rate</h4>
+                        <p id="effectiveRate" class="result-amount">-</p>
+                    </div>
+                </div>
+                
+                <div class="breakdown-section">
+                    <h4>भुगतान विवरण / Payment Breakdown</h4>
+                    <div class="breakdown-chart">
+                        <div class="chart-bar">
+                            <div class="chart-label">मूल राशि / Principal</div>
+                            <div class="chart-value" id="principalAmount">-</div>
+                            <div class="chart-fill principal-fill" id="principalFill"></div>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="chart-label">ब्याज / Interest</div>
+                            <div class="chart-value" id="interestAmount">-</div>
+                            <div class="chart-fill interest-fill" id="interestFill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Amortization Schedule Preview -->
+                <div class="schedule-preview">
+                    <h4>पहले साल का विवरण / First Year Preview</h4>
+                    <div class="schedule-grid">
+                        <div class="schedule-header">
+                            <span>Month</span>
+                            <span>Principal</span>
+                            <span>Interest</span>
+                            <span>Balance</span>
+                        </div>
+                        <div id="amortizationPreview"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Government Schemes Info -->
+        <div class="info-section">
+            <h3>भारत सरकार की योजनाएं / Government Schemes</h3>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>🏠 Pradhan Mantri Awas Yojana</h4>
+                    <p>Subsidy up to ₹2.67 lakh</p>
+                    <p>Interest subsidy scheme</p>
+                    <p>For EWS/LIG categories</p>
+                </div>
+                <div class="info-card">
+                    <h4>🎓 Vidya Lakshmi</h4>
+                    <p>Education loan portal</p>
+                    <p>Multiple bank options</p>
+                    <p>Scheme benefits</p>
+                </div>
+                <div class="info-card">
+                    <h4>🚗 Auto Schemes</h4>
+                    <p>Women driver discounts</p>
+                    <p>Electric vehicle subsidies</p>
+                    <p>Special interest rates</p>
+                </div>
+                <div class="info-card">
+                    <h4>💼 MUDRA Loan</h4>
+                    <p>Small business loans</p>
+                    <p>Up to ₹10 lakh</p>
+                    <p>Shishu/Kishor/Tarun</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Benefits Section -->
-    <section class="benefits-section">
-        <h2>Why Use Our India Loan Calculator?</h2>
-        <div class="benefits-grid">
-            <div class="benefit-item">
-                <h3>Instant Results</h3>
-                <p>Get your EMI calculation in seconds with our fast and responsive tool.</p>
-            </div>
-            <div class="benefit-item">
-                <h3>Accurate Calculations</h3>
-                <p>Our calculator uses the standard EMI formula used by Indian banks for precise results.</p>
-            </div>
-            <div class="benefit-item">
-                <h3>No Registration</h3>
-                <p>Use our calculator for free without any sign-up or registration required.</p>
-            </div>
-        </div>
-    </section>
+    <script>
+        const loanLimits = <?php echo json_encode($loan_types); ?>;
+        let womenDiscount = false;
+        let gstIncluded = false;
 
-    <!-- Formula Explanation -->
-    <section class="formula-section">
-        <h2>How is EMI Calculated in India?</h2>
-        <div class="formula-box">
-            <h3>EMI Calculation Formula</h3>
-            <p>EMI = [P x R x (1+R)^N]/[(1+R)^N-1]</p>
-            <p>Where:</p>
-            <ul>
-                <li>P = Principal loan amount in INR (₹)</li>
-                <li>R = Monthly interest rate (annual rate/12/100)</li>
-                <li>N = Loan tenure in months</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Example Calculation -->
-    <section class="example-section">
-        <h2>Example Calculation for India Loans</h2>
-        <div class="example-box">
-            <h3>For a ₹50,00,000 home loan at 9.5% interest for 20 years:</h3>
-            <ul>
-                <li>Monthly EMI: ₹46,466.67</li>
-                <li>Total Interest: ₹61,72,000.40</li>
-                <li>Total Payment: ₹1,11,72,000.40</li>
-            </ul>
-            <p>This example shows a typical Indian mortgage calculation with current interest rates. Your actual payments may vary based on loan terms, fees, and other factors.</p>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <h2>Frequently Asked Questions about India Loans</h2>
-        
-        <div class="faq-item">
-            <h3>What is the current average home loan rate in India?</h3>
-            <p>As of 2024, the average home loan rate in India ranges from 8-12% for fixed rates, while floating rates are typically 0.25-0.5% lower. Our calculator uses a default rate of 9.5% for general loan calculations.</p>
-        </div>
-        
-        <div class="faq-item">
-            <h3>How do I calculate my auto loan payment in India?</h3>
-            <p>Auto loan payments in India are calculated using the same EMI formula. For example, a ₹10,00,000 car loan at 10% interest for 5 years would result in a monthly payment of approximately ₹21,247.05.</p>
-        </div>
-        
-        <div class="faq-item">
-            <h3>What factors affect loan interest rates in India?</h3>
-            <p>Indian loan interest rates are affected by credit score, loan term, down payment, debt-to-income ratio, employment history, and current market conditions. Higher credit scores typically qualify for lower interest rates.</p>
-        </div>
-        
-        <div class="faq-item">
-            <h3>Are there any additional costs for India loans?</h3>
-            <p>Yes, Indian loans often include additional costs such as processing fees, documentation charges, legal fees, and stamp duty (for property purchases). These can add 1-3% to the total loan amount.</p>
-        </div>
-        
-        <div class="faq-item">
-            <h3>Can I prepay my loan in India without penalties?</h3>
-            <p>Most Indian mortgage loans allow prepayments without penalties after 6-12 months. Some personal and auto loans may have different terms. Check your loan agreement for specific terms regarding prepayments.</p>
-        </div>
-    </section>
-
-    <!-- Related Calculators -->
-    <section class="related-calculators">
-        <h2>You May Also Find Useful</h2>
-        <div class="calculator-links">
-            <a href="/calculators/04-mortgage-calculator/">Mortgage Calculator</a>
-            <a href="/calculators/05-compound-interest-calculator/">Compound Interest Calculator</a>
-            <a href="/calculators/11-investment-calculator/">Investment Calculator</a>
-            <a href="/calculators/10-retirement-planner/">Retirement Planner</a>
-            <a href="/calculators/09-tax-calculator/">Tax Calculator</a>
-        </div>
-    </section>
-
-    <!-- Conclusion -->
-    <section class="conclusion">
-        <h2>Make Informed Financial Decisions in India</h2>
-        <p>Our India loan calculator helps you plan your finances better by providing accurate monthly payment estimates. Whether you're planning to take a home loan, car loan, or personal loan in India, understanding your EMI in advance helps in better financial planning. Use this tool to compare different loan options and choose the one that best fits your budget. With current INR interest rates and proper financial planning, you can make informed decisions about your borrowing needs.</p>
-    </section>
-
-    <script src="script.js"></script>
-    <style>
-        /* Benefits Section */
-        .benefits-section {
-            margin: 2rem 0;
-            padding: 2rem 0;
-            background: #f9f9f9;
-            border-radius: 8px;
+        function updateLoanLimits() {
+            const loanType = document.getElementById('loanType').value;
+            const limits = loanLimits[loanType];
+            
+            document.getElementById('loanAmount').min = limits.min_amount;
+            document.getElementById('loanAmount').max = limits.max_amount;
+            document.getElementById('loanTenure').min = limits.min_tenure;
+            document.getElementById('loanTenure').max = limits.max_tenure;
+            
+            document.getElementById('amountLimit').textContent = 
+                `Range: ₹${limits.min_amount.toLocaleString('en-IN')} - ₹${limits.max_amount.toLocaleString('en-IN')}`;
+            document.getElementById('tenureLimit').textContent = 
+                `Range: ${limits.min_tenure} - ${limits.max_tenure} years`;
+            document.getElementById('typicalRate').textContent = limits.interest_range;
         }
 
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+        function toggleWomenDiscount() {
+            womenDiscount = document.getElementById('womenDiscount').checked;
         }
 
-        .benefit-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        function toggleGST() {
+            gstIncluded = document.getElementById('gstIncluded').checked;
         }
 
-        /* Formula Section */
-        .formula-section, .example-section {
-            margin: 2rem 0;
-            padding: 2rem;
-            background: #f0f7ff;
-            border-radius: 8px;
+        function calculateLoan() {
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            let rate = parseFloat(document.getElementById('interestRate').value);
+            const tenure = parseFloat(document.getElementById('loanTenure').value);
+            
+            if (!amount || !rate || !tenure) {
+                alert('कृपया सभी फ़ील्ड भरें / Please fill all fields');
+                return;
+            }
+
+            // Apply women discount if selected
+            if (womenDiscount) {
+                rate -= 0.25;
+            }
+
+            const monthlyRate = rate / 12 / 100;
+            const months = tenure * 12;
+            const emi = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / 
+                        (Math.pow(1 + monthlyRate, months) - 1);
+            const totalPayment = emi * months;
+            const totalInterest = totalPayment - amount;
+
+            // Update results
+            document.getElementById('monthlyEMI').textContent = 
+                '₹' + emi.toLocaleString('en-IN', {maximumFractionDigits: 2});
+            document.getElementById('totalPayment').textContent = 
+                '₹' + totalPayment.toLocaleString('en-IN', {maximumFractionDigits: 2});
+            document.getElementById('totalInterest').textContent = 
+                '₹' + totalInterest.toLocaleString('en-IN', {maximumFractionDigits: 2});
+            document.getElementById('effectiveRate').textContent = 
+                rate.toFixed(2) + '%' + (womenDiscount ? ' (Women Discount Applied)' : '');
+            document.getElementById('principalAmount').textContent = 
+                '₹' + amount.toLocaleString('en-IN', {maximumFractionDigits: 2});
+            document.getElementById('interestAmount').textContent = 
+                '₹' + totalInterest.toLocaleString('en-IN', {maximumFractionDigits: 2});
+
+            // Update scheme info
+            let schemeInfo = '';
+            if (womenDiscount) {
+                schemeInfo += 'Women Discount Applied (0.25% less) • ';
+            }
+            if (gstIncluded) {
+                schemeInfo += 'GST Included • ';
+            }
+            document.getElementById('schemeInfo').textContent = schemeInfo || 'No special schemes applied';
+
+            // Update chart visualization
+            const principalPercent = (amount / totalPayment * 100).toFixed(1);
+            const interestPercent = (totalInterest / totalPayment * 100).toFixed(1);
+            
+            document.getElementById('principalFill').style.width = principalPercent + '%';
+            document.getElementById('interestFill').style.width = interestPercent + '%';
+
+            // Show amortization preview
+            showAmortizationPreview(amount, monthlyRate, months, emi);
+
+            document.getElementById('results').style.display = 'block';
         }
 
-        .formula-box, .example-box {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 6px;
-            margin-top: 1rem;
-        }
-
-        /* FAQ Section */
-        .faq-section {
-            margin: 3rem 0;
-        }
-
-        .faq-item {
-            margin-bottom: 1.5rem;
-            padding: 1.5rem;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        /* Related Calculators */
-        .related-calculators {
-            margin: 2rem 0;
-        }
-
-        .calculator-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .calculator-links a {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: #e3f2fd;
-            color: #1976d2;
-            border-radius: 20px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .calculator-links a:hover {
-            background: #bbdefb;
-        }
-
-        /* Amortization Table */
-        .amortization-container {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
-        }
-
-        .amortization-container h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .table-container {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        #amortizationTable {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-
-        #amortizationTable th {
-            background: #667eea;
-            color: white;
-            padding: 10px;
-            text-align: left;
-            position: sticky;
-            top: 0;
-        }
-
-        #amortizationTable td {
-            padding: 8px 10px;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        #amortizationTable tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-
-        #amortizationTable tr:hover {
-            background-color: #e9ecef;
-        }
-
-        /* Backlink Paragraph */
-        .backlink-paragraph {
-            margin-top: 30px;
-            padding: 20px;
-            background: #e3f2fd;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .backlink-paragraph a {
-            color: #1976d2;
-            text-decoration: underline;
-        }
-
-        .backlink-paragraph a:hover {
-            color: #0d47a1;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .benefits-grid {
-                grid-template-columns: 1fr;
+        function showAmortizationPreview(principal, monthlyRate, months, emi) {
+            let balance = principal;
+            let previewHTML = '';
+            
+            for (let month = 1; month <= Math.min(12, months); month++) {
+                const interest = balance * monthlyRate;
+                const principalPaid = emi - interest;
+                balance -= principalPaid;
+                
+                previewHTML += `
+                    <div class="schedule-row">
+                        <span>${month}</span>
+                        <span>₹${principalPaid.toLocaleString('en-IN', {maximumFractionDigits: 2})}</span>
+                        <span>₹${interest.toLocaleString('en-IN', {maximumFractionDigits: 2})}</span>
+                        <span>₹${balance.toLocaleString('en-IN', {maximumFractionDigits: 2})}</span>
+                    </div>
+                `;
             }
             
-            .calculator-links {
-                flex-direction: column;
-            }
-            
-            .calculator-links a {
-                text-align: center;
-            }
-            
-            .formula-section, .example-section {
-                padding: 1rem;
-            }
+            document.getElementById('amortizationPreview').innerHTML = previewHTML;
         }
-    </style>
-    <?php include '../../footer.php'; ?>
+
+        // Initialize limits on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLoanLimits();
+        });
+    </script>
 </body>
 </html>

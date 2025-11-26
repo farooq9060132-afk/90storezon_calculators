@@ -275,7 +275,16 @@ $countries = [
 
     <!-- Footer -->
     <footer style="background: #333; color: white; text-align: center; padding: 40px 20px;">
-        <p style="margin: 0; font-size: 1rem;">&copy; 2024 International Loan Calculator. All rights reserved.</p>
+        <p style="margin: 0; font-size: 1rem;">&copy; 2024 90storezon. All rights reserved.</p>
+        <p style="margin: 10px 0 0 0; font-size: 0.9rem;">
+            <a href="/pages/about.php" style="color: #ccc; text-decoration: none; margin: 0 10px;">About</a>
+            <a href="/pages/contact.php" style="color: #ccc; text-decoration: none; margin: 0 10px;">Contact</a>
+            <a href="/pages/privacy.php" style="color: #ccc; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
+            <a href="/pages/terms.php" style="color: #ccc; text-decoration: none; margin: 0 10px;">Terms of Service</a>
+        </p>
+        <p style="margin: 20px 0 0 0; font-size: 0.8rem; color: #999;">
+            <a href="/" style="color: #999; text-decoration: none;">Back to Home</a>
+        </p>
     </footer>
 </body>
 </html>

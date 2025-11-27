@@ -92,7 +92,7 @@
 
         // Display calculators
         foreach ($filteredCalculators as $calculator) {
-            $folder_name = strtolower($calculator['id'] . '-' . str_replace(' ', '-', $calculator['name']));
+            $folder_name = strtolower(str_replace(' ', '-', $calculator['name']));
             echo '<div class="calculator-card">';
             echo '<h3><a href="/calculators/' . $folder_name . '/">' . $calculator['name'] . '</a></h3>';
             echo '<p>' . $calculator['description'] . '</p>';

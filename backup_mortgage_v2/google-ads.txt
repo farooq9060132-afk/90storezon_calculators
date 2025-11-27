@@ -1,0 +1,33 @@
+# Google Ads.txt File - World Calculators Hub
+# Contact: admin@yourdomain.com
+# Website: yourdomain.com
+
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+google.com, pub-0000000000000001, RESELLER
+google.com, pub-0000000000000002, DIRECT
+google.com, pub-0000000000000003, RESELLER
+
+# Additional Ad Networks
+admanager.google.com, pub-0000000000000004, DIRECT
+adsense.google.com, pub-0000000000000005, DIRECT
+adx.google.com, pub-0000000000000006, RESELLER
+
+# Verified Partners
+doubleclick.net, 123456789, DIRECT
+doubleclick.net, 987654321, RESELLER
+amazon-adsystem.com, 1234, DIRECT
+facebook.com, 123456789, DIRECT
+
+# Header Bidding Partners
+indexexchange.com, 123456, DIRECT
+rubiconproject.com, 123456, DIRECT
+appnexus.com, 123456, DIRECT
+openx.com, 123456, DIRECT
+
+# SSP Partners
+pubmatic.com, 123456, DIRECT
+sonobi.com, 123456, DIRECT
+triplelift.com, 123456, DIRECT
+
+# Update Frequency: Monthly
+# Last Updated: 2024

@@ -14,6 +14,9 @@ $canonicalUrl = htmlspecialchars($currentUrl, ENT_QUOTES, 'UTF-8');
     <!-- Canonical URL -->
     <link rel="canonical" href="<?php echo $canonicalUrl; ?>">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
     <!-- Preload Critical Resources -->
     <link rel="preload" href="/assets/css/main.css" as="style">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">

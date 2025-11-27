@@ -1,221 +1,354 @@
+<?php
+$pageTitle = "90storezon - Free Online Calculators & Unit Converter";
+$pageDescription = "Free online calculators for unit conversion, finance, health, math, and everyday calculations. Convert length, weight, temperature, currency instantly.";
+$pageKeywords = "unit converter, calculator, conversion, length, weight, temperature, currency, free calculator";
+$canonicalUrl = "https://90storezon.com/";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>23 Free Unit Converter - Professional Conversion Tools</title>
+    <title><?php echo $pageTitle; ?></title>
+    <meta name="description" content="<?php echo $pageDescription; ?>">
+    <meta name="keywords" content="<?php echo $pageKeywords; ?>">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="<?php echo $canonicalUrl; ?>">
+    
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "90storezon - Free Online Calculators",
+        "description": "Free online calculators for unit conversion, finance, health, math, and everyday calculations",
+        "url": "https://90storezon.com/",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "permissions": "browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
 </head>
 <body>
-    <!-- VIP Trust Badge -->
-    <div class="vip-badge">
-        <div class="vip-card">
-            <div class="vip-header">
-                <div class="vip-crown">👑</div>
-                <h3>PREMIUM VERIFIED</h3>
-                <div class="vip-shield">🛡️</div>
-            </div>
-            <div class="vip-content">
-                <div class="vip-badge-icon">⚡</div>
-                <h4>TRUSTED CONVERTER</h4>
-                <p>23 Free Tools • 200,000+ Users</p>
-                <div class="vip-features">
-                    <span>✓ Accurate Results</span>
-                    <span>✓ Instant Conversion</span>
-                    <span>✓ 100% Free</span>
-                </div>
-            </div>
-            <div class="vip-footer">
-                <div class="trust-indicators">
-                    <div class="trust-item">
-                        <span class="trust-dot live"></span>
-                        LIVE CONVERTER
-                    </div>
-                    <div class="trust-item">
-                        <span class="trust-dot ssl"></span>
-                        SECURE TOOL
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php include 'header.php'; ?>
 
-    <!-- Main Header -->
-    <header class="main-header">
-        <div class="container">
-            <div class="logo-section">
-                <h1><i class="fas fa-exchange-alt"></i> 23 Free Unit Converter</h1>
-                <p>Professional Conversion Tools for Everyone</p>
-            </div>
-            <nav class="main-nav">
-                <a href="#tools"><i class="fas fa-tools"></i> Converter Tools</a>
-                <a href="#features"><i class="fas fa-star"></i> Features</a>
-                <a href="#categories"><i class="fas fa-list"></i> Categories</a>
-                <a href="calculator.php"><i class="fas fa-calculator"></i> All Converters</a>
-            </nav>
-        </div>
-    </header>
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Free Online Calculators & Unit Converter</h1>
+                    <p class="hero-description">Access 50+ specialized calculators for finance, health, education, and more. Simple, fast, and completely free.</p>
+                    
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <span class="feature-icon">✅</span>
+                            <span>100% Free</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">⚡</span>
+                            <span>Instant Results</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🔒</span>
+                            <span>No Registration</span>
+                        </div>
+                    </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="trust-badges">
-                    <div class="badge verified">
-                        <i class="fas fa-check-circle"></i> 100% Free Forever
-                    </div>
-                    <div class="badge accurate">
-                        <i class="fas fa-bullseye"></i> 100% Accurate
-                    </div>
-                    <div class="badge users">
-                        <i class="fas fa-users"></i> 200,000+ Users
+                    <!-- Quick Search -->
+                    <div class="quick-search">
+                        <input type="text" id="homeSearch" placeholder="Search for calculators (e.g., loan, BMI, currency)..." class="search-input-large">
+                        <button id="homeSearchBtn" class="search-btn-large">Search</button>
                     </div>
                 </div>
-                <h2>Convert Any Unit with 23 Free Professional Tools</h2>
-                <p>Instant unit conversions for length, weight, temperature, currency and more</p>
-                <div class="cta-buttons">
-                    <a href="calculator.php" class="btn btn-primary"><i class="fas fa-bolt"></i> Start Converting Now</a>
-                    <a href="#tools" class="btn btn-secondary"><i class="fas fa-eye"></i> View All Tools</a>
-                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Quick Converter Section -->
-    <section class="quick-converter">
-        <div class="container">
-            <div class="converter-card">
-                <h3><i class="fas fa-rocket"></i> Quick Unit Converter</h3>
-                <div class="converter-form">
-                    <div class="input-group">
-                        <input type="number" id="quick-value" placeholder="Enter value" step="any">
-                        <select id="quick-from-unit">
-                            <option value="meter">Meter</option>
-                            <option value="kilometer">Kilometer</option>
-                            <option value="centimeter">Centimeter</option>
-                            <option value="millimeter">Millimeter</option>
-                        </select>
-                        <span class="convert-arrow"><i class="fas fa-arrow-right"></i></span>
-                        <select id="quick-to-unit">
-                            <option value="meter">Meter</option>
-                            <option value="kilometer">Kilometer</option>
-                            <option value="centimeter">Centimeter</option>
-                            <option value="millimeter">Millimeter</option>
-                        </select>
+        <!-- Featured Unit Converter -->
+        <section class="featured-converter">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Quick Unit Converter</h2>
+                    <p>Convert between different units instantly</p>
+                </div>
+
+                <div class="mini-converter">
+                    <div class="converter-row">
+                        <div class="input-group">
+                            <input type="number" id="miniInputValue" placeholder="Enter value" class="mini-input">
+                        </div>
+                        
+                        <div class="input-group">
+                            <select id="miniFromUnit" class="mini-select">
+                                <option value="kilometer">Kilometer</option>
+                                <option value="meter">Meter</option>
+                                <option value="centimeter">Centimeter</option>
+                                <option value="kilogram">Kilogram</option>
+                                <option value="pound">Pound</option>
+                                <option value="celsius">Celsius</option>
+                                <option value="fahrenheit">Fahrenheit</option>
+                            </select>
+                        </div>
+
+                        <div class="converter-arrow">→</div>
+
+                        <div class="input-group">
+                            <select id="miniToUnit" class="mini-select">
+                                <option value="mile">Mile</option>
+                                <option value="foot">Foot</option>
+                                <option value="inch">Inch</option>
+                                <option value="pound">Pound</option>
+                                <option value="kilogram">Kilogram</option>
+                                <option value="fahrenheit">Fahrenheit</option>
+                                <option value="celsius">Celsius</option>
+                            </select>
+                        </div>
+
+                        <button id="miniConvertBtn" class="mini-convert-btn">Convert</button>
                     </div>
-                    <button onclick="quickConvert()" class="btn btn-convert"><i class="fas fa-sync-alt"></i> Convert</button>
-                    <div id="quick-result" class="result"></div>
+
+                    <div class="mini-result" id="miniResult">
+                        <span>Result will appear here</span>
+                    </div>
+
+                    <!-- Popular Conversions -->
+                    <div class="popular-conversions">
+                        <h4>Popular Conversions:</h4>
+                        <div class="popular-buttons">
+                            <button class="popular-btn" data-from="kilometer" data-to="mile">KM → Miles</button>
+                            <button class="popular-btn" data-from="kilogram" data-to="pound">KG → Pounds</button>
+                            <button class="popular-btn" data-from="celsius" data-to="fahrenheit">°C → °F</button>
+                            <button class="popular-btn" data-from="meter" data-to="foot">Meters → Feet</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Tools Grid -->
-    <section id="tools" class="tools-section">
-        <div class="container">
-            <h3><i class="fas fa-tools"></i> 23 Free Unit Conversion Tools</h3>
-            <div class="tools-grid">
-                <?php
-                $tools = [
-                    "Length Converter", "Weight Converter", "Temperature Converter", 
-                    "Currency Converter", "Area Converter", "Volume Converter",
-                    "Speed Converter", "Time Converter", "Digital Storage Converter",
-                    "Energy Converter", "Power Converter", "Pressure Converter",
-                    "Angle Converter", "Data Transfer Converter", "Cooking Converter",
-                    "Shoe Size Converter", "Clothing Size Converter", "Fuel Converter",
-                    "Torque Converter", "Density Converter", "Force Converter",
-                    "Acceleration Converter", "Number System Converter"
-                ];
+        <!-- Calculator Categories -->
+        <section class="categories-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Calculator Categories</h2>
+                    <p>Choose from our wide range of specialized calculators</p>
+                </div>
+
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <div class="category-icon">📐</div>
+                        <h3>Unit Converters</h3>
+                        <p>Length, weight, temperature, volume and more</p>
+                        <a href="calculator.php" class="category-link">Explore</a>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-icon">💰</div>
+                        <h3>Finance</h3>
+                        <p>Loan, currency, tax, and investment calculators</p>
+                        <a href="finance-calculators.php" class="category-link">Explore</a>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-icon">❤️</div>
+                        <h3>Health</h3>
+                        <p>BMI, calorie, pregnancy, and health calculators</p>
+                        <a href="health-calculators.php" class="category-link">Explore</a>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-icon">🧮</div>
+                        <h3>Math & Science</h3>
+                        <p>Scientific, algebra, geometry calculators</p>
+                        <a href="math-calculators.php" class="category-link">Explore</a>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-icon">🏠</div>
+                        <h3>Everyday Life</h3>
+                        <p>Cooking, time, date, and utility calculators</p>
+                        <a href="everyday-calculators.php" class="category-link">Explore</a>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-icon">💼</div>
+                        <h3>Business</h3>
+                        <p>Profit, salary, VAT, and business tools</p>
+                        <a href="business-calculators.php" class="category-link">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Calculators -->
+        <section class="popular-calculators">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Most Popular Calculators</h2>
+                    <p>Quick access to our most used tools</p>
+                </div>
+
+                <div class="popular-grid">
+                    <a href="calculator.php" class="popular-item">
+                        <span class="popular-icon">🔄</span>
+                        <span class="popular-text">Unit Converter</span>
+                    </a>
+                    
+                    <a href="bmi-calculator.php" class="popular-item">
+                        <span class="popular-icon">⚖️</span>
+                        <span class="popular-text">BMI Calculator</span>
+                    </a>
+                    
+                    <a href="currency-converter.php" class="popular-item">
+                        <span class="popular-icon">💵</span>
+                        <span class="popular-text">Currency Converter</span>
+                    </a>
+                    
+                    <a href="loan-calculator.php" class="popular-item">
+                        <span class="popular-icon">🏦</span>
+                        <span class="popular-text">Loan Calculator</span>
+                    </a>
+                    
+                    <a href="scientific-calculator.php" class="popular-item">
+                        <span class="popular-icon">🔢</span>
+                        <span class="popular-text">Scientific Calculator</span>
+                    </a>
+                    
+                    <a href="age-calculator.php" class="popular-item">
+                        <span class="popular-icon">🎂</span>
+                        <span class="popular-text">Age Calculator</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEO Content Section -->
+        <section class="seo-content">
+            <div class="container">
+                <div class="content-box">
+                    <h2>Free Online Unit Converter & Calculators</h2>
+                    <p>Welcome to <strong>90storezon</strong> - your ultimate destination for free online calculators and unit conversion tools. Our comprehensive collection of calculators helps you solve everyday mathematical problems, convert between different measurement units, and make informed decisions.</p>
+                    
+                    <h3>Why Choose Our Calculators?</h3>
+                    <ul>
+                        <li><strong>100% Free:</strong> No hidden costs, no registration required</li>
+                        <li><strong>Instant Results:</strong> Get accurate calculations in seconds</li>
+                        <li><strong>Mobile Friendly:</strong> Works perfectly on all devices</li>
+                        <li><strong>Comprehensive Tools:</strong> From basic arithmetic to advanced scientific calculations</li>
+                    </ul>
+
+                    <h3>Featured Unit Conversion Tools</h3>
+                    <p>Our unit converter supports conversions between various measurement systems including:</p>
+                    <ul>
+                        <li><strong>Length:</strong> Meters, Kilometers, Miles, Feet, Inches, Centimeters</li>
+                        <li><strong>Weight:</strong> Kilograms, Pounds, Ounces, Grams</li>
+                        <li><strong>Temperature:</strong> Celsius, Fahrenheit, Kelvin</li>
+                        <li><strong>Volume:</strong> Liters, Gallons, Milliliters, Cubic Meters</li>
+                    </ul>
+
+                    <p>Whether you're a student, professional, or just someone who needs quick calculations, 90storezon provides reliable tools that deliver accurate results instantly. Bookmark our site for easy access to all your calculation needs!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <?php include 'footer.php'; ?>
+
+    <script>
+        // Mini Converter Functionality
+        document.getElementById('miniConvertBtn').addEventListener('click', convertMiniUnits);
+        
+        // Popular conversion buttons
+        document.querySelectorAll('.popular-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const fromUnit = this.getAttribute('data-from');
+                const toUnit = this.getAttribute('data-to');
                 
-                $icons = [
-                    "fas fa-ruler", "fas fa-weight-hanging", "fas fa-thermometer-half",
-                    "fas fa-money-bill-wave", "fas fa-vector-square", "fas fa-flask",
-                    "fas fa-tachometer-alt", "fas fa-clock", "fas fa-database",
-                    "fas fa-bolt", "fas fa-power-off", "fas fa-compress-arrows-alt",
-                    "fas fa-protractor", "fas fa-wifi", "fas fa-utensils",
-                    "fas fa-shoe-prints", "fas fa-tshirt", "fas fa-gas-pump",
-                    "fas fa-cog", "fas fa-vial", "fas fa-hand-rock",
-                    "fas fa-running", "fas fa-sort-numeric-up"
-                ];
-                
-                foreach ($tools as $index => $tool) {
-                    echo '<div class="tool-card">';
-                    echo '   <div class="tool-icon"><i class="' . $icons[$index] . '"></i></div>';
-                    echo '   <h4>' . $tool . '</h4>';
-                    echo '   <p>Professional tool for accurate unit conversions</p>';
-                    echo '   <a href="calculator.php?tool=' . urlencode($tool) . '" class="tool-link">Use Converter <i class="fas fa-arrow-right"></i></a>';
-                    echo '</div>';
+                document.getElementById('miniFromUnit').value = fromUnit;
+                document.getElementById('miniToUnit').value = toUnit;
+                document.getElementById('miniInputValue').focus();
+            });
+        });
+
+        // Home search functionality
+        document.getElementById('homeSearchBtn').addEventListener('click', function() {
+            const searchTerm = document.getElementById('homeSearch').value.toLowerCase();
+            if (searchTerm) {
+                window.location.href = `calculator.php?search=${encodeURIComponent(searchTerm)}`;
+            }
+        });
+
+        document.getElementById('homeSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value.toLowerCase();
+                if (searchTerm) {
+                    window.location.href = `calculator.php?search=${encodeURIComponent(searchTerm)}`;
                 }
-                ?>
-            </div>
-        </div>
-    </section>
+            }
+        });
 
-    <!-- Categories Section -->
-    <section id="categories" class="categories-section">
-        <div class="container">
-            <h3><i class="fas fa-layer-group"></i> Conversion Categories</h3>
-            <div class="categories-grid">
-                <div class="category-card">
-                    <div class="category-icon"><i class="fas fa-ruler-combined"></i></div>
-                    <h4>Length & Distance</h4>
-                    <p>Meters, Kilometers, Miles, Feet, Inches, etc.</p>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon"><i class="fas fa-weight-hanging"></i></div>
-                    <h4>Weight & Mass</h4>
-                    <p>Kilograms, Pounds, Ounces, Grams, Stones, etc.</p>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon"><i class="fas fa-thermometer-half"></i></div>
-                    <h4>Temperature</h4>
-                    <p>Celsius, Fahrenheit, Kelvin, Rankine, etc.</p>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon"><i class="fas fa-money-bill-wave"></i></div>
-                    <h4>Currency</h4>
-                    <p>USD, EUR, GBP, JPY, INR, AUD, etc.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        function convertMiniUnits() {
+            const fromUnit = document.getElementById('miniFromUnit').value;
+            const toUnit = document.getElementById('miniToUnit').value;
+            const inputValue = parseFloat(document.getElementById('miniInputValue').value);
+            
+            if (isNaN(inputValue)) {
+                document.getElementById('miniResult').innerHTML = '<span class="error-text">Please enter a valid number</span>';
+                return;
+            }
+            
+            // Simple conversion rates for demo
+            const rates = {
+                kilometer: { mile: 0.621371 },
+                meter: { foot: 3.28084 },
+                centimeter: { inch: 0.393701 },
+                kilogram: { pound: 2.20462 },
+                pound: { kilogram: 0.453592 },
+                celsius: { 
+                    fahrenheit: function(c) { return (c * 9/5) + 32; } 
+                },
+                fahrenheit: { 
+                    celsius: function(f) { return (f - 32) * 5/9; } 
+                }
+            };
+            
+            let result;
+            
+            if (fromUnit === toUnit) {
+                result = inputValue;
+            } else if (rates[fromUnit] && rates[fromUnit][toUnit]) {
+                if (typeof rates[fromUnit][toUnit] === 'function') {
+                    result = rates[fromUnit][toUnit](inputValue);
+                } else {
+                    result = inputValue * rates[fromUnit][toUnit];
+                }
+            } else {
+                document.getElementById('miniResult').innerHTML = '<span class="error-text">Conversion not available</span>';
+                return;
+            }
+            
+            result = Math.round(result * 1000) / 1000;
+            
+            document.getElementById('miniResult').innerHTML = `
+                <span class="result-text">
+                    <strong>${inputValue} ${fromUnit} = ${result} ${toUnit}</strong>
+                </span>
+            `;
+        }
 
-    <!-- Features Section -->
-    <section class="features-section">
-        <div class="container">
-            <h3><i class="fas fa-star"></i> Why Choose Our Unit Converters?</h3>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
-                    <h4>Instant Results</h4>
-                    <p>Get accurate conversions in real-time with no delays</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
-                    <h4>100% Accurate</h4>
-                    <p>Precise calculations based on international standards</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
-                    <h4>Completely Free</h4>
-                    <p>No hidden costs, no registration required</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
-                    <h4>Mobile Friendly</h4>
-                    <p>Works perfectly on all devices and browsers</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="main-footer">
-        <div class="container">
-            <p>&copy; 2024 23 Free Unit Converter. All rights reserved. | Professional Conversion Tools</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+        // Enter key support for mini converter
+        document.getElementById('miniInputValue').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                convertMiniUnits();
+            }
+        });
+    </script>
 </body>
 </html>

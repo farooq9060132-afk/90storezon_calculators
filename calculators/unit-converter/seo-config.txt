@@ -1,88 +1,100 @@
-# SEO Configuration for VIP Card Website
+# SEO Configuration for 90storezon.com
+# Last Updated: 2024
 
-SITE_TITLE=VIP Gold Card - Exclusive Membership Application
-SITE_DESCRIPTION=Apply for our exclusive VIP Gold Card membership. Enjoy premium benefits, exclusive offers, and priority service. Join the elite today!
-SITE_KEYWORDS=VIP card, exclusive membership, premium benefits, gold card, elite membership, special offers
+## Basic SEO Settings
+SITE_URL: https://90storezon.com/
+SITE_NAME: 90storezon
+SITE_DESCRIPTION: Free online calculators for unit conversion, finance, health, math, and everyday calculations
+DEFAULT_LANGUAGE: en
+ENCODING: UTF-8
 
-META_ROBOTS=index, follow
-CANONICAL_URL=https://yourdomain.com/
+## Meta Tags Configuration
+META_TITLE_TEMPLATE: {Page Title} - 90storezon
+META_DESCRIPTION_LENGTH: 150-160
+META_KEYWORDS_COUNT: 10-15
 
-OPEN_GRAPH:
-og:title=VIP Gold Card - Exclusive Membership
-og:description=Apply for our exclusive VIP Gold Card and enjoy premium benefits
-og:image=https://yourdomain.com/images/vip-card-preview.jpg
-og:url=https://yourdomain.com/
-og:type=website
+## Important Pages
+IMPORTANT_URLS:
+  - https://90storezon.com/
+  - https://90storezon.com/calculator.php
+  - https://90storezon.com/unit-converter
+  - https://90storezon.com/currency-converter.php
+  - https://90storezon.com/bmi-calculator.php
+  - https://90storezon.com/loan-calculator.php
 
-TWITTER_CARD:
-twitter:card=summary_large_image
-twitter:title=VIP Gold Card - Exclusive Membership
-twitter:description=Apply for our exclusive VIP Gold Card membership
-twitter:image=https://yourdomain.com/images/vip-card-preview.jpg
+## XML Sitemap
+SITEMAP_URL: https://90storezon.com/sitemap.xml
+SITEMAP_PRIORITY:
+  homepage: 1.0
+  calculator: 0.9
+  category: 0.8
+  other: 0.7
 
-STRUCTURED_DATA:
-{
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "VIP Gold Card Membership",
-  "description": "Exclusive VIP membership card with premium benefits",
-  "provider": {
-    "@type": "Organization",
-    "name": "VIP Card Services"
-  },
-  "areaServed": "Worldwide",
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "VIP Membership Plans",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Basic VIP Membership"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Premium VIP Membership"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Elite VIP Membership"
-        }
-      }
-    ]
-  }
-}
+## Robots.txt Configuration
+USER_AGENT: *
+ALLOW: /
+DISALLOW: /admin/
+DISALLOW: /private/
+DISALLOW: /tmp/
+SITEMAP: https://90storezon.com/sitemap.xml
 
-SITEMAP_URLS:
-- https://yourdomain.com/
-- https://yourdomain.com/calculator
-- https://yourdomain.com/benefits
-- https://yourdomain.com/apply
+## Keywords Strategy
+PRIMARY_KEYWORDS:
+  - unit converter
+  - online calculator
+  - free calculator
+  - conversion calculator
+  - measurement converter
 
-ROBOTS_TXT:
-User-agent: *
-Allow: /
-Disallow: /admin/
-Disallow: /private/
-Sitemap: https://yourdomain.com/sitemap.xml
+SECONDARY_KEYWORDS:
+  - length converter
+  - weight converter
+  - temperature converter
+  - currency converter
+  - bmi calculator
+  - loan calculator
 
-PERFORMANCE_OPTIMIZATION:
-- Enable GZIP compression
-- Minify CSS and JavaScript
-- Optimize images (WebP format)
-- Implement lazy loading
-- Use CDN for static assets
-- Enable browser caching
+LONG_TAIL_KEYWORDS:
+  - meters to feet converter
+  - kilograms to pounds calculator
+  - celsius to fahrenheit converter
+  - online scientific calculator
+  - free bmi calculator online
 
-SECURITY_HEADERS:
-- X-Frame-Options: DENY
-- X-Content-Type-Options: nosniff
-- Strict-Transport-Security: max-age=31536000
-- Content-Security-Policy: default-src 'self'
+## Performance Optimization
+PAGE_LOAD_TARGET: <3 seconds
+MOBILE_FRIENDLY: true
+SSL_ENABLED: true
+COMPRESSION_ENABLED: true
+
+## Social Media SEO
+OPEN_GRAPH_ENABLED: true
+TWITTER_CARDS_ENABLED: true
+SOCIAL_SHARING: enabled
+
+## Local SEO (Pakistan Focus)
+COUNTRY: Pakistan
+CITY: 
+LANGUAGE: en, ur
+CURRENCY: PKR, USD
+
+## Analytics & Tracking
+GOOGLE_ANALYTICS: TO_BE_ADDED
+GOOGLE_SEARCH_CONSOLE: TO_BE_ADDED
+BING_WEBMASTER: TO_BE_ADDED
+
+## Content Strategy
+BLOG_ENABLED: false
+FAQ_SECTION: planned
+TUTORIALS: planned
+
+## Technical SEO
+CANONICAL_URLS: enabled
+SCHEMA_MARKUP: enabled
+BREADCRUMBS: enabled
+PAGINATION: not applicable
+
+## Monitoring
+HEALTH_CHECK: daily
+BROKEN_LINKS: weekly check
+KEYWORD_RANKING: monthly review

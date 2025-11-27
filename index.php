@@ -48,16 +48,16 @@
             <h2>Financial Planning Tools</h2>
             <p>Our financial calculators help you plan your loans, investments, and savings with precision.</p>
             <ul class="calculator-list">
-                <li><a href="/calculators/01-loan-emi-calculator/">Loan EMI Calculator</a></li>
-                <li><a href="/calculators/04-mortgage-calculator/">Mortgage Calculator</a></li>
-                <li><a href="/calculators/05-compound-interest-calculator/">Compound Interest Calculator</a></li>
-                <li><a href="/calculators/11-investment-calculator/">Investment Calculator</a></li>
-                <li><a href="/calculators/10-retirement-planner/">Retirement Planner</a></li>
-                <li><a href="/calculators/09-tax-calculator/">Tax Calculator</a></li>
-                <li><a href="/calculators/13-budget-planner/">Budget Planner</a></li>
-                <li><a href="/calculators/12-salary-calculator/">Salary Calculator</a></li>
-                <li><a href="/calculators/03-currency-converter/">Currency Converter</a></li>
-                <li><a href="/calculators/36-fuel-cost-calculator/">Fuel Cost Calculator</a></li>
+                <li><a href="/calculators/loan-emi-calculator/">Loan EMI Calculator</a></li>
+                <li><a href="/calculators/mortgage-calculator/">Mortgage Calculator</a></li>
+                <li><a href="/calculators/compound-interest-calculator/">Compound Interest Calculator</a></li>
+                <li><a href="/calculators/investment-calculator/">Investment Calculator</a></li>
+                <li><a href="/calculators/retirement-planner/">Retirement Planner</a></li>
+                <li><a href="/calculators/tax-calculator/">Tax Calculator</a></li>
+                <li><a href="/calculators/budget-planner/">Budget Planner</a></li>
+                <li><a href="/calculators/salary-calculator/">Salary Calculator</a></li>
+                <li><a href="/calculators/currency-converter/">Currency Converter</a></li>
+                <li><a href="/calculators/fuel-cost-calculator/">Fuel Cost Calculator</a></li>
             </ul>
         </div>
 
@@ -66,16 +66,16 @@
             <h2>Health & Wellness Tools</h2>
             <p>Track your health metrics and fitness goals with our specialized health calculators.</p>
             <ul class="calculator-list">
-                <li><a href="/calculators/02-bmi-calculator/">BMI Calculator</a></li>
-                <li><a href="/calculators/06-calorie-calculator/">Calorie Calculator</a></li>
-                <li><a href="/calculators/14-body-fat-calculator/">Body Fat Calculator</a></li>
-                <li><a href="/calculators/17-macro-calculator/">Macro Calculator</a></li>
-                <li><a href="/calculators/16-water-intake-calculator/">Water Intake Calculator</a></li>
-                <li><a href="/calculators/15-pregnancy-calculator/">Pregnancy Calculator</a></li>
-                <li><a href="/calculators/18-heart-rate-calculator/">Heart Rate Calculator</a></li>
-                <li><a href="/calculators/19-medication-calculator/">Medication Calculator</a></li>
-                <li><a href="/calculators/34-tip-calculator/">Tip Calculator</a></li>
-                <li><a href="/calculators/35-discount-calculator/">Discount Calculator</a></li>
+                <li><a href="/calculators/bmi-calculator/">BMI Calculator</a></li>
+                <li><a href="/calculators/calorie-calculator/">Calorie Calculator</a></li>
+                <li><a href="/calculators/body-fat-calculator/">Body Fat Calculator</a></li>
+                <li><a href="/calculators/macro-calculator/">Macro Calculator</a></li>
+                <li><a href="/calculators/water-intake-calculator/">Water Intake Calculator</a></li>
+                <li><a href="/calculators/pregnancy-calculator/">Pregnancy Calculator</a></li>
+                <li><a href="/calculators/heart-rate-calculator/">Heart Rate Calculator</a></li>
+                <li><a href="/calculators/medication-calculator/">Medication Calculator</a></li>
+                <li><a href="/calculators/tip-calculator/">Tip Calculator</a></li>
+                <li><a href="/calculators/discount-calculator/">Discount Calculator</a></li>
             </ul>
         </div>
 
@@ -84,16 +84,16 @@
             <h2>Math & Education Tools</h2>
             <p>Solve complex math problems and academic calculations with ease.</p>
             <ul class="calculator-list">
-                <li><a href="/calculators/21-percentage-calculator/">Percentage Calculator</a></li>
-                <li><a href="/calculators/20-gpa-calculator/">GPA Calculator</a></li>
-                <li><a href="/calculators/22-age-calculator/">Age Calculator</a></li>
-                <li><a href="/calculators/24-scientific-calculator/">Scientific Calculator</a></li>
-                <li><a href="/calculators/25-grade-calculator/">Grade Calculator</a></li>
-                <li><a href="/calculators/26-study-planner/">Study Planner</a></li>
-                <li><a href="/calculators/37-time-duration-calculator/">Time Duration Calculator</a></li>
-                <li><a href="/calculators/38-age-difference-calculator/">Age Difference Calculator</a></li>
-                <li><a href="/calculators/39-date-calculator/">Date Calculator</a></li>
-                <li><a href="/calculators/23-unit-converter/">Unit Converter</a></li>
+                <li><a href="/calculators/percentage-calculator/">Percentage Calculator</a></li>
+                <li><a href="/calculators/gpa-calculator/">GPA Calculator</a></li>
+                <li><a href="/calculators/age-calculator/">Age Calculator</a></li>
+                <li><a href="/calculators/scientific-calculator/">Scientific Calculator</a></li>
+                <li><a href="/calculators/grade-calculator/">Grade Calculator</a></li>
+                <li><a href="/calculators/study-planner/">Study Planner</a></li>
+                <li><a href="/calculators/time-duration-calculator/">Time Duration Calculator</a></li>
+                <li><a href="/calculators/age-difference-calculator/">Age Difference Calculator</a></li>
+                <li><a href="/calculators/date-calculator/">Date Calculator</a></li>
+                <li><a href="/calculators/unit-converter/">Unit Converter</a></li>
             </ul>
         </div>
 
@@ -102,16 +102,16 @@
             <h2>Web Utilities & Converters</h2>
             <p>Essential tools for developers and everyday web users.</p>
             <ul class="calculator-list">
-                <li><a href="/calculators/07-qr-code-generator/">QR Code Generator</a></li>
-                <li><a href="/calculators/08-password-generator/">Password Generator</a></li>
-                <li><a href="/calculators/27-password-strength-checker/">Password Strength Checker</a></li>
-                <li><a href="/calculators/28-file-size-converter/">File Size Converter</a></li>
-                <li><a href="/calculators/29-color-code-converter/">Color Code Converter</a></li>
-                <li><a href="/calculators/30-time-zone-converter/">Time Zone Converter</a></li>
-                <li><a href="/calculators/31-data-storage-calculator/">Data Storage Calculator</a></li>
-                <li><a href="/calculators/40-base64-converter/">Base64 Converter</a></li>
-                <li><a href="/calculators/41-json-formatter/">JSON Formatter</a></li>
-                <li><a href="/calculators/42-regex-tester/">Regex Tester</a></li>
+                <li><a href="/calculators/qr-code-generator/">QR Code Generator</a></li>
+                <li><a href="/calculators/password-generator/">Password Generator</a></li>
+                <li><a href="/calculators/password-strength-checker/">Password Strength Checker</a></li>
+                <li><a href="/calculators/file-size-converter/">File Size Converter</a></li>
+                <li><a href="/calculators/color-code-converter/">Color Code Converter</a></li>
+                <li><a href="/calculators/time-zone-converter/">Time Zone Converter</a></li>
+                <li><a href="/calculators/data-storage-calculator/">Data Storage Calculator</a></li>
+                <li><a href="/calculators/base64-converter/">Base64 Converter</a></li>
+                <li><a href="/calculators/json-formatter/">JSON Formatter</a></li>
+                <li><a href="/calculators/regex-tester/">Regex Tester</a></li>
             </ul>
         </div>
 
@@ -120,16 +120,16 @@
             <h2>Developer Tools</h2>
             <p>Essential utilities for programmers and developers.</p>
             <ul class="calculator-list">
-                <li><a href="/calculators/43-code-beautifier/">Code Beautifier</a></li>
-                <li><a href="/calculators/44-md5-generator/">MD5 Generator</a></li>
-                <li><a href="/calculators/45-url-encoder/">URL Encoder</a></li>
-                <li><a href="/calculators/46-character-counter/">Character Counter</a></li>
-                <li><a href="/calculators/47-lorem-ipsum-generator/">Lorem Ipsum Generator</a></li>
-                <li><a href="/calculators/48-csv-to-json-converter/">CSV to JSON Converter</a></li>
-                <li><a href="/calculators/32-website-load-time-calculator/">Website Load Time Calculator</a></li>
-                <li><a href="/calculators/33-api-calculator/">API Calculator</a></li>
-                <li><a href="/calculators/49-carbon-footprint-calculator/">Carbon Footprint Calculator</a></li>
-                <li><a href="/calculators/50-youtube-earnings-calculator/">YouTube Earnings Calculator</a></li>
+                <li><a href="/calculators/code-beautifier/">Code Beautifier</a></li>
+                <li><a href="/calculators/md5-generator/">MD5 Generator</a></li>
+                <li><a href="/calculators/url-encoder/">URL Encoder</a></li>
+                <li><a href="/calculators/character-counter/">Character Counter</a></li>
+                <li><a href="/calculators/lorem-ipsum-generator/">Lorem Ipsum Generator</a></li>
+                <li><a href="/calculators/csv-to-json-converter/">CSV to JSON Converter</a></li>
+                <li><a href="/calculators/website-load-time-calculator/">Website Load Time Calculator</a></li>
+                <li><a href="/calculators/api-calculator/">API Calculator</a></li>
+                <li><a href="/calculators/carbon-footprint-calculator/">Carbon Footprint Calculator</a></li>
+                <li><a href="/calculators/youtube-earnings-calculator/">YouTube Earnings Calculator</a></li>
             </ul>
         </div>
     </section>

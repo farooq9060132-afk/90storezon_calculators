@@ -1,6 +1,0 @@
-GOOGLE_ADS_CLIENT: ca-pub-XXXXXXXXXXXXXXX
-GOOGLE_ADS_SLOTS: 
-- Top Banner: 728x90
-- Middle Banner: 300x250  
-- Bottom Banner: 320x100
-ADSENSE_CODE: <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXX" crossorigin="anonymous"></script>

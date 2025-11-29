@@ -2,251 +2,251 @@
   {
     "id": "01",
     "name": "Loan EMI Calculator",
-    "path": "/calculators/01-loan-emi-calculator/"
+    "path": "/calculators/loan-emi-calculator/"
   },
   {
     "id": "02",
     "name": "BMI Calculator",
-    "path": "/calculators/02-bmi-calculator/"
+    "path": "/calculators/bmi-calculator/"
   },
   {
     "id": "03",
     "name": "Currency Converter",
-    "path": "/calculators/03-currency-converter/"
+    "path": "/calculators/currency-converter/"
   },
   {
     "id": "04",
     "name": "Mortgage Calculator",
-    "path": "/calculators/04-mortgage-calculator/"
+    "path": "/calculators/mortgage-calculator/"
   },
   {
     "id": "05",
     "name": "Compound Interest Calculator",
-    "path": "/calculators/05-compound-interest-calculator/"
+    "path": "/calculators/compound-interest-calculator/"
   },
   {
     "id": "06",
     "name": "Calorie Calculator",
-    "path": "/calculators/06-calorie-calculator/"
+    "path": "/calculators/calorie-calculator/"
   },
   {
     "id": "07",
     "name": "QR Code Generator",
-    "path": "/calculators/07-qr-code-generator/"
+    "path": "/calculators/qr-code-generator/"
   },
   {
     "id": "08",
     "name": "Password Generator",
-    "path": "/calculators/08-password-generator/"
+    "path": "/calculators/password-generator/"
   },
   {
     "id": "09",
     "name": "Tax Calculator",
-    "path": "/calculators/09-tax-calculator/"
+    "path": "/calculators/tax-calculator/"
   },
   {
     "id": "10",
     "name": "Retirement Planner",
-    "path": "/calculators/10-retirement-planner/"
+    "path": "/calculators/retirement-planner/"
   },
   {
     "id": "11",
     "name": "Investment Calculator",
-    "path": "/calculators/11-investment-calculator/"
+    "path": "/calculators/investment-calculator/"
   },
   {
     "id": "12",
     "name": "Salary Calculator",
-    "path": "/calculators/12-salary-calculator/"
+    "path": "/calculators/salary-calculator/"
   },
   {
     "id": "13",
     "name": "Budget Planner",
-    "path": "/calculators/13-budget-planner/"
+    "path": "/calculators/budget-planner/"
   },
   {
     "id": "14",
     "name": "Body Fat Calculator",
-    "path": "/calculators/14-body-fat-calculator/"
+    "path": "/calculators/body-fat-calculator/"
   },
   {
     "id": "15",
     "name": "Pregnancy Calculator",
-    "path": "/calculators/15-pregnancy-calculator/"
+    "path": "/calculators/pregnancy-calculator/"
   },
   {
     "id": "16",
     "name": "Water Intake Calculator",
-    "path": "/calculators/16-water-intake-calculator/"
+    "path": "/calculators/water-intake-calculator/"
   },
   {
     "id": "17",
     "name": "Macro Calculator",
-    "path": "/calculators/17-macro-calculator/"
+    "path": "/calculators/macro-calculator/"
   },
   {
     "id": "18",
     "name": "Heart Rate Calculator",
-    "path": "/calculators/18-heart-rate-calculator/"
+    "path": "/calculators/heart-rate-calculator/"
   },
   {
     "id": "19",
     "name": "Medication Calculator",
-    "path": "/calculators/19-medication-calculator/"
+    "path": "/calculators/medication-calculator/"
   },
   {
     "id": "20",
     "name": "GPA Calculator",
-    "path": "/calculators/20-gpa-calculator/"
+    "path": "/calculators/gpa-calculator/"
   },
   {
     "id": "21",
     "name": "Percentage Calculator",
-    "path": "/calculators/21-percentage-calculator/"
+    "path": "/calculators/percentage-calculator/"
   },
   {
     "id": "22",
     "name": "Age Calculator",
-    "path": "/calculators/22-age-calculator/"
+    "path": "/calculators/age-calculator/"
   },
   {
     "id": "23",
     "name": "Unit Converter",
-    "path": "/calculators/23-unit-converter/"
+    "path": "/calculators/unit-converter/"
   },
   {
     "id": "24",
     "name": "Scientific Calculator",
-    "path": "/calculators/24-scientific-calculator/"
+    "path": "/calculators/scientific-calculator/"
   },
   {
     "id": "25",
     "name": "Grade Calculator",
-    "path": "/calculators/25-grade-calculator/"
+    "path": "/calculators/grade-calculator/"
   },
   {
     "id": "26",
     "name": "Study Planner",
-    "path": "/calculators/26-study-planner/"
+    "path": "/calculators/study-planner/"
   },
   {
     "id": "27",
     "name": "Password Strength Checker",
-    "path": "/calculators/27-password-strength-checker/"
+    "path": "/calculators/password-strength-checker/"
   },
   {
     "id": "28",
     "name": "File Size Converter",
-    "path": "/calculators/28-file-size-converter/"
+    "path": "/calculators/file-size-converter/"
   },
   {
     "id": "29",
     "name": "Color Code Converter",
-    "path": "/calculators/29-color-code-converter/"
+    "path": "/calculators/color-code-converter/"
   },
   {
     "id": "30",
     "name": "Time Zone Converter",
-    "path": "/calculators/30-time-zone-converter/"
+    "path": "/calculators/time-zone-converter/"
   },
   {
     "id": "31",
     "name": "Data Storage Calculator",
-    "path": "/calculators/31-data-storage-calculator/"
+    "path": "/calculators/data-storage-calculator/"
   },
   {
     "id": "32",
     "name": "Website Load Time Calculator",
-    "path": "/calculators/32-website-load-time-calculator/"
+    "path": "/calculators/website-load-time-calculator/"
   },
   {
     "id": "33",
     "name": "API Calculator",
-    "path": "/calculators/33-api-calculator/"
+    "path": "/calculators/api-calculator/"
   },
   {
     "id": "34",
     "name": "Tip Calculator",
-    "path": "/calculators/34-tip-calculator/"
+    "path": "/calculators/tip-calculator/"
   },
   {
     "id": "35",
     "name": "Discount Calculator",
-    "path": "/calculators/35-discount-calculator/"
+    "path": "/calculators/discount-calculator/"
   },
   {
     "id": "36",
     "name": "Fuel Cost Calculator",
-    "path": "/calculators/36-fuel-cost-calculator/"
+    "path": "/calculators/fuel-cost-calculator/"
   },
   {
     "id": "37",
     "name": "Time Duration Calculator",
-    "path": "/calculators/37-time-duration-calculator/"
+    "path": "/calculators/time-duration-calculator/"
   },
   {
     "id": "38",
     "name": "Age Difference Calculator",
-    "path": "/calculators/38-age-difference-calculator/"
+    "path": "/calculators/age-difference-calculator/"
   },
   {
     "id": "39",
     "name": "Date Calculator",
-    "path": "/calculators/39-date-calculator/"
+    "path": "/calculators/date-calculator/"
   },
   {
     "id": "40",
     "name": "Base64 Converter",
-    "path": "/calculators/40-base64-converter/"
+    "path": "/calculators/base64-converter/"
   },
   {
     "id": "41",
     "name": "JSON Formatter",
-    "path": "/calculators/41-json-formatter/"
+    "path": "/calculators/json-formatter/"
   },
   {
     "id": "42",
     "name": "Regex Tester",
-    "path": "/calculators/42-regex-tester/"
+    "path": "/calculators/regex-tester/"
   },
   {
     "id": "43",
     "name": "Code Beautifier",
-    "path": "/calculators/43-code-beautifier/"
+    "path": "/calculators/code-beautifier/"
   },
   {
     "id": "44",
     "name": "MD5 Generator",
-    "path": "/calculators/44-md5-generator/"
+    "path": "/calculators/md5-generator/"
   },
   {
     "id": "45",
     "name": "URL Encoder",
-    "path": "/calculators/45-url-encoder/"
+    "path": "/calculators/url-encoder/"
   },
   {
     "id": "46",
     "name": "Character Counter",
-    "path": "/calculators/46-character-counter/"
+    "path": "/calculators/character-counter/"
   },
   {
     "id": "47",
     "name": "Lorem Ipsum Generator",
-    "path": "/calculators/47-lorem-ipsum-generator/"
+    "path": "/calculators/lorem-ipsum-generator/"
   },
   {
     "id": "48",
     "name": "CSV to JSON Converter",
-    "path": "/calculators/48-csv-to-json-converter/"
+    "path": "/calculators/csv-to-json-converter/"
   },
   {
     "id": "49",
     "name": "Carbon Footprint Calculator",
-    "path": "/calculators/49-carbon-footprint-calculator/"
+    "path": "/calculators/carbon-footprint-calculator/"
   },
   {
     "id": "50",
     "name": "YouTube Earnings Calculator",
-    "path": "/calculators/50-youtube-earnings-calculator/"
+    "path": "/calculators/youtube-earnings-calculator/"
   }
 ]

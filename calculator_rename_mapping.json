@@ -2,6 +2,7 @@
   "01-loan-emi-calculator": "loan-emi-calculator",
   "02-bmi-calculator": "bmi-calculator",
   "03-currency-converter": "currency-converter",
+  "04-mortgage-calculator": "mortgage-calculator",
   "05-compound-interest-calculator": "compound-interest-calculator",
   "06-calorie-calculator": "calorie-calculator",
   "07-qr-code-generator": "qr-code-generator",

@@ -229,7 +229,7 @@ $countries = [
     <section id="countries">
         <div class="countries-grid">
             <?php foreach($countries as $country_code => $country_data): ?>
-                <a href="<?php echo $country_code; ?>.php" class="country-card">
+                <a href="calculator.php?country=<?php echo $country_code; ?>" class="country-card">
                     <div class="country-header">
                         <img src="<?php echo $country_data['flag']; ?>" alt="<?php echo $country_data['name']; ?> Flag" class="country-flag">
                         <div>

@@ -1,0 +1,27 @@
+{
+  "name": "90storezon-calculators",
+  "version": "1.0.0",
+  "description": "A comprehensive collection of 50+ free online calculators for finance, health, math, and more.",
+  "main": "index.php",
+  "scripts": {
+    "start": "php -S localhost:8000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/90storezon-calculators.git"
+  },
+  "keywords": [
+    "calculators",
+    "finance",
+    "health",
+    "math",
+    "utilities"
+  ],
+  "author": "90storezon",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/your-username/90storezon-calculators/issues"
+  },
+  "homepage": "https://github.com/your-username/90storezon-calculators#readme"
+}

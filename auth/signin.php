@@ -1,224 +1,169 @@
 <?php
-// auth/signin.php
-$pageTitle = "Sign In - 90storezon";
-$pageDescription = "Sign in to your 90storezon account to access personalized features and save your calculations.";
-$pageKeywords = "sign in, login, 90storezon, account";
+// auth/signin.php - Simplified version
+session_start();
 require_once 'google-config.php';
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
+    $password = $_POST['password'] ?? '';
+    $remember = isset($_POST['remember']);
+    
+    // Validate input
+    if (empty($email) || empty($password)) {
+        $error = 'Please fill in all required fields.';
+    } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = 'Please enter a valid email address.';
+    } else {
+        // Verify user credentials
+        require_once 'user-manager.php';
+        $userManager = new UserManager();
+        $user = $userManager->verifyUserCredentials($email, $password);
+        
+        if ($user) {
+            // Set session variables
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_email'] = $user['email'];
+            $_SESSION['user_name'] = $user['name'];
+            $_SESSION['logged_in'] = true;
+            $_SESSION['login_method'] = 'email';
+            
+            // Redirect to home
+            header('Location: ../index.php');
+            exit;
+        } else {
+            $error = 'Invalid email or password.';
+        }
+    }
+}
 ?>
+
 <?php include '../header.php'; ?>
 
-<div class="container">
-    <div class="auth-container">
-        <div class="auth-card">
-            <div class="auth-header">
-                <h1>Welcome Back</h1>
-                <p>Sign in to your 90storezon account</p>
-            </div>
-
-            <?php if (isset($_SESSION['error'])): ?>
-                <div class="alert alert-error">
-                    <?php echo htmlspecialchars($_SESSION['error']); ?>
-                    <?php unset($_SESSION['error']); ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if (validateGoogleConfig()): ?>
-            <!-- Google Sign In Button -->
-            <div class="social-auth">
-                <a href="<?php echo getGoogleAuthUrl(); ?>" class="btn btn-google">
-                    <span class="google-icon">G</span>
-                    Sign in with Google
-                </a>
-            </div>
-
-            <div class="divider">
-                <span>or</span>
-            </div>
-            <?php endif; ?>
-
-            <!-- Login Form -->
-            <form class="auth-form" method="POST" action="process-signin.php">
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" class="form-input" required 
-                           placeholder="Enter your email address" value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" class="form-input" required 
-                           placeholder="Enter your password">
-                </div>
-
-                <div class="form-group form-row">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="remember" id="remember">
-                        <span class="checkmark"></span>
-                        Remember me
-                    </label>
-                    <a href="forgot-password.php" class="forgot-password">Forgot password?</a>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-auth">Sign In</button>
-            </form>
-
-            <div class="auth-footer">
-                <p>Don't have an account? <a href="signup.php" class="auth-link">Sign up here</a></p>
-            </div>
-        </div>
-    </div>
-</div>
-
 <style>
-.forgot-password {
-    color: #007bff;
-    text-decoration: none;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.breadcrumb {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.breadcrumb a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.checkbox-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+}
+
+.checkbox-group input {
+    width: auto;
+    margin-right: 5px;
+}
+
+.forgot-password {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 12px;
 }
 
 .forgot-password:hover {
     text-decoration: underline;
 }
 
-.form-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.auth-form a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.auth-form a:hover {
-    text-decoration: underline;
-}
-
-/* Auth Container Styles */
-.auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 70vh;
-    padding: 20px;
-}
-
-.auth-card {
-    background: white;
-    border-radius: 12px;
-    padding: 40px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    border: 1px solid #e0e0e0;
-    width: 100%;
-    max-width: 450px;
-}
-
-.auth-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.auth-header h1 {
-    color: #202124;
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-.auth-header p {
-    color: #5f6368;
-    font-size: 16px;
-    margin: 0;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #202124;
-}
-
-.form-input {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1px solid #dadce0;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: all 0.2s ease;
-}
-
-.form-input:focus {
-    outline: none;
-    border-color: #1a73e8;
-    box-shadow: 0 0 0 2px rgba(26,115,232,0.2);
-}
-
-.checkbox-label {
-    display: flex;
-    align-items: flex-start;
-    cursor: pointer;
-}
-
-.checkbox-label input[type="checkbox"] {
-    margin-right: 10px;
-    margin-top: 4px;
-}
-
-.btn-auth {
-    width: 100%;
-    padding: 16px;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.social-auth {
-    margin-bottom: 24px;
-}
-
-.btn-google {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 14px;
-    border: 1px solid #dadce0;
-    border-radius: 8px;
-    background: white;
-    color: #202124;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-.btn-google:hover {
-    background: #f8f9fa;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.google-icon {
-    background: #fff;
-    border: 1px solid #dadce0;
-    border-radius: 4px;
-    padding: 2px 6px;
-    margin-right: 12px;
+.btn {
+    background: #0066cc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
     font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.btn:hover {
+    background: #0055aa;
 }
 
 .divider {
     text-align: center;
-    margin: 24px 0;
+    margin: 20px 0;
     position: relative;
 }
 
 .divider span {
     background: white;
-    padding: 0 16px;
-    color: #5f6368;
+    padding: 0 10px;
     position: relative;
     z-index: 1;
 }
@@ -230,24 +175,153 @@ require_once 'google-config.php';
     left: 0;
     right: 0;
     height: 1px;
-    background: #dadce0;
+    background: #ccc;
     z-index: 0;
 }
 
-.auth-footer {
-    text-align: center;
-    margin-top: 24px;
-}
-
-.auth-link {
-    color: #1a73e8;
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 10px;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: bold;
 }
 
-.auth-link:hover {
+.google-btn:hover {
+    background: #f0f0f0;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.signup-link a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.signup-link a:hover {
     text-decoration: underline;
 }
+
+.alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    background: #ffebee;
+    border: 1px solid #ffcdd2;
+    color: #c62828;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 30px 0;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+    justify-content: center;
+}
+
+.footer-links a {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.copyright {
+    font-size: 11px;
+    color: #666;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .form-container {
+        padding: 15px;
+    }
+}
 </style>
+
+<div class="container">
+    <div class="breadcrumb">
+        <a href="/">home</a> / sign in
+    </div>
+    
+    <h1>Sign In</h1>
+    
+    <?php if (isset($error)): ?>
+    <div class="alert">
+        <?php echo htmlspecialchars($error); ?>
+    </div>
+    <?php endif; ?>
+    
+    <div class="form-container">
+        <form method="POST">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required 
+                       value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" name="remember" id="remember">
+                    stay signed in
+                </label>
+                <a href="forgot-password.php" class="forgot-password">Forget password?</a>
+            </div>
+            
+            <button type="submit" class="btn">Sign In</button>
+        </form>
+        
+        <div class="divider">
+            <span>or</span>
+        </div>
+        
+        <?php if (validateGoogleConfig()): ?>
+        <a href="<?php echo getGoogleAuthUrl(); ?>" class="google-btn">
+            Sign in with Google
+        </a>
+        <?php endif; ?>
+        
+        <div class="signup-link">
+            New user? <a href="signup.php">Create a free account</a>
+        </div>
+    </div>
+    
+    <div class="footer-links">
+        <a href="#">Search</a>
+        <a href="#">about us</a>
+        <a href="#">sitemap</a>
+        <a href="#">terms of use</a>
+        <a href="#">privacy policy</a>
+    </div>
+    
+    <div class="copyright">
+        © 2008 - 2025 calculator.net
+    </div>
+</div>
 
 <?php include '../footer.php'; ?>

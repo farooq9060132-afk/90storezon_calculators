@@ -1,0 +1,24 @@
+{
+    "name": "90storezon/calculators",
+    "description": "A comprehensive collection of 50+ free online calculators for finance, health, math, and more.",
+    "type": "project",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "90storezon Team",
+            "email": "support@90storezon.store"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "includes/"
+        }
+    },
+    "scripts": {
+        "start": "php -S localhost:8000",
+        "test": "phpunit"
+    }
+}

@@ -1,0 +1,48 @@
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs_vista.db
+
+# Configuration files
+config.php
+.env
+*.log
+
+# Cache and temporary files
+cache/
+tmp/
+temp/
+
+# Composer
+/vendor/
+composer.lock
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# IDE specific files
+nbproject/
+.project
+.settings/

@@ -1,491 +1,472 @@
-<?php include 'header.php'; ?>
-
-<!-- Main Content -->
-<main class="container">
-    <h1 class="seo-heading">Free Online Calculators for Finance, Health, Math & More</h1>
-    <p class="intro-text">Access 50+ powerful calculators to help with financial planning, health tracking, math problems, and everyday calculations. Get instant, accurate results for free!</p>
-    
-    <!-- Calculator Section -->
-    <section class="calculator-section">
-        <div class="calculator-container">
-            <div class="calculator-history" id="calculator-history"></div>
-            <div class="calculator-display">
-                <div id="calculator-output">0</div>
-            </div>
-            <div class="calculator-buttons">
-                <button class="calc-btn" onclick="clearCalculator()">C</button>
-                <button class="calc-btn" onclick="appendToCalculator('±')">±</button>
-                <button class="calc-btn" onclick="appendToCalculator('%')">%</button>
-                <button class="calc-btn operator" onclick="appendToCalculator('/')">÷</button>
-                
-                <button class="calc-btn" onclick="appendToCalculator('7')">7</button>
-                <button class="calc-btn" onclick="appendToCalculator('8')">8</button>
-                <button class="calc-btn" onclick="appendToCalculator('9')">9</button>
-                <button class="calc-btn operator" onclick="appendToCalculator('*')">×</button>
-                
-                <button class="calc-btn" onclick="appendToCalculator('4')">4</button>
-                <button class="calc-btn" onclick="appendToCalculator('5')">5</button>
-                <button class="calc-btn" onclick="appendToCalculator('6')">6</button>
-                <button class="calc-btn operator" onclick="appendToCalculator('-')">−</button>
-                
-                <button class="calc-btn" onclick="appendToCalculator('1')">1</button>
-                <button class="calc-btn" onclick="appendToCalculator('2')">2</button>
-                <button class="calc-btn" onclick="appendToCalculator('3')">3</button>
-                <button class="calc-btn operator" onclick="appendToCalculator('+')">+</button>
-                
-                <button class="calc-btn zero" onclick="appendToCalculator('0')">0</button>
-                <button class="calc-btn" onclick="appendToCalculator('.')">.</button>
-                <button class="calc-btn equals" onclick="calculateResult()">=</button>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Calculators List -->
-    <section class="calculators-section">
-        <!-- Financial Calculators -->
-        <div class="category">
-            <h2>Financial Planning Tools</h2>
-            <p>Our financial calculators help you plan your loans, investments, and savings with precision.</p>
-            <ul class="calculator-list">
-                <li><a href="/calculators/loan-emi-calculator/">Loan EMI Calculator</a></li>
-                <li><a href="/calculators/mortgage-calculator/">Mortgage Calculator</a></li>
-                <li><a href="/calculators/compound-interest-calculator/">Compound Interest Calculator</a></li>
-                <li><a href="/calculators/investment-calculator/">Investment Calculator</a></li>
-                <li><a href="/calculators/retirement-planner/">Retirement Planner</a></li>
-                <li><a href="/calculators/tax-calculator/">Tax Calculator</a></li>
-                <li><a href="/calculators/budget-planner/">Budget Planner</a></li>
-                <li><a href="/calculators/salary-calculator/">Salary Calculator</a></li>
-                <li><a href="/calculators/currency-converter/">Currency Converter</a></li>
-                <li><a href="/calculators/fuel-cost-calculator/">Fuel Cost Calculator</a></li>
-            </ul>
-        </div>
-
-        <!-- Health & Fitness Calculators -->
-        <div class="category">
-            <h2>Health & Wellness Tools</h2>
-            <p>Track your health metrics and fitness goals with our specialized health calculators.</p>
-            <ul class="calculator-list">
-                <li><a href="/calculators/bmi-calculator/">BMI Calculator</a></li>
-                <li><a href="/calculators/calorie-calculator/">Calorie Calculator</a></li>
-                <li><a href="/calculators/body-fat-calculator/">Body Fat Calculator</a></li>
-                <li><a href="/calculators/macro-calculator/">Macro Calculator</a></li>
-                <li><a href="/calculators/water-intake-calculator/">Water Intake Calculator</a></li>
-                <li><a href="/calculators/pregnancy-calculator/">Pregnancy Calculator</a></li>
-                <li><a href="/calculators/heart-rate-calculator/">Heart Rate Calculator</a></li>
-                <li><a href="/calculators/medication-calculator/">Medication Calculator</a></li>
-                <li><a href="/calculators/tip-calculator/">Tip Calculator</a></li>
-                <li><a href="/calculators/discount-calculator/">Discount Calculator</a></li>
-            </ul>
-        </div>
-
-        <!-- Math Calculators -->
-        <div class="category">
-            <h2>Math & Education Tools</h2>
-            <p>Solve complex math problems and academic calculations with ease.</p>
-            <ul class="calculator-list">
-                <li><a href="/calculators/percentage-calculator/">Percentage Calculator</a></li>
-                <li><a href="/calculators/gpa-calculator/">GPA Calculator</a></li>
-                <li><a href="/calculators/age-calculator/">Age Calculator</a></li>
-                <li><a href="/calculators/scientific-calculator/">Scientific Calculator</a></li>
-                <li><a href="/calculators/grade-calculator/">Grade Calculator</a></li>
-                <li><a href="/calculators/study-planner/">Study Planner</a></li>
-                <li><a href="/calculators/time-duration-calculator/">Time Duration Calculator</a></li>
-                <li><a href="/calculators/age-difference-calculator/">Age Difference Calculator</a></li>
-                <li><a href="/calculators/date-calculator/">Date Calculator</a></li>
-                <li><a href="/calculators/unit-converter/">Unit Converter</a></li>
-            </ul>
-        </div>
-
-        <!-- Web Tools & Converters -->
-        <div class="category">
-            <h2>Web Utilities & Converters</h2>
-            <p>Essential tools for developers and everyday web users.</p>
-            <ul class="calculator-list">
-                <li><a href="/calculators/qr-code-generator/">QR Code Generator</a></li>
-                <li><a href="/calculators/password-generator/">Password Generator</a></li>
-                <li><a href="/calculators/password-strength-checker/">Password Strength Checker</a></li>
-                <li><a href="/calculators/file-size-converter/">File Size Converter</a></li>
-                <li><a href="/calculators/color-code-converter/">Color Code Converter</a></li>
-                <li><a href="/calculators/time-zone-converter/">Time Zone Converter</a></li>
-                <li><a href="/calculators/data-storage-calculator/">Data Storage Calculator</a></li>
-                <li><a href="/calculators/base64-converter/">Base64 Converter</a></li>
-                <li><a href="/calculators/json-formatter/">JSON Formatter</a></li>
-                <li><a href="/calculators/regex-tester/">Regex Tester</a></li>
-            </ul>
-        </div>
-
-        <!-- Programming & Development -->
-        <div class="category">
-            <h2>Developer Tools</h2>
-            <p>Essential utilities for programmers and developers.</p>
-            <ul class="calculator-list">
-                <li><a href="/calculators/code-beautifier/">Code Beautifier</a></li>
-                <li><a href="/calculators/md5-generator/">MD5 Generator</a></li>
-                <li><a href="/calculators/url-encoder/">URL Encoder</a></li>
-                <li><a href="/calculators/character-counter/">Character Counter</a></li>
-                <li><a href="/calculators/lorem-ipsum-generator/">Lorem Ipsum Generator</a></li>
-                <li><a href="/calculators/csv-to-json-converter/">CSV to JSON Converter</a></li>
-                <li><a href="/calculators/website-load-time-calculator/">Website Load Time Calculator</a></li>
-                <li><a href="/calculators/api-calculator/">API Calculator</a></li>
-                <li><a href="/calculators/carbon-footprint-calculator/">Carbon Footprint Calculator</a></li>
-                <li><a href="/calculators/youtube-earnings-calculator/">YouTube Earnings Calculator</a></li>
-            </ul>
-        </div>
-    </section>
-</div>
+<?php
+// Include your header
+include 'header.php';
+?>
 
 <style>
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
+/* Homepage styles */
+.hero-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4edf9 100%);
+    padding: 80px 20px;
+    text-align: center;
+    margin-bottom: 60px;
+}
 
-    /* Calculator Styles */
-    .calculator-section {
-        background: white;
-        border-radius: 12px;
-        padding: 30px;
-        margin-bottom: 30px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        max-width: 400px;
-        margin-left: auto;
-        margin-right: auto;
-        border: 1px solid #e0e0e0;
-    }
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
 
-    .calculator-history {
-        background: #f8f9fa;
-        border: 1px solid #dadce0;
-        border-radius: 8px 8px 0 0;
-        padding: 10px 20px;
-        margin-bottom: 0;
-        text-align: right;
-        font-size: 16px;
-        min-height: 20px;
-        color: #5f6368;
-        border-bottom: none;
-    }
+.hero-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #0052FF;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
 
-    .calculator-display {
-        background: #f8f9fa;
-        border: 1px solid #dadce0;
-        border-radius: 0 0 8px 8px;
-        padding: 20px;
-        margin-bottom: 15px;
-        text-align: right;
-        font-size: 28px;
-        font-weight: 500;
-        min-height: 70px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-    }
+.hero-subtitle {
+    font-size: 20px;
+    color: #5f6368;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
 
-    .calculator-buttons {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
-    }
+.search-container {
+    max-width: 600px;
+    margin: 0 auto 30px;
+}
 
-    .calc-btn {
-        background: white;
-        border: 1px solid #dadce0;
-        border-radius: 8px;
-        padding: 16px;
+.search-box {
+    display: flex;
+    gap: 10px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 16px 20px;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.search-btn {
+    background: #0052FF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0 24px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-btn:hover {
+    background: #0041cc;
+}
+
+.features-section {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 32px;
+    color: #202124;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #5f6368;
+    font-size: 18px;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background: #ffffff;
+    border: 1px solid #dadce0;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-color: #0052FF;
+}
+
+.feature-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #0052FF;
+}
+
+.feature-card h3 {
+    font-size: 22px;
+    color: #202124;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.feature-card p {
+    color: #5f6368;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.feature-link {
+    color: #0052FF;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.feature-link:hover {
+    text-decoration: underline;
+}
+
+.popular-calculators {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+}
+
+.calculators-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.calculator-card {
+    background: #ffffff;
+    border: 1px solid #dadce0;
+    border-radius: 10px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.calculator-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border-color: #0052FF;
+}
+
+.calculator-card h3 {
+    font-size: 18px;
+    color: #202124;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.calculator-card p {
+    color: #5f6368;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.calculator-link {
+    display: inline-block;
+    background: #0052FF;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.calculator-link:hover {
+    background: #0041cc;
+    text-decoration: none;
+}
+
+.categories-section {
+    background: #f8f9fa;
+    padding: 60px 20px;
+    margin-bottom: 60px;
+}
+
+.categories-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.category-box {
+    background: #ffffff;
+    border: 1px solid #dadce0;
+    border-radius: 10px;
+    padding: 30px 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.category-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border-color: #0052FF;
+}
+
+.category-box h3 {
+    font-size: 20px;
+    color: #202124;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.category-box p {
+    color: #5f6368;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.category-link {
+    color: #0052FF;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.category-link:hover {
+    text-decoration: underline;
+}
+
+.stats-section {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.stat-item h3 {
+    font-size: 48px;
+    color: #0052FF;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.stat-item p {
+    color: #5f6368;
+    font-size: 18px;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 50px 20px;
+    }
+    
+    .hero-title {
+        font-size: 36px;
+    }
+    
+    .hero-subtitle {
         font-size: 18px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
-
-    .calc-btn:hover {
-        background: #f8f9fa;
-        transform: translateY(-2px);
-        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    
+    .search-box {
+        flex-direction: column;
     }
-
-    .calc-btn:active {
-        transform: translateY(0);
+    
+    .section-title {
+        font-size: 28px;
     }
-
-    .calc-btn.operator {
-        background: #f1f3f4;
-        font-weight: 600;
-    }
-
-    .calc-btn.equals {
-        background: #1a73e8;
-        color: white;
-        font-weight: 600;
-    }
-
-    .calc-btn.equals:hover {
-        background: #1558d6;
-    }
-
-    .calc-btn.zero {
-        grid-column: span 2;
-    }
-
-    /* Search Styles */
-    .search-section {
-        margin-bottom: 30px;
-        text-align: center;
-    }
-
-    .search-bar {
-        width: 100%;
-        max-width: 600px;
-        padding: 14px 24px;
-        border: 1px solid #dadce0;
-        border-radius: 30px;
+    
+    .section-subtitle {
         font-size: 16px;
-        outline: none;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-
-    .search-bar:focus {
-        border-color: #1a73e8;
-        box-shadow: 0 0 0 3px rgba(26,115,232,0.2), 0 4px 12px rgba(0,0,0,0.1);
-        transform: translateY(-1px);
     }
     
-    .search-bar::placeholder {
-        color: #5f6368;
-    }
-
-    /* Categories Styles */
-    .calculators-section {
-        display: grid;
+    .features-grid, .calculators-grid, .categories-grid {
         grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    @media (min-width: 768px) {
-        .calculators-section {
-            grid-template-columns: repeat(2, 1fr);
-        }
     }
     
-    @media (min-width: 1024px) {
-        .calculators-section {
-            grid-template-columns: repeat(3, 1fr);
-        }
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 32px;
     }
     
-    @media (min-width: 1200px) {
-        .calculators-section {
-            grid-template-columns: repeat(5, 1fr);
-        }
-    }
-
-    .category {
-        background: white;
-        border-radius: 12px;
-        padding: 25px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        border: 1px solid #e0e0e0;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .stats-grid {
+        grid-template-columns: 1fr;
     }
     
-    .category:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    .stat-item h3 {
+        font-size: 36px;
     }
-
-    .category h3 {
-        margin: 0 0 20px 0;
-        font-size: 20px;
-        font-weight: 600;
-        color: #202124;
-        border-bottom: 2px solid #1a73e8;
-        padding-bottom: 12px;
-        letter-spacing: -0.3px;
-    }
-
-    .calculator-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .calculator-list li {
-        margin-bottom: 10px;
-        border-radius: 6px;
-        transition: background-color 0.2s ease;
-    }
-    
-    .calculator-list li:hover {
-        background-color: #f8f9fa;
-    }
-
-    .calculator-list a {
-        color: #1a73e8;
-        text-decoration: none;
-        font-size: 15px;
-        display: block;
-        padding: 8px 12px;
-        border-radius: 6px;
-        transition: all 0.2s ease;
-    }
-
-    .calculator-list a:hover {
-        color: #1558d6;
-        background-color: #e8f0fe;
-        text-decoration: none;
-        padding-left: 16px;
-    }
-
-    .no-results {
-        text-align: center;
-        color: #5f6368;
-        font-style: italic;
-        padding: 20px;
-    }
+}
 </style>
 
-<script>
-    // Calculator functionality
-    let currentInput = '0';
-    let previousInput = '';
-    let operation = null;
-    let shouldResetScreen = false;
-    let calculationHistory = '';
-
-    function updateDisplay() {
-        document.getElementById('calculator-output').textContent = currentInput;
-        document.getElementById('calculator-history').textContent = calculationHistory;
-    }
-
-    function appendToCalculator(value) {
-        // Handle special operations first
-        if (value === '±') {
-            if (currentInput !== '0') {
-                currentInput = currentInput.startsWith('-') ? currentInput.slice(1) : '-' + currentInput;
-            }
-            updateDisplay();
-            return;
-        }
+<div class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">50+ Free Online Calculators</h1>
+        <p class="hero-subtitle">Accurate, fast, and easy-to-use calculators for finance, health, math, and more. All completely free with no registration required.</p>
         
-        if (value === '%') {
-            if (currentInput !== '0') {
-                currentInput = (parseFloat(currentInput) / 100).toString();
-            }
-            updateDisplay();
-            return;
-        }
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search for a calculator...">
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-        // Handle operators
-        if (['+', '-', '*', '/'].includes(value)) {
-            if (currentInput === '' && previousInput !== '') {
-                // Change operation if no current input
-                operation = value;
-                calculationHistory = previousInput + ' ' + getOperationSymbol(value);
-                updateDisplay();
-                return;
-            }
+<div class="features-section">
+    <h2 class="section-title">Why Choose Our Calculators</h2>
+    <p class="section-subtitle">We provide accurate calculations with a clean, simple interface that makes complex math easy.</p>
+    
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Lightning Fast</h3>
+            <p>Get instant results with our optimized calculation algorithms. No waiting, no delays.</p>
+            <a href="/calculators/" class="feature-link">Browse Calculators →</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3>Mobile Friendly</h3>
+            <p>Works perfectly on all devices - desktop, tablet, or smartphone.</p>
+            <a href="/calculators/" class="feature-link">See All Tools →</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Privacy Focused</h3>
+            <p>We don't store any of your data. Your calculations stay private.</p>
+            <a href="/pages/privacy.php" class="feature-link">Privacy Policy →</a>
+        </div>
+    </div>
+</div>
+
+<div class="popular-calculators">
+    <h2 class="section-title">Popular Calculators</h2>
+    <p class="section-subtitle">Our most-used tools for everyday calculations.</p>
+    
+    <div class="calculators-grid">
+        <div class="calculator-card">
+            <h3>Loan EMI Calculator</h3>
+            <p>Calculate your monthly loan payments with interest rates and tenure.</p>
+            <a href="/calculators/loan-calculator/" class="calculator-link">Calculate Now</a>
+        </div>
+        
+        <div class="calculator-card">
+            <h3>Anorexic BMI Calculator</h3>
+            <p>Calculate BMI to assess if body weight suggests anorexia nervosa.</p>
+            <a href="/calculators/anorexic-bmi-calculator/" class="calculator-link">Calculate Now</a>
+        </div>
+        
+        <div class="calculator-card">
+            <h3>Interest Calculator</h3>
+            <p>Calculate compound interest, investment growth, and savings.</p>
+            <a href="/calculators/interest-calculator/" class="calculator-link">Calculate Now</a>
+        </div>
+        
+        <div class="calculator-card">
+            <h3>Currency Calculator</h3>
+            <p>Convert between different currencies with real-time exchange rates.</p>
+            <a href="/calculators/currency-calculator/" class="calculator-link">Calculate Now</a>
+        </div>
+    </div>
+</div>
+
+<div class="categories-section">
+    <div class="categories-container">
+        <h2 class="section-title">Calculator Categories</h2>
+        <p class="section-subtitle">Browse our calculators organized by category.</p>
+        
+        <div class="categories-grid">
+            <div class="category-box">
+                <h3>Financial Tools</h3>
+                <p>Loan calculators, investment tools, budget planners, and more.</p>
+                <a href="/calculators/?category=financial" class="category-link">View Calculators</a>
+            </div>
             
-            if (previousInput !== '' && operation !== null && !shouldResetScreen) {
-                // Calculate result before applying new operation
-                calculateResult();
-            }
+            <div class="category-box">
+                <h3>Health & Fitness</h3>
+                <p>BMI calculator, calorie counter, heart rate zone calculator.</p>
+                <a href="/calculators/?category=health" class="category-link">View Calculators</a>
+            </div>
             
-            previousInput = currentInput;
-            operation = value;
-            shouldResetScreen = true;
-            calculationHistory = previousInput + ' ' + getOperationSymbol(value);
-            updateDisplay();
-            return;
-        }
+            <div class="category-box">
+                <h3>Math & Education</h3>
+                <p>Scientific calculators, grade calculators, GPA tools.</p>
+                <a href="/calculators/?category=math" class="category-link">View Calculators</a>
+            </div>
+            
+            <div class="category-box">
+                <h3>Other Tools</h3>
+                <p>Unit converters, file size tools, color code converters.</p>
+                <a href="/calculators/?category=other" class="category-link">View Calculators</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-        // Handle numbers and decimal point
-        if (shouldResetScreen) {
-            if (value === '.') {
-                currentInput = '0.';
-            } else {
-                currentInput = value;
-            }
-            shouldResetScreen = false;
-        } else {
-            if (value === '.') {
-                if (!currentInput.includes('.')) {
-                    currentInput += '.';
-                }
-            } else {
-                if (currentInput === '0') {
-                    currentInput = value;
-                } else {
-                    currentInput += value;
-                }
-            }
-        }
+<div class="stats-section">
+    <h2 class="section-title">Trusted by Thousands</h2>
+    <p class="section-subtitle">Join our community of users who rely on our calculators daily.</p>
+    
+    <div class="stats-grid">
+        <div class="stat-item">
+            <h3>50+</h3>
+            <p>Calculators</p>
+        </div>
         
-        updateDisplay();
-    }
-
-    function getOperationSymbol(op) {
-        switch(op) {
-            case '+': return '+';
-            case '-': return '−';
-            case '*': return '×';
-            case '/': return '÷';
-            default: return op;
-        }
-    }
-
-    function clearCalculator() {
-        currentInput = '0';
-        previousInput = '';
-        operation = null;
-        shouldResetScreen = false;
-        calculationHistory = '';
-        updateDisplay();
-    }
-
-    function calculateResult() {
-        if (operation === null || shouldResetScreen) return;
-
-        const prev = parseFloat(previousInput);
-        const current = parseFloat(currentInput);
+        <div class="stat-item">
+            <h3>100K+</h3>
+            <p>Monthly Users</p>
+        </div>
         
-        if (isNaN(prev) || isNaN(current)) return;
+        <div class="stat-item">
+            <h3>1M+</h3>
+            <p>Calculations</p>
+        </div>
+        
+        <div class="stat-item">
+            <h3>100%</h3>
+            <p>Free</p>
+        </div>
+    </div>
+</div>
 
-        let result;
-        switch (operation) {
-            case '+':
-                result = prev + current;
-                break;
-            case '-':
-                result = prev - current;
-                break;
-            case '*':
-                result = prev * current;
-                break;
-            case '/':
-                if (current === 0) {
-                    result = 'Error';
-                } else {
-                    result = prev / current;
-                }
-                break;
-            default:
-                return;
-        }
-
-        // Update history to show the full calculation
-        calculationHistory = previousInput + ' ' + getOperationSymbol(operation) + ' ' + currentInput + ' =';
-        currentInput = typeof result === 'number' ? result.toString() : result;
-        operation = null;
-        previousInput = '';
-        shouldResetScreen = true;
-        updateDisplay();
-    }
-
-</script>
-
-<?php include 'footer.php'; ?>
+<?php
+// Include your footer
+include 'footer.php';
+?>

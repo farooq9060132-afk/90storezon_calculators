@@ -1,5 +1,5 @@
 <?php
-// Start session
+// auth/profile.php - Simplified version
 session_start();
 
 // Check if user is logged in
@@ -8,168 +8,204 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     exit;
 }
 
-$pageTitle = "Profile - 90storezon";
-$pageDescription = "View and manage your 90storezon account profile.";
-$pageKeywords = "profile, account, settings, 90storezon";
+// Get user data
+$user_name = $_SESSION['user_name'] ?? 'User';
+$user_email = $_SESSION['user_email'] ?? '';
 ?>
+
 <?php include '../header.php'; ?>
 
-<div class="container">
-    <div class="profile-container">
-        <div class="profile-card">
-            <div class="profile-header">
-                <h1>My Profile</h1>
-                <p>Manage your account information</p>
-            </div>
-
-            <div class="profile-content">
-                <div class="profile-info">
-                    <div class="info-group">
-                        <label>Name</label>
-                        <div class="info-value"><?php echo htmlspecialchars($_SESSION['user_name'] ?? 'User'); ?></div>
-                    </div>
-                    
-                    <div class="info-group">
-                        <label>Email</label>
-                        <div class="info-value"><?php echo htmlspecialchars($_SESSION['user_email'] ?? ''); ?></div>
-                    </div>
-                    
-                    <div class="info-group">
-                        <label>Member Since</label>
-                        <div class="info-value">January 1, 2024</div>
-                    </div>
-                    
-                    <div class="info-group">
-                        <label>Login Method</label>
-                        <div class="info-value"><?php echo ucfirst($_SESSION['login_method'] ?? 'email'); ?></div>
-                    </div>
-                </div>
-
-                <div class="profile-actions">
-                    <a href="settings.php" class="btn btn-primary">Account Settings</a>
-                    <a href="logout.php" class="btn btn-outline">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1000px;
+    margin: 20px auto;
+    background: white;
     padding: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.breadcrumb {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.breadcrumb a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .profile-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 70vh;
-    padding: 20px;
-}
-
-.profile-card {
-    background: white;
-    border-radius: 12px;
-    padding: 40px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    border: 1px solid #e0e0e0;
-    width: 100%;
     max-width: 600px;
-}
-
-.profile-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.profile-header h1 {
-    color: #202124;
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-.profile-header p {
-    color: #5f6368;
-    font-size: 16px;
-    margin: 0;
+    margin: 30px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
 }
 
 .profile-info {
-    margin-bottom: 30px;
-}
-
-.info-group {
     margin-bottom: 20px;
 }
 
-.info-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #202124;
-    font-size: 14px;
+.profile-info h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.info-item {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.info-label {
+    font-weight: bold;
+    width: 150px;
+    color: #333;
 }
 
 .info-value {
-    padding: 12px 16px;
-    background: #f8f9fa;
-    border: 1px solid #dadce0;
-    border-radius: 8px;
-    font-size: 16px;
-    color: #202124;
-}
-
-.profile-actions {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
+    flex: 1;
+    color: #666;
 }
 
 .btn {
-    display: inline-block;
-    padding: 12px 24px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
-    cursor: pointer;
-}
-
-.btn-outline {
-    background: transparent;
-    color: #0052FF;
-    border-color: #0052FF;
-}
-
-.btn-outline:hover {
-    background: rgba(0, 82, 255, 0.05);
-}
-
-.btn-primary {
-    background: #0052FF;
+    background: #0066cc;
     color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px;
 }
 
-.btn-primary:hover {
-    background: #0041cc;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 82, 255, 0.2);
+.btn:hover {
+    background: #0055aa;
+}
+
+.btn-danger {
+    background: #dc3545;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 30px 0;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+    justify-content: center;
+}
+
+.footer-links a {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.copyright {
+    font-size: 11px;
+    color: #666;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+    text-align: center;
 }
 
 @media (max-width: 768px) {
-    .profile-card {
-        padding: 30px 20px;
+    .container {
+        margin: 10px;
+        padding: 15px;
     }
     
-    .profile-actions {
+    .profile-container {
+        padding: 15px;
+    }
+    
+    .info-item {
         flex-direction: column;
+    }
+    
+    .info-label {
+        width: auto;
+        margin-bottom: 5px;
     }
 }
 </style>
+
+<div class="container">
+    <div class="breadcrumb">
+        <a href="/">home</a> / profile
+    </div>
+    
+    <h1>User Profile</h1>
+    
+    <div class="profile-container">
+        <div class="profile-info">
+            <h2>Account Information</h2>
+            <div class="info-item">
+                <div class="info-label">Name:</div>
+                <div class="info-value"><?php echo htmlspecialchars($user_name); ?></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Email:</div>
+                <div class="info-value"><?php echo htmlspecialchars($user_email); ?></div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="settings.php" class="btn">Account Settings</a>
+            <a href="logout.php" class="btn btn-danger">Sign Out</a>
+        </div>
+    </div>
+    
+    <div class="footer-links">
+        <a href="#">Search</a>
+        <a href="#">about us</a>
+        <a href="#">sitemap</a>
+        <a href="#">terms of use</a>
+        <a href="#">privacy policy</a>
+    </div>
+    
+    <div class="copyright">
+        © 2008 - 2025 calculator.net
+    </div>
+</div>
 
 <?php include '../footer.php'; ?>

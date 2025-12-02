@@ -1,0 +1,24 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /data/
+
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Allow crawling of all content
+User-agent: *
+Allow: /
+
+# Specific rules for Googlebot
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /data/
+
+# Specific rules for Bingbot
+User-agent: bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /data/

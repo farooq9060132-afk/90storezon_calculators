@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-username/90storezon-calculators.git"
+    "url": "git+https://github.com/farooq9060132-afk/90storezon_calculators.git"
   },
   "keywords": [
     "calculators",
@@ -21,7 +21,7 @@
   "author": "90storezon",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
-    "url": "https://github.com/your-username/90storezon-calculators/issues"
+    "url": "https://github.com/farooq9060132-afk/90storezon_calculators/issues"
   },
-  "homepage": "https://github.com/your-username/90storezon-calculators#readme"
+  "homepage": "https://github.com/farooq9060132-afk/90storezon_calculators#readme"
 }

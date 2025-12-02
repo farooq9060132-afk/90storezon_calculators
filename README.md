@@ -86,11 +86,33 @@ The calculators use clean URLs without numeric prefixes:
 
 ## Contributing
 
+We welcome contributions to the 90storezon Online Calculators project! Here's how you can help:
+
 1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+### Adding New Calculators
+
+To add a new calculator:
+
+1. Create a new directory in the `calculators/` folder with a descriptive name
+2. Implement your calculator in an `index.php` file within that directory
+3. Add an entry for your calculator in `calculators/index.php`
+4. Update the `.htaccess` file in the `calculators/` directory with appropriate rewrite rules
+5. Test thoroughly across different devices and browsers
+
+### Reporting Issues
+
+If you find a bug or have a feature request, please [open an issue](https://github.com/farooq9060132-afk/90storezon_calculators/issues) on GitHub.
+
+### Code Style
+
+- Follow the existing PHP and JavaScript patterns in the codebase
+- Maintain consistent styling with the existing calculators
+- Ensure all code is responsive and accessible
 
 ## License
 

@@ -1,48 +1,72 @@
-# IDE and editor files
+# Dependencies
+node_modules/
+vendor/
+composer.lock
+package-lock.json
+yarn.lock
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Database
+*.db
+*.sqlite
+
+# Logs
+*.log
+logs/
+error_log
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
-# OS generated files
-Thumbs.db
-ehthumbs.db
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-Icon?
-ehthumbs_vista.db
-
-# Configuration files
-config.php
-.env
-*.log
-
-# Cache and temporary files
+# Temp files
+*.tmp
+*.temp
 cache/
 tmp/
-temp/
 
-# Composer
-/vendor/
-composer.lock
+# Uploads
+/uploads/
+/images/uploads/
 
-# Node.js
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# OS generated files
+ehthumbs.db
+Icon?
+._*
 
 # Backup files
 *.bak
 *.backup
-*.old
-*.orig
 
-# IDE specific files
-nbproject/
-.project
-.settings/
+# Config files (except production)
+config.php
+config.local.php
+
+# Cache
+.opcache/
+apc/
+memcached/
+
+# Session files
+sess_*
+
+# Compression files
+*.gz
+*.zip
+*.tar
+
+# Development
+phpunit.xml
+.travis.yml
+.codeclimate.yml

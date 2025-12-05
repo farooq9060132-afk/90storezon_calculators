@@ -1,0 +1,268 @@
+# ============================================
+# 90storezon - Google Ads.txt File
+# Authorized Digital Sellers
+# Created: 2024-12-01
+# Last Updated: 2024-12-01
+# ============================================
+
+# Contact Information
+contact=ads@90storezon.com
+contact=admin@90storezon.com
+
+# Publisher Information
+publisher=90storezon
+publisher_url=https://www.90storezon.com
+business_name=90 Store Zone
+
+# ==================== GOOGLE ADSENSE ====================
+
+# Google AdSense (Primary)
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+google.com, pub-0000000000000000, RESELLER, f08c47fec0942fa0
+
+# ==================== AUTHORIZED SELLERS ====================
+
+# Google Marketing Platform
+google.com, pub-0000000000000001, DIRECT, f08c47fec0942fa0
+
+# Google Ad Manager
+google.com, pub-0000000000000002, DIRECT, f08c47fec0942fa0
+
+# Google AdMob
+google.com, pub-0000000000000003, DIRECT, f08c47fec0942fa0
+
+# ==================== CERTIFIED VENDORS ====================
+
+# Amazon
+amazon.com, 1234567890, DIRECT, f8c147fec0942fa0
+amazon-adsystem.com, 1234567890, DIRECT, f8c147fec0942fa0
+
+# Index Exchange
+indexexchange.com, 123456, DIRECT
+indexexchange.com, 123456, RESELLER
+
+# OpenX
+openx.com, 1234567890, DIRECT, 6a698e2ec38604c6
+openx.com, 1234567890, RESELLER, 6a698e2ec38604c6
+
+# PubMatic
+pubmatic.com, 123456, DIRECT, 5d62403b186f2ace
+pubmatic.com, 123456, RESELLER, 5d62403b186f2ace
+
+# Rubicon Project
+rubiconproject.com, 123456, DIRECT, 0bfd66d529a55807
+rubiconproject.com, 123456, RESELLER, 0bfd66d529a55807
+
+# AppNexus
+appnexus.com, 123456, DIRECT, f5ab79cb980f11d1
+appnexus.com, 123456, RESELLER, f5ab79cb980f11d1
+
+# Sovrn
+sovrn.com, 123456, DIRECT, fafdf38b16bf6b2b
+sovrn.com, 123456, RESELLER, fafdf38b16bf6b2b
+
+# Criteo
+criteo.com, 123456, DIRECT, 9cc4a7a2d7b8e3f1
+criteo.com, 123456, RESELLER, 9cc4a7a2d7b8e3f1
+
+# TripleLift
+triplelift.com, 123456, DIRECT, 6c33edb13117fd86
+triplelift.com, 123456, RESELLER, 6c33edb13117fd86
+
+# Sharethrough
+sharethrough.com, 123456, DIRECT, d53b998a7bd4ecd2
+sharethrough.com, 123456, RESELLER, d53b998a7bd4ecd2
+
+# SpotX
+spotx.tv, 123456, DIRECT, 7842df1d2fe2db34
+spotxchange.com, 123456, DIRECT, 7842df1d2fe2db34
+
+# ==================== SSPs (SUPPLY SIDE PLATFORMS) ====================
+
+# Media.net
+media.net, 123456, DIRECT, 8c96922a6b1b3e4f
+media.net, 123456, RESELLER, 8c96922a6b1b3e4f
+
+# Revcontent
+revcontent.com, 123456, DIRECT, a74b1b46f3c5d8e9
+revcontent.com, 123456, RESELLER, a74b1b46f3c5d8e9
+
+# Taboola
+taboola.com, 123456, DIRECT, 1d1b3e4f5a6b7c8d
+taboola.com, 123456, RESELLER, 1d1b3e4f5a6b7c8d
+
+# Outbrain
+outbrain.com, 123456, DIRECT, 2e3f4a5b6c7d8e9f
+outbrain.com, 123456, RESELLER, 2e3f4a5b6c7d8e9f
+
+# Nativo
+nativo.com, 123456, DIRECT, 3f4a5b6c7d8e9f01
+nativo.com, 123456, RESELLER, 3f4a5b6c7d8e9f01
+
+# ==================== DSPs (DEMAND SIDE PLATFORMS) ====================
+
+# The Trade Desk
+thetradedesk.com, 123456, DIRECT, 4a5b6c7d8e9f0123
+thetradedesk.com, 123456, RESELLER, 4a5b6c7d8e9f0123
+
+# Xandr (AppNexus)
+xandr.com, 123456, DIRECT, f5ab79cb980f11d1
+xandr.com, 123456, RESELLER, f5ab79cb980f11d1
+
+# DataXu
+dataxu.com, 123456, DIRECT, 5b6c7d8e9f012345
+dataxu.com, 123456, RESELLER, 5b6c7d8e9f012345
+
+# ==================== AD NETWORKS ====================
+
+# Mediavine
+mediavine.com, 123456, DIRECT, 6c7d8e9f01234567
+mediavine.com, 123456, RESELLER, 6c7d8e9f01234567
+
+# AdThrive
+adthrive.com, 123456, DIRECT, 7d8e9f0123456789
+adthrive.com, 123456, RESELLER, 7d8e9f0123456789
+
+# Ezoic
+ezoic.com, 123456, DIRECT, 8e9f0123456789ab
+ezoic.com, 123456, RESELLER, 8e9f0123456789ab
+
+# Monumetric
+monumetric.com, 123456, DIRECT, 9f0123456789abcd
+monumetric.com, 123456, RESELLER, 9f0123456789abcd
+
+# Newor Media
+newormedia.com, 123456, DIRECT, 0123456789abcdef
+newormedia.com, 123456, RESELLER, 0123456789abcdef
+
+# ==================== VIDEO ADVERTISING ====================
+
+# BrightRoll
+brightroll.com, 123456, DIRECT, a123456789abcdef
+brightroll.com, 123456, RESELLER, a123456789abcdef
+
+# Tremor Video
+tremorvideo.com, 123456, DIRECT, b23456789abcdef0
+tremorvideo.com, 123456, RESELLER, b23456789abcdef0
+
+# SpotXchange
+spotxchange.com, 123456, DIRECT, c3456789abcdef01
+spotxchange.com, 123456, RESELLER, c3456789abcdef01
+
+# ==================== NATIVE ADVERTISING ====================
+
+# Taboola Native
+taboola.com, 123457, DIRECT, 1e2b3e4f5a6b7c8d
+taboola.com, 123457, RESELLER, 1e2b3e4f5a6b7c8d
+
+# Outbrain Native
+outbrain.com, 123457, DIRECT, 2f3f4a5b6c7d8e9f
+outbrain.com, 123457, RESELLER, 2f3f4a5b6c7d8e9f
+
+# Revcontent Native
+revcontent.com, 123457, DIRECT, a84b1b46f3c5d8e9
+revcontent.com, 123457, RESELLER, a84b1b46f3c5d8e9
+
+# ==================== MOBILE ADVERTISING ====================
+
+# Google AdMob
+google.com, pub-0000000000000004, DIRECT, f08c47fec0942fa0
+google.com, pub-0000000000000004, RESELLER, f08c47fec0942fa0
+
+# InMobi
+inmobi.com, 123456, DIRECT, 83a2c3d4e5f6a7b8
+inmobi.com, 123456, RESELLER, 83a2c3d4e5f6a7b8
+
+# MoPub
+mopub.com, 123456, DIRECT, 94b3c4d5e6f7a8b9
+mopub.com, 123456, RESELLER, 94b3c4d5e6f7a8b9
+
+# Unity Ads
+unity3d.com, 123456, DIRECT, a5c4d5e6f7a8b9c0
+unity3d.com, 123456, RESELLER, a5c4d5e6f7a8b9c0
+
+# ==================== HEADER BIDDING ====================
+
+# Prebid
+prebid.org, 123456, DIRECT, b6d5e6f7a8b9c0d1
+prebid.org, 123456, RESELLER, b6d5e6f7a8b9c0d1
+
+# Amazon UAM/TAM
+amazon-adsystem.com, 1234567, DIRECT, f8c147fec0942fa0
+amazon-adsystem.com, 1234567, RESELLER, f8c147fec0942fa0
+
+# ==================== DIRECT ADVERTISERS ====================
+
+# Direct Advertiser 1
+directadvertiser1.com, ABC123, DIRECT
+directadvertiser1.com, ABC123, RESELLER
+
+# Direct Advertiser 2
+directadvertiser2.com, DEF456, DIRECT
+directadvertiser2.com, DEF456, RESELLER
+
+# Direct Advertiser 3
+directadvertiser3.com, GHI789, DIRECT
+directadvertiser3.com, GHI789, RESELLER
+
+# ==================== FUTURE PLACEHOLDERS ====================
+
+# Placeholder for Future Ad Network 1
+# futurenetwork1.com, FUTURE001, DIRECT
+# futurenetwork1.com, FUTURE001, RESELLER
+
+# Placeholder for Future Ad Network 2
+# futurenetwork2.com, FUTURE002, DIRECT
+# futurenetwork2.com, FUTURE002, RESELLER
+
+# Placeholder for Future Ad Network 3
+# futurenetwork3.com, FUTURE003, DIRECT
+# futurenetwork3.com, FUTURE003, RESELLER
+
+# Placeholder for Future SSP
+# future-ssp.com, FUTURE004, DIRECT
+# future-ssp.com, FUTURE004, RESELLER
+
+# Placeholder for Future DSP
+# future-dsp.com, FUTURE005, DIRECT
+# future-dsp.com, FUTURE005, RESELLER
+
+# ==================== VERIFICATION ====================
+
+# Verification IDs
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0 # Google Verification
+
+# Site Verification
+# Add your site verification IDs here when available
+
+# ==================== INSTRUCTIONS FOR USE ====================
+
+# IMPORTANT NOTES:
+# 1. Replace all placeholder IDs (0000000000000000, 123456, etc.) with your actual IDs
+# 2. Remove lines for networks you don't use
+# 3. Add your actual publisher IDs when available
+# 4. Keep this file updated regularly
+# 5. Place this file at root domain: https://www.90storezon.com/google-ads.txt
+
+# HOW TO UPDATE:
+# 1. Get your actual AdSense ID from Google AdSense dashboard
+# 2. Replace "pub-0000000000000000" with your actual publisher ID
+# 3. For other networks, sign up and add their provided IDs
+# 4. Remove comment lines for networks you're not using
+# 5. Test using Google's ads.txt validator
+
+# REQUIRED FORMAT:
+# Each line must follow this format:
+# DOMAIN, PUBLISHER_ID, RELATIONSHIP_TYPE, CERTIFICATION_AUTHORITY_ID
+# 
+# Where:
+# - DOMAIN: The advertising system's domain
+# - PUBLISHER_ID: Your unique ID in that system
+# - RELATIONSHIP_TYPE: DIRECT or RESELLER
+# - CERTIFICATION_AUTHORITY_ID: Optional certification ID
+
+# ==================== END OF FILE ====================
+
+# File maintained by: 90storezon Technical Team
+# For support contact: tech@90storezon.com
+# Last verified: 2024-12-01

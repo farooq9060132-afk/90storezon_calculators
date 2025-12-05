@@ -1,84 +1,335 @@
+# ============================================
+# 90storezon - Main .htaccess Configuration
+# Optimized for Calculator Website
+# Last Updated: 2024-12-01
+# ============================================
+
+# ==================== 1. CLEAN URLs (REMOVE .PHP EXTENSIONS) ====================
+
 # Enable rewrite engine
 RewriteEngine On
-
-# Base directory
 RewriteBase /
 
-# Redirect www to non-www
-RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
-
-# Redirect HTTP to HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# SEO-friendly URLs for calculators
-# Redirect /calculators/loan-emi-calculator/ to /calculators/loan-emi-calculator/index.php
-RewriteCond %{REQUEST_FILENAME} !-f
+# Remove trailing slash
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^calculators/([a-zA-Z0-9_-]+)/$ /calculators/$1/index.php [L]
+RewriteRule ^(.*)/$ /$1 [L,R=301]
 
-# Redirect /calculators/loan-emi-calculator/country-name to /calculators/loan-emi-calculator/calculator.php?country=country-name
-RewriteCond %{REQUEST_FILENAME} !-f
+# Remove .php extension from URLs
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^calculators/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)$ /calculators/$1/calculator.php?country=$2 [L]
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [NC,L]
 
-# Redirect /calculators/ to calculators section on homepage
-RewriteRule ^calculators/$ /index.php#calculators [R=301,L]
+# Remove .html extension from URLs
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [NC,L]
 
-# Pages routing
-RewriteRule ^about/?$ /pages/about.php [L]
-RewriteRule ^contact/?$ /pages/contact.php [L]
-RewriteRule ^privacy/?$ /pages/privacy.php [L]
-RewriteRule ^terms/?$ /pages/terms.php [L]
+# Force HTTPS (uncomment when SSL is installed)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
-# Authentication routes
-RewriteRule ^signin/?$ /auth/signin.php [L]
-RewriteRule ^signup/?$ /auth/signup.php [L]
-RewriteRule ^logout/?$ /auth/logout.php [L]
-RewriteRule ^profile/?$ /auth/profile.php [L]
-RewriteRule ^settings/?$ /auth/settings.php [L]
+# Force www (uncomment if needed)
+# RewriteCond %{HTTP_HOST} !^www\. [NC]
+# RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
 
-# Admin routes
-RewriteRule ^admin/?$ /admin/index.php [L]
-RewriteRule ^admin/login/?$ /admin/login.php [L]
-RewriteRule ^admin/logout/?$ /admin/logout.php [L]
+# ==================== 2. 404 ERROR PAGE REDIRECT ====================
 
-# Handle 404 errors
+# Custom 404 error page
 ErrorDocument 404 /404.php
 
-# Security headers
-<IfModule mod_headers.c>
-    Header set X-Content-Type-Options "nosniff"
-    Header set X-Frame-Options "SAMEORIGIN"
-    Header set X-XSS-Protection "1; mode=block"
+# Handle specific error pages
+ErrorDocument 400 /404.php
+ErrorDocument 401 /404.php
+ErrorDocument 403 /404.php
+ErrorDocument 500 /500.php
+
+# Redirect old pages to new ones (example)
+# Redirect 301 /old-calculator.html /calculators/new-calculator/
+
+# ==================== 3. SECURITY HEADERS ====================
+
+# Prevent clickjacking
+Header always set X-Frame-Options "SAMEORIGIN"
+
+# Enable XSS protection
+Header always set X-XSS-Protection "1; mode=block"
+
+# Prevent MIME type sniffing
+Header always set X-Content-Type-Options "nosniff"
+
+# Referrer policy
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+# Content Security Policy (CSP) - Adjust based on your needs
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self'"
+
+# Permissions Policy
+Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+# HSTS - Enable only after SSL is properly configured
+# Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+# ==================== 4. COMPRESSION FOR FASTER LOADING ====================
+
+# Enable compression
+<IfModule mod_deflate.c>
+    # Compress HTML, CSS, JavaScript, Text, XML and fonts
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE application/x-font
+    AddOutputFilterByType DEFLATE application/x-font-opentype
+    AddOutputFilterByType DEFLATE application/x-font-otf
+    AddOutputFilterByType DEFLATE application/x-font-truetype
+    AddOutputFilterByType DEFLATE application/x-font-ttf
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE font/opentype
+    AddOutputFilterByType DEFLATE font/otf
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE image/x-icon
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/xml
+    
+    # Remove browser bugs
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+    Header append Vary User-Agent
 </IfModule>
 
-# Cache control for static assets
+# Enable GZIP compression
+<IfModule mod_gzip.c>
+    mod_gzip_on Yes
+    mod_gzip_dechunk Yes
+    mod_gzip_item_include file \.(html?|txt|css|js|php|pl)$
+    mod_gzip_item_include mime ^text/.*
+    mod_gzip_item_include mime ^application/x-javascript.*
+    mod_gzip_item_exclude mime ^image/.*
+    mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
+</IfModule>
+
+# ==================== 5. CACHE CONTROL ====================
+
+# Leverage browser caching
 <IfModule mod_expires.c>
     ExpiresActive On
+    
+    # Default expiration: 1 hour
+    ExpiresDefault "access plus 1 hour"
+    
+    # Images
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # CSS and JavaScript
     ExpiresByType text/css "access plus 1 month"
     ExpiresByType text/javascript "access plus 1 month"
     ExpiresByType application/javascript "access plus 1 month"
-    ExpiresByType image/png "access plus 1 year"
-    ExpiresByType image/jpg "access plus 1 year"
-    ExpiresByType image/jpeg "access plus 1 year"
-    ExpiresByType image/gif "access plus 1 year"
-    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType application/x-javascript "access plus 1 month"
+    
+    # Fonts
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    
+    # XML
+    ExpiresByType application/xml "access plus 1 hour"
+    ExpiresByType text/xml "access plus 1 hour"
+    
+    # HTML
+    ExpiresByType text/html "access plus 1 hour"
+    
+    # RSS feed
+    ExpiresByType application/rss+xml "access plus 1 hour"
+    
+    # JSON
+    ExpiresByType application/json "access plus 0 seconds"
+    
+    # Manifest files
+    ExpiresByType application/manifest+json "access plus 1 week"
 </IfModule>
 
-# Compress text files
-<IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/plain
-    AddOutputFilterByType DEFLATE text/html
-    AddOutputFilterByType DEFLATE text/xml
-    AddOutputFilterByType DEFLATE text/css
-    AddOutputFilterByType DEFLATE application/xml
-    AddOutputFilterByType DEFLATE application/xhtml+xml
-    AddOutputFilterByType DEFLATE application/rss+xml
-    AddOutputFilterByType DEFLATE application/javascript
-    AddOutputFilterByType DEFLATE application/x-javascript
+# Cache control headers
+<IfModule mod_headers.c>
+    # Cache static files
+    <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf|webp)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    # Cache fonts
+    <FilesMatch "\.(eot|otf|ttf|ttc|woff|woff2)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    # Don't cache PHP files
+    <FilesMatch "\.(php)$">
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+        Header set Pragma "no-cache"
+        Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+    </FilesMatch>
+    
+    # Cache calculator pages (adjust as needed)
+    <FilesMatch "^(index|calculators/.+/index)\.php$">
+        Header set Cache-Control "public, max-age=3600"
+    </FilesMatch>
 </IfModule>
 
-# Prevent directory browsing
+# ==================== 6. REDIRECT RULES ====================
+
+# Redirect calculator category pages
+RewriteRule ^calculators/finance/?$ calculators/financial-calculators.php [NC,L]
+RewriteRule ^calculators/health/?$ calculators/health-calculators.php [NC,L]
+RewriteRule ^calculators/math/?$ calculators/math-calculators.php [NC,L]
+RewriteRule ^calculators/tools/?$ calculators/other-calculators.php [NC,L]
+
+# Redirect old calculator URLs (example)
+# RewriteRule ^old-calculator\.php$ /calculators/new-calculator/ [R=301,L]
+
+# Redirect non-www to www (if needed)
+# RewriteCond %{HTTP_HOST} !^www\.90storezon\.com$ [NC]
+# RewriteRule ^(.*)$ https://www.90storezon.com/$1 [R=301,L]
+
+# Redirect to HTTPS (if needed)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# Redirect index.php to root
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
+RewriteRule ^index\.php$ / [R=301,L]
+
+# Redirect calculator.php to calculators/
+RewriteRule ^calculator/([^/]+)/?$ calculators/$1/ [R=301,L]
+
+# ==================== 7. PHP SETTINGS OPTIMIZATION ====================
+
+# Increase PHP memory limit (adjust based on server)
+php_value memory_limit 256M
+php_value max_execution_time 300
+php_value upload_max_filesize 64M
+php_value post_max_size 64M
+php_value max_input_time 300
+
+# Enable error reporting for development (disable for production)
+# php_flag display_errors on
+# php_value error_reporting E_ALL
+
+# Disable error reporting for production
+php_flag display_errors off
+php_value error_reporting 0
+
+# Enable short tags (if needed)
+# php_flag short_open_tag on
+
+# Increase session lifetime
+php_value session.gc_maxlifetime 14400
+php_value session.cookie_lifetime 0
+
+# ==================== 8. PREVENT DIRECTORY LISTING ====================
+
+# Disable directory browsing
 Options -Indexes
+
+# Prevent access to specific directories
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect important files
+<FilesMatch "^(\.htaccess|\.htpasswd|\.env|composer\.json|composer\.lock|package\.json|package-lock\.json|web\.config|wp-config\.php)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect includes directory
+<IfModule mod_rewrite.c>
+    RewriteRule ^includes/ - [F,L]
+</IfModule>
+
+# Protect admin directory (if not accessed via specific IP)
+# <IfModule mod_rewrite.c>
+#     RewriteCond %{REMOTE_ADDR} !^123\.456\.789\.000$
+#     RewriteRule ^admin/ - [F,L]
+# </IfModule>
+
+# ==================== ADDITIONAL SECURITY MEASURES ====================
+
+# Block suspicious user agents
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP_USER_AGENT} (libwww-perl|wget|python|nikto|curl|scan|java|winhttp|clshttp|loader) [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# Block spam bots
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP_USER_AGENT} (acapbot|ah-ha|ahrefs|alexibot|amzn|aspider|baidu|binlar|bingbot|bingpreview|bot|browsex|catch|checkprivacy|clshttp|cmsworld|copier|copyright|curl|custo|dataprovider|demon|diavol|discobot|dll|dotbot|dotbot|download|eCatch|ecxi|email|extract|Ezooms|F-PROT|facebook|faster|feedfinder|flaming|FlashGet|flicky|g00g1e|getright|gigabot|go-ahead-got|gozilla|grabnet|grafula|harvest|heritrix|HMView|httrack|ia_archiver|id-search|idbot|imagesurf|interget|internetseer|ipium|jakarta|Java|jetbot|jetcar|jikespider|kmccrew|leech|libwww|link|linkchecker|linkextractor|linkwalker|loader|masscan|microsoft|miner|mj12bot|morfeus|move|msnbot|netants|netcraft|netspider|nicerspro|niki|nutch|offline|pagegrabber|pavuk|pcbot|perl|picscout|python|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot|python-urllib|python-requests|python-httplib2|python-pycurl|python-requests|python-urllib3|python-bot|python-requests|python-bot) [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# Prevent hotlinking
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER} !^https://(www\.)?90storezon\.com/.*$ [NC]
+    RewriteRule \.(jpg|jpeg|png|gif|webp|ico|css|js)$ - [F,L]
+</IfModule>
+
+# ==================== PERFORMANCE OPTIMIZATION ====================
+
+# Enable Keep-Alive
+<IfModule mod_headers.c>
+    Header set Connection keep-alive
+</IfModule>
+
+# ETag removal (for better caching)
+<IfModule mod_headers.c>
+    Header unset ETag
+</IfModule>
+FileETag None
+
+# ==================== FILE TYPES ====================
+
+# Add proper MIME types
+AddType application/javascript .js
+AddType text/css .css
+AddType image/svg+xml .svg .svgz
+AddType application/vnd.ms-fontobject .eot
+AddType application/x-font-ttf .ttf .ttc
+AddType font/opentype .otf
+AddType application/x-font-woff .woff
+AddType image/x-icon .ico
+AddType image/webp .webp
+
+# ==================== CUSTOM RULES ====================
+
+# Handle calculator URLs
+RewriteRule ^calculators/([^/]+)/?$ calculators/$1/index.php [NC,L]
+
+# Handle category pages
+RewriteRule ^category/([^/]+)/?$ calculators/$1-calculators.php [NC,L]
+
+# Handle search
+RewriteRule ^search/?$ search.php [NC,L]
+
+# Handle user profiles
+RewriteRule ^user/([^/]+)/?$ user/profile.php?username=$1 [NC,L]
+
+# ==================== FALLBACK RULES ====================
+
+# If file doesn't exist, redirect to 404
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /404.php [L]
+
+# ==================== END OF FILE ====================

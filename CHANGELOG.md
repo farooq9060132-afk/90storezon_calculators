@@ -1,35 +1,56 @@
-# Changelog
+# Changelog - 90storezon Calculator Website
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]
-
-### Added
-- Initial release of 50+ online calculators
-- Responsive design for all calculators
-- Clean URL structure without numeric prefixes
-- Comprehensive documentation in README.md
-- Proper .gitignore and LICENSE files
-- Package management with composer.json and package.json
-
-### Changed
-- Updated breadcrumb navigation to use category parameters
-- Improved related calculator links consistency
-- Enhanced calculator grid layout on main calculators page
-
-### Fixed
-- URL rewriting for clean calculator paths
-- Category filtering functionality on calculators page
-- Consistent styling across all calculator pages
-
 ## [1.0.0] - 2024-12-01
-
 ### Added
-- Initial project structure
-- 50+ calculator implementations
-- Main index.php page with calculator grid
-- Header and footer integration
-- .htaccess URL rewriting rules
+- Initial release of 90storezon calculator website
+- Complete calculator platform with 50+ calculators
+- Scientific calculator with advanced functions
+- User authentication system (login/register)
+- Admin dashboard for user management
+- Responsive design for all devices
+- Search functionality for calculators
+- Categories: Financial, Health, Math, and more
+- Blue theme matching modern calculator websites
+- Secure database connection
+- Session management
+- 404 error page
+- SEO optimized structure
+- Sitemap and robots.txt
+- .htaccess for clean URLs
+
+### Features
+- Real-time calculations
+- Calculation history
+- Save calculations feature
+- Mobile-friendly interface
+- Fast loading times
+- Cross-browser compatibility
+- No external dependencies for core functions
+
+### Technical
+- PHP backend for dynamic content
+- MySQL database for user data
+- Vanilla JavaScript for calculator logic
+- CSS3 for styling and animations
+- HTML5 semantic markup
+- RESTful URL structure
+- Secure password hashing
+- XSS protection
+- CSRF tokens
+
+## [1.1.0] - Planned
+### Planned Features
+- Dark mode theme
+- Calculator favorites
+- Export calculations (PDF/Excel)
+- Multi-language support
+- Calculator API
+- Mobile app version
+- Social sharing
+- User profiles with avatars
+- Calculator ratings and reviews
+- Advanced graphing calculator
+- Unit conversion calculator
+- Currency converter with live rates

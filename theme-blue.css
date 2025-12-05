@@ -1,506 +1,447 @@
-// ===== DARK/LIGHT MODE FUNCTIONALITY =====
-class ThemeManager {
-    constructor() {
-        this.themeToggle = document.getElementById('themeToggle');
-        this.init();
+/* 90storezon Blue Theme - Main Stylesheet */
+/* Primary Color Scheme */
+:root {
+    /* Main Blue Theme Colors */
+    --primary-blue: #1a73e8;
+    --primary-dark: #0d47a1;
+    --primary-light: #4285f4;
+    --secondary-blue: #5c6bc0;
+    
+    /* Accent Colors */
+    --accent-green: #4caf50;
+    --accent-red: #f44336;
+    --accent-orange: #ff9800;
+    --accent-purple: #9c27b0;
+    
+    /* Neutral Colors */
+    --bg-white: #ffffff;
+    --bg-light: #f8f9fa;
+    --bg-gray: #f5f5f5;
+    --text-dark: #202124;
+    --text-medium: #5f6368;
+    --text-light: #80868b;
+    --border-color: #dadce0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    
+    /* Calculator Specific */
+    --calc-bg: #ffffff;
+    --calc-display: #f8f9fa;
+    --calc-button: #f1f3f4;
+    --calc-button-hover: #e8eaed;
+    --calc-operation: #dadce0;
+    --calc-equals: #4285f4;
+    --calc-equals-hover: #3367d6;
+    
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    
+    /* Typography */
+    --font-primary: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 24px;
+    --font-size-xxl: 32px;
+    
+    /* Borders */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-full: 50%;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px var(--shadow-color);
+    --shadow-md: 0 2px 6px var(--shadow-color);
+    --shadow-lg: 0 4px 12px var(--shadow-color);
+    --shadow-xl: 0 8px 24px var(--shadow-color);
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 350ms ease;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+    line-height: 1.6;
+    font-size: var(--font-size-md);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+h1 {
+    font-size: var(--font-size-xxl);
+    color: var(--primary-blue);
+}
+
+h2 {
+    font-size: var(--font-size-xl);
+    border-bottom: 2px solid var(--primary-blue);
+    padding-bottom: var(--spacing-sm);
+}
+
+h3 {
+    font-size: var(--font-size-lg);
+    color: var(--secondary-blue);
+}
+
+/* Links */
+a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: var(--calc-button);
+    color: var(--text-dark);
+}
+
+.btn-secondary:hover {
+    background-color: var(--calc-button-hover);
+}
+
+.btn-success {
+    background-color: var(--accent-green);
+}
+
+.btn-danger {
+    background-color: var(--accent-red);
+}
+
+.btn-warning {
+    background-color: var(--accent-orange);
+}
+
+/* Calculator Display */
+.calculator-display {
+    background-color: var(--calc-display);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-md);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xl);
+    text-align: right;
+    margin-bottom: var(--spacing-md);
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+/* Calculator Buttons Grid */
+.calculator-buttons {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--spacing-sm);
+}
+
+.calc-btn {
+    padding: var(--spacing-md);
+    background-color: var(--calc-button);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-align: center;
+    user-select: none;
+}
+
+.calc-btn:hover {
+    background-color: var(--calc-button-hover);
+    transform: translateY(-1px);
+}
+
+.calc-btn:active {
+    transform: translateY(0);
+}
+
+.calc-operation {
+    background-color: var(--calc-operation);
+    font-weight: 600;
+}
+
+.calc-equals {
+    background-color: var(--calc-equals);
+    color: white;
+    font-weight: bold;
+}
+
+.calc-equals:hover {
+    background-color: var(--calc-equals-hover);
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-control {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-md);
+    transition: border-color var(--transition-fast);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+/* Cards */
+.card {
+    background-color: var(--bg-white);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    transition: box-shadow var(--transition-normal);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+/* Navigation */
+.navbar {
+    background-color: var(--bg-white);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-md) 0;
+}
+
+.nav-link {
+    color: var(--text-medium);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+}
+
+.nav-link:hover {
+    background-color: var(--bg-light);
+    color: var(--primary-blue);
+}
+
+.nav-link.active {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--bg-white);
+    border-top: 1px solid var(--border-color);
+    padding: var(--spacing-xl) 0;
+    margin-top: var(--spacing-xl);
+}
+
+/* Search Box */
+.search-box {
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) 40px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-md);
+}
+
+.search-icon {
+    position: absolute;
+    left: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+}
+
+/* Calculator Categories */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.category-card {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    text-align: center;
+    transition: all var(--transition-normal);
+}
+
+.category-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-blue);
+}
+
+/* Results Display */
+.result-box {
+    background-color: var(--bg-light);
+    border-left: 4px solid var(--primary-blue);
+    padding: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
+}
+
+/* Alert Messages */
+.alert {
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.alert-success {
+    background-color: rgba(76, 175, 80, 0.1);
+    border: 1px solid var(--accent-green);
+    color: #2e7d32;
+}
+
+.alert-error {
+    background-color: rgba(244, 67, 54, 0.1);
+    border: 1px solid var(--accent-red);
+    color: #c62828;
+}
+
+.alert-info {
+    background-color: rgba(33, 150, 243, 0.1);
+    border: 1px solid var(--primary-blue);
+    color: var(--primary-dark);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .calculator-buttons {
+        grid-template-columns: repeat(4, 1fr);
     }
-
-    init() {
-        const savedTheme = localStorage.getItem('90storezon-theme');
-        if (savedTheme === 'dark') {
-            this.enableDarkMode();
-        }
-
-        if (this.themeToggle) {
-            this.themeToggle.addEventListener('click', () => this.toggleTheme());
-        }
+    
+    .calculator-display {
+        font-size: var(--font-size-lg);
     }
-
-    toggleTheme() {
-        if (document.body.classList.contains('dark-mode')) {
-            this.disableDarkMode();
-        } else {
-            this.enableDarkMode();
-        }
+    
+    .category-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
-
-    enableDarkMode() {
-        document.body.classList.add('dark-mode');
-        localStorage.setItem('90storezon-theme', 'dark');
-        this.updateThemeIcon('dark');
+    
+    h1 {
+        font-size: var(--font-size-xl);
     }
-
-    disableDarkMode() {
-        document.body.classList.remove('dark-mode');
-        localStorage.setItem('90storezon-theme', 'light');
-        this.updateThemeIcon('light');
-    }
-
-    updateThemeIcon(theme) {
-        const themeIcon = document.querySelector('.theme-icon');
-        if (themeIcon) {
-            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌓';
-        }
+    
+    h2 {
+        font-size: var(--font-size-lg);
     }
 }
 
-// ===== PROFILE DROPDOWN FUNCTIONALITY =====
-class ProfileDropdown {
-    constructor() {
-        this.profileToggle = document.getElementById('profileToggle');
-        this.profileDropdown = document.getElementById('profileDropdown');
-        this.init();
+@media (max-width: 480px) {
+    .calculator-buttons {
+        grid-template-columns: repeat(3, 1fr);
     }
-
-    init() {
-        if (this.profileToggle && this.profileDropdown) {
-            this.profileToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.toggleDropdown();
-            });
-
-            document.addEventListener('click', () => {
-                this.closeDropdown();
-            });
-
-            this.profileDropdown.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
-        }
+    
+    .category-grid {
+        grid-template-columns: 1fr;
     }
-
-    toggleDropdown() {
-        this.profileDropdown.classList.toggle('show');
-    }
-
-    closeDropdown() {
-        this.profileDropdown.classList.remove('show');
+    
+    .btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-sm);
     }
 }
 
-// ===== MOBILE MENU FUNCTIONALITY =====
-class MobileMenu {
-    constructor() {
-        this.menuToggle = document.getElementById('menuToggle');
-        this.mobileMenu = document.getElementById('mobileMenu');
-        this.hamburgerLines = document.querySelectorAll('.hamburger-line');
-        this.init();
-    }
-
-    init() {
-        if (this.menuToggle && this.mobileMenu) {
-            this.menuToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.toggleMenu();
-            });
-
-            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => this.closeMenu());
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!this.mobileMenu.contains(e.target) && !this.menuToggle.contains(e.target)) {
-                    this.closeMenu();
-                }
-            });
-        }
-    }
-
-    toggleMenu() {
-        const isOpening = !this.mobileMenu.classList.contains('show');
-        this.mobileMenu.classList.toggle('show');
-        this.animateHamburger(isOpening);
-    }
-
-    openMenu() {
-        this.mobileMenu.classList.add('show');
-        this.animateHamburger(true);
-    }
-
-    closeMenu() {
-        this.mobileMenu.classList.remove('show');
-        this.animateHamburger(false);
-    }
-
-    animateHamburger(isOpening) {
-        if (isOpening) {
-            this.hamburgerLines[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
-            this.hamburgerLines[1].style.opacity = '0';
-            this.hamburgerLines[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
-        } else {
-            this.hamburgerLines[0].style.transform = 'none';
-            this.hamburgerLines[1].style.opacity = '1';
-            this.hamburgerLines[2].style.transform = 'none';
-        }
-    }
+/* Animation for Calculator Results */
+@keyframes highlightResult {
+    0% { background-color: var(--calc-display); }
+    50% { background-color: rgba(66, 133, 244, 0.1); }
+    100% { background-color: var(--calc-display); }
 }
 
-// ===== SEARCH FUNCTIONALITY =====
-class SearchManager {
-    constructor() {
-        this.searchInput = document.getElementById('globalSearch');
-        this.calculatorLists = document.querySelectorAll('.calculator-list');
-        this.categories = document.querySelectorAll('.category');
-        this.init();
-    }
-
-    init() {
-        if (this.searchInput) {
-            this.searchInput.addEventListener('input', (e) => this.handleSearch(e.target.value));
-            this.searchInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') this.performSearch(e.target.value);
-            });
-        }
-    }
-
-    handleSearch(searchTerm) {
-        const term = searchTerm.toLowerCase().trim();
-        this.filterCalculators(term);
-    }
-
-    performSearch(searchTerm) {
-        const term = searchTerm.toLowerCase().trim();
-        this.filterCalculators(term);
-        this.closeMobileMenu();
-    }
-
-    filterCalculators(searchTerm) {
-        let hasAnyResults = false;
-
-        this.categories.forEach(category => {
-            const links = category.querySelectorAll('.calculator-list li');
-            let categoryHasResults = false;
-
-            links.forEach(link => {
-                const linkText = link.textContent.toLowerCase();
-                if (searchTerm === '' || linkText.includes(searchTerm)) {
-                    link.style.display = 'block';
-                    categoryHasResults = true;
-                    if (searchTerm !== '') hasAnyResults = true;
-                } else {
-                    link.style.display = 'none';
-                }
-            });
-
-            this.toggleCategoryVisibility(category, categoryHasResults, searchTerm);
-        });
-
-        this.handleNoResults(hasAnyResults, searchTerm);
-    }
-
-    toggleCategoryVisibility(category, hasResults, searchTerm) {
-        const noResultsMsg = category.querySelector('.no-results');
-        
-        if (searchTerm === '') {
-            category.style.display = 'block';
-            if (noResultsMsg) noResultsMsg.remove();
-        } else if (hasResults) {
-            category.style.display = 'block';
-            if (noResultsMsg) noResultsMsg.remove();
-        } else {
-            category.style.display = 'none';
-        }
-    }
-
-    handleNoResults(hasResults, searchTerm) {
-        if (!hasResults && searchTerm !== '') {
-            this.showNoResultsMessage();
-        } else if (searchTerm === '') {
-            this.hideNoResultsMessage();
-        }
-    }
-
-    showNoResultsMessage() {
-        document.querySelectorAll('.no-results').forEach(msg => msg.remove());
-        
-        const firstCategory = this.categories[0];
-        if (firstCategory) {
-            firstCategory.style.display = 'block';
-            const msg = document.createElement('div');
-            msg.className = 'no-results';
-            msg.textContent = 'No calculators found matching your search';
-            firstCategory.querySelector('.calculator-list').innerHTML = '';
-            firstCategory.querySelector('.calculator-list').appendChild(msg);
-        }
-    }
-
-    hideNoResultsMessage() {
-        document.querySelectorAll('.no-results').forEach(msg => msg.remove());
-        
-        this.categories.forEach(category => {
-            category.style.display = 'block';
-            const links = category.querySelectorAll('.calculator-list li');
-            links.forEach(link => link.style.display = 'block');
-        });
-    }
-
-    closeMobileMenu() {
-        const mobileMenu = document.getElementById('mobileMenu');
-        if (mobileMenu && mobileMenu.classList.contains('show')) {
-            mobileMenu.classList.remove('show');
-            const hamburgerLines = document.querySelectorAll('.hamburger-line');
-            hamburgerLines[0].style.transform = 'none';
-            hamburgerLines[1].style.opacity = '1';
-            hamburgerLines[2].style.transform = 'none';
-        }
-    }
+.result-highlight {
+    animation: highlightResult 1s ease;
 }
 
-// ===== CALCULATOR FUNCTIONALITY =====
-class Calculator {
-    constructor() {
-        this.currentInput = '0';
-        this.previousInput = '';
-        this.operation = null;
-        this.shouldResetScreen = false;
-        this.outputElement = document.getElementById('calculator-output');
-        this.init();
-    }
-
-    init() {
-        this.updateDisplay();
-        this.setupEventListeners();
-    }
-
-    setupEventListeners() {
-        document.querySelectorAll('.calc-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                if (button.classList.contains('operator')) {
-                    this.chooseOperation(button.textContent);
-                } else if (button.classList.contains('equals')) {
-                    this.calculateResult();
-                } else {
-                    this.handleButtonClick(button.textContent);
-                }
-            });
-        });
-
-        document.addEventListener('keydown', (e) => this.handleKeyboardInput(e));
-    }
-
-    handleButtonClick(value) {
-        switch (value) {
-            case 'C':
-                this.clearCalculator();
-                break;
-            case '±':
-                this.toggleSign();
-                break;
-            case '%':
-                this.calculatePercentage();
-                break;
-            case '.':
-                this.appendDecimal();
-                break;
-            default:
-                if (!isNaN(value)) {
-                    this.appendNumber(value);
-                }
-                break;
-        }
-    }
-
-    appendNumber(number) {
-        if (this.currentInput === '0' || this.shouldResetScreen) {
-            this.currentInput = number;
-            this.shouldResetScreen = false;
-        } else {
-            this.currentInput += number;
-        }
-        this.updateDisplay();
-    }
-
-    chooseOperation(op) {
-        if (this.currentInput === '') return;
-        
-        if (this.previousInput !== '' && this.operation !== null) {
-            this.calculateResult();
-        }
-        
-        this.operation = this.getOperationSymbol(op);
-        this.previousInput = this.currentInput;
-        this.shouldResetScreen = true;
-    }
-
-    getOperationSymbol(op) {
-        const operationMap = {
-            '÷': '/',
-            '×': '*',
-            '−': '-',
-            '+': '+'
-        };
-        return operationMap[op] || op;
-    }
-
-    clearCalculator() {
-        this.currentInput = '0';
-        this.previousInput = '';
-        this.operation = null;
-        this.shouldResetScreen = false;
-        this.updateDisplay();
-    }
-
-    deleteLast() {
-        if (this.currentInput.length > 1) {
-            this.currentInput = this.currentInput.slice(0, -1);
-        } else {
-            this.currentInput = '0';
-        }
-        this.updateDisplay();
-    }
-
-    appendDecimal() {
-        if (this.shouldResetScreen) {
-            this.currentInput = '0.';
-            this.shouldResetScreen = false;
-        } else if (!this.currentInput.includes('.')) {
-            this.currentInput += '.';
-        }
-        this.updateDisplay();
-    }
-
-    calculatePercentage() {
-        this.currentInput = (parseFloat(this.currentInput) / 100).toString();
-        this.updateDisplay();
-    }
-
-    toggleSign() {
-        this.currentInput = this.currentInput.startsWith('-') 
-            ? this.currentInput.slice(1) 
-            : '-' + this.currentInput;
-        this.updateDisplay();
-    }
-
-    calculateResult() {
-        if (this.operation === null || this.shouldResetScreen) return;
-
-        const prev = parseFloat(this.previousInput);
-        const current = parseFloat(this.currentInput);
-        
-        if (isNaN(prev) || isNaN(current)) return;
-
-        let result;
-        switch (this.operation) {
-            case '+':
-                result = prev + current;
-                break;
-            case '-':
-                result = prev - current;
-                break;
-            case '*':
-                result = prev * current;
-                break;
-            case '/':
-                result = current !== 0 ? prev / current : 'Error';
-                break;
-            default:
-                return;
-        }
-
-        this.currentInput = result.toString();
-        this.operation = null;
-        this.previousInput = '';
-        this.shouldResetScreen = true;
-        this.updateDisplay();
-    }
-
-    handleKeyboardInput(e) {
-        if (e.key >= '0' && e.key <= '9') {
-            this.appendNumber(e.key);
-        } else if (e.key === '.') {
-            this.appendDecimal();
-        } else if (['+', '-', '*', '/'].includes(e.key)) {
-            this.chooseOperation(e.key);
-        } else if (e.key === 'Enter' || e.key === '=') {
-            e.preventDefault();
-            this.calculateResult();
-        } else if (e.key === 'Escape') {
-            this.clearCalculator();
-        } else if (e.key === 'Backspace') {
-            this.deleteLast();
-        }
-    }
-
-    updateDisplay() {
-        if (this.outputElement) {
-            this.outputElement.textContent = this.currentInput;
-        }
-    }
+/* Loading Spinner */
+.spinner {
+    border: 3px solid var(--bg-light);
+    border-top: 3px solid var(--primary-blue);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
 }
 
-// ===== CALCULATOR CARD CLICK HANDLER =====
-class CalculatorCards {
-    constructor() {
-        this.init();
-    }
-
-    init() {
-        document.addEventListener('click', (e) => {
-            if (e.target.matches('.calculator-list a')) {
-                this.handleCalculatorClick(e);
-            }
-        });
-    }
-
-    handleCalculatorClick(e) {
-        const link = e.target;
-        const calculatorName = link.textContent;
-        console.log('Calculator clicked:', calculatorName, link.href);
-        
-        // Additional analytics or tracking can be added here
-        // The natural link behavior will handle navigation
-    }
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-// ===== MAIN APPLICATION INITIALIZATION =====
-class App {
-    constructor() {
-        this.init();
+/* Print Styles */
+@media print {
+    .navbar,
+    .footer,
+    .no-print {
+        display: none;
     }
-
-    init() {
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.initializeComponents());
-        } else {
-            this.initializeComponents();
-        }
+    
+    body {
+        background-color: white;
+        color: black;
     }
-
-    initializeComponents() {
-        this.themeManager = new ThemeManager();
-        this.profileDropdown = new ProfileDropdown();
-        this.mobileMenu = new MobileMenu();
-        this.searchManager = new SearchManager();
-        this.calculator = new Calculator();
-        this.calculatorCards = new CalculatorCards();
-
-        this.enableSmoothScrolling();
-        console.log('90storezon - All components initialized');
-    }
-
-    enableSmoothScrolling() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+    
+    .calculator-display {
+        border: 1px solid black;
     }
 }
-
-// ===== GLOBAL EVENT LISTENERS =====
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('form').forEach(form => {
-        form.addEventListener('submit', (e) => e.preventDefault());
-    });
-});
-
-// Initialize the application
-const app = new App();

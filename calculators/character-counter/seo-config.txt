@@ -1,0 +1,88 @@
+<?php
+header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $input = json_decode(file_get_contents('php://input'), true);
+    
+    $text = $input['text'] ?? '';
+    $countSpaces = $input['countSpaces'] ?? true;
+    $countPunctuation = $input['countPunctuation'] ?? true;
+    
+    $response = [
+        'success' => false,
+        'stats' => [],
+        'error' => null
+    ];
+    
+    try {
+        if (empty($text)) {
+            throw new Exception('No text provided for analysis');
+        }
+        
+        // Basic counts
+        $charCountWithSpaces = strlen($text);
+        $charCountWithoutSpaces = strlen(str_replace(' ', '', $text));
+        
+        // Word count
+        $wordCountText = $countPunctuation ? $text : preg_replace('/[^\w\s]/', ' ', $text);
+        $words = preg_split('/\s+/', trim($wordCountText));
+        $wordCount = count(array_filter($words, function($word) {
+            return !empty($word);
+        }));
+        
+        // Sentence count
+        $sentenceCount = count(array_filter(preg_split('/[.!?]+/', $text), function($sentence) {
+            return !empty(trim($sentence));
+        }));
+        
+        // Paragraph count
+        $paragraphCount = count(array_filter(preg_split('/\n+/', $text), function($paragraph) {
+            return !empty(trim($paragraph));
+        }));
+        
+        // Reading time (200 words per minute)
+        $readingTimeMinutes = $wordCount / 200;
+        $readingTime = $readingTimeMinutes < 1 ? '< 1 min' : ceil($readingTimeMinutes) . ' min';
+        
+        // Detailed character analysis
+        $letterCount = preg_match_all('/[a-zA-Z]/', $text);
+        $digitCount = preg_match_all('/\d/', $text);
+        $spaceCount = preg_match_all('/\s/', $text);
+        $punctuationCount = preg_match_all('/[^\w\s]/', $text);
+        $specialCharCount = preg_match_all('/[^a-zA-Z0-9\s]/', $text);
+        $lineCount = substr_count($text, "\n") + 1;
+        
+        // Text metrics
+        $avgWordLength = $wordCount > 0 ? round($charCountWithoutSpaces / $wordCount, 1) : 0;
+        $avgSentenceLength = $sentenceCount > 0 ? round($wordCount / $sentenceCount, 1) : 0;
+        $wordsPerSentence = $sentenceCount > 0 ? round($wordCount / $sentenceCount, 1) : 0;
+        $charsPerWord = $wordCount > 0 ? round($charCountWithSpaces / $wordCount, 1) : 0;
+        
+        $response['success'] = true;
+        $response['stats'] = [
+            'charCountWithSpaces' => $charCountWithSpaces,
+            'charCountWithoutSpaces' => $charCountWithoutSpaces,
+            'wordCount' => $wordCount,
+            'sentenceCount' => $sentenceCount,
+            'paragraphCount' => $paragraphCount,
+            'readingTime' => $readingTime,
+            'letterCount' => $letterCount,
+            'digitCount' => $digitCount,
+            'spaceCount' => $spaceCount,
+            'punctuationCount' => $punctuationCount,
+            'specialCharCount' => $specialCharCount,
+            'lineCount' => $lineCount,
+            'avgWordLength' => $avgWordLength,
+            'avgSentenceLength' => $avgSentenceLength,
+            'wordsPerSentence' => $wordsPerSentence,
+            'charsPerWord' => $charsPerWord
+        ];
+        
+    } catch (Exception $e) {
+        $response['error'] = $e->getMessage();
+    }
+    
+    echo json_encode($response);
+    exit;
+}
+?>

@@ -1,0 +1,27 @@
+Title: Free Base64 Converter | Encode/Decode Base64 Online
+Description: Free online Base64 converter tool. Encode text to Base64 and decode Base64 strings back to text instantly. No data sent to servers - completely private.
+Keywords: base64 converter, base64 encode, base64 decode, base64 online, text to base64, base64 to text, base64 encoder, base64 decoder
+
+Header Tags:
+H1: Base64 Converter
+H2: Base64 Conversion Features
+
+Meta Tags:
+viewport: width=device-width, initial-scale=1.0
+robots: index, follow
+author: Calculator Team
+og:title: Free Base64 Converter - Encode/Decode Online
+og:description: Instant Base64 encoding and decoding. Convert text to Base64 and back securely in your browser.
+og:type: website
+og:url: https://yourwebsite.com/base64-converter
+
+Structured Data:
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Base64 Converter",
+  "description": "Encode text to Base64 and decode Base64 strings online",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "permissions": "none"
+}

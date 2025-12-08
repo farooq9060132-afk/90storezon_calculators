@@ -1,0 +1,668 @@
+:root {
+    --primary: #3498db;
+    --primary-dark: #2980b9;
+    --secondary: #2ecc71;
+    --warning: #e74c3c;
+    --caution: #f39c12;
+    --safe: #27ae60;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --gray: #6c757d;
+    --light-gray: #e9ecef;
+    --blue-light: #ebf5fb;
+    --green-light: #eafaf1;
+    --red-light: #fdedec;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+    background-color: #f8f9fa;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+}
+
+.disclaimer-warning {
+    background: rgba(231, 76, 60, 0.9);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem auto 0;
+    max-width: 600px;
+    font-size: 0.9rem;
+}
+
+main {
+    padding: 2rem 0;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid var(--primary);
+}
+
+.intro h2 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.calculator-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.input-section, .results-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.input-section h3, .results-section h3 {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--light-gray);
+}
+
+.method-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.method-tab {
+    flex: 1;
+    padding: 0.75rem;
+    background: var(--light);
+    border: 1px solid var(--light-gray);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.method-tab.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.method-form {
+    display: none;
+}
+
+.method-form.active {
+    display: block;
+}
+
+.patient-info, .medication-info, .calculation-type {
+    margin-bottom: 2rem;
+}
+
+.patient-info h4, .medication-info h4, .calculation-type h4 {
+    color: var(--secondary);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.input-group input, .input-group select, .input-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.weight-input {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.weight-input input {
+    flex: 1;
+}
+
+.weight-input select {
+    width: 80px;
+}
+
+.radio-group, .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.radio, .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.radio:hover, .checkbox:hover {
+    background: var(--blue-light);
+}
+
+.radio input, .checkbox input {
+    width: auto;
+}
+
+.safety-check {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--green-light);
+    border-radius: 8px;
+    border: 1px solid var(--secondary);
+}
+
+.safety-check h4 {
+    color: var(--secondary);
+    margin-bottom: 1rem;
+}
+
+.verification-item {
+    margin-bottom: 1rem;
+}
+
+.verification-item:last-child {
+    margin-bottom: 0;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 1rem;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.btn-secondary {
+    padding: 0.75rem 1.5rem;
+    background: var(--light);
+    color: var(--dark);
+    border: 1px solid var(--light-gray);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 0.5rem;
+}
+
+.btn-secondary:hover {
+    background: var(--light-gray);
+}
+
+.results-warning {
+    background: var(--red-light);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--warning);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.warning-icon {
+    font-size: 1.5rem;
+}
+
+.dosage-results, .interaction-results, .schedule-results {
+    margin-bottom: 1.5rem;
+}
+
+.main-result {
+    text-align: center;
+    padding: 2rem;
+    background: var(--blue-light);
+    border-radius: 10px;
+    border: 2px solid var(--primary);
+    margin-bottom: 1rem;
+}
+
+.dosage-amount {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 1rem 0;
+}
+
+.dosage-note {
+    font-size: 1rem;
+    color: var(--gray);
+}
+
+.result-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.result-card {
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 8px;
+    background: var(--light);
+    border: 1px solid var(--light-gray);
+}
+
+.result-card h4 {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-bottom: 0.5rem;
+}
+
+.result-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.administration-guide {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--light-gray);
+}
+
+.administration-guide h4 {
+    margin-bottom: 1rem;
+    color: var(--secondary);
+}
+
+.guide-items {
+    display: grid;
+    gap: 1rem;
+}
+
+.guide-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--light);
+    border-radius: 5px;
+}
+
+.guide-icon {
+    font-size: 1.2rem;
+}
+
+.interaction-summary {
+    text-align: center;
+    padding: 2rem;
+    background: var(--green-light);
+    border-radius: 10px;
+    border: 2px solid var(--safe);
+    margin-bottom: 1.5rem;
+}
+
+.interaction-level {
+    margin-bottom: 1rem;
+}
+
+.level-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.level-badge.safe {
+    background: var(--safe);
+    color: white;
+}
+
+.level-badge.moderate {
+    background: var(--caution);
+    color: white;
+}
+
+.level-badge.high {
+    background: var(--warning);
+    color: white;
+}
+
+.interaction-details, .precautions {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--light-gray);
+    margin-bottom: 1rem;
+}
+
+.interaction-details h5, .precautions h5 {
+    color: var(--secondary);
+    margin-bottom: 1rem;
+}
+
+.interaction-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.interaction-item {
+    padding: 1rem;
+    border-radius: 5px;
+    border-left: 4px solid;
+}
+
+.interaction-item.moderate {
+    border-left-color: var(--caution);
+    background: #fffbf0;
+}
+
+.interaction-item.high {
+    border-left-color: var(--warning);
+    background: var(--red-light);
+}
+
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.schedule-period {
+    color: var(--gray);
+    font-weight: 500;
+}
+
+.daily-schedule {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--light-gray);
+    margin-bottom: 1.5rem;
+}
+
+.daily-schedule h5 {
+    color: var(--secondary);
+    margin-bottom: 1rem;
+}
+
+.schedule-timeline {
+    display: grid;
+    gap: 1rem;
+}
+
+.time-slot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--light);
+    border-radius: 5px;
+    border-left: 4px solid var(--primary);
+}
+
+.time {
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.medications {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.schedule-print {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.safety-alerts {
+    margin-bottom: 1.5rem;
+}
+
+.safety-alerts h4 {
+    margin-bottom: 1rem;
+    color: var(--secondary);
+}
+
+.alerts-list {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--light-gray);
+}
+
+.alert-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+}
+
+.alert-item.warning {
+    background: var(--red-light);
+    border-left: 4px solid var(--warning);
+}
+
+.alert-item:last-child {
+    margin-bottom: 0;
+}
+
+.alert-icon {
+    font-size: 1.2rem;
+}
+
+.medication-tips {
+    margin-bottom: 1.5rem;
+}
+
+.medication-tips h4 {
+    margin-bottom: 1rem;
+    color: var(--secondary);
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.tip-card {
+    padding: 1.5rem;
+    text-align: center;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid var(--light-gray);
+}
+
+.tip-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.tip-card h5 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.tip-card p {
+    font-size: 0.9rem;
+    color: var(--gray);
+}
+
+.emergency-info {
+    margin-bottom: 1.5rem;
+}
+
+.emergency-info h4 {
+    margin-bottom: 1rem;
+    color: var(--secondary);
+}
+
+.emergency-contacts {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--light-gray);
+}
+
+.contact-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background: var(--red-light);
+    border-radius: 5px;
+    border-left: 4px solid var(--warning);
+}
+
+.contact-item:last-child {
+    margin-bottom: 0;
+}
+
+.contact-type {
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.contact-number {
+    font-weight: bold;
+    color: var(--warning);
+}
+
+footer {
+    background: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+}
+
+footer p {
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .calculator-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .input-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .method-tabs {
+        flex-direction: column;
+    }
+    
+    .result-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .tips-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .radio-group, .checkbox-group {
+        grid-template-columns: 1fr;
+    }
+    
+    .schedule-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+    
+    .time-slot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .dosage-amount {
+        font-size: 2rem;
+    }
+}

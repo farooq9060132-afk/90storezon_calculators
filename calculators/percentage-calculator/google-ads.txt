@@ -1,0 +1,23 @@
+
+# Google Ads.txt File
+# 21 Free Percentage Calculator
+# Contact: admin@yourdomain.com
+
+google.com, pub-1234567890123456, DIRECT, f123456789
+google.com, pub-9876543210987654, RESELLER
+
+# AdSense
+google.com, pub-1234567890123456, DIRECT, f123456789
+
+# AdX
+google.com, pub-1234567890123456, DIRECT, f123456789
+
+# Additional networks
+appnexus.com, 1234, DIRECT
+rubiconproject.com, 12345, DIRECT
+openx.com, 123456, DIRECT
+indexexchange.com, 1234567, DIRECT
+
+# Verification
+# Update date: 2024
+# Replace placeholder IDs with actual publisher IDs

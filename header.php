@@ -1,914 +1,554 @@
 <?php
-// Check if user is logged in
-$isLoggedIn = isset($_SESSION['user_id']);
-$username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+// Start session if not already started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Set canonical URL
+$currentUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$canonicalUrl = htmlspecialchars($currentUrl, ENT_QUOTES, 'UTF-8');
 ?>
-<header class="main-header">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Canonical URL -->
+    <link rel="canonical" href="<?php echo $canonicalUrl; ?>">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/assets/css/main.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="90storezon">
+    <meta name="robots" content="index, follow">
+</head>
+<body>
+<header class="site-header">
     <div class="header-container">
-        <!-- Logo Section -->
-        <div class="logo-section">
-            <a href="index.php" class="logo-link">
-                <div class="logo-icon">
-                    <i class="fas fa-calculator"></i>
-                </div>
-                <div class="logo-text">
-                    <span class="logo-primary">90storezon</span>
-                    <span class="logo-tagline">Free Online Calculators</span>
-                </div>
+        <!-- Logo -->
+        <div class="logo-container">
+            <a href="/index.php" class="logo">
+                <span class="logo-black">90</span><span class="logo-blue">storezon</span>
             </a>
         </div>
 
-            <!-- Desktop Navigation -->
-            <nav class="desktop-nav">
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="index.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
-                        <i class="fas fa-home"></i> Home
-                    </a></li>
-                    
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-calculator"></i> Calculators <i class="fas fa-chevron-down"></i>
-                        </a>
-                        <div class="dropdown-menu">
-                            <div class="dropdown-column">
-                                <h4>Financial</h4>
-                                <a href="calculators/loan-calculator/">Loan Calculator</a>
-                                <a href="calculators/mortgage-calculator/">Mortgage</a>
-                                <a href="calculators/interest-calculator/">Interest</a>
-                                <a href="calculators/tax-calculator/">Tax Calculator</a>
-                            </div>
-                            <div class="dropdown-column">
-                                <h4>Health</h4>
-                                <a href="calculators/bmi-calculator/">BMI Calculator</a>
-                                <a href="calculators/calorie-calculator/">Calorie</a>
-                                <a href="calculators/body-fat-calculator/">Body Fat</a>
-                                <a href="calculators/bmr-calculator/">BMR</a>
-                            </div>
-                            <div class="dropdown-column">
-                                <h4>Math</h4>
-                                <a href="calculators/scientific-calculator/">Scientific</a>
-                                <a href="calculators/percentage-calculator/">Percentage</a>
-                                <a href="calculators/fraction-calculator/">Fraction</a>
-                                <a href="calculators/algebra-calculator/">Algebra</a>
-                            </div>
-                            <div class="dropdown-column">
-                                <h4>Tools</h4>
-                                <a href="calculators/age-calculator/">Age Calculator</a>
-                                <a href="calculators/date-calculator/">Date</a>
-                                <a href="calculators/conversion-calculator/">Conversion</a>
-                                <a href="calculators/unit-converter/">Unit Converter</a>
-                            </div>
-                        </div>
-                    </li>
-                    
-                    <li class="nav-item"><a href="pages/about.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : ''; ?>">
-                        <i class="fas fa-info-circle"></i> About
-                    </a></li>
-                    
-                    <li class="nav-item"><a href="pages/contact.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>">
-                        <i class="fas fa-envelope"></i> Contact
-                    </a></li>
-                </ul>
-            </nav>
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav">
+            <ul class="nav-menu">
+                <li><a href="/index.php" class="nav-link">Home</a></li>
+                <li><a href="/calculators/" class="nav-link">Calculators</a></li>
+                <li><a href="/pages/about.php" class="nav-link">About</a></li>
+                <li><a href="/pages/contact.php" class="nav-link">Contact</a></li>
+                <li><a href="/pages/privacy.php" class="nav-link">Privacy Policy</a></li>
+            </ul>
+        </nav>
 
-            <!-- Search Bar -->
-            <div class="search-section">
-                <div class="search-wrapper">
-                    <input type="text" id="header-search" placeholder="Search calculators..." class="search-input">
-                    <button type="button" class="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    <div class="search-results" id="header-search-results"></div>
+        <!-- Right Side Actions -->
+        <div class="header-actions">
+            <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+                <!-- User Profile Dropdown -->
+                <div class="user-profile">
+                    <div class="profile-trigger">
+                        <span class="profile-name"><?php echo htmlspecialchars($_SESSION['user_name'] ?? 'User'); ?></span>
+                        <span class="profile-icon">▼</span>
+                    </div>
+                    <div class="profile-dropdown">
+                        <a href="/auth/profile.php" class="dropdown-item">Profile</a>
+                        <a href="/auth/settings.php" class="dropdown-item">Settings</a>
+                        <a href="/auth/logout.php" class="dropdown-item">Logout</a>
+                    </div>
                 </div>
-            </div>
-
-            <!-- User Authentication Section -->
-            <div class="auth-section">
-                <?php if ($isLoggedIn): ?>
-                    <div class="user-dropdown">
-                        <button class="user-btn">
-                            <i class="fas fa-user-circle"></i>
-                            <span class="username"><?php echo htmlspecialchars($username); ?></span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="user-menu">
-                            <a href="user/dashboard.php" class="user-menu-item">
-                                <i class="fas fa-tachometer-alt"></i> Dashboard
-                            </a>
-                            <a href="user/saved-calculations.php" class="user-menu-item">
-                                <i class="fas fa-save"></i> Saved Calculations
-                            </a>
-                            <a href="user/settings.php" class="user-menu-item">
-                                <i class="fas fa-cog"></i> Settings
-                            </a>
-                            <div class="user-menu-divider"></div>
-                            <a href="auth/logout.php" class="user-menu-item logout">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </a>
-                        </div>
-                    </div>
-                <?php else: ?>
-                    <div class="auth-buttons">
-                        <a href="auth/login.php" class="auth-btn login-btn">
-                            <i class="fas fa-sign-in-alt"></i> Login
-                        </a>
-                        <a href="auth/register.php" class="auth-btn signup-btn">
-                            <i class="fas fa-user-plus"></i> Sign Up
-                        </a>
-                    </div>
-                <?php endif; ?>
-            </div>
-
+            <?php else: ?>
+                <!-- Auth Buttons -->
+                <div class="auth-buttons">
+                    <a href="/auth/signin.php" class="btn btn-outline">Sign In</a>
+                    <a href="/auth/signup.php" class="btn btn-primary">Sign Up</a>
+                </div>
+            <?php endif; ?>
+            
             <!-- Mobile Menu Toggle -->
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
+            <button class="mobile-menu-toggle" id="menuToggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
             </button>
         </div>
+    </div>
 
-        <!-- Mobile Navigation Menu -->
-        <div class="mobile-nav" id="mobileNav">
-            <div class="mobile-nav-header">
-                <div class="mobile-logo">90storezon</div>
-                <button class="mobile-close-btn" id="mobileCloseBtn">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="mobile-search">
-                <input type="text" placeholder="Search calculators..." class="mobile-search-input">
-                <button class="mobile-search-btn">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-            
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-nav">
             <ul class="mobile-nav-menu">
-                <li><a href="index.php" class="mobile-nav-link">
-                    <i class="fas fa-home"></i> Home
-                </a></li>
-                
-                <li class="mobile-nav-dropdown">
-                    <a href="#" class="mobile-nav-link">
-                        <i class="fas fa-calculator"></i> Calculators <i class="fas fa-chevron-right"></i>
-                    </a>
-                    <div class="mobile-dropdown-content">
-                        <a href="calculators/loan-calculator/">Loan Calculator</a>
-                        <a href="calculators/mortgage-calculator/">Mortgage Calculator</a>
-                        <a href="calculators/bmi-calculator/">BMI Calculator</a>
-                        <a href="calculators/percentage-calculator/">Percentage Calculator</a>
-                        <a href="calculators/age-calculator/">Age Calculator</a>
-                        <a href="calculators/tax-calculator/">Tax Calculator</a>
-                        <a href="calculators/scientific-calculator/">Scientific Calculator</a>
-                        <a href="calculators/all-calculators.php">View All</a>
-                    </div>
-                </li>
-                
-                <li><a href="pages/about.php" class="mobile-nav-link">
-                    <i class="fas fa-info-circle"></i> About
-                </a></li>
-                
-                <li><a href="pages/contact.php" class="mobile-nav-link">
-                    <i class="fas fa-envelope"></i> Contact
-                </a></li>
-                
-                <li><a href="pages/privacy-policy.php" class="mobile-nav-link">
-                    <i class="fas fa-shield-alt"></i> Privacy
-                </a></li>
-                
-                <li><a href="pages/terms.php" class="mobile-nav-link">
-                    <i class="fas fa-file-contract"></i> Terms
-                </a></li>
-            </ul>
-            
-            <div class="mobile-auth-section">
-                <?php if ($isLoggedIn): ?>
-                    <a href="user/dashboard.php" class="mobile-auth-btn">
-                        <i class="fas fa-user-circle"></i> Dashboard
-                    </a>
-                    <a href="auth/logout.php" class="mobile-auth-btn logout">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
+                <li><a href="/index.php" class="mobile-nav-link">Home</a></li>
+                <li><a href="/calculators/" class="mobile-nav-link">Calculators</a></li>
+                <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+                    <li><a href="/auth/profile.php" class="mobile-nav-link">Profile</a></li>
+                    <li><a href="/auth/settings.php" class="mobile-nav-link">Settings</a></li>
+                    <li><a href="/auth/logout.php" class="mobile-nav-link">Logout</a></li>
                 <?php else: ?>
-                    <a href="auth/login.php" class="mobile-auth-btn">
-                        <i class="fas fa-sign-in-alt"></i> Login
-                    </a>
-                    <a href="auth/register.php" class="mobile-auth-btn signup">
-                        <i class="fas fa-user-plus"></i> Sign Up
-                    </a>
+                    <li><a href="/auth/signin.php" class="mobile-nav-link">Sign In</a></li>
+                    <li><a href="/auth/signup.php" class="mobile-nav-link">Sign Up</a></li>
                 <?php endif; ?>
-            </div>
-        </div>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<style>
+    .site-header {
+        background: #ffffff;
+        border-bottom: 1px solid #dadce0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 70px;
+    }
+
+    /* Logo Styles */
+    .logo-container {
+        flex-shrink: 0;
+    }
+
+    .logo {
+        text-decoration: none;
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+        transform: scale(1.05);
+    }
+
+    .logo-black {
+        color: #000000;
+    }
+
+    .logo-blue {
+        color: #0052FF;
+    }
+
+    /* Desktop Navigation */
+    .desktop-nav {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 40px;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: #202124;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 12px 0;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+        color: #0052FF;
+        transform: translateY(-2px);
+    }
+
+    .nav-link:hover::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: #0052FF;
+        border-radius: 2px;
+    }
+
+    /* Header Actions */
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-shrink: 0;
+        position: relative;
+    }
+    
+    /* Ensure proper spacing between auth buttons and mobile menu toggle */
+    @media (max-width: 1023px) {
+        .header-actions {
+            gap: 10px;
+        }
+    }
+
+    /* Auth Buttons */
+    .auth-buttons {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+    
+    .btn {
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+    }
+    
+    .btn-outline {
+        background: transparent;
+        color: #0052FF;
+        border-color: #0052FF;
+    }
+    
+    .btn-outline:hover {
+        background: rgba(0, 82, 255, 0.05);
+    }
+    
+    .btn-primary {
+        background: #0052FF;
+        color: white;
+    }
+    
+    .btn-primary:hover {
+        background: #0041cc;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 82, 255, 0.2);
+    }
+    
+    /* User Profile Dropdown */
+    .user-profile {
+        position: relative;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .profile-trigger {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: #f8f9fa;
+        border-radius: 20px;
+        border: 1px solid #dadce0;
+        transition: all 0.3s ease;
+    }
+
+    .profile-trigger:hover {
+        background: #e8eaed;
+    }
+
+    .profile-name {
+        font-size: 14px;
+        font-weight: 500;
+        color: #202124;
+    }
+
+    .profile-icon {
+        font-size: 12px;
+        color: #5f6368;
+    }
+
+    .profile-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border: 1px solid #dadce0;
+        width: 200px;
+        z-index: 1001;
+        display: none;
+        margin-top: 8px;
+    }
+
+    .profile-dropdown.show {
+        display: block;
+    }
+
+    .dropdown-item {
+        display: block;
+        padding: 12px 16px;
+        color: #202124;
+        text-decoration: none;
+        font-size: 14px;
+        border-bottom: 1px solid #f1f3f4;
+        transition: all 0.2s ease;
+    }
+
+    .dropdown-item:last-child {
+        border-bottom: none;
+    }
+
+    .dropdown-item:hover {
+        background: #f8f9fa;
+        color: #0052FF;
+    }
+
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+        margin-left: 10px; /* Add some spacing */
+    }
+
+    .mobile-menu-toggle:hover {
+        background: #f8f9fa;
+    }
+
+    .hamburger-line {
+        width: 24px;
+        height: 3px;
+        background: #202124;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+    
+    /* Adjust mobile toggle for smaller screens */
+    @media (max-width: 480px) {
+        .mobile-menu-toggle {
+            padding: 8px;
+        }
         
-        <!-- Mobile Overlay -->
-        <div class="mobile-overlay" id="mobileOverlay"></div>
-    </header>
+        .hamburger-line {
+            width: 20px;
+            height: 2px;
+        }
+    }
 
-    <script>
-        // Mobile Menu Toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            const mobileNav = document.getElementById('mobileNav');
-            const mobileOverlay = document.getElementById('mobileOverlay');
-            const mobileCloseBtn = document.getElementById('mobileCloseBtn');
-            
-            // Toggle mobile menu
-            function toggleMobileMenu() {
-                mobileNav.classList.toggle('active');
-                mobileOverlay.classList.toggle('active');
-                document.body.classList.toggle('menu-open');
-            }
-            
-            // Event listeners
-            mobileMenuToggle.addEventListener('click', toggleMobileMenu);
-            mobileCloseBtn.addEventListener('click', toggleMobileMenu);
-            mobileOverlay.addEventListener('click', toggleMobileMenu);
-            
-            // Close mobile menu when clicking on links
-            document.querySelectorAll('.mobile-nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (!link.classList.contains('dropdown-toggle')) {
-                        toggleMobileMenu();
-                    }
-                });
-            });
-            
-            // Mobile dropdown toggle
-            document.querySelectorAll('.mobile-nav-dropdown > a').forEach(dropdownToggle => {
-                dropdownToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const dropdown = this.parentElement;
-                    dropdown.classList.toggle('open');
-                    
-                    const icon = this.querySelector('.fa-chevron-right');
-                    if (dropdown.classList.contains('open')) {
-                        icon.classList.replace('fa-chevron-right', 'fa-chevron-down');
-                    } else {
-                        icon.classList.replace('fa-chevron-down', 'fa-chevron-right');
-                    }
-                });
-            });
-            
-            // User dropdown for desktop
-            const userBtn = document.querySelector('.user-btn');
-            if (userBtn) {
-                userBtn.addEventListener('click', function() {
-                    this.parentElement.classList.toggle('active');
-                });
-                
-                // Close user dropdown when clicking outside
-                document.addEventListener('click', function(event) {
-                    if (!event.target.closest('.user-dropdown')) {
-                        document.querySelector('.user-dropdown')?.classList.remove('active');
-                    }
-                });
-            }
-            
-            // Header search functionality
-            const headerSearch = document.getElementById('header-search');
-            const headerSearchResults = document.getElementById('header-search-results');
-            
-            if (headerSearch) {
-                headerSearch.addEventListener('input', function() {
-                    const query = this.value.trim().toLowerCase();
-                    
-                    if (query.length < 2) {
-                        headerSearchResults.style.display = 'none';
-                        return;
-                    }
-                    
-                    // Mock search data
-                    const calculators = [
-                        'BMI Calculator', 'Loan Calculator', 'Mortgage Calculator',
-                        'Percentage Calculator', 'Age Calculator', 'Tax Calculator',
-                        'Scientific Calculator', 'Interest Calculator', 'Calorie Calculator',
-                        'Date Calculator', 'Unit Converter', 'Currency Converter'
-                    ];
-                    
-                    const results = calculators.filter(calc => 
-                        calc.toLowerCase().includes(query)
-                    ).slice(0, 5);
-                    
-                    if (results.length > 0) {
-                        headerSearchResults.innerHTML = results.map(result => `
-                            <a href="calculators/${result.toLowerCase().replace(/ /g, '-')}/" class="search-result">
-                                <i class="fas fa-calculator"></i> ${result}
-                            </a>
-                        `).join('');
-                        headerSearchResults.style.display = 'block';
-                    } else {
-                        headerSearchResults.innerHTML = '<div class="no-results">No calculators found</div>';
-                        headerSearchResults.style.display = 'block';
-                    }
-                });
-                
-                // Hide search results when clicking outside
-                document.addEventListener('click', function(event) {
-                    if (!event.target.closest('.search-wrapper')) {
-                        headerSearchResults.style.display = 'none';
-                    }
-                });
-            }
-        });
-    </script>
+    /* Mobile Menu */
+    .mobile-menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #ffffff;
+        padding: 30px;
+        transform: translateY(-100%);
+        transition: transform 0.4s ease;
+        z-index: 999;
+        overflow-y: auto;
+        display: none;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
 
-    <style>
-        /* Header CSS Styles */
-        .main-header {
-            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+    .mobile-menu.show {
+        transform: translateY(0);
+    }
+
+    .mobile-nav-menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .mobile-nav-link {
+        display: block;
+        padding: 18px 0;
+        text-decoration: none;
+        color: #202124;
+        font-size: 18px;
+        font-weight: 500;
+        border-bottom: 1px solid #f1f3f4;
+        transition: all 0.3s ease;
+    }
+
+    .mobile-nav-link:hover {
+        color: #0052FF;
+        padding-left: 10px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1023px) {
+        .desktop-nav {
+            display: none;
+        }
+
+        .mobile-menu-toggle {
+            display: flex;
+        }
+
+        .mobile-menu {
+            display: block;
         }
 
         .header-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 70px;
+            padding: 0 16px;
         }
-
-        /* Logo Section */
-        .logo-section {
-            flex: 0 0 auto;
-        }
-
-        .logo-link {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: white;
-            gap: 12px;
-        }
-
-        .logo-icon {
-            font-size: 28px;
-            color: white;
-        }
-
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo-primary {
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            line-height: 1;
-        }
-
-        .logo-tagline {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.9);
-            margin-top: 2px;
-        }
-
-        /* Desktop Navigation */
-        .desktop-nav {
-            flex: 1;
-            margin: 0 30px;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            gap: 5px;
-        }
-
-        .nav-item {
-            position: relative;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 18px;
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 500;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-        }
-
-        .nav-link i {
-            font-size: 16px;
-        }
-
-        /* Dropdown Menu */
-        .dropdown {
-            position: relative;
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            min-width: 600px;
-            padding: 20px;
-            display: none;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            z-index: 1000;
-            margin-top: 10px;
-        }
-
-        .dropdown:hover .dropdown-menu {
-            display: grid;
-        }
-
-        .dropdown-menu::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 30px;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 10px solid white;
-        }
-
-        .dropdown-column h4 {
-            color: #1a73e8;
-            margin: 0 0 12px 0;
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .dropdown-column a {
-            display: block;
-            padding: 8px 0;
-            color: #444;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-
-        .dropdown-column a:hover {
-            color: #1a73e8;
-        }
-
-        /* Search Section */
-        .search-section {
-            flex: 0 1 300px;
-            margin-right: 20px;
-        }
-
-        .search-wrapper {
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 10px 40px 10px 15px;
-            border: none;
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 14px;
-            outline: none;
-        }
-
-        .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .search-btn {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .search-results {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            margin-top: 10px;
-            display: none;
-            z-index: 1000;
-        }
-
-        .search-result {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 15px;
-            color: #444;
-            text-decoration: none;
-            border-bottom: 1px solid #eee;
-            transition: background 0.3s;
-        }
-
-        .search-result:hover {
-            background: #f5f5f5;
-        }
-
-        .search-result i {
-            color: #1a73e8;
-        }
-
-        .no-results {
-            padding: 15px;
-            color: #666;
-            text-align: center;
-        }
-
-        /* Auth Section */
-        .auth-section {
-            flex: 0 0 auto;
-        }
-
+        
+        /* Keep auth buttons visible on mobile */
         .auth-buttons {
             display: flex;
-            gap: 10px;
+        }
+        
+        /* Adjust mobile menu toggle position when auth buttons are visible */
+        .mobile-menu-toggle {
+            margin-left: 10px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .logo {
+            font-size: 24px;
         }
 
-        .auth-btn {
-            padding: 8px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
+        .header-container {
+            height: 60px;
+        }
+
+        .mobile-menu {
+            top: 60px;
+        }
+        
+        /* Make auth buttons smaller on mobile */
+        .auth-buttons {
+            gap: 8px;
+        }
+        
+        .btn {
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .logo {
+            font-size: 22px;
+        }
+        
+        .header-container {
+            padding: 0 12px;
+            height: 56px;
+        }
+        
+        .mobile-menu {
+            top: 56px;
+            padding: 20px;
+        }
+        
+        .mobile-nav-link {
+            font-size: 16px;
+            padding: 16px 0;
+        }
+        
+        /* Further adjust auth buttons for small screens */
+        .auth-buttons {
             gap: 6px;
         }
-
-        .login-btn {
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
+        
+        .btn {
+            padding: 5px 10px;
+            font-size: 12px;
         }
-
-        .login-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: white;
+        
+        .profile-name {
+            font-size: 13px;
         }
+    }
+</style>
 
-        .signup-btn {
-            background: white;
-            color: #1a73e8;
-            border: 2px solid white;
-        }
+<script>
+    // Mobile menu functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const hamburgerLines = document.querySelectorAll('.hamburger-line');
 
-        .signup-btn:hover {
-            background: #f0f0f0;
-        }
-
-        /* User Dropdown */
-        .user-dropdown {
-            position: relative;
-        }
-
-        .user-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background 0.3s;
-        }
-
-        .user-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .user-btn i {
-            font-size: 18px;
-        }
-
-        .username {
-            max-width: 120px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .user-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            min-width: 200px;
-            margin-top: 10px;
-            display: none;
-            z-index: 1000;
-        }
-
-        .user-dropdown.active .user-menu {
-            display: block;
-        }
-
-        .user-menu-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 15px;
-            color: #444;
-            text-decoration: none;
-            border-bottom: 1px solid #eee;
-            transition: background 0.3s;
-        }
-
-        .user-menu-item:hover {
-            background: #f5f5f5;
-            color: #1a73e8;
-        }
-
-        .user-menu-divider {
-            height: 1px;
-            background: #eee;
-            margin: 5px 0;
-        }
-
-        .logout {
-            color: #e53935;
-        }
-
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        .mobile-menu-toggle span {
-            display: block;
-            height: 3px;
-            width: 100%;
-            background: white;
-            border-radius: 3px;
-            transition: 0.3s;
-        }
-
-        /* Mobile Navigation */
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            right: -320px;
-            width: 300px;
-            height: 100vh;
-            background: white;
-            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
-            transition: right 0.3s ease;
-            z-index: 1001;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .mobile-nav.active {
-            right: 0;
-        }
-
-        .mobile-nav-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background: #1a73e8;
-            color: white;
-        }
-
-        .mobile-logo {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .mobile-close-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .mobile-search {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .mobile-search-input {
-            width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 25px;
-            font-size: 14px;
-        }
-
-        .mobile-search-btn {
-            display: none;
-        }
-
-        .mobile-nav-menu {
-            flex: 1;
-            overflow-y: auto;
-            padding: 0;
-            margin: 0;
-            list-style: none;
-        }
-
-        .mobile-nav-link {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 20px;
-            color: #444;
-            text-decoration: none;
-            border-bottom: 1px solid #eee;
-            font-size: 16px;
-        }
-
-        .mobile-nav-link i {
-            color: #1a73e8;
-            margin-right: 10px;
-            width: 20px;
-        }
-
-        .mobile-dropdown-content {
-            display: none;
-            background: #f9f9f9;
-            padding: 10px 0;
-        }
-
-        .mobile-nav-dropdown.open .mobile-dropdown-content {
-            display: block;
-        }
-
-        .mobile-dropdown-content a {
-            display: block;
-            padding: 10px 40px;
-            color: #666;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .mobile-dropdown-content a:hover {
-            background: #f0f0f0;
-            color: #1a73e8;
-        }
-
-        .mobile-auth-section {
-            padding: 20px;
-            border-top: 1px solid #eee;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .mobile-auth-btn {
-            padding: 12px;
-            border-radius: 6px;
-            text-align: center;
-            text-decoration: none;
-            font-weight: 500;
-            color: #1a73e8;
-            border: 1px solid #1a73e8;
-        }
-
-        .mobile-auth-btn.logout {
-            color: #e53935;
-            border-color: #e53935;
-        }
-
-        .mobile-auth-btn.signup {
-            background: #1a73e8;
-            color: white;
-        }
-
-        /* Mobile Overlay */
-        .mobile-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            z-index: 1000;
-        }
-
-        .mobile-overlay.active {
-            display: block;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .header-container {
-                padding: 0 15px;
-            }
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.toggle('show');
             
-            .search-section {
-                flex: 0 1 250px;
+            // Animate hamburger to X
+            if (mobileMenu.classList.contains('show')) {
+                hamburgerLines[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+                hamburgerLines[1].style.opacity = '0';
+                hamburgerLines[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+            } else {
+                hamburgerLines[0].style.transform = 'none';
+                hamburgerLines[1].style.opacity = '1';
+                hamburgerLines[2].style.transform = 'none';
             }
-            
-            .dropdown-menu {
-                min-width: 500px;
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
+        });
 
-        @media (max-width: 992px) {
-            .desktop-nav {
-                display: none;
-            }
-            
-            .mobile-menu-toggle {
-                display: flex;
-            }
-            
-            .search-section {
-                display: none;
-            }
-            
-            .auth-section {
-                margin-left: auto;
-                margin-right: 20px;
-            }
-            
-            .dropdown-menu {
-                min-width: 400px;
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+        // Close mobile menu when clicking on a link
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('show');
+                hamburgerLines[0].style.transform = 'none';
+                hamburgerLines[1].style.opacity = '1';
+                hamburgerLines[2].style.transform = 'none';
+            });
+        });
 
-        @media (max-width: 768px) {
-            .header-container {
-                height: 60px;
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!menuToggle.contains(event.target) && !mobileMenu.contains(event.target)) {
+                mobileMenu.classList.remove('show');
+                hamburgerLines[0].style.transform = 'none';
+                hamburgerLines[1].style.opacity = '1';
+                hamburgerLines[2].style.transform = 'none';
             }
-            
-            .logo-primary {
-                font-size: 20px;
-            }
-            
-            .logo-tagline {
-                font-size: 10px;
-            }
-            
-            .auth-buttons .auth-btn span {
-                display: none;
-            }
-            
-            .auth-buttons .auth-btn i {
-                margin: 0;
-            }
-            
-            .auth-btn {
-                padding: 8px;
-                width: 40px;
-                height: 40px;
-                justify-content: center;
-            }
-        }
+        });
 
-        @media (max-width: 480px) {
-            .mobile-nav {
-                width: 100%;
-                right: -100%;
-            }
-            
-            .auth-buttons {
-                gap: 5px;
-            }
+        // Profile dropdown functionality
+        const profileTrigger = document.querySelector('.profile-trigger');
+        const profileDropdown = document.querySelector('.profile-dropdown');
+        
+        if (profileTrigger && profileDropdown) {
+            profileTrigger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('show');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function() {
+                profileDropdown.classList.remove('show');
+            });
+
+            // Prevent closing when clicking inside dropdown
+            profileDropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
         }
-    </style>
+    });
+</script>
 </header>

@@ -1,0 +1,71 @@
+# SEO Configuration File
+# Generated for GPA Calculator Project
+# Date: 2024
+
+=== BASIC SEO SETTINGS ===
+SITE_TITLE: GPA Calculator - Free Online Tools
+META_DESCRIPTION: Free GPA calculators for students. Calculate weighted/unweighted GPA, cumulative GPA, and plan your academic goals with our easy-to-use tools.
+KEYWORDS: gpa calculator, grade point average, weighted gpa, cumulative gpa, college gpa, high school gpa, gpa calculator online
+
+=== TECHNICAL SEO ===
+CANONICAL_URL: https://yourdomain.com/gpa-calculator/
+SITEMAP_URL: https://yourdomain.com/sitemap.xml
+ROBOTS_TXT: https://yourdomain.com/robots.txt
+
+=== OPEN GRAPH TAGS ===
+OG_TITLE: Free GPA Calculator - Calculate Your Grade Point Average
+OG_DESCRIPTION: Accurate GPA calculator for students. Multiple calculation methods including weighted GPA, cumulative GPA, and semester planning.
+OG_IMAGE: https://yourdomain.com/images/gpa-calculator-og.jpg
+OG_TYPE: website
+
+=== TWITTER CARD ===
+TWITTER_CARD: summary_large_image
+TWITTER_TITLE: Free GPA Calculator Tools
+TWITTER_DESCRIPTION: Calculate your GPA with our free online tools. Perfect for students and academic planning.
+
+=== STRUCTURED DATA (JSON-LD) ===
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "GPA Calculator",
+  "description": "Free online GPA calculator for students",
+  "url": "https://yourdomain.com/gpa-calculator",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "permissions": "browser",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+
+=== PAGE-SPECIFIC SEO ===
+
+## Simple GPA Calculator Page
+PAGE: /simple-gpa-calculator/
+TITLE: Simple GPA Calculator - Easy 4.0 Scale Calculator
+META_DESCRIPTION: Calculate your GPA on standard 4.0 scale. Easy to use GPA calculator for high school and college students.
+H1: Simple GPA Calculator
+KEYWORDS: simple gpa calculator, 4.0 gpa scale, basic gpa calculator
+
+## Weighted GPA Calculator Page
+PAGE: /weighted-gpa-calculator/
+TITLE: Weighted GPA Calculator - Honors & AP Courses
+META_DESCRIPTION: Calculate weighted GPA with bonus points for honors and AP courses. Perfect for college-bound students.
+H1: Weighted GPA Calculator
+KEYWORDS: weighted gpa calculator, honors gpa, ap gpa, college prep gpa
+
+=== PERFORMANCE SETTINGS ===
+PRELOAD_CSS: true
+LAZY_LOAD_IMAGES: true
+COMPRESSION: gzip
+CACHE_STRATEGY: aggressive
+
+=== ANALYTICS ===
+GOOGLE_ANALYTICS_ID: GA-TRACKING-ID
+GOOGLE_SEARCH_CONSOLE_VERIFICATION: google-site-verification-code
+
+=== SOCIAL MEDIA LINKS ===
+FACEBOOK_PAGE: https://facebook.com/yourpage
+TWITTER_HANDLE: @yourhandle

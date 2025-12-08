@@ -33,7 +33,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
             <tbody>
                 <tr>
                     <td>BMI Calculator</td>
-                    <td>/calculators/bmi-calculator/</td>
+                    <td>/calculators/02-bmi-calculator/</td>
                     <td>Health & Fitness</td>
                     <td><span class="status active">Active</span></td>
                     <td class="actions">
@@ -43,7 +43,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </tr>
                 <tr>
                     <td>Loan EMI Calculator</td>
-                    <td>/calculators/loan-emi-calculator/</td>
+                    <td>/calculators/01-loan-emi-calculator/</td>
                     <td>Financial</td>
                     <td><span class="status active">Active</span></td>
                     <td class="actions">
@@ -53,7 +53,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </tr>
                 <tr>
                     <td>Currency Converter</td>
-                    <td>/calculators/currency-converter/</td>
+                    <td>/calculators/03-currency-converter/</td>
                     <td>Financial</td>
                     <td><span class="status active">Active</span></td>
                     <td class="actions">
@@ -63,7 +63,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </tr>
                 <tr>
                     <td>Mortgage Calculator</td>
-                    <td>/calculators/mortgage-calculator/</td>
+                    <td>/calculators/04-mortgage-calculator/</td>
                     <td>Financial</td>
                     <td><span class="status inactive">Inactive</span></td>
                     <td class="actions">
@@ -73,7 +73,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </tr>
                 <tr>
                     <td>Age Calculator</td>
-                    <td>/calculators/age-calculator/</td>
+                    <td>/calculators/05-age-calculator/</td>
                     <td>Other</td>
                     <td><span class="status active">Active</span></td>
                     <td class="actions">

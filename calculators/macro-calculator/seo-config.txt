@@ -1,0 +1,45 @@
+# 17-Free Macro Calculator - SEO Configuration
+
+Title: 17-Free Macro Calculator - Macronutrient Calculator for Fitness Goals
+Meta Description: Free macro calculator to calculate your optimal macronutrient ratios for weight loss, muscle gain, or maintenance. Get personalized protein, carbs, and fat targets.
+
+Primary Keywords:
+- macro calculator
+- macronutrient calculator
+- macro counting
+- protein calculator
+- carb calculator
+- fat calculator
+- fitness nutrition
+- macro tracking
+
+Secondary Keywords:
+- how to calculate macros
+- macro ratio for weight loss
+- muscle gain macros
+- IIFYM calculator
+- flexible dieting
+- nutrition calculator
+- daily macro needs
+- optimal macro split
+
+SEO Tags:
+<meta name="keywords" content="macro calculator, macronutrient calculator, protein calculator, carb calculator, fitness nutrition, macro tracking">
+<meta name="author" content="17-Free Macro Calculator">
+<meta property="og:title" content="17-Free Macro Calculator - Macronutrient Calculator for Fitness">
+<meta property="og:description" content="Calculate your optimal macronutrient ratios for weight loss, muscle gain, or maintenance. Get personalized protein, carbs, and fat targets.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="17-Free Macro Calculator">
+<meta name="twitter:description" content="Free macro calculator for fitness nutrition">
+
+Structured Data:
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "17-Free Macro Calculator",
+  "description": "Free macronutrient calculator for fitness and nutrition planning",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "permissions": "none"
+}

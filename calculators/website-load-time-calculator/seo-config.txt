@@ -1,0 +1,99 @@
+# SEO Configuration for Website Load Time Calculator
+# Last Updated: 2024-01-01
+
+SITE_TITLE=Free Website Load Time Calculator | Performance Analysis Tool
+SITE_DESCRIPTION=Calculate your website load time and get optimization recommendations. Improve speed, user experience, and SEO with our free performance calculator and analysis tools.
+SITE_KEYWORDS=website load time calculator, page speed test, website performance, load time optimization, page speed insights, website speed test, performance monitoring, core web vitals, seo optimization
+SITE_AUTHOR=Performance Solutions Inc.
+
+# Meta Tags
+META_VIEWPORT=width=device-width, initial-scale=1.0
+META_ROBOTS=index, follow
+META_GOOGLEBOT=index, follow
+META_LANGUAGE=en
+
+# Open Graph Tags
+OG_TITLE=Free Website Load Time Calculator | Performance Analysis Tool
+OG_DESCRIPTION=Calculate your website load time and get optimization recommendations to improve performance and SEO.
+OG_TYPE=website
+OG_IMAGE=/images/performance-calculator-og.jpg
+OG_URL=https://websiteloadtimecalculator.com
+
+# Twitter Card Tags
+TWITTER_CARD=summary_large_image
+TWITTER_TITLE=Free Website Load Time Calculator
+TWITTER_DESCRIPTION=Calculate and optimize your website load time for better performance
+TWITTER_IMAGE=/images/performance-calculator-twitter.jpg
+
+# Structured Data Schema
+SCHEMA_TYPE=WebApplication
+SCHEMA_NAME=Website Load Time Calculator
+SCHEMA_DESCRIPTION=Free tool to calculate website load times and get performance optimization recommendations
+
+# Performance Schema
+SCHEMA_PERFORMANCE_TOOL=true
+SCHEMA_ANALYSIS_TOOL=true
+SCHEMA_CALCULATOR=true
+
+# Sitemap Configuration
+SITEMAP_PRIORITY_HOME=1.0
+SITEMAP_PRIORITY_CALCULATOR=0.9
+SITEMAP_PRIORITY_TOOLS=0.8
+SITEMAP_PRIORITY_RESOURCES=0.7
+SITEMAP_CHANGEFREQ_HOME=weekly
+SITEMAP_CHANGEFREQ_CALCULATOR=monthly
+
+# Performance Optimization
+ENABLE_GZIP_COMPRESSION=true
+ENABLE_BROWSER_CACHING=true
+MINIFY_CSS=true
+MINIFY_JS=true
+LAZY_LOAD_IMAGES=true
+OPTIMIZE_IMAGES=true
+ENABLE_CDN=true
+
+# Analytics Tracking
+GOOGLE_ANALYTICS_ID=UA-XXXXX-Y
+GOOGLE_TAG_MANAGER_ID=GTM-XXXXXX
+HOTJAR_ID=XXXXXXXX
+GOOGLE_SEARCH_CONSOLE_VERIFIED=true
+
+# Social Media Links
+FACEBOOK_URL=https://facebook.com/performancedemo
+TWITTER_URL=https://twitter.com/performancedemo
+LINKEDIN_URL=https://linkedin.com/company/performancedemo
+GITHUB_URL=https://github.com/performancedemo
+
+# Performance Monitoring
+GTMETRIX_ENABLED=true
+PAGESPEED_INSIGHTS_ENABLED=true
+WEBPAGE_TEST_ENABLED=true
+CORE_WEB_VITALS_TRACKING=true
+
+# Security Headers
+ENABLE_HSTS=true
+ENABLE_CSP=true
+ENABLE_XSS_PROTECTION=true
+ENABLE_REFERRER_POLICY=true
+
+# Content Strategy
+PRIMARY_KEYWORDS=website load time calculator, page speed test, website performance
+SECONDARY_KEYWORDS=load time optimization, page speed insights, website speed test
+LONG_TAIL_KEYWORDS=how to calculate website load time, improve page speed, website performance optimization
+
+# Local SEO
+COUNTRY_TARGET=US
+CITY_TARGET=Global
+LANGUAGE=en-US
+
+# Mobile Optimization
+MOBILE_FRIENDLY=true
+AMP_ENABLED=true
+PWA_ENABLED=true
+TOUCH_OPTIMIZED=true
+
+# Technical SEO
+CANONICAL_URL=https://websiteloadtimecalculator.com
+SCHEMA_MARKUP_ENABLED=true
+BREADCRUMBS_ENABLED=true
+SITEMAP_AUTO_GENERATE=true

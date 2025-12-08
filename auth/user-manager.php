@@ -18,13 +18,11 @@ class UserManager {
         // Create users file if it doesn't exist
         if (!file_exists($this->usersFile)) {
             file_put_contents($this->usersFile, json_encode([]));
-            chmod($this->usersFile, 0666); // Ensure file is writable
         }
         
         // Create tokens file if it doesn't exist
         if (!file_exists($this->tokensFile)) {
             file_put_contents($this->tokensFile, json_encode([]));
-            chmod($this->tokensFile, 0666); // Ensure file is writable
         }
     }
     
@@ -74,8 +72,7 @@ class UserManager {
         $users[] = $newUser;
         
         // Save users to file
-        $result = file_put_contents($this->usersFile, json_encode($users, JSON_PRETTY_PRINT));
-        if ($result !== false) {
+        if (file_put_contents($this->usersFile, json_encode($users, JSON_PRETTY_PRINT))) {
             return $newUser;
         }
         
@@ -116,10 +113,6 @@ class UserManager {
         }
         
         $content = file_get_contents($this->usersFile);
-        if ($content === false) {
-            return [];
-        }
-        
         $users = json_decode($content, true);
         
         return is_array($users) ? $users : [];
@@ -131,10 +124,6 @@ class UserManager {
         }
         
         $content = file_get_contents($this->tokensFile);
-        if ($content === false) {
-            return [];
-        }
-        
         $tokens = json_decode($content, true);
         
         return is_array($tokens) ? $tokens : [];

@@ -1,0 +1,80 @@
+# SEO Configuration for Discount Calculator
+# Last Updated: 2024-01-01
+
+SITE_TITLE=Free Discount Calculator | Calculate Savings & Sale Prices
+SITE_DESCRIPTION=Free discount calculator to calculate sale prices, percentage discounts, and savings. Perfect for shopping, business pricing, and promotional calculations with multiple calculation modes.
+SITE_KEYWORDS=discount calculator, percentage calculator, sale price calculator, discount calculation, savings calculator, price calculator, shopping calculator, promotional pricing
+SITE_AUTHOR=Discount Solutions Inc.
+
+# Meta Tags
+META_VIEWPORT=width=device-width, initial-scale=1.0
+META_ROBOTS=index, follow
+META_GOOGLEBOT=index, follow
+META_LANGUAGE=en
+
+# Open Graph Tags
+OG_TITLE=Free Discount Calculator | Calculate Savings & Sale Prices
+OG_DESCRIPTION=Calculate discounts, sale prices, and savings instantly with our free discount calculator. Perfect for shopping and business pricing.
+OG_TYPE=website
+OG_IMAGE=/images/discount-calculator-og.jpg
+OG_URL=https://discountcalculator.com
+
+# Twitter Card Tags
+TWITTER_CARD=summary_large_image
+TWITTER_TITLE=Free Discount Calculator
+TWITTER_DESCRIPTION=Calculate discounts and savings instantly with our free calculator
+TWITTER_IMAGE=/images/discount-calculator-twitter.jpg
+
+# Structured Data Schema
+SCHEMA_TYPE=WebApplication
+SCHEMA_NAME=Discount Calculator
+SCHEMA_DESCRIPTION=Free tool to calculate discounts, sale prices, and savings
+
+# Calculator Schema
+SCHEMA_CALCULATOR=true
+SCHEMA_TOOL_CATEGORY=Financial
+
+# Sitemap Configuration
+SITEMAP_PRIORITY_HOME=1.0
+SITEMAP_PRIORITY_CALCULATOR=0.9
+SITEMAP_PRIORITY_EXAMPLES=0.8
+SITEMAP_PRIORITY_TIPS=0.7
+SITEMAP_CHANGEFREQ_HOME=weekly
+SITEMAP_CHANGEFREQ_CALCULATOR=monthly
+
+# Performance Optimization
+ENABLE_GZIP_COMPRESSION=true
+ENABLE_BROWSER_CACHING=true
+MINIFY_CSS=true
+MINIFY_JS=true
+LAZY_LOAD_IMAGES=true
+
+# Analytics Tracking
+GOOGLE_ANALYTICS_ID=UA-XXXXX-Y
+GOOGLE_TAG_MANAGER_ID=GTM-XXXXXX
+
+# Social Media Links
+FACEBOOK_URL=https://facebook.com/discountcalculator
+TWITTER_URL=https://twitter.com/discountcalc
+PINTEREST_URL=https://pinterest.com/discountcalculator
+INSTAGRAM_URL=https://instagram.com/discountcalculator
+
+# Content Strategy
+PRIMARY_KEYWORDS=discount calculator, percentage calculator, sale price calculator
+SECONDARY_KEYWORDS=discount calculation, savings calculator, price calculator
+LONG_TAIL_KEYWORDS=how to calculate discount, percentage off calculator, final price calculator
+
+# Local SEO
+COUNTRY_TARGET=US
+CITY_TARGET=Global
+LANGUAGE=en-US
+
+# Mobile Optimization
+MOBILE_FRIENDLY=true
+AMP_ENABLED=true
+PWA_ENABLED=true
+
+# Security Headers
+ENABLE_HSTS=true
+ENABLE_CSP=true
+ENABLE_XSS_PROTECTION=true

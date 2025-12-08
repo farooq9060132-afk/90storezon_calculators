@@ -1,0 +1,4 @@
+google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
+google.com, pub-1234567890123456, RESELLER
+facebook.com, 1234567890, DIRECT
+amazon.com, 1234, DIRECT

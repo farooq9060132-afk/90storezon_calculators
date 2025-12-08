@@ -1,0 +1,28 @@
+# SEO Configuration for Body Fat Calculator
+
+Title: Free Body Fat Calculator - Accurate Body Fat Percentage
+Description: Calculate your body fat percentage using the US Navy method. Get instant, accurate results with medical-grade precision. Free online tool.
+
+Primary Keywords: body fat calculator, body fat percentage, fat calculator, BMI calculator, navy body fat calculator
+
+Secondary Keywords: calculate body fat, body composition, fat mass, lean mass, fitness calculator
+
+Meta Tags:
+- viewport: width=device-width, initial-scale=1.0
+- description: Free body fat calculator using US Navy method
+- keywords: body fat, calculator, percentage, fitness, health
+
+Open Graph Tags:
+og:title: Free Body Fat Calculator
+og:description: Calculate your body fat percentage accurately
+og:type: website
+og:url: https://yoursite.com/body-fat-calculator
+
+Structured Data:
+{
+  "@context": "https://schema.org",
+  "@type": "Calculator",
+  "name": "Body Fat Calculator",
+  "description": "Free online body fat percentage calculator",
+  "url": "https://yoursite.com/body-fat-calculator"
+}

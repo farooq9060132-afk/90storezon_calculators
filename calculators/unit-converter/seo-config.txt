@@ -1,0 +1,100 @@
+# SEO Configuration for 90storezon.com
+# Last Updated: 2024
+
+## Basic SEO Settings
+SITE_URL: https://90storezon.com/
+SITE_NAME: 90storezon
+SITE_DESCRIPTION: Free online calculators for unit conversion, finance, health, math, and everyday calculations
+DEFAULT_LANGUAGE: en
+ENCODING: UTF-8
+
+## Meta Tags Configuration
+META_TITLE_TEMPLATE: {Page Title} - 90storezon
+META_DESCRIPTION_LENGTH: 150-160
+META_KEYWORDS_COUNT: 10-15
+
+## Important Pages
+IMPORTANT_URLS:
+  - https://90storezon.com/
+  - https://90storezon.com/calculator.php
+  - https://90storezon.com/unit-converter
+  - https://90storezon.com/currency-converter.php
+  - https://90storezon.com/bmi-calculator.php
+  - https://90storezon.com/loan-calculator.php
+
+## XML Sitemap
+SITEMAP_URL: https://90storezon.com/sitemap.xml
+SITEMAP_PRIORITY:
+  homepage: 1.0
+  calculator: 0.9
+  category: 0.8
+  other: 0.7
+
+## Robots.txt Configuration
+USER_AGENT: *
+ALLOW: /
+DISALLOW: /admin/
+DISALLOW: /private/
+DISALLOW: /tmp/
+SITEMAP: https://90storezon.com/sitemap.xml
+
+## Keywords Strategy
+PRIMARY_KEYWORDS:
+  - unit converter
+  - online calculator
+  - free calculator
+  - conversion calculator
+  - measurement converter
+
+SECONDARY_KEYWORDS:
+  - length converter
+  - weight converter
+  - temperature converter
+  - currency converter
+  - bmi calculator
+  - loan calculator
+
+LONG_TAIL_KEYWORDS:
+  - meters to feet converter
+  - kilograms to pounds calculator
+  - celsius to fahrenheit converter
+  - online scientific calculator
+  - free bmi calculator online
+
+## Performance Optimization
+PAGE_LOAD_TARGET: <3 seconds
+MOBILE_FRIENDLY: true
+SSL_ENABLED: true
+COMPRESSION_ENABLED: true
+
+## Social Media SEO
+OPEN_GRAPH_ENABLED: true
+TWITTER_CARDS_ENABLED: true
+SOCIAL_SHARING: enabled
+
+## Local SEO (Pakistan Focus)
+COUNTRY: Pakistan
+CITY: 
+LANGUAGE: en, ur
+CURRENCY: PKR, USD
+
+## Analytics & Tracking
+GOOGLE_ANALYTICS: TO_BE_ADDED
+GOOGLE_SEARCH_CONSOLE: TO_BE_ADDED
+BING_WEBMASTER: TO_BE_ADDED
+
+## Content Strategy
+BLOG_ENABLED: false
+FAQ_SECTION: planned
+TUTORIALS: planned
+
+## Technical SEO
+CANONICAL_URLS: enabled
+SCHEMA_MARKUP: enabled
+BREADCRUMBS: enabled
+PAGINATION: not applicable
+
+## Monitoring
+HEALTH_CHECK: daily
+BROKEN_LINKS: weekly check
+KEYWORD_RANKING: monthly review

@@ -1,0 +1,45 @@
+# 19-Free Medication Calculator - SEO Configuration
+
+Title: 19-Free Medication Calculator - Dosage & Interaction Checker
+Meta Description: Free medication calculator for dosage calculations, drug interactions checking, and medication schedule management. Educational tool only - always consult healthcare professionals.
+
+Primary Keywords:
+- medication calculator
+- dosage calculator
+- drug interaction checker
+- medication schedule
+- pill reminder
+- prescription calculator
+- medicine dosage
+- pharmaceutical calculator
+
+Secondary Keywords:
+- drug dosage calculator
+- medication interaction checker
+- pill schedule planner
+- prescription management
+- medicine reminder
+- dosage calculation
+- drug safety checker
+- medication management
+
+SEO Tags:
+<meta name="keywords" content="medication calculator, dosage calculator, drug interaction checker, medication schedule, pill reminder, prescription calculator">
+<meta name="author" content="19-Free Medication Calculator">
+<meta property="og:title" content="19-Free Medication Calculator - Dosage & Interaction Checker">
+<meta property="og:description" content="Free medication calculator for dosage calculations and drug interactions checking. Educational tool - always consult healthcare professionals.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="19-Free Medication Calculator">
+<meta name="twitter:description" content="Free medication dosage and interaction calculator">
+
+Structured Data:
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "19-Free Medication Calculator",
+  "description": "Free medication dosage calculator and drug interaction checker",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "permissions": "none"
+}

@@ -1,372 +1,491 @@
-<?php
-session_start();
-require_once 'includes/db.php';
-require_once 'includes/auth-check.php';
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="90storezon - Free online calculators for finance, health, math, and more. Accurate, fast, and completely free.">
-    <meta name="keywords" content="calculator, online calculator, financial calculator, health calculator, math calculator, free calculator">
-    <title>90storezon - Free Online Calculators</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/theme-blue.css">
-</head>
-<body>
-    <?php include 'header.php'; ?>
+<?php include 'header.php'; ?>
+
+<!-- Main Content -->
+<main class="container">
+    <h1 class="seo-heading">Free Online Calculators for Finance, Health, Math & More</h1>
+    <p class="intro-text">Access 50+ powerful calculators to help with financial planning, health tracking, math problems, and everyday calculations. Get instant, accurate results for free!</p>
     
-    <div class="container">
-        <!-- Scientific Calculator -->
-        <section class="scientific-calculator">
-            <h2 class="section-title">Scientific Calculator</h2>
-            <div class="calculator-wrapper">
-                <div class="calculator-display">
-                    <input type="text" id="calc-display" readonly value="0">
-                    <div id="calc-memory">M: 0</div>
-                </div>
-                <div class="calculator-buttons">
-                    <!-- Row 1 -->
-                    <button class="calc-btn func-btn" data-action="sin">sin</button>
-                    <button class="calc-btn func-btn" data-action="cos">cos</button>
-                    <button class="calc-btn func-btn" data-action="tan">tan</button>
-                    <button class="calc-btn func-btn" data-action="degRad">Deg/Rad</button>
-                    
-                    <!-- Row 2 -->
-                    <button class="calc-btn func-btn" data-action="sin-1">sin<sup>-1</sup></button>
-                    <button class="calc-btn func-btn" data-action="cos-1">cos<sup>-1</sup></button>
-                    <button class="calc-btn func-btn" data-action="tan-1">tan<sup>-1</sup></button>
-                    <button class="calc-btn func-btn" data-action="pi">π</button>
-                    <button class="calc-btn func-btn" data-action="e">e</button>
-                    
-                    <!-- Row 3 -->
-                    <button class="calc-btn func-btn" data-action="xy">x<sup>y</sup></button>
-                    <button class="calc-btn func-btn" data-action="x3">x<sup>3</sup></button>
-                    <button class="calc-btn func-btn" data-action="x2">x<sup>2</sup></button>
-                    <button class="calc-btn func-btn" data-action="ex">e<sup>x</sup></button>
-                    <button class="calc-btn func-btn" data-action="10x">10<sup>x</sup></button>
-                    
-                    <!-- Row 4 -->
-                    <button class="calc-btn func-btn" data-action="y√x"><sup>y</sup>√x</button>
-                    <button class="calc-btn func-btn" data-action="3√x"><sup>3</sup>√x</button>
-                    <button class="calc-btn func-btn" data-action="√x">√x</button>
-                    <button class="calc-btn func-btn" data-action="ln">ln</button>
-                    <button class="calc-btn func-btn" data-action="log">log</button>
-                    
-                    <!-- Row 5 -->
-                    <button class="calc-btn" data-value="(">(</button>
-                    <button class="calc-btn" data-value=")">)</button>
-                    <button class="calc-btn func-btn" data-action="1/x">1/x</button>
-                    <button class="calc-btn func-btn" data-action="%">%</button>
-                    <button class="calc-btn func-btn" data-action="factorial">n!</button>
-                    
-                    <!-- Row 6 -->
-                    <button class="calc-btn num-btn" data-value="7">7</button>
-                    <button class="calc-btn num-btn" data-value="8">8</button>
-                    <button class="calc-btn num-btn" data-value="9">9</button>
-                    <button class="calc-btn op-btn" data-value="+">+</button>
-                    <button class="calc-btn func-btn" data-action="back">Back</button>
-                    
-                    <!-- Row 7 -->
-                    <button class="calc-btn num-btn" data-value="4">4</button>
-                    <button class="calc-btn num-btn" data-value="5">5</button>
-                    <button class="calc-btn num-btn" data-value="6">6</button>
-                    <button class="calc-btn op-btn" data-value="-">-</button>
-                    <button class="calc-btn func-btn" data-action="ans">Ans</button>
-                    
-                    <!-- Row 8 -->
-                    <button class="calc-btn num-btn" data-value="1">1</button>
-                    <button class="calc-btn num-btn" data-value="2">2</button>
-                    <button class="calc-btn num-btn" data-value="3">3</button>
-                    <button class="calc-btn op-btn" data-value="*">×</button>
-                    <button class="calc-btn func-btn" data-action="m+">M+</button>
-                    
-                    <!-- Row 9 -->
-                    <button class="calc-btn num-btn" data-value="0">0</button>
-                    <button class="calc-btn" data-value=".">.</button>
-                    <button class="calc-btn func-btn" data-action="exp">EXP</button>
-                    <button class="calc-btn op-btn" data-value="/">÷</button>
-                    <button class="calc-btn func-btn" data-action="m-">M-</button>
-                    
-                    <!-- Row 10 -->
-                    <button class="calc-btn func-btn" data-action="±">±</button>
-                    <button class="calc-btn func-btn" data-action="rnd">RND</button>
-                    <button class="calc-btn func-btn clear-btn" data-action="ac">AC</button>
-                    <button class="calc-btn op-btn equals-btn" data-action="=">=</button>
-                    <button class="calc-btn func-btn" data-action="mr">MR</button>
-                </div>
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="calculator-container">
+            <div class="calculator-history" id="calculator-history"></div>
+            <div class="calculator-display">
+                <div id="calculator-output">0</div>
             </div>
-        </section>
-
-        <!-- Search Section -->
-        <section class="search-section">
-            <div class="search-container">
-                <input type="text" id="calculator-search" placeholder="Search for calculators (e.g., BMI, Loan, Mortgage)">
-                <button id="search-btn">Search</button>
+            <div class="calculator-buttons">
+                <button class="calc-btn" onclick="clearCalculator()">C</button>
+                <button class="calc-btn" onclick="appendToCalculator('±')">±</button>
+                <button class="calc-btn" onclick="appendToCalculator('%')">%</button>
+                <button class="calc-btn operator" onclick="appendToCalculator('/')">÷</button>
+                
+                <button class="calc-btn" onclick="appendToCalculator('7')">7</button>
+                <button class="calc-btn" onclick="appendToCalculator('8')">8</button>
+                <button class="calc-btn" onclick="appendToCalculator('9')">9</button>
+                <button class="calc-btn operator" onclick="appendToCalculator('*')">×</button>
+                
+                <button class="calc-btn" onclick="appendToCalculator('4')">4</button>
+                <button class="calc-btn" onclick="appendToCalculator('5')">5</button>
+                <button class="calc-btn" onclick="appendToCalculator('6')">6</button>
+                <button class="calc-btn operator" onclick="appendToCalculator('-')">−</button>
+                
+                <button class="calc-btn" onclick="appendToCalculator('1')">1</button>
+                <button class="calc-btn" onclick="appendToCalculator('2')">2</button>
+                <button class="calc-btn" onclick="appendToCalculator('3')">3</button>
+                <button class="calc-btn operator" onclick="appendToCalculator('+')">+</button>
+                
+                <button class="calc-btn zero" onclick="appendToCalculator('0')">0</button>
+                <button class="calc-btn" onclick="appendToCalculator('.')">.</button>
+                <button class="calc-btn equals" onclick="calculateResult()">=</button>
             </div>
-            <div id="search-results" class="search-results"></div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Calculator Categories -->
-        <section class="categories-section">
-            <h2 class="section-title">Calculator Categories</h2>
-            <div class="categories-grid">
-                <!-- Financial Calculators -->
-                <div class="category-card">
-                    <div class="category-icon financial">F</div>
-                    <h3>Financial Calculators</h3>
-                    <ul class="calculator-list">
-                        <li><a href="calculators/mortgage-calculator/">Mortgage Calculator</a></li>
-                        <li><a href="calculators/loan-calculator/">Loan Calculator</a></li>
-                        <li><a href="calculators/auto-loan-calculator/">Auto Loan Calculator</a></li>
-                        <li><a href="calculators/interest-calculator/">Interest Calculator</a></li>
-                        <li><a href="calculators/investment-calculator/">Investment Calculator</a></li>
-                        <li><a href="calculators/compound-interest-calculator/">Compound Interest</a></li>
-                        <li><a href="calculators/tax-calculator/">Tax Calculator</a></li>
-                        <li><a href="calculators/retirement-calculator/">Retirement Calculator</a></li>
-                    </ul>
-                </div>
 
-                <!-- Health & Fitness -->
-                <div class="category-card">
-                    <div class="category-icon health">H</div>
-                    <h3>Health & Fitness</h3>
-                    <ul class="calculator-list">
-                        <li><a href="calculators/bmi-calculator/">BMI Calculator</a></li>
-                        <li><a href="calculators/calorie-calculator/">Calorie Calculator</a></li>
-                        <li><a href="calculators/body-fat-calculator/">Body Fat Calculator</a></li>
-                        <li><a href="calculators/bmr-calculator/">BMR Calculator</a></li>
-                        <li><a href="calculators/ideal-weight-calculator/">Ideal Weight</a></li>
-                        <li><a href="calculators/pregnancy-calculator/">Pregnancy Calculator</a></li>
-                        <li><a href="calculators/pace-calculator/">Pace Calculator</a></li>
-                        <li><a href="calculators/water-intake-calculator/">Water Intake</a></li>
-                    </ul>
-                </div>
+    <!-- Calculators List -->
+    <section class="calculators-section">
+        <!-- Financial Calculators -->
+        <div class="category">
+            <h2>Financial Planning Tools</h2>
+            <p>Our financial calculators help you plan your loans, investments, and savings with precision.</p>
+            <ul class="calculator-list">
+                <li><a href="/calculators/loan-emi-calculator/">Loan EMI Calculator</a></li>
+                <li><a href="/calculators/mortgage-calculator/">Mortgage Calculator</a></li>
+                <li><a href="/calculators/compound-interest-calculator/">Compound Interest Calculator</a></li>
+                <li><a href="/calculators/investment-calculator/">Investment Calculator</a></li>
+                <li><a href="/calculators/retirement-planner/">Retirement Planner</a></li>
+                <li><a href="/calculators/tax-calculator/">Tax Calculator</a></li>
+                <li><a href="/calculators/budget-planner/">Budget Planner</a></li>
+                <li><a href="/calculators/salary-calculator/">Salary Calculator</a></li>
+                <li><a href="/calculators/currency-converter/">Currency Converter</a></li>
+                <li><a href="/calculators/fuel-cost-calculator/">Fuel Cost Calculator</a></li>
+            </ul>
+        </div>
 
-                <!-- Math Calculators -->
-                <div class="category-card">
-                    <div class="category-icon math">M</div>
-                    <h3>Mathematics</h3>
-                    <ul class="calculator-list">
-                        <li><a href="calculators/fraction-calculator/">Fraction Calculator</a></li>
-                        <li><a href="calculators/percentage-calculator/">Percentage Calculator</a></li>
-                        <li><a href="calculators/scientific-calculator/">Scientific Calculator</a></li>
-                        <li><a href="calculators/algebra-calculator/">Algebra Calculator</a></li>
-                        <li><a href="calculators/geometry-calculator/">Geometry Calculator</a></li>
-                        <li><a href="calculators/statistics-calculator/">Statistics Calculator</a></li>
-                        <li><a href="calculators/trigonometry-calculator/">Trigonometry</a></li>
-                        <li><a href="calculators/calculus-calculator/">Calculus Calculator</a></li>
-                    </ul>
-                </div>
+        <!-- Health & Fitness Calculators -->
+        <div class="category">
+            <h2>Health & Wellness Tools</h2>
+            <p>Track your health metrics and fitness goals with our specialized health calculators.</p>
+            <ul class="calculator-list">
+                <li><a href="/calculators/bmi-calculator/">BMI Calculator</a></li>
+                <li><a href="/calculators/calorie-calculator/">Calorie Calculator</a></li>
+                <li><a href="/calculators/body-fat-calculator/">Body Fat Calculator</a></li>
+                <li><a href="/calculators/macro-calculator/">Macro Calculator</a></li>
+                <li><a href="/calculators/water-intake-calculator/">Water Intake Calculator</a></li>
+                <li><a href="/calculators/pregnancy-calculator/">Pregnancy Calculator</a></li>
+                <li><a href="/calculators/heart-rate-calculator/">Heart Rate Calculator</a></li>
+                <li><a href="/calculators/medication-calculator/">Medication Calculator</a></li>
+                <li><a href="/calculators/tip-calculator/">Tip Calculator</a></li>
+                <li><a href="/calculators/discount-calculator/">Discount Calculator</a></li>
+            </ul>
+        </div>
 
-                <!-- Other Calculators -->
-                <div class="category-card">
-                    <div class="category-icon other">O</div>
-                    <h3>Other Tools</h3>
-                    <ul class="calculator-list">
-                        <li><a href="calculators/age-calculator/">Age Calculator</a></li>
-                        <li><a href="calculators/date-calculator/">Date Calculator</a></li>
-                        <li><a href="calculators/time-calculator/">Time Calculator</a></li>
-                        <li><a href="calculators/conversion-calculator/">Conversion Tool</a></li>
-                        <li><a href="calculators/unit-converter/">Unit Converter</a></li>
-                        <li><a href="calculators/currency-converter/">Currency Converter</a></li>
-                        <li><a href="calculators/tip-calculator/">Tip Calculator</a></li>
-                        <li><a href="calculators/discount-calculator/">Discount Calculator</a></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+        <!-- Math Calculators -->
+        <div class="category">
+            <h2>Math & Education Tools</h2>
+            <p>Solve complex math problems and academic calculations with ease.</p>
+            <ul class="calculator-list">
+                <li><a href="/calculators/percentage-calculator/">Percentage Calculator</a></li>
+                <li><a href="/calculators/gpa-calculator/">GPA Calculator</a></li>
+                <li><a href="/calculators/age-calculator/">Age Calculator</a></li>
+                <li><a href="/calculators/scientific-calculator/">Scientific Calculator</a></li>
+                <li><a href="/calculators/grade-calculator/">Grade Calculator</a></li>
+                <li><a href="/calculators/study-planner/">Study Planner</a></li>
+                <li><a href="/calculators/time-duration-calculator/">Time Duration Calculator</a></li>
+                <li><a href="/calculators/age-difference-calculator/">Age Difference Calculator</a></li>
+                <li><a href="/calculators/date-calculator/">Date Calculator</a></li>
+                <li><a href="/calculators/unit-converter/">Unit Converter</a></li>
+            </ul>
+        </div>
 
-        <!-- Featured Calculators -->
-        <section class="featured-section">
-            <h2 class="section-title">Popular Calculators</h2>
-            <div class="featured-grid">
-                <div class="featured-card">
-                    <h3><a href="calculators/bmi-calculator/">BMI Calculator</a></h3>
-                    <p>Calculate your Body Mass Index and understand your weight status.</p>
-                </div>
-                <div class="featured-card">
-                    <h3><a href="calculators/loan-calculator/">Loan Calculator</a></h3>
-                    <p>Calculate monthly payments, total interest, and loan amortization.</p>
-                </div>
-                <div class="featured-card">
-                    <h3><a href="calculators/percentage-calculator/">Percentage Calculator</a></h3>
-                    <p>Calculate percentages, increases, decreases, and comparisons.</p>
-                </div>
-                <div class="featured-card">
-                    <h3><a href="calculators/mortgage-calculator/">Mortgage Calculator</a></h3>
-                    <p>Plan your home purchase with accurate mortgage calculations.</p>
-                </div>
-                <div class="featured-card">
-                    <h3><a href="calculators/age-calculator/">Age Calculator</a></h3>
-                    <p>Calculate exact age in years, months, weeks, and days.</p>
-                </div>
-                <div class="featured-card">
-                    <h3><a href="calculators/calorie-calculator/">Calorie Calculator</a></h3>
-                    <p>Estimate daily calorie needs for weight management.</p>
-                </div>
-            </div>
-        </section>
+        <!-- Web Tools & Converters -->
+        <div class="category">
+            <h2>Web Utilities & Converters</h2>
+            <p>Essential tools for developers and everyday web users.</p>
+            <ul class="calculator-list">
+                <li><a href="/calculators/qr-code-generator/">QR Code Generator</a></li>
+                <li><a href="/calculators/password-generator/">Password Generator</a></li>
+                <li><a href="/calculators/password-strength-checker/">Password Strength Checker</a></li>
+                <li><a href="/calculators/file-size-converter/">File Size Converter</a></li>
+                <li><a href="/calculators/color-code-converter/">Color Code Converter</a></li>
+                <li><a href="/calculators/time-zone-converter/">Time Zone Converter</a></li>
+                <li><a href="/calculators/data-storage-calculator/">Data Storage Calculator</a></li>
+                <li><a href="/calculators/base64-converter/">Base64 Converter</a></li>
+                <li><a href="/calculators/json-formatter/">JSON Formatter</a></li>
+                <li><a href="/calculators/regex-tester/">Regex Tester</a></li>
+            </ul>
+        </div>
 
-        <!-- About Section -->
-        <section class="about-section">
-            <h2 class="section-title">About 90storezon Calculators</h2>
-            <div class="about-content">
-                <p>Welcome to <strong>90storezon</strong>, your premier destination for free online calculators. Our primary mission is to deliver fast, comprehensive, and convenient calculation tools across numerous domains including finance, health, mathematics, and everyday utilities.</p>
-                
-                <p>Currently, we provide over 200 specialized calculators to help you solve mathematical problems, plan finances, track health metrics, and make informed decisions quickly and accurately. We are continuously expanding our collection to serve your evolving needs.</p>
-                
-                <p>Our vision is to become the ultimate one-stop resource for individuals who require reliable and immediate calculations. We strongly believe that essential tools and knowledge should be freely accessible to everyone. Consequently, all our calculators and services are completely free, with no registration requirements or hidden fees.</p>
-                
-                <p>Each calculator on 90storezon is independently coded and rigorously tested to ensure accuracy and reliability. We maintain high standards of quality control, but if you encounter any discrepancies, please notify us immediately—your feedback is invaluable for improvement.</p>
-                
-                <p>While most of our calculators are designed for global use, some tools may be tailored for specific regions or countries. For instance, certain financial calculators might be optimized for particular economic systems or tax structures. Always verify that the calculator suits your specific requirements.</p>
-                
-                <p>Thank you for choosing 90storezon. We are committed to enhancing your calculation experience with user-friendly interfaces, accurate results, and diverse toolkits for all your needs.</p>
-            </div>
-        </section>
-    </div>
+        <!-- Programming & Development -->
+        <div class="category">
+            <h2>Developer Tools</h2>
+            <p>Essential utilities for programmers and developers.</p>
+            <ul class="calculator-list">
+                <li><a href="/calculators/code-beautifier/">Code Beautifier</a></li>
+                <li><a href="/calculators/md5-generator/">MD5 Generator</a></li>
+                <li><a href="/calculators/url-encoder/">URL Encoder</a></li>
+                <li><a href="/calculators/character-counter/">Character Counter</a></li>
+                <li><a href="/calculators/lorem-ipsum-generator/">Lorem Ipsum Generator</a></li>
+                <li><a href="/calculators/csv-to-json-converter/">CSV to JSON Converter</a></li>
+                <li><a href="/calculators/website-load-time-calculator/">Website Load Time Calculator</a></li>
+                <li><a href="/calculators/api-calculator/">API Calculator</a></li>
+                <li><a href="/calculators/carbon-footprint-calculator/">Carbon Footprint Calculator</a></li>
+                <li><a href="/calculators/youtube-earnings-calculator/">YouTube Earnings Calculator</a></li>
+            </ul>
+        </div>
+    </section>
+</div>
 
-    <?php include 'footer.php'; ?>
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Calculator Styles */
+    .calculator-section {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid #e0e0e0;
+    }
+
+    .calculator-history {
+        background: #f8f9fa;
+        border: 1px solid #dadce0;
+        border-radius: 8px 8px 0 0;
+        padding: 10px 20px;
+        margin-bottom: 0;
+        text-align: right;
+        font-size: 16px;
+        min-height: 20px;
+        color: #5f6368;
+        border-bottom: none;
+    }
+
+    .calculator-display {
+        background: #f8f9fa;
+        border: 1px solid #dadce0;
+        border-radius: 0 0 8px 8px;
+        padding: 20px;
+        margin-bottom: 15px;
+        text-align: right;
+        font-size: 28px;
+        font-weight: 500;
+        min-height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .calculator-buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+    }
+
+    .calc-btn {
+        background: white;
+        border: 1px solid #dadce0;
+        border-radius: 8px;
+        padding: 16px;
+        font-size: 18px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .calc-btn:hover {
+        background: #f8f9fa;
+        transform: translateY(-2px);
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    .calc-btn:active {
+        transform: translateY(0);
+    }
+
+    .calc-btn.operator {
+        background: #f1f3f4;
+        font-weight: 600;
+    }
+
+    .calc-btn.equals {
+        background: #1a73e8;
+        color: white;
+        font-weight: 600;
+    }
+
+    .calc-btn.equals:hover {
+        background: #1558d6;
+    }
+
+    .calc-btn.zero {
+        grid-column: span 2;
+    }
+
+    /* Search Styles */
+    .search-section {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .search-bar {
+        width: 100%;
+        max-width: 600px;
+        padding: 14px 24px;
+        border: 1px solid #dadce0;
+        border-radius: 30px;
+        font-size: 16px;
+        outline: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .search-bar:focus {
+        border-color: #1a73e8;
+        box-shadow: 0 0 0 3px rgba(26,115,232,0.2), 0 4px 12px rgba(0,0,0,0.1);
+        transform: translateY(-1px);
+    }
     
-    <script src="script.js"></script>
-    <script>
-        // Calculator functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const display = document.getElementById('calc-display');
-            let currentInput = '0';
-            let previousInput = '';
-            let operation = null;
-            let memory = 0;
-            
-            // Update display
-            function updateDisplay() {
-                display.value = currentInput;
-                document.getElementById('calc-memory').textContent = `M: ${memory}`;
+    .search-bar::placeholder {
+        color: #5f6368;
+    }
+
+    /* Categories Styles */
+    .calculators-section {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    @media (min-width: 768px) {
+        .calculators-section {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (min-width: 1024px) {
+        .calculators-section {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    
+    @media (min-width: 1200px) {
+        .calculators-section {
+            grid-template-columns: repeat(5, 1fr);
+        }
+    }
+
+    .category {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        border: 1px solid #e0e0e0;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .category:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .category h3 {
+        margin: 0 0 20px 0;
+        font-size: 20px;
+        font-weight: 600;
+        color: #202124;
+        border-bottom: 2px solid #1a73e8;
+        padding-bottom: 12px;
+        letter-spacing: -0.3px;
+    }
+
+    .calculator-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .calculator-list li {
+        margin-bottom: 10px;
+        border-radius: 6px;
+        transition: background-color 0.2s ease;
+    }
+    
+    .calculator-list li:hover {
+        background-color: #f8f9fa;
+    }
+
+    .calculator-list a {
+        color: #1a73e8;
+        text-decoration: none;
+        font-size: 15px;
+        display: block;
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+    }
+
+    .calculator-list a:hover {
+        color: #1558d6;
+        background-color: #e8f0fe;
+        text-decoration: none;
+        padding-left: 16px;
+    }
+
+    .no-results {
+        text-align: center;
+        color: #5f6368;
+        font-style: italic;
+        padding: 20px;
+    }
+</style>
+
+<script>
+    // Calculator functionality
+    let currentInput = '0';
+    let previousInput = '';
+    let operation = null;
+    let shouldResetScreen = false;
+    let calculationHistory = '';
+
+    function updateDisplay() {
+        document.getElementById('calculator-output').textContent = currentInput;
+        document.getElementById('calculator-history').textContent = calculationHistory;
+    }
+
+    function appendToCalculator(value) {
+        // Handle special operations first
+        if (value === '±') {
+            if (currentInput !== '0') {
+                currentInput = currentInput.startsWith('-') ? currentInput.slice(1) : '-' + currentInput;
+            }
+            updateDisplay();
+            return;
+        }
+        
+        if (value === '%') {
+            if (currentInput !== '0') {
+                currentInput = (parseFloat(currentInput) / 100).toString();
+            }
+            updateDisplay();
+            return;
+        }
+
+        // Handle operators
+        if (['+', '-', '*', '/'].includes(value)) {
+            if (currentInput === '' && previousInput !== '') {
+                // Change operation if no current input
+                operation = value;
+                calculationHistory = previousInput + ' ' + getOperationSymbol(value);
+                updateDisplay();
+                return;
             }
             
-            // Number buttons
-            document.querySelectorAll('.num-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    if (currentInput === '0' || operation === '=') {
-                        currentInput = button.getAttribute('data-value');
-                    } else {
-                        currentInput += button.getAttribute('data-value');
-                    }
-                    operation = null;
-                    updateDisplay();
-                });
-            });
+            if (previousInput !== '' && operation !== null && !shouldResetScreen) {
+                // Calculate result before applying new operation
+                calculateResult();
+            }
             
-            // Operation buttons
-            document.querySelectorAll('.op-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    previousInput = currentInput;
-                    currentInput = '0';
-                    operation = button.getAttribute('data-value');
-                });
-            });
-            
-            // Function buttons
-            document.querySelectorAll('.func-btn').forEach(button => {
-                button.addEventListener('click', () => {
-                    const action = button.getAttribute('data-action');
-                    
-                    switch(action) {
-                        case 'ac':
-                            currentInput = '0';
-                            previousInput = '';
-                            operation = null;
-                            break;
-                        case 'back':
-                            currentInput = currentInput.length > 1 ? currentInput.slice(0, -1) : '0';
-                            break;
-                        case '=':
-                            if (previousInput && operation) {
-                                const prev = parseFloat(previousInput);
-                                const current = parseFloat(currentInput);
-                                let result = 0;
-                                
-                                switch(operation) {
-                                    case '+': result = prev + current; break;
-                                    case '-': result = prev - current; break;
-                                    case '*': result = prev * current; break;
-                                    case '/': result = prev / current; break;
-                                }
-                                currentInput = result.toString();
-                                previousInput = '';
-                                operation = '=';
-                            }
-                            break;
-                        case 'm+':
-                            memory += parseFloat(currentInput);
-                            break;
-                        case 'm-':
-                            memory -= parseFloat(currentInput);
-                            break;
-                        case 'mr':
-                            currentInput = memory.toString();
-                            break;
-                        case '±':
-                            currentInput = (-parseFloat(currentInput)).toString();
-                            break;
-                        case '√x':
-                            currentInput = Math.sqrt(parseFloat(currentInput)).toString();
-                            break;
-                        case 'x2':
-                            currentInput = Math.pow(parseFloat(currentInput), 2).toString();
-                            break;
-                        case '1/x':
-                            currentInput = (1 / parseFloat(currentInput)).toString();
-                            break;
-                        case '%':
-                            currentInput = (parseFloat(currentInput) / 100).toString();
-                            break;
-                    }
-                    updateDisplay();
-                });
-            });
-            
-            // Search functionality
-            const searchInput = document.getElementById('calculator-search');
-            const searchResults = document.getElementById('search-results');
-            
-            searchInput.addEventListener('input', function() {
-                const query = this.value.toLowerCase();
-                if (query.length < 2) {
-                    searchResults.innerHTML = '';
-                    searchResults.style.display = 'none';
-                    return;
-                }
-                
-                // Mock search results (in real implementation, fetch from server)
-                const allCalculators = [
-                    'BMI Calculator', 'Loan Calculator', 'Mortgage Calculator',
-                    'Percentage Calculator', 'Age Calculator', 'Calorie Calculator',
-                    'Interest Calculator', 'Tax Calculator', 'Date Calculator'
-                ];
-                
-                const results = allCalculators.filter(calc => 
-                    calc.toLowerCase().includes(query)
-                );
-                
-                if (results.length > 0) {
-                    searchResults.innerHTML = results.map(result => 
-                        `<div class="search-result-item">
-                            <a href="calculators/${result.toLowerCase().replace(' ', '-')}/">${result}</a>
-                        </div>`
-                    ).join('');
-                    searchResults.style.display = 'block';
-                } else {
-                    searchResults.innerHTML = '<div class="no-results">No calculators found</div>';
-                    searchResults.style.display = 'block';
-                }
-            });
-            
-            // Initial display update
+            previousInput = currentInput;
+            operation = value;
+            shouldResetScreen = true;
+            calculationHistory = previousInput + ' ' + getOperationSymbol(value);
             updateDisplay();
-        });
-    </script>
-</body>
-</html>
+            return;
+        }
+
+        // Handle numbers and decimal point
+        if (shouldResetScreen) {
+            if (value === '.') {
+                currentInput = '0.';
+            } else {
+                currentInput = value;
+            }
+            shouldResetScreen = false;
+        } else {
+            if (value === '.') {
+                if (!currentInput.includes('.')) {
+                    currentInput += '.';
+                }
+            } else {
+                if (currentInput === '0') {
+                    currentInput = value;
+                } else {
+                    currentInput += value;
+                }
+            }
+        }
+        
+        updateDisplay();
+    }
+
+    function getOperationSymbol(op) {
+        switch(op) {
+            case '+': return '+';
+            case '-': return '−';
+            case '*': return '×';
+            case '/': return '÷';
+            default: return op;
+        }
+    }
+
+    function clearCalculator() {
+        currentInput = '0';
+        previousInput = '';
+        operation = null;
+        shouldResetScreen = false;
+        calculationHistory = '';
+        updateDisplay();
+    }
+
+    function calculateResult() {
+        if (operation === null || shouldResetScreen) return;
+
+        const prev = parseFloat(previousInput);
+        const current = parseFloat(currentInput);
+        
+        if (isNaN(prev) || isNaN(current)) return;
+
+        let result;
+        switch (operation) {
+            case '+':
+                result = prev + current;
+                break;
+            case '-':
+                result = prev - current;
+                break;
+            case '*':
+                result = prev * current;
+                break;
+            case '/':
+                if (current === 0) {
+                    result = 'Error';
+                } else {
+                    result = prev / current;
+                }
+                break;
+            default:
+                return;
+        }
+
+        // Update history to show the full calculation
+        calculationHistory = previousInput + ' ' + getOperationSymbol(operation) + ' ' + currentInput + ' =';
+        currentInput = typeof result === 'number' ? result.toString() : result;
+        operation = null;
+        previousInput = '';
+        shouldResetScreen = true;
+        updateDisplay();
+    }
+
+</script>
+
+<?php include 'footer.php'; ?>

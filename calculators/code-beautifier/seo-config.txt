@@ -1,0 +1,46 @@
+Title: Free Code Beautifier - Format and Beautify Your Code Online
+Description: Beautify and format your code with our free online code beautifier. Supports HTML, CSS, JavaScript, PHP, Python, Java, and more. Improve code readability instantly.
+Keywords: code beautifier, code formatter, format code, beautify code, code prettifier, html formatter, css formatter, javascript formatter, code formatting, online code beautifier
+
+Canonical URL: https://www.yoursite.com/43-free-code-beautifier/
+Robots: index, follow
+
+Open Graph:
+og:title: Free Code Beautifier - Format and Beautify Your Code Online
+og:description: Beautify and format your code with our free online code beautifier. Supports HTML, CSS, JavaScript, PHP, Python, and more.
+og:type: website
+og:url: https://www.yoursite.com/43-free-code-beautifier/
+og:image: https://www.yoursite.com/images/code-beautifier-og.jpg
+
+Twitter Card:
+twitter:card: summary_large_image
+twitter:title: Free Code Beautifier - Format and Beautify Your Code Online
+twitter:description: Beautify and format your code with our free online code beautifier. Supports multiple programming languages.
+twitter:image: https://www.yoursite.com/images/code-beautifier-twitter.jpg
+
+Structured Data (JSON-LD):
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Free Code Beautifier",
+  "description": "Online tool for formatting and beautifying code in multiple programming languages",
+  "url": "https://www.yoursite.com/43-free-code-beautifier/",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "permissions": "browser",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "HTML formatting",
+    "CSS formatting", 
+    "JavaScript formatting",
+    "PHP formatting",
+    "Python formatting",
+    "JSON formatting",
+    "XML formatting",
+    "SQL formatting"
+  ]
+}

@@ -4,22 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional CV Maker - Create Your Perfect Resume</title>
+    <title>Professional CV Maker | 90StoreZon</title>
+    <link rel="icon" type="image/png" href="../assets/brand/favicon.png">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            background: #f8fafc;
+            margin: 0;
+            padding: 0;
         }
 
-        .container {
+        .cv-outer-wrapper {
             max-width: 1600px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.95);
@@ -28,7 +28,7 @@
             overflow: hidden;
         }
 
-        .header {
+        .tool-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 30px;
@@ -509,150 +509,250 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <h1><i class="fas fa-file-alt"></i> Professional CV Maker</h1>
-            <p>Create a stunning resume in minutes with our easy-to-use CV builder</p>
-        </div>
-
-        <div class="main-content">
-            <!-- Form Section -->
-            <div class="form-section">
-                <div class="section-title">
-                    <i class="fas fa-edit"></i>
-                    <h2>Personal Information</h2>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div>
-                            <label>Full Name</label>
-                            <input type="text" id="fullName" placeholder="John Doe" value="John Doe">
-                        </div>
-                        <div>
-                            <label>Professional Title</label>
-                            <input type="text" id="title" placeholder="Software Engineer" value="Software Engineer">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div>
-                            <label>Email</label>
-                            <input type="email" id="email" placeholder="john@example.com" value="john.doe@email.com">
-                        </div>
-                        <div>
-                            <label>Phone</label>
-                            <input type="tel" id="phone" placeholder="+1 234 567 890" value="+1 234 567 890">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-row">
-                        <div>
-                            <label>Location</label>
-                            <input type="text" id="location" placeholder="City, Country" value="New York, NY">
-                        </div>
-                        <div>
-                            <label>Website/LinkedIn</label>
-                            <input type="text" id="website" placeholder="linkedin.com/in/johndoe"
-                                value="linkedin.com/in/johndoe">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Professional Summary</label>
-                    <textarea id="summary" rows="3"
-                        placeholder="Brief overview of your professional background...">Experienced software engineer with 5+ years in full-stack development. Passionate about creating efficient, scalable applications and solving complex problems. Strong track record of delivering high-quality projects on time.</textarea>
-                </div>
-
-                <!-- Work Experience Section -->
-                <div class="dynamic-section">
-                    <div class="section-header">
-                        <h4><i class="fas fa-briefcase"></i> Work Experience</h4>
-                        <button class="btn-add" onclick="addWorkExperience()">
-                            <i class="fas fa-plus"></i> Add Experience
-                        </button>
-                    </div>
-                    <div id="work-experience-container">
-                        <!-- Work experience items will be added here -->
-                    </div>
-                </div>
-
-                <!-- Education Section -->
-                <div class="dynamic-section">
-                    <div class="section-header">
-                        <h4><i class="fas fa-graduation-cap"></i> Education</h4>
-                        <button class="btn-add" onclick="addEducation()">
-                            <i class="fas fa-plus"></i> Add Education
-                        </button>
-                    </div>
-                    <div id="education-container">
-                        <!-- Education items will be added here -->
-                    </div>
-                </div>
-
-                <!-- Skills Section -->
-                <div class="dynamic-section">
-                    <div class="section-header">
-                        <h4><i class="fas fa-code"></i> Skills</h4>
-                        <button class="btn-add" onclick="addSkill()">
-                            <i class="fas fa-plus"></i> Add Skill
-                        </button>
-                    </div>
-                    <div id="skills-container">
-                        <!-- Skills will be added here -->
-                    </div>
-                </div>
-
-                <!-- Languages Section -->
-                <div class="dynamic-section">
-                    <div class="section-header">
-                        <h4><i class="fas fa-language"></i> Languages</h4>
-                        <button class="btn-add" onclick="addLanguage()">
-                            <i class="fas fa-plus"></i> Add Language
-                        </button>
-                    </div>
-                    <div id="languages-container">
-                        <!-- Languages will be added here -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Preview Section -->
-            <div class="preview-section">
-                <div class="preview-actions">
-                    <div class="template-selector">
-                        <div class="template-option active" onclick="changeTemplate('modern')">
-                            <i class="fas fa-layer-group"></i>
-                            <span>Modern</span>
-                        </div>
-                        <div class="template-option" onclick="changeTemplate('classic')">
-                            <i class="fas fa-scroll"></i>
-                            <span>Classic</span>
-                        </div>
-                        <div class="template-option" onclick="changeTemplate('minimal')">
-                            <i class="fas fa-minus-circle"></i>
-                            <span>Minimal</span>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary" onclick="downloadPDF()">
-                        <i class="fas fa-download"></i> Download PDF
-                    </button>
-                    <button class="btn btn-secondary" onclick="printCV()">
-                        <i class="fas fa-print"></i> Print
-                    </button>
-                </div>
-
-                <div id="cv-preview" class="cv-preview template-modern">
-                    <!-- CV preview will be dynamically generated here -->
-                </div>
-            </div>
-        </div>
+    <!-- Loading Animation -->
+    <div id="loading-screen">
+        <div class="loader"></div>
     </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="logo-img"
+                        style="height: 40px; width: auto; vertical-align: middle;">
+                </a>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../privacy-policy.html">Privacy</a></li>
+                <li><a href="../disclaimer.html">Disclaimer</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="calculator-container" style="background: #f0f7fc; padding: 4rem 20px;">
+        <div class="cv-outer-wrapper">
+            <div class="tool-header">
+                <h1>Professional CV Maker</h1>
+                <p>Create a stunning resume in minutes with our easy-to-use CV builder</p>
+            </div>
+
+            <div class="main-content">
+                <!-- Form Section -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-edit"></i>
+                        <h2>Personal Information</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div>
+                                <label>Full Name</label>
+                                <input type="text" id="fullName" placeholder="John Doe" value="John Doe">
+                            </div>
+                            <div>
+                                <label>Professional Title</label>
+                                <input type="text" id="title" placeholder="Software Engineer" value="Software Engineer">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div>
+                                <label>Email</label>
+                                <input type="email" id="email" placeholder="john@example.com"
+                                    value="john.doe@email.com">
+                            </div>
+                            <div>
+                                <label>Phone</label>
+                                <input type="tel" id="phone" placeholder="+1 234 567 890" value="+1 234 567 890">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div>
+                                <label>Location</label>
+                                <input type="text" id="location" placeholder="City, Country" value="New York, NY">
+                            </div>
+                            <div>
+                                <label>Website/LinkedIn</label>
+                                <input type="text" id="website" placeholder="linkedin.com/in/johndoe"
+                                    value="linkedin.com/in/johndoe">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Professional Summary</label>
+                        <textarea id="summary" rows="3"
+                            placeholder="Brief overview of your professional background...">Experienced software engineer with 5+ years in full-stack development. Passionate about creating efficient, scalable applications and solving complex problems. Strong track record of delivering high-quality projects on time.</textarea>
+                    </div>
+
+                    <!-- Work Experience Section -->
+                    <div class="dynamic-section">
+                        <div class="section-header">
+                            <h4><i class="fas fa-briefcase"></i> Work Experience</h4>
+                            <button class="btn-add" onclick="addWorkExperience()">
+                                <i class="fas fa-plus"></i> Add Experience
+                            </button>
+                        </div>
+                        <div id="work-experience-container">
+                            <!-- Work experience items will be added here -->
+                        </div>
+                    </div>
+
+                    <!-- Education Section -->
+                    <div class="dynamic-section">
+                        <div class="section-header">
+                            <h4><i class="fas fa-graduation-cap"></i> Education</h4>
+                            <button class="btn-add" onclick="addEducation()">
+                                <i class="fas fa-plus"></i> Add Education
+                            </button>
+                        </div>
+                        <div id="education-container">
+                            <!-- Education items will be added here -->
+                        </div>
+                    </div>
+
+                    <!-- Skills Section -->
+                    <div class="dynamic-section">
+                        <div class="section-header">
+                            <h4><i class="fas fa-code"></i> Skills</h4>
+                            <button class="btn-add" onclick="addSkill()">
+                                <i class="fas fa-plus"></i> Add Skill
+                            </button>
+                        </div>
+                        <div id="skills-container">
+                            <!-- Skills will be added here -->
+                        </div>
+                    </div>
+
+                    <!-- Languages Section -->
+                    <div class="dynamic-section">
+                        <div class="section-header">
+                            <h4><i class="fas fa-language"></i> Languages</h4>
+                            <button class="btn-add" onclick="addLanguage()">
+                                <i class="fas fa-plus"></i> Add Language
+                            </button>
+                        </div>
+                        <div id="languages-container">
+                            <!-- Languages will be added here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Section -->
+                <div class="preview-section">
+                    <div class="preview-actions">
+                        <div class="template-selector">
+                            <div class="template-option active" onclick="changeTemplate('modern')">
+                                <i class="fas fa-layer-group"></i>
+                                <span>Modern</span>
+                            </div>
+                            <div class="template-option" onclick="changeTemplate('classic')">
+                                <i class="fas fa-scroll"></i>
+                                <span>Classic</span>
+                            </div>
+                            <div class="template-option" onclick="changeTemplate('minimal')">
+                                <i class="fas fa-minus-circle"></i>
+                                <span>Minimal</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="downloadPDF()">
+                            <i class="fas fa-download"></i> Download PDF
+                        </button>
+                        <button class="btn btn-secondary" onclick="printCV()">
+                            <i class="fas fa-print"></i> Print
+                        </button>
+                    </div>
+
+                    <div id="cv-preview" class="cv-preview template-modern">
+                        <!-- CV preview will be dynamically generated here -->
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Column 1: Brand -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="footer-logo-img"
+                            style="height: 35px; width: auto; vertical-align: middle;">
+                    </div>
+                    <p class="footer-description">Your trusted source for the FINAL BEST CALCULATORS. We provide free,
+                        accurate, and easy-to-use online calculation tools for everyone.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook">
+                            <img src="../assets/brand/icons/facebook.svg" alt="Facebook" width="24" height="24">
+                        </a>
+                        <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram">
+                            <img src="../assets/brand/icons/instagram.svg" alt="Instagram" width="24" height="24">
+                        </a>
+                        <a href="https://www.tiktok.com/@90storezon" target="_blank" aria-label="TikTok">
+                            <img src="../assets/brand/icons/tiktok.svg" alt="TikTok" width="24" height="24">
+                        </a>
+                        <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube">
+                            <img src="../assets/brand/icons/youtube.svg" alt="YouTube" width="24" height="24">
+                        </a>
+                        <a href="https://90storezon.com" target="_blank" aria-label="Website">
+                            <img src="../assets/brand/icons/website.svg" alt="Website" width="24" height="24">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Calculator Links -->
+                <div class="footer-col">
+                    <h4>Calculators</h4>
+                    <ul>
+                        <li><a href="age-calculator.html">Age Calculator</a></li>
+                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+                        <li><a href="date-difference-calculator.html">Date Difference</a></li>
+                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
+                        <li><a href="simple-interest-calculator.html">Simple Interest</a></li>
+                        <li><a href="cv-maker.html">CV Maker</a></li>
+                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Important Pages -->
+                <div class="footer-col">
+                    <h4>Important Pages</h4>
+                    <ul>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../contact.html">Contact Us</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 90StoreZon. All rights reserved. | CV Maker Tool</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">↑</button>
+
+    <!-- JavaScript -->
+    <script src="../js/main.js"></script>
 
     <script>
         // Data storage

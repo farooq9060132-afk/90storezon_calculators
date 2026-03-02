@@ -4,898 +4,523 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Interest Calculator | 90StoreZon</title>
-    <link rel="stylesheet" href="../css/style.css">
-
+    <title>Simple interest · compound & deposits</title>
     <style>
+        /* clean modern reset */
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .calculator-container {
-            background: linear-gradient(145deg, #f0f7fa 0%, #e3eef8 100%);
-            min-height: 80vh;
+            background: linear-gradient(165deg, #f0f5fa 0%, #dbe9f5 100%);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4rem 20px;
+            padding: 1rem;
         }
 
         .card {
-            max-width: 1200px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 48px;
-            box-shadow: 0 30px 50px -20px rgba(0, 30, 50, 0.3);
-            padding: 36px;
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            max-width: 1400px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 3rem 3rem 2.5rem 2.5rem;
+            box-shadow: 0 30px 50px -20px rgba(0, 45, 70, 0.35), inset 0 1px 3px rgba(255, 255, 255, 0.7);
+            padding: 2.2rem 2.2rem 2.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.2s;
         }
 
         h1 {
-            font-size: 2.4rem;
-            font-weight: 700;
-            margin: 0 0 0.25rem;
-            color: #0b263d;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #0d4057;
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 0.8rem;
+            margin-bottom: 1.8rem;
+            border-bottom: 2px solid rgba(23, 95, 120, 0.2);
+            padding-bottom: 0.8rem;
             flex-wrap: wrap;
         }
 
         h1 span {
-            background: #3a6b8c;
+            background: #226482;
             color: white;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 500;
-            padding: 6px 18px;
+            padding: 0.25rem 1.4rem 0.35rem;
             border-radius: 60px;
+            white-space: nowrap;
         }
 
-        .sub {
-            color: #2d4b6e;
-            margin-bottom: 30px;
-            border-left: 4px solid #2b6a9e;
-            padding-left: 20px;
-            font-weight: 400;
-        }
-
-        .si-grid {
+        /* main layout – 2 columns */
+        .dashboard {
             display: grid;
-            grid-template-columns: 1.2fr 1.5fr;
-            gap: 28px;
+            grid-template-columns: 1.2fr 1.8fr;
+            gap: 1.8rem;
+            margin-bottom: 1rem;
         }
 
-        @media (max-width: 800px) {
-            .si-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* input panel */
+        /* left panel – inputs */
         .input-panel {
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 32px;
-            padding: 28px;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.55);
+            border-radius: 2.5rem;
+            padding: 2rem 1.8rem;
+            backdrop-filter: blur(5px);
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.02), 0 8px 20px rgba(25, 70, 95, 0.12);
         }
 
-        .input-row {
-            margin-bottom: 24px;
-        }
-
-        .input-row label {
+        .input-group {
+            margin-bottom: 1.8rem;
             display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 550;
-            color: #1c3c5e;
-            margin-bottom: 8px;
-            font-size: 1rem;
+            flex-direction: column;
         }
 
-        .input-wrapper {
-            display: flex;
-            align-items: center;
-            background: white;
-            border-radius: 60px;
-            padding: 4px 20px;
-            border: 1px solid #cbd6e4;
-            transition: 0.15s;
-        }
-
-        .input-wrapper:focus-within {
-            border-color: #1d6bb0;
-            box-shadow: 0 4px 12px rgba(0, 80, 160, 0.15);
-        }
-
-        .input-wrapper .prefix {
-            font-weight: 500;
-            color: #3e6188;
-            padding-right: 8px;
-            font-size: 1.1rem;
-        }
-
-        .input-wrapper .suffix {
-            color: #3e6188;
-            padding-left: 8px;
-        }
-
-        .input-wrapper input,
-        .input-wrapper select {
-            width: 100%;
-            border: none;
-            padding: 14px 0;
-            font-size: 1.1rem;
-            font-weight: 500;
-            background: transparent;
-            color: #0c1f30;
-            outline: none;
-        }
-
-        .input-wrapper select {
-            cursor: pointer;
-        }
-
-        .inline-group {
-            display: flex;
-            gap: 15px;
-        }
-
-        .inline-group .input-row {
-            flex: 1;
-        }
-
-        .time-unit-selector {
-            display: flex;
-            gap: 8px;
-            margin-top: 10px;
-            background: rgba(255, 255, 255, 0.6);
-            padding: 4px;
-            border-radius: 50px;
-            border: 1px solid #c1d3e6;
-        }
-
-        .time-option {
-            flex: 1;
-            text-align: center;
-            padding: 10px 16px;
-            border-radius: 40px;
+        .input-group label {
             font-weight: 600;
             font-size: 0.9rem;
-            color: #1f3f60;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .time-option.active {
-            background: #2b5b8c;
-            color: white;
-            box-shadow: 0 4px 10px rgba(0, 60, 120, 0.2);
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 12px;
-            margin: 25px 0 15px;
-        }
-
-        .btn {
-            background: white;
-            border: 1px solid #b9cbdf;
-            padding: 14px 24px;
-            border-radius: 50px;
-            font-weight: 600;
-            color: #1a3857;
-            cursor: pointer;
-            transition: 0.15s;
-            flex: 1;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: #195e7c;
+            margin-bottom: 0.4rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
+            gap: 0.4rem;
         }
 
-        .btn-primary {
-            background: #1d4b75;
-            border-color: #103456;
-            color: white;
-            box-shadow: 0 6px 14px rgba(0, 50, 90, 0.25);
+        .input-group label i {
+            font-style: normal;
+            font-size: 1.2rem;
         }
 
-        .btn-primary:hover {
-            background: #235f91;
+        .input-group input,
+        .input-group select {
+            background: white;
+            border: 1px solid #bcd2e4;
+            border-radius: 60px;
+            padding: 0.9rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #0a3142;
+            outline: none;
+            transition: 0.2s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
         }
 
-        .btn:hover {
-            background: #e9f0f9;
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #2e7ea8;
+            box-shadow: 0 0 0 3px rgba(46, 126, 168, 0.2);
         }
 
-        /* result panel */
-        .result-panel {
-            background: #ffffffd9;
-            backdrop-filter: blur(4px);
-            border-radius: 32px;
-            padding: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.9);
+        .input-group input[type="number"] {
+            -moz-appearance: textfield;
         }
 
-        .summary-cards {
+        .input-group input[type="number"]::-webkit-outer-spin-button,
+        .input-group input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .double-row {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
         }
 
-        .summary-card {
-            background: linear-gradient(145deg, #ffffff, #f5faff);
-            border-radius: 24px;
-            padding: 18px 12px;
+        .live-pill {
+            background: #e1f0f9;
+            border-radius: 60px;
+            padding: 0.9rem 1.5rem;
+            margin-top: 0.5rem;
             text-align: center;
-            box-shadow: 0 6px 14px rgba(0, 30, 60, 0.08);
+            font-weight: 600;
+            color: #093c53;
+            font-size: 0.95rem;
         }
 
-        .summary-label {
+        /* right panel – breakdown */
+        .breakdown-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(6px);
+            border-radius: 2.5rem;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 10px 25px rgba(0, 45, 70, 0.15);
+        }
+
+        .metric-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-card {
+            background: linear-gradient(145deg, #e9f2f9, #d6e5f1);
+            border-radius: 2rem;
+            padding: 1.2rem 1.2rem;
+            box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.6), 0 8px 12px rgba(0, 30, 50, 0.08);
+        }
+
+        .metric-card .label {
             font-size: 0.8rem;
             text-transform: uppercase;
-            color: #3a6088;
-            letter-spacing: 0.5px;
-        }
-
-        .summary-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #0b2d4b;
-            line-height: 1.3;
-        }
-
-        .summary-sub {
-            font-size: 0.8rem;
-            color: #4f7ba8;
-        }
-
-        .chart-container {
-            height: 200px;
-            margin: 20px 0 25px;
-            position: relative;
-        }
-
-        .breakdown-table {
-            background: #f0f7ff;
-            border-radius: 24px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .breakdown-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #cde0f2;
-        }
-
-        .breakdown-row:last-child {
-            border-bottom: none;
-        }
-
-        .breakdown-label {
-            color: #1c3c5e;
-            font-weight: 500;
-        }
-
-        .breakdown-amount {
             font-weight: 600;
-            color: #0b2d4b;
+            color: #1f6888;
         }
 
-        .interest-highlight {
-            background: #e3f0fa;
-            border-radius: 18px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid #b9d4ef;
-        }
-
-        .interest-title {
-            font-size: 0.9rem;
-            color: #2d547b;
-            margin-bottom: 5px;
-        }
-
-        .interest-rate-display {
+        .metric-card .value {
             font-size: 2.2rem;
             font-weight: 700;
-            color: #1d4b75;
+            color: #00334a;
             line-height: 1.2;
         }
 
-        .period-breakdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
-            margin-top: 20px;
+        .metric-card .sub {
+            font-size: 0.8rem;
+            color: #246b8a;
         }
 
-        .period-card {
-            background: white;
-            border-radius: 18px;
-            padding: 15px;
-            text-align: center;
-            border: 1px solid #d8e6f5;
+        .interest-block {
+            background: #d5e6f5;
+            border-radius: 2rem;
+            padding: 1.4rem 1.5rem;
+            margin: 1.2rem 0;
         }
 
-        .period-year {
+        .interest-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px dashed #9bbdd6;
+            padding: 0.8rem 0;
+        }
+
+        .interest-row .left {
             font-weight: 600;
-            color: #1c3c5e;
-            margin-bottom: 8px;
+            color: #124f6b;
         }
 
-        .period-interest {
-            font-size: 1.2rem;
+        .interest-row .right {
             font-weight: 700;
-            color: #2a5a3a;
+            font-size: 1.3rem;
+            color: #002b40;
         }
 
-        .period-total {
-            font-size: 0.9rem;
-            color: #4f7ba8;
+        .badge {
+            background: #1d5f7e;
+            color: white;
+            padding: 0.2rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .deposit-summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: #c4dcee;
+            border-radius: 1.5rem;
+            padding: 1rem 1.3rem;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .deposit-item {
+            font-weight: 500;
+        }
+
+        .deposit-item strong {
+            font-size: 1.3rem;
+            margin-left: 0.3rem;
+            color: #002f48;
         }
 
         .footnote {
             font-size: 0.8rem;
-            color: #4f7ba8;
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px dashed #c5d9f0;
+            color: #1d5f7c;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(0, 60, 85, 0.2);
+            padding-top: 0.7rem;
+            text-align: right;
+        }
+
+        /* responsive tweaks */
+        @media (max-width: 1024px) and (min-width: 481px) {
+            .dashboard {
+                grid-template-columns: 1.2fr 1.5fr;
+                gap: 1.2rem;
+            }
+
+            .card {
+                padding: 1.8rem;
+            }
+        }
+
+        @media (max-width: 780px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.4rem;
+            }
+
+            .card {
+                padding: 1.2rem 1rem 1.8rem;
+                border-radius: 2rem;
+            }
+
+            h1 {
+                gap: 0.4rem;
+            }
+
+            .double-row {
+                grid-template-columns: 1fr;
+            }
+
+            .input-panel {
+                padding: 1.5rem;
+            }
+
+            .breakdown-panel {
+                padding: 1.5rem;
+            }
+
+            .metric-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .metric-card .value {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <!-- Loading Animation -->
-    <div id="loading-screen">
-        <div class="loader"></div>
+    <div class="card">
+        <h1>
+            💰 simple interest ·
+            <span>compound + deposits</span>
+        </h1>
+
+        <div class="dashboard">
+            <!-- LEFT INPUTS -->
+            <div class="input-panel">
+                <div class="input-group">
+                    <label><i>💰</i> principal amount</label>
+                    <input type="number" id="principal" step="any" min="0" value="20000" placeholder="initial sum">
+                </div>
+
+                <div class="double-row">
+                    <div class="input-group">
+                        <label><i>📈</i> annual rate (%)</label>
+                        <input type="number" id="ratePct" step="0.1" min="0" value="6.8">
+                    </div>
+                    <div class="input-group">
+                        <label><i>⏱️</i> time (years)</label>
+                        <input type="number" id="years" step="0.5" min="0.1" value="5">
+                    </div>
+                </div>
+
+                <div class="double-row">
+                    <div class="input-group">
+                        <label><i>⚡</i> compound freq</label>
+                        <select id="compoundFreq">
+                            <option value="1"> yearly</option>
+                            <option value="4" selected> quarterly</option>
+                            <option value="12"> monthly</option>
+                            <option value="365"> daily</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label><i>➕</i> periodic deposit</label>
+                        <input type="number" id="depositAmount" step="any" min="0" value="1000">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><i>🔄</i> deposit frequency</label>
+                    <select id="depositFreq">
+                        <option value="12"> monthly</option>
+                        <option value="4"> quarterly</option>
+                        <option value="1" selected> yearly</option>
+                        <option value="0"> one‑time (end)</option>
+                    </select>
+                </div>
+
+                <div class="live-pill">
+                    ⚡ live update · simple interest + compound periods
+                </div>
+            </div>
+
+            <!-- RIGHT BREAKDOWN -->
+            <div class="breakdown-panel" id="breakdownPanel">
+                <div class="metric-cards">
+                    <div class="metric-card">
+                        <div class="label">simple interest</div>
+                        <div class="value" id="simpleInterest">6,800</div>
+                        <div class="sub">principal × rate × time</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">total amount</div>
+                        <div class="value" id="totalAmount">26,800</div>
+                        <div class="sub" id="amountSub">with simple interest</div>
+                    </div>
+                </div>
+
+                <div class="interest-block">
+                    <div class="interest-row">
+                        <span class="left">📊 principal</span>
+                        <span class="right" id="principalDisplay">20,000</span>
+                    </div>
+                    <div class="interest-row">
+                        <span class="left">💸 total deposits</span>
+                        <span class="right" id="totalDeposits">5,000</span>
+                    </div>
+                    <div class="interest-row">
+                        <span class="left">✨ interest (simple)</span>
+                        <span class="right" id="interestDisplay">6,800</span>
+                    </div>
+                    <div class="interest-row" style="border-bottom: none;">
+                        <span class="left">🎯 final balance</span>
+                        <span class="right" id="finalBalance">31,800</span>
+                    </div>
+                </div>
+
+                <div class="deposit-summary">
+                    <span class="deposit-item">⚡ <span id="compoundLabel">quarterly</span> compounding</span>
+                    <span class="badge" id="depositBadge">yearly deposit</span>
+                </div>
+
+                <div class="footnote" id="footnote">
+                    * simple interest on principal + compounded deposits at chosen frequency
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <div class="logo">
-                <a href="../index.html"><span class="logo-90">90</span><span class="logo-storezon">StoreZon</span></a>
-            </div>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../about.html">About</a></li>
-                <li><a href="../contact.html">Contact</a></li>
-                <li><a href="../privacy-policy.html">Privacy</a></li>
-                <li><a href="../disclaimer.html">Disclaimer</a></li>
-            </ul>
-        </div>
-    </nav>
+    <script>
+        (function () {
+            // DOM elements
+            const principalInput = document.getElementById('principal');
+            const rateInput = document.getElementById('ratePct');
+            const yearsInput = document.getElementById('years');
+            const compoundSelect = document.getElementById('compoundFreq');
+            const depositInput = document.getElementById('depositAmount');
+            const depositFreqSelect = document.getElementById('depositFreq');
 
-    <section class="calculator-container">
-        <div class="card">
-            <h1>
-                📈 Simple Interest Calculator
-                <span>principal · rate · time</span>
-            </h1>
-            <div class="sub">Calculate interest easily with daily, monthly, or yearly periods — detailed breakdown
-                included</div>
+            // output spans
+            const simpleInterestSpan = document.getElementById('simpleInterest');
+            const totalAmountSpan = document.getElementById('totalAmount');
+            const amountSub = document.getElementById('amountSub');
+            const principalDisplay = document.getElementById('principalDisplay');
+            const totalDepositsSpan = document.getElementById('totalDeposits');
+            const interestDisplay = document.getElementById('interestDisplay');
+            const finalBalanceSpan = document.getElementById('finalBalance');
+            const compoundLabel = document.getElementById('compoundLabel');
+            const depositBadge = document.getElementById('depositBadge');
+            const footnote = document.getElementById('footnote');
 
-            <!-- Google Add-on Space -->
-            <script src="../google-ads/google-ads.js"></script>
+            function updateAll() {
+                // parse inputs
+                let principal = parseFloat(principalInput.value) || 0;
+                let rate = parseFloat(rateInput.value) || 0;
+                let years = parseFloat(yearsInput.value) || 0.1;
+                if (years < 0.01) years = 0.1;
+                let deposit = parseFloat(depositInput.value) || 0;
+                let depositFreq = parseInt(depositFreqSelect.value, 10); // 12,4,1,0
+                let compoundPerYear = parseInt(compoundSelect.value, 10); // 1,4,12,365
 
-            <div class="si-grid">
-                <!-- LEFT: input panel -->
-                <div class="input-panel">
-                    <div class="input-row">
-                        <label><i>💰</i> Principal amount</label>
-                        <div class="input-wrapper">
-                            <span class="prefix">$</span>
-                            <input type="number" id="principal" value="10000" min="0" step="1000">
-                        </div>
-                    </div>
+                // update labels
+                const compNames = { 1: 'yearly', 4: 'quarterly', 12: 'monthly', 365: 'daily' };
+                compoundLabel.innerText = compNames[compoundPerYear] || 'quarterly';
 
-                    <div class="input-row">
-                        <label><i>📊</i> Interest rate (% per year)</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="rate" value="5.5" min="0" step="0.1" max="50">
-                            <span class="suffix">%</span>
-                        </div>
-                    </div>
+                const depositNames = { 12: 'monthly deposit', 4: 'quarterly deposit', 1: 'yearly deposit', 0: 'one‑time deposit' };
+                depositBadge.innerText = depositNames[depositFreq] || 'deposit';
 
-                    <div class="input-row">
-                        <label><i>⏱️</i> Time period</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="time" value="3" min="0.1" step="0.5">
-                        </div>
-                    </div>
+                // 1. SIMPLE INTEREST on principal (no compounding on principal)
+                const rateDecimal = rate / 100;
+                const simpleInterest = principal * rateDecimal * years;
+                const totalWithSimple = principal + simpleInterest;
 
-                    <!-- Time unit selector -->
-                    <div class="time-unit-selector" id="timeUnitSelector">
-                        <div class="time-option active" data-unit="years">Years</div>
-                        <div class="time-option" data-unit="months">Months</div>
-                        <div class="time-option" data-unit="days">Days</div>
-                    </div>
+                // 2. DEPOSITS with compounding at the chosen frequency
+                // For deposits, we use compound interest formula because they earn interest periodically
+                const annualRate = rateDecimal;
 
-                    <!-- Additional options -->
-                    <div style="margin: 25px 0 15px;">
-                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                            <input type="checkbox" id="showBreakdown" checked>
-                            <span style="color:#1c3c5e;">Show yearly breakdown</span>
-                        </label>
-                    </div>
+                // Effective annual rate (EAR) from compounding frequency
+                const ear = Math.pow(1 + annualRate / compoundPerYear, compoundPerYear) - 1;
 
-                    <div class="action-buttons">
-                        <button class="btn" id="resetBtn">↺ Reset</button>
-                        <button class="btn btn-primary" id="calculateBtn">⟳ Calculate</button>
-                    </div>
+                // Future value of deposit stream
+                let fvDeposits = 0;
+                let totalNominalDeposits = 0;
 
-                    <!-- Quick examples -->
-                    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px;">
-                        <span style="color:#3e6188; font-size:0.9rem; width:100%; margin-bottom:5px;">Quick
-                            examples:</span>
-                        <span class="time-option" style="flex:0 1 auto; padding:8px 16px;" data-example="10000,5,3">$10k
-                            @5% 3y</span>
-                        <span class="time-option" style="flex:0 1 auto; padding:8px 16px;" data-example="5000,7.5,2">$5k
-                            @7.5% 2y</span>
-                        <span class="time-option" style="flex:0 1 auto; padding:8px 16px;"
-                            data-example="25000,4.25,5">$25k @4.25% 5y</span>
-                    </div>
-                </div>
+                if (deposit > 0 && depositFreq > 0) {
+                    const depositsPerYear = depositFreq; // 12,4,1
+                    const totalEvents = depositsPerYear * years; // fractional events possible
 
-                <!-- RIGHT: results panel -->
-                <div class="result-panel">
-                    <!-- Summary cards -->
-                    <div class="summary-cards">
-                        <div class="summary-card">
-                            <div class="summary-label">Principal</div>
-                            <div class="summary-value" id="principalDisplay">$10,000</div>
-                        </div>
-                        <div class="summary-card">
-                            <div class="summary-label">Total Interest</div>
-                            <div class="summary-value" id="interestDisplay">$1,650</div>
-                        </div>
-                        <div class="summary-card">
-                            <div class="summary-label">Total Amount</div>
-                            <div class="summary-value" id="totalDisplay">$11,650</div>
-                        </div>
-                    </div>
+                    // rate per deposit period based on EAR
+                    const ratePerDepositPeriod = Math.pow(1 + ear, 1 / depositsPerYear) - 1;
 
-                    <!-- Simple interest formula highlight -->
-                    <div class="interest-highlight">
-                        <div class="interest-title">SIMPLE INTEREST FORMULA</div>
-                        <div
-                            style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
-                            <span class="interest-rate-display" id="formulaResult">I = P × r × t</span>
-                            <span style="color:#2d547b;" id="formulaValues">$10,000 × 5.5% × 3</span>
-                        </div>
-                    </div>
-
-                    <!-- Chart (bar chart of principal vs interest) -->
-                    <div class="chart-container">
-                        <canvas id="interestChart" width="400" height="180"></canvas>
-                    </div>
-
-                    <!-- Breakdown table -->
-                    <div class="breakdown-table" id="breakdownSection">
-                        <div class="breakdown-row">
-                            <span class="breakdown-label">Principal (P)</span>
-                            <span class="breakdown-amount" id="breakdownPrincipal">$10,000.00</span>
-                        </div>
-                        <div class="breakdown-row">
-                            <span class="breakdown-label">Annual Rate (r)</span>
-                            <span class="breakdown-amount" id="breakdownRate">5.50%</span>
-                        </div>
-                        <div class="breakdown-row">
-                            <span class="breakdown-label">Time (t)</span>
-                            <span class="breakdown-amount" id="breakdownTime">3.00 years</span>
-                        </div>
-                        <div class="breakdown-row" style="font-weight: 700; color: #1d4b75;">
-                            <span class="breakdown-label">Simple Interest</span>
-                            <span class="breakdown-amount" id="breakdownInterest">$1,650.00</span>
-                        </div>
-                        <div class="breakdown-row"
-                            style="font-weight: 700; border-top: 2px solid #b9d4ef; padding-top: 15px;">
-                            <span class="breakdown-label">Maturity Amount</span>
-                            <span class="breakdown-amount" id="breakdownTotal">$11,650.00</span>
-                        </div>
-                    </div>
-
-                    <!-- Yearly/Periodic breakdown (dynamic) -->
-                    <div id="periodicBreakdown">
-                        <div style="font-weight:600; color:#1c3c5e; margin:15px 0 10px;">📅 Interest per year</div>
-                        <div class="period-breakdown" id="periodContainer">
-                            <!-- Will be filled by JS -->
-                        </div>
-                    </div>
-
-                    <div class="footnote">
-                        <span>⚡ Simple interest does not compound — interest is calculated only on the principal</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-        <script>
-            (function () {
-                // DOM elements
-                const principalInp = document.getElementById('principal');
-                const rateInp = document.getElementById('rate');
-                const timeInp = document.getElementById('time');
-                const timeOptions = document.querySelectorAll('.time-option[data-unit]');
-                const showBreakdownCheck = document.getElementById('showBreakdown');
-
-                // Result displays
-                const principalDisplay = document.getElementById('principalDisplay');
-                const interestDisplay = document.getElementById('interestDisplay');
-                const totalDisplay = document.getElementById('totalDisplay');
-                const formulaResult = document.getElementById('formulaResult');
-                const formulaValues = document.getElementById('formulaValues');
-
-                // Breakdown elements
-                const breakdownPrincipal = document.getElementById('breakdownPrincipal');
-                const breakdownRate = document.getElementById('breakdownRate');
-                const breakdownTime = document.getElementById('breakdownTime');
-                const breakdownInterest = document.getElementById('breakdownInterest');
-                const breakdownTotal = document.getElementById('breakdownTotal');
-
-                // Periodic container
-                const periodContainer = document.getElementById('periodContainer');
-                const periodicSection = document.getElementById('periodicBreakdown');
-
-                // Buttons
-                const resetBtn = document.getElementById('resetBtn');
-                const calculateBtn = document.getElementById('calculateBtn');
-                const exampleBtns = document.querySelectorAll('[data-example]');
-
-                // Chart
-                const ctx = document.getElementById('interestChart').getContext('2d');
-                let barChart = null;
-
-                // Current time unit
-                let timeUnit = 'years'; // years, months, days
-
-                // Format currency
-                const formatMoney = (val) => '$' + val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
-                // Format number with commas
-                const formatNumber = (val) => val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
-                // Calculate simple interest
-                function calculate() {
-                    // Get values
-                    let principal = parseFloat(principalInp.value) || 0;
-                    let annualRate = parseFloat(rateInp.value) || 0;
-                    let timeValue = parseFloat(timeInp.value) || 0;
-
-                    if (principal < 0) principal = 0;
-                    if (annualRate < 0) annualRate = 0;
-                    if (timeValue < 0) timeValue = 0;
-
-                    // Convert time to years based on unit
-                    let timeInYears = timeValue;
-                    if (timeUnit === 'months') {
-                        timeInYears = timeValue / 12;
-                    } else if (timeUnit === 'days') {
-                        timeInYears = timeValue / 365;
-                    }
-
-                    // Calculate simple interest
-                    const interest = principal * (annualRate / 100) * timeInYears;
-                    const total = principal + interest;
-
-                    // Update summary cards
-                    principalDisplay.textContent = formatMoney(principal);
-                    interestDisplay.textContent = formatMoney(interest);
-                    totalDisplay.textContent = formatMoney(total);
-
-                    // Update formula display
-                    formulaResult.textContent = `I = $${formatNumber(interest)}`;
-                    formulaValues.textContent = `$${formatNumber(principal)} × ${annualRate.toFixed(2)}% × ${timeInYears.toFixed(2)} years`;
-
-                    // Update breakdown table
-                    breakdownPrincipal.textContent = formatMoney(principal);
-                    breakdownRate.textContent = annualRate.toFixed(2) + '%';
-
-                    let timeDisplay = timeValue.toFixed(2) + ' ';
-                    if (timeUnit === 'years') timeDisplay += 'year' + (timeValue !== 1 ? 's' : '');
-                    else if (timeUnit === 'months') timeDisplay += 'month' + (timeValue !== 1 ? 's' : '');
-                    else timeDisplay += 'day' + (timeValue !== 1 ? 's' : '');
-                    breakdownTime.textContent = timeDisplay;
-
-                    breakdownInterest.textContent = formatMoney(interest);
-                    breakdownTotal.textContent = formatMoney(total);
-
-                    // Update chart
-                    updateChart(principal, interest);
-
-                    // Update periodic breakdown if enabled
-                    if (showBreakdownCheck.checked) {
-                        showPeriodicBreakdown(principal, annualRate, timeInYears, timeValue, timeUnit);
+                    if (ratePerDepositPeriod !== 0) {
+                        fvDeposits = deposit * (Math.pow(1 + ratePerDepositPeriod, totalEvents) - 1) / ratePerDepositPeriod;
                     } else {
-                        periodContainer.innerHTML = '';
-                        periodicSection.style.display = 'none';
+                        fvDeposits = deposit * totalEvents;
                     }
+                    totalNominalDeposits = deposit * totalEvents;
+                } else if (deposit > 0 && depositFreq === 0) {
+                    // one-time deposit at end (no interest)
+                    fvDeposits = deposit;
+                    totalNominalDeposits = deposit;
                 }
 
-                // Update bar chart (principal vs interest)
-                function updateChart(principal, interest) {
-                    if (barChart) barChart.destroy();
+                // Final balance = simple interest principal + compounded deposits
+                const finalAmount = totalWithSimple + fvDeposits;
 
-                    barChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Principal', 'Interest'],
-                            datasets: [{
-                                data: [principal, interest],
-                                backgroundColor: ['#1d4b75', '#e68a3e'],
-                                borderRadius: 8,
-                                barPercentage: 0.6
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: { display: false },
-                                tooltip: {
-                                    callbacks: {
-                                        label: (context) => {
-                                            return formatMoney(context.raw);
-                                        }
-                                    }
-                                }
-                            },
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    ticks: {
-                                        callback: (value) => '$' + value.toLocaleString()
-                                    }
-                                }
-                            }
-                        }
-                    });
-                }
+                // Interest earned includes both simple interest on principal and interest on deposits
+                const totalInterest = simpleInterest + (fvDeposits - totalNominalDeposits);
 
-                // Show yearly/monthly breakdown
-                function showPeriodicBreakdown(principal, annualRate, timeInYears, originalTime, unit) {
-                    periodicSection.style.display = 'block';
+                // format numbers
+                const formatMoney = (val) => Math.round(val).toLocaleString();
 
-                    // Determine number of periods to show (max 10 for readability)
-                    let periods = [];
-                    let numPeriods = Math.min(Math.ceil(timeInYears), 10); // max 10 years shown individually
+                simpleInterestSpan.innerText = formatMoney(simpleInterest);
+                totalAmountSpan.innerText = formatMoney(totalWithSimple);
+                principalDisplay.innerText = formatMoney(principal);
+                totalDepositsSpan.innerText = formatMoney(totalNominalDeposits);
+                interestDisplay.innerText = formatMoney(totalInterest);
+                finalBalanceSpan.innerText = formatMoney(finalAmount);
 
-                    if (unit === 'months' && originalTime <= 12) {
-                        // Show monthly for short durations
-                        numPeriods = Math.min(Math.ceil(originalTime), 12);
-                        for (let i = 1; i <= numPeriods; i++) {
-                            let periodInterest = principal * (annualRate / 100) * (i / 12);
-                            periods.push({
-                                label: `Month ${i}`,
-                                interest: periodInterest,
-                                total: principal + periodInterest
-                            });
-                        }
-                    } else if (unit === 'days' && originalTime <= 30) {
-                        // Show weekly/daily? Let's show every 5 days for simplicity
-                        let interval = Math.max(1, Math.floor(originalTime / 5));
-                        for (let i = interval; i <= originalTime; i += interval) {
-                            let periodInterest = principal * (annualRate / 100) * (i / 365);
-                            periods.push({
-                                label: `Day ${i}`,
-                                interest: periodInterest,
-                                total: principal + periodInterest
-                            });
-                        }
-                    } else {
-                        // Yearly breakdown
-                        for (let i = 1; i <= numPeriods; i++) {
-                            let yearFraction = Math.min(i, timeInYears);
-                            let periodInterest = principal * (annualRate / 100) * yearFraction;
-                            periods.push({
-                                label: `Year ${i}`,
-                                interest: periodInterest,
-                                total: principal + periodInterest
-                            });
-                        }
-                    }
+                amountSub.innerText = `simple: ${formatMoney(principal)} + ${formatMoney(simpleInterest)} interest`;
 
-                    // Generate HTML
-                    let html = '';
-                    periods.forEach(p => {
-                        html += `
-                    <div class="period-card">
-                        <div class="period-year">${p.label}</div>
-                        <div class="period-interest">${formatMoney(p.interest)}</div>
-                        <div class="period-total">${formatMoney(p.total)}</div>
-                    </div>
-                `;
-                    });
+                // dynamic footnote
+                const depositFreqNames = { 12: 'monthly', 4: 'quarterly', 1: 'yearly', 0: 'one‑time' };
+                footnote.innerHTML = `* simple interest on principal (${rate}% for ${years} years) · deposits ${depositFreqNames[depositFreq]} with ${compNames[compoundPerYear]} compounding`;
+            }
 
-                    periodContainer.innerHTML = html;
-                }
-
-                // Set time unit
-                function setTimeUnit(unit) {
-                    timeUnit = unit;
-
-                    // Update active class
-                    timeOptions.forEach(opt => {
-                        const optUnit = opt.getAttribute('data-unit');
-                        if (optUnit === unit) {
-                            opt.classList.add('active');
-                        } else {
-                            opt.classList.remove('active');
-                        }
-                    });
-
-                    // Adjust step and placeholder based on unit
-                    if (unit === 'years') {
-                        timeInp.step = '0.5';
-                        timeInp.placeholder = 'e.g. 3.5';
-                    } else if (unit === 'months') {
-                        timeInp.step = '1';
-                        timeInp.placeholder = 'e.g. 6';
-                    } else {
-                        timeInp.step = '1';
-                        timeInp.placeholder = 'e.g. 90';
-                    }
-
-                    calculate();
-                }
-
-                // Reset to defaults
-                function reset() {
-                    principalInp.value = '10000';
-                    rateInp.value = '5.5';
-                    timeInp.value = '3';
-                    setTimeUnit('years');
-                    showBreakdownCheck.checked = true;
-                    calculate();
-                }
-
-                // Load example
-                function loadExample(exampleStr) {
-                    const [p, r, t] = exampleStr.split(',').map(Number);
-                    principalInp.value = p;
-                    rateInp.value = r;
-                    timeInp.value = t;
-                    setTimeUnit('years');
-                    calculate();
-                }
-
-                // Event listeners
-                calculateBtn.addEventListener('click', calculate);
-                resetBtn.addEventListener('click', reset);
-
-                // Time unit selectors
-                timeOptions.forEach(opt => {
-                    opt.addEventListener('click', () => {
-                        const unit = opt.getAttribute('data-unit');
-                        setTimeUnit(unit);
-                    });
-                });
-
-                // Example badges
-                exampleBtns.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const example = btn.getAttribute('data-example');
-                        if (example) loadExample(example);
-                    });
-                });
-
-                // Input events
-                const inputs = [principalInp, rateInp, timeInp];
-                inputs.forEach(inp => inp.addEventListener('input', calculate));
-                inputs.forEach(inp => inp.addEventListener('change', calculate));
-
-                // Checkbox toggle
-                showBreakdownCheck.addEventListener('change', calculate);
-
-                // Initialize
-                reset();
-            })();
-        </script>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <!-- Column 1: Brand -->
-                <div class="footer-col">
-                    <div class="footer-logo"><span class="logo-90">90</span><span class="logo-storezon">StoreZon</span>
-                    </div>
-                    <p class="footer-description">Your trusted source for the FINAL BEST CALCULATORS. We provide free,
-                        accurate, and easy-to-use online calculation tools for everyone.</p>
-                    <div class="social-links">
-                        <a href="https://facebook.com" target="_blank" aria-label="Facebook"><svg width="24" height="24"
-                                viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                            </svg></a>
-                        <a href="https://instagram.com" target="_blank" aria-label="Instagram"><svg width="24"
-                                height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                            </svg></a>
-                        <a href="https://twitter.com" target="_blank" aria-label="Twitter"><svg width="24" height="24"
-                                viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
-                            </svg></a>
-                        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><svg width="24" height="24"
-                                viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                            </svg></a>
-                    </div>
-                </div>
-
-                <!-- Column 2: Calculator Links -->
-                <div class="footer-col">
-                    <h4>Calculators</h4>
-                    <ul>
-                        <li><a href="age-calculator.html">Age Calculator</a></li>
-                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
-                        <li><a href="date-difference-calculator.html">Date Difference</a></li>
-                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
-                        <li><a href="simple-interest-calculator.html">Simple Interest</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Important Pages -->
-                <div class="footer-col">
-                    <h4>Important Pages</h4>
-                    <ul>
-                        <li><a href="../about.html">About Us</a></li>
-                        <li><a href="../contact.html">Contact Us</a></li>
-                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="../disclaimer.html">Disclaimer</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Quick Links -->
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="compound-interest-calculator.html">Compound Interest</a></li>
-                        <li><a href="profit-loss-calculator.html">Profit & Loss</a></li>
-                        <li><a href="discount-calculator.html">Discount Calculator</a></li>
-                        <li><a href="gpa-calculator.html">GPA Calculator</a></li>
-                        <li><a href="number-to-words-calculator.html">Number to Words</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 90StoreZon. All rights reserved. | FINAL BEST CALCULATORS</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scroll to Top Button -->
-    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">↑</button>
-
-    <script src="../js/main.js"></script>
+            // attach listeners
+            const inputs = [
+                principalInput, rateInput, yearsInput, compoundSelect,
+                depositInput, depositFreqSelect
+            ];
+            inputs.forEach(el => el.addEventListener('input', updateAll));
+            window.addEventListener('load', updateAll);
+        })();
+    </script>
 </body>
 
 </html>

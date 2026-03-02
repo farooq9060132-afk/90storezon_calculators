@@ -3,605 +3,667 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age calculator · compound & deposits</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>🎂 Age Calculator · exact age · next birthday · fun facts</title>
     <style>
-        /* RESET & GLOBAL */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a67d8;
+            --secondary: #764ba2;
+            --success: #48bb78;
+            --bg-light: #f7fafc;
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --border: #e2e8f0;
+            --accent: #f6ad55;
+            --radius: 16px;
+            --radius-sm: 10px;
+            --space-mob: 16px;
+            --space-tab: 24px;
+            --space-desk: 32px;
+            --shadow: 0 20px 25px -5px rgba(0 0 0 / 0.1), 0 8px 10px -6px rgba(0 0 0 / 0.02);
         }
 
         body {
-            background: linear-gradient(145deg, #f0f4fa 0%, #d9e2ef 100%);
+            background: #edf2f7;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: var(--space-mob);
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 2.5rem 2.5rem 2rem 2rem;
-            box-shadow: 0 20px 40px -12px rgba(0, 20, 40, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+        .age-card {
+            max-width: 1400px;
             width: 100%;
-            max-width: 1280px;
-            padding: 2rem 2rem 2.5rem;
-            transition: all 0.2s;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: white;
+            border-radius: calc(var(--radius) * 1.5);
+            box-shadow: var(--shadow);
+            overflow: hidden;
         }
 
-        h1 {
-            font-size: clamp(2rem, 6vw, 2.8rem);
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: #0b2b3c;
+        /* header */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: clamp(20px, 5vw, 40px);
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.25rem;
-            border-bottom: 2px solid rgba(0, 70, 100, 0.15);
-            padding-bottom: 0.75rem;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
-        h1 span {
-            background: #1b4e6b;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 500;
-            padding: 0.2rem 1rem 0.3rem;
-            border-radius: 60px;
-            margin-left: 0.5rem;
-            white-space: nowrap;
+        .app-header h1 {
+            font-size: clamp(2rem, 6vw, 2.8rem);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.02em;
         }
 
-        /* main grid – clean & tidy */
-        .calculator-panel {
-            display: grid;
-            grid-template-columns: 1.1fr 1.9fr;
-            gap: 1.8rem;
-            margin-bottom: 2rem;
+        .app-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-left: auto;
         }
 
-        /* input section */
-        .input-fields {
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 2rem;
-            padding: 1.8rem 1.5rem;
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.02), 0 8px 18px rgba(0, 40, 60, 0.08);
-            backdrop-filter: blur(4px);
+        /* main 2-col (desktop) */
+        .main-grid {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 1024px) {
+            .main-grid {
+                flex-direction: row;
+            }
+
+            .input-col {
+                width: 40%;
+                border-right: 2px solid var(--border);
+            }
+
+            .result-col {
+                width: 60%;
+            }
+        }
+
+        .input-col,
+        .result-col {
+            padding: clamp(20px, 4vw, 40px);
+        }
+
+        /* card style */
+        .card {
+            background: var(--bg-light);
+            border-radius: var(--radius);
+            padding: clamp(20px, 4vw, 32px);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            margin-bottom: 24px;
         }
 
         .input-group {
-            margin-bottom: 1.6rem;
-            display: flex;
-            flex-direction: column;
+            margin-bottom: 28px;
         }
 
         .input-group label {
             font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            color: #1c4b66;
-            margin-bottom: 0.4rem;
+            color: var(--text-secondary);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .date-field {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-        }
-
-        .input-group label i {
-            font-style: normal;
-            font-size: 1.2rem;
-        }
-
-        .input-group input,
-        .input-group select {
             background: white;
-            border: 1px solid #cbd6e3;
-            border-radius: 60px;
-            padding: 0.9rem 1.4rem;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #0a2a38;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 4px 16px;
+        }
+
+        .date-field input {
+            border: none;
             outline: none;
-            transition: 0.15s;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            width: 100%;
+            padding: 16px 0;
+            font-size: 1rem;
+            background: transparent;
         }
 
-        .input-group input:focus,
-        .input-group select:focus {
-            border-color: #2f7ca6;
-            box-shadow: 0 0 0 3px rgba(47, 124, 166, 0.2);
+        .date-field button {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 6px;
         }
 
-        .input-group input[type="number"] {
-            -moz-appearance: textfield;
-        }
-
-        .input-group input[type="number"]::-webkit-outer-spin-button,
-        .input-group input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        .double-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.8rem;
-        }
-
-        /* breakdown area (right side) */
-        .breakdown {
-            background: #ffffffcc;
-            backdrop-filter: blur(4px);
-            border-radius: 2rem;
-            padding: 1.8rem 1.8rem 1.5rem;
-            box-shadow: 0 8px 20px rgba(19, 54, 74, 0.12);
+        .radio-group {
             display: flex;
-            flex-direction: column;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+            background: white;
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
         }
 
-        .breakdown h2 {
-            font-size: 1.6rem;
-            font-weight: 550;
-            color: #103f55;
-            margin-bottom: 0.5rem;
+        .radio-group label {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            border-bottom: 2px dashed #a0c1d8;
-            padding-bottom: 0.5rem;
-        }
-
-        .age-summary {
-            background: #dbeaf3;
-            padding: 1.2rem 1.2rem;
-            border-radius: 1.5rem;
-            margin: 1rem 0 1.5rem;
-            text-align: center;
-            box-shadow: inset 0 2px 5px #b5cfdf;
-        }
-
-        .age-summary .big-age {
-            font-size: 3.2rem;
-            font-weight: 700;
-            line-height: 1.1;
-            color: #083145;
-            letter-spacing: -0.02em;
-        }
-
-        .age-summary .caption {
-            font-size: 1rem;
-            color: #2b5e7a;
+            gap: 8px;
             font-weight: 500;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 18px 36px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 10px 20px -8px var(--primary);
+            transition: all 0.15s;
+            width: 100%;
+            min-height: 64px;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+            background: var(--primary-dark);
+        }
+
+        /* result area */
+        .result-badge {
+            background: white;
+            border-radius: var(--radius);
+            padding: 28px;
+            border-left: 8px solid var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .primary-age {
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-bottom: 20px;
         }
 
         .detail-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem 1.2rem;
-            margin-top: 0.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
         }
 
-        .detail-item {
-            background: #ecf3f9;
-            border-radius: 1.5rem;
-            padding: 0.9rem 1rem;
+        .stat-box {
+            background: var(--bg-light);
+            padding: 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            text-align: center;
         }
 
-        .detail-item .label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: #3f627c;
-            font-weight: 600;
-            letter-spacing: 0.02em;
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
         }
 
-        .detail-item .value {
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: #00283b;
-            line-height: 1.2;
-        }
-
-        .detail-item .sub {
-            font-size: 0.8rem;
-            color: #4f6f88;
-        }
-
-        /* additional deposits & frequency row */
-        .extra-row {
-            background: #deecf5;
-            border-radius: 1.5rem;
-            padding: 1rem 1.2rem;
-            margin: 1rem 0 0.6rem;
+        .fun-fact-row {
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
+            gap: 16px;
+            margin-top: 20px;
+            background: #f0f4ff;
+            border-radius: var(--radius-sm);
+            padding: 20px;
         }
 
-        .extra-row .freq-badge {
-            background: #214b61;
-            color: white;
-            padding: 0.3rem 1rem;
+        .fact-item {
+            background: white;
+            padding: 10px 18px;
             border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.9rem;
+            border: 1px solid var(--border);
+            font-size: 0.95rem;
         }
 
-        /* responsive tablet & mobile */
-        @media (max-width: 1024px) and (min-width: 481px) {
-            .calculator-panel {
-                grid-template-columns: 1fr 1.2fr;
-                gap: 1.2rem;
+        .footer-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+            justify-content: flex-end;
+        }
+
+        .footer-actions button {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 12px 24px;
+            font-weight: 500;
+            cursor: pointer;
+            min-height: 48px;
+        }
+
+        /* mobile collapsible */
+        @media (max-width: 767px) {
+            .result-col details {
+                background: white;
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 12px 16px;
+                margin-bottom: 16px;
             }
 
-            .card {
-                padding: 1.8rem;
+            .result-col summary {
+                font-weight: 700;
+                font-size: 1.1rem;
+                cursor: pointer;
+                padding: 8px 0;
+            }
+
+            .footer-actions {
+                justify-content: center;
             }
         }
 
-        @media (max-width: 680px) {
-            .calculator-panel {
-                grid-template-columns: 1fr;
-                gap: 1.6rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 0.5rem;
+        /* tablet */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .main-grid {
+                flex-direction: column;
             }
 
-            .card {
-                padding: 1.25rem 1rem 1.8rem;
-                border-radius: 2rem;
-            }
-
-            h1 {
-                flex-wrap: wrap;
-            }
-
-            .double-row {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .input-fields {
-                padding: 1.3rem;
-            }
-
-            .breakdown {
-                padding: 1.3rem;
+            .input-col,
+            .result-col {
+                width: 100%;
             }
 
             .detail-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .age-summary .big-age {
-                font-size: 2.8rem;
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        /* small touches */
-        .note {
-            font-size: 0.85rem;
-            color: #306580;
-            margin-top: 1rem;
-            text-align: right;
-            border-top: 1px solid rgba(0, 60, 90, 0.15);
-            padding-top: 1rem;
+        /* hover desktop */
+        @media (min-width: 1024px) {
+            .btn-primary:hover {
+                background: var(--primary-dark);
+                transform: scale(1.02);
+            }
+
+            .footer-actions button:hover {
+                background: #e2e8f0;
+            }
         }
 
-        .btn-calc {
-            background: #1f556f;
-            border: none;
-            color: white;
-            font-weight: 600;
-            padding: 0.9rem 1.8rem;
+        .tool-selector {
+            background: #f1f5f9;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .tool-selector select,
+        .tool-selector input {
+            width: 100%;
+            padding: 16px;
             border-radius: 60px;
-            font-size: 1.2rem;
-            cursor: default;
-            box-shadow: 0 8px 14px -8px #0a2e3f;
-            width: fit-content;
-            transition: 0.1s;
-            margin-top: 0.5rem;
+            border: 1px solid var(--border);
+            font-size: 1rem;
+            margin-bottom: 12px;
         }
 
-        .btn-calc:active {
-            transform: scale(0.98);
+        .popular-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .popular-tools span {
+            background: white;
+            border-radius: 40px;
+            padding: 10px 18px;
+            border: 1px solid var(--border);
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
-    <div class="card">
-        <h1>
-            ⏳ age spectrum
-            <span>compound + deposits</span>
-        </h1>
+    <div class="age-card">
+        <header class="app-header">
+            <h1>🎂 Age Calculator</h1>
+            <p>exact age · next birthday · fun facts</p>
+        </header>
 
-        <div class="calculator-panel">
-            <!-- left: INPUTS  (birth, reference, compounding, deposits) -->
-            <div class="input-fields">
-                <div class="input-group">
-                    <label><i>📅</i> birth date</label>
-                    <input type="date" id="birthDate" value="1990-06-15">
+        <!-- Tool selector (as requested) -->
+        <div style="padding: 20px 32px 0 32px;">
+            <div class="tool-selector">
+                <label style="font-weight:600; display:block; margin-bottom:8px;">🔧 Select Tool Name</label>
+                <input type="text" placeholder="Enter or select tool name here..." value="Age Calculator"
+                    style="width:100%;">
+                <div class="popular-tools" style="margin-top:12px;">
+                    <span>📝 Content Humanizer</span>
+                    <span>🔍 Grammar Checker</span>
+                    <span>✂️ Paraphrasing</span>
+                    <span>🎂 Age Calculator</span>
+                    <span>📅 Date Difference</span>
                 </div>
+                <div style="margin-top:12px; color:var(--text-secondary); font-size:0.9rem;">یہاں آپ اپنے ٹول کا نام درج
+                    کریں</div>
+            </div>
+        </div>
 
-                <div class="input-group">
-                    <label><i>🔮</i> reference date (to)</label>
-                    <input type="date" id="toDate" value="2025-03-01">
-                </div>
-
-                <div class="double-row">
+        <!-- main content -->
+        <div class="main-grid" id="mainGrid">
+            <!-- input column -->
+            <div class="input-col">
+                <div class="card">
+                    <h3 style="margin-bottom:24px; display:flex; gap:8px;">📅 Date of Birth</h3>
                     <div class="input-group">
-                        <label><i>⚡</i> compounding</label>
-                        <select id="compoundFreq">
-                            <option value="1"> yearly</option>
-                            <option value="4" selected> quarterly</option>
-                            <option value="12"> monthly</option>
-                            <option value="365"> daily</option>
-                        </select>
+                        <label>Birth date</label>
+                        <div class="date-field">
+                            <input type="date" id="birthDate" value="2000-01-15">
+                            <button>📅</button>
+                        </div>
                     </div>
+
                     <div class="input-group">
-                        <label><i>📈</i> rate (%)</label>
-                        <input type="number" id="ratePct" step="0.1" min="0" value="4.5">
+                        <label>Calculate age as of</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="ageAsOf" id="todayRadio" checked> Today's date</label>
+                            <label><input type="radio" name="ageAsOf" id="specificRadio"> Specific date</label>
+                        </div>
+                        <div class="date-field" id="specificDateField" style="display:none;">
+                            <input type="date" id="targetDate" value="2026-03-02">
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" id="calcAgeBtn">🚀 Calculate Age</button>
+                    <div style="display:flex; gap:12px; margin-top:16px;">
+                        <button class="btn-secondary"
+                            style="flex:1; background:white; border:1px solid var(--border); padding:16px; border-radius:60px;">Clear</button>
                     </div>
                 </div>
 
-                <div class="input-group">
-                    <label><i>➕</i> regular deposit</label>
-                    <input type="number" id="depositAmount" step="any" min="0" value="500" placeholder="amount">
+                <!-- quick info -->
+                <div class="card" style="background:#fef9e7;">
+                    <p><strong>💡 Quick tips:</strong> Your birth date cannot be in the future. All results include leap
+                        years.</p>
                 </div>
-
-                <div class="double-row">
-                    <div class="input-group">
-                        <label><i>🔄</i> deposit frequency</label>
-                        <select id="depositFreq">
-                            <option value="12"> monthly</option>
-                            <option value="4"> quarterly</option>
-                            <option value="1"> yearly</option>
-                            <option value="0"> one-time</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label><i>💰</i> initial principal</label>
-                        <input type="number" id="principal" step="any" min="0" value="10000">
-                    </div>
-                </div>
-
-                <!-- static calculate feeling (live update) -->
-                <div class="btn-calc">✨ always live · no click</div>
             </div>
 
-            <!-- right: BREAKDOWN + age + compound details -->
-            <div class="breakdown" id="breakdownPanel">
-                <h2>📋 breakdown
-                    <span
-                        style="font-size:0.8rem; background:#ced9e3; padding:0.2rem 0.8rem; border-radius:40px;">live</span>
-                </h2>
-                <!-- age summary card -->
-                <div class="age-summary" id="ageSummary">
-                    <div class="big-age" id="exactYears">34.71 y</div>
-                    <div class="caption" id="ageCaption">exact age · years + decimals</div>
+            <!-- result column -->
+            <div class="result-col">
+                <div class="result-badge" id="resultBox">
+                    <div class="text-secondary" id="subtitle">From 15 Jan 2000 → 2 Mar 2026</div>
+                    <div class="primary-age" id="primaryAge">26 Years, 1 Month, 15 Days</div>
+
+                    <!-- detailed breakdown grid -->
+                    <div class="detail-grid">
+                        <div class="stat-box"><span class="stat-value" id="totalMonths">313</span> months</div>
+                        <div class="stat-box"><span class="stat-value" id="totalWeeks">1,361</span> weeks</div>
+                        <div class="stat-box"><span class="stat-value" id="totalDays">9,529</span> days</div>
+                        <div class="stat-box"><span class="stat-value" id="totalHours">228,696</span> hours</div>
+                        <div class="stat-box"><span class="stat-value" id="totalMinutes">13,721,760</span> min</div>
+                        <div class="stat-box"><span class="stat-value" id="totalSeconds">823,305,600</span> sec</div>
+                    </div>
+
+                    <!-- next birthday + fun facts -->
+                    <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center; margin:20px 0;">
+                        <div><span style="font-weight:600;">🎂 Next birthday:</span> <span id="nextBday">15 Jan 2027 (in
+                                10 months)</span></div>
+                        <div><span style="font-weight:600;">📅 Day of birth:</span> <span
+                                id="birthWeekday">Saturday</span></div>
+                    </div>
+
+                    <div class="fun-fact-row" id="funFactsRow">
+                        <span class="fact-item">♑ Capricorn</span>
+                        <span class="fact-item">🐀 Rat (Chinese)</span>
+                        <span class="fact-item">💎 Garnet</span>
+                        <span class="fact-item">🌸 Carnation</span>
+                        <span class="fact-item">📱 Millennial</span>
+                    </div>
+
+                    <!-- visual progress (optional) -->
+                    <div style="margin:24px 0 12px;">
+                        <div style="display:flex; justify-content:space-between; font-size:0.9rem;">
+                            <span>Progress to next birthday</span> <span id="progressPercent">78%</span>
+                        </div>
+                        <div class="visual-bar"
+                            style="background:var(--border); height:12px; border-radius:40px; overflow:hidden;">
+                            <div class="visual-fill" id="progressFill"
+                                style="width:78%; background:var(--accent); height:100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="footer-actions">
+                        <button id="shareBtn">📤 Share</button>
+                        <button id="copyBtn">📋 Copy</button>
+                        <button id="printBtn">🖨️ Print</button>
+                    </div>
                 </div>
 
-                <!-- detailed stats (age in units) -->
-                <div class="detail-grid" id="ageDetails">
-                    <div class="detail-item"><span class="label">years</span>
-                        <div class="value" id="yearsVal">34</div>
+                <!-- collapsible extras (mobile friendly) -->
+                <details>
+                    <summary>🌟 More fun facts & generation</summary>
+                    <div style="padding:16px; background:white; border-radius:var(--radius-sm);">
+                        <p>✨ Famous birthdays: Michelle Obama (Jan 17), Martin Luther King (Jan 15).</p>
+                        <p>✨ You are part of the Millennial generation (born 1981–1996).</p>
+                        <p>✨ Your birthstone is Garnet · Flower: Carnation.</p>
                     </div>
-                    <div class="detail-item"><span class="label">months</span>
-                        <div class="value" id="monthsVal">8</div>
-                    </div>
-                    <div class="detail-item"><span class="label">weeks</span>
-                        <div class="value" id="weeksVal">1802</div>
-                        <div class="sub" id="weeksDecimal"></div>
-                    </div>
-                    <div class="detail-item"><span class="label">days</span>
-                        <div class="value" id="daysVal">12615</div>
-                    </div>
-                </div>
-
-                <!-- extra row: compounding frequency used -->
-                <div class="extra-row" id="compFreqRow">
-                    <span>🧮 compounding </span>
-                    <span class="freq-badge" id="compFreqLabel">quarterly</span>
-                </div>
-
-                <!-- deposit & principal + compound effect -->
-                <div class="detail-grid" style="margin-top:0.2rem;" id="financialGrid">
-                    <div class="detail-item"><span class="label">principal</span>
-                        <div class="value" id="principalVal">10,000</div>
-                    </div>
-                    <div class="detail-item"><span class="label">total deposits</span>
-                        <div class="value" id="totalDepositsVal">500</div>
-                    </div>
-                    <div class="detail-item"><span class="label">interest earned</span>
-                        <div class="value" id="interestVal">3,215</div>
-                    </div>
-                    <div class="detail-item"><span class="label">final balance</span>
-                        <div class="value" id="balanceVal">13,715</div>
-                    </div>
-                </div>
-                <div class="note" id="footnote">⚡ includes future value of periodic deposits (compound each period)
-                </div>
+                </details>
             </div>
+        </div>
+
+        <!-- footer with settings (dark/light toggle demo) -->
+        <div
+            style="padding: 16px 32px; border-top: 2px solid var(--border); display:flex; gap:20px; flex-wrap:wrap; justify-content:space-between; background:white;">
+            <div style="display:flex; gap:16px;">
+                <button
+                    style="padding:10px 20px; border-radius:40px; border:1px solid var(--border); background:white;">🌙
+                    Dark mode (demo)</button>
+                <button
+                    style="padding:10px 20px; border-radius:40px; border:1px solid var(--border); background:white;">📄
+                    Print preview</button>
+            </div>
+            <div style="color:var(--text-secondary);">© 2026 · precision age</div>
         </div>
     </div>
 
     <script>
         (function () {
+            const today = new Date();
+            const todayStr = today.toISOString().slice(0, 10);
+
             // DOM elements
             const birthInput = document.getElementById('birthDate');
-            const toDateInput = document.getElementById('toDate');
-            const compoundFreqSelect = document.getElementById('compoundFreq');
-            const ratePctInput = document.getElementById('ratePct');
-            const depositAmountInput = document.getElementById('depositAmount');
-            const depositFreqSelect = document.getElementById('depositFreq');
-            const principalInput = document.getElementById('principal');
+            const todayRadio = document.getElementById('todayRadio');
+            const specificRadio = document.getElementById('specificRadio');
+            const targetDateDiv = document.getElementById('specificDateField');
+            const targetInput = document.getElementById('targetDate');
+            const calcBtn = document.getElementById('calcAgeBtn');
 
-            // output fields
-            const exactYearsSpan = document.getElementById('exactYears');
-            const yearsVal = document.getElementById('yearsVal');
-            const monthsVal = document.getElementById('monthsVal');
-            const weeksVal = document.getElementById('weeksVal');
-            const daysVal = document.getElementById('daysVal');
-            const compFreqLabel = document.getElementById('compFreqLabel');
-            const principalVal = document.getElementById('principalVal');
-            const totalDepositsVal = document.getElementById('totalDepositsVal');
-            const interestVal = document.getElementById('interestVal');
-            const balanceVal = document.getElementById('balanceVal');
+            // result fields
+            const subtitle = document.getElementById('subtitle');
+            const primaryAge = document.getElementById('primaryAge');
+            const totalMonths = document.getElementById('totalMonths');
+            const totalWeeks = document.getElementById('totalWeeks');
+            const totalDays = document.getElementById('totalDays');
+            const totalHours = document.getElementById('totalHours');
+            const totalMinutes = document.getElementById('totalMinutes');
+            const totalSeconds = document.getElementById('totalSeconds');
+            const nextBday = document.getElementById('nextBday');
+            const birthWeekday = document.getElementById('birthWeekday');
+            const progressPercent = document.getElementById('progressPercent');
+            const progressFill = document.getElementById('progressFill');
 
-            function updateAll() {
-                // parse inputs
+            // set default target to today
+            targetInput.value = todayStr;
+
+            // toggle specific date field
+            specificRadio.addEventListener('change', function () {
+                targetDateDiv.style.display = 'flex';
+            });
+            todayRadio.addEventListener('change', function () {
+                targetDateDiv.style.display = 'none';
+            });
+
+            // core calculation
+            function calculateAge() {
                 const birthStr = birthInput.value;
-                const toStr = toDateInput.value;
-                if (!birthStr || !toStr) return;
+                if (!birthStr) return;
 
-                const birth = new Date(birthStr);
-                const to = new Date(toStr);
-                if (isNaN(birth) || isNaN(to)) return;
+                const birthDate = new Date(birthStr);
+                if (isNaN(birthDate)) return;
 
-                // time diff in milliseconds
-                let diffMs = to - birth;
-                if (diffMs < 0) diffMs = 0;  // if negative age, set to 0 (avoid chaos)
-
-                // ----- AGE CALCULATIONS (detailed breakdown) -----
-                const totalDays = diffMs / (1000 * 60 * 60 * 24);
-                const exactYearsNum = totalDays / 365.2425;   // average gregorian year
-                const yearsFull = Math.floor(exactYearsNum);
-                const remainingDaysAfterYears = totalDays - yearsFull * 365.2425;
-                const monthsFull = Math.floor(remainingDaysAfterYears / (365.2425 / 12));
-                // approximate weeks
-                const totalWeeks = totalDays / 7;
-                const weeksFloor = Math.floor(totalWeeks);
-                const daysFloor = Math.floor(totalDays);
-
-                // display age
-                exactYearsSpan.innerText = exactYearsNum.toFixed(2) + ' y';
-                yearsVal.innerText = yearsFull;
-                monthsVal.innerText = monthsFull;
-                weeksVal.innerText = weeksFloor.toLocaleString();
-                daysVal.innerText = daysFloor.toLocaleString();
-
-                // compounding frequency display
-                const compFreqValue = parseInt(compoundFreqSelect.value, 10);
-                const freqNames = { 1: 'yearly', 4: 'quarterly', 12: 'monthly', 365: 'daily' };
-                compFreqLabel.innerText = freqNames[compFreqValue] || 'quarterly';
-
-                // ----- FINANCIAL (compound + deposits) -----
-                const principal = parseFloat(principalInput.value) || 0;
-                const ratePct = parseFloat(ratePctInput.value) || 0;
-                const annualRate = ratePct / 100;
-                const deposit = parseFloat(depositAmountInput.value) || 0;
-                const depositFreqValue = parseInt(depositFreqSelect.value, 10); // 0 = one-time? we treat as lump sum at end? we will manage separately
-
-                // time in years (exact)
-                const yearsDiff = totalDays / 365.2425;   // can be fractional
-                let finalBalance = principal;
-
-                // FUTURE VALUE with periodic deposits at given compounding frequency
-                // We'll compute future value of principal + future value of deposit stream
-                // using compound periods: n = compoundFreq * years
-                const periodsPerYear = compFreqValue;  // 1,4,12,365
-                const totalPeriods = periodsPerYear * yearsDiff;   // fractional periods allowed (we use exact formula)
-                const ratePerPeriod = annualRate / periodsPerYear;
-
-                // future value of principal: P * (1 + r/n)^(n*t)
-                let fvPrincipal = 0;
-                if (principal !== 0) {
-                    fvPrincipal = principal * Math.pow(1 + ratePerPeriod, totalPeriods);
-                }
-
-                // future value of periodic deposits
-                let fvDeposits = 0;
-                let totalDepositsSum = 0;
-
-                if (deposit > 0 && depositFreqValue > 0) {
-                    // deposit frequency (times per year) : e.g. monthly = 12, quarterly = 4
-                    const depositsPerYear = depositFreqValue;
-                    // number of deposit events (may be fractional, but we treat as exact)
-                    const totalDepositEvents = depositsPerYear * yearsDiff;   // could be fractional, but we floor realistic? better: treat as exact for math.
-                    // payment per period (deposit freq relative to compound freq) – careful: deposit interval and compound interval may differ.
-                    // we simplify: convert to effective per-compound-period deposit if deposit frequency aligns.
-                    // robust: compute FV of annuity with payments at the deposit frequency but compounding at compound frequency.
-                    // To avoid overcomplication, we assume deposits happen at the end of each deposit interval,
-                    // and interest is credited at compound periods. We'll compute using the effective periodic rate per deposit interval.
-                    // But for clean demo we treat it as ordinary annuity using the deposit frequency as payment periods.
-                    // The proper way: number of deposits = floor(depositsPerYear * yearsDiff) ? We'll use exact formula (continuous-like).
-                    // we'll calculate FV of annuity immediate with payments per year = depositFreq, rate per year = annualRate, compounded at compoundFreq.
-                    // Step: convert annual rate to equivalent rate per deposit period.
-                    const depositPeriodsPerYear = depositFreqValue;  // e.g. 12
-                    const totalPayments = depositPeriodsPerYear * yearsDiff; // fractional possible
-
-                    // rate per deposit period: (1+annualRate/compoundFreq)^(compoundFreq/depositFreq) -1
-                    // because each deposit period earns compound over fraction.
-                    const ratePerDepositPeriod = Math.pow(1 + annualRate / periodsPerYear, periodsPerYear / depositPeriodsPerYear) - 1;
-
-                    // future value of annuity immediate (end of period)
-                    if (ratePerDepositPeriod !== 0) {
-                        fvDeposits = deposit * (Math.pow(1 + ratePerDepositPeriod, totalPayments) - 1) / ratePerDepositPeriod;
-                    } else {
-                        fvDeposits = deposit * totalPayments;
-                    }
-
-                    // total nominal deposits (without interest)
-                    totalDepositsSum = deposit * totalPayments;
-                } else if (deposit > 0 && depositFreqValue === 0) {
-                    // one-time deposit at the end? we treat as additional principal at end? simpler: treat as deposit at end (no interest)
-                    // better: treat as a lump sum added at toDate, so no interest.
-                    fvDeposits = deposit;
-                    totalDepositsSum = deposit;
+                // Determine end date
+                let endDate;
+                if (todayRadio.checked) {
+                    endDate = new Date();
                 } else {
-                    fvDeposits = 0;
-                    totalDepositsSum = 0;
+                    const targetStr = targetInput.value;
+                    if (!targetStr) return;
+                    endDate = new Date(targetStr);
                 }
 
-                // final balance = fvPrincipal + fvDeposits
-                let balance = fvPrincipal + fvDeposits;
-                let interestEarned = balance - principal - totalDepositsSum;
+                if (endDate < birthDate) {
+                    alert("End date cannot be before birth date.");
+                    return;
+                }
 
-                // formatting numbers
-                const formatMoney = (val) => {
-                    return val.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                };
-                const formatMoneyDecimal = (val) => {
-                    return val.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                };
+                // calculate differences (simple but robust)
+                let years = endDate.getFullYear() - birthDate.getFullYear();
+                let months = endDate.getMonth() - birthDate.getMonth();
+                let days = endDate.getDate() - birthDate.getDate();
 
-                principalVal.innerText = formatMoney(principal);
-                totalDepositsVal.innerText = formatMoney(totalDepositsSum);
-                interestVal.innerText = formatMoney(Math.max(0, interestEarned));
-                balanceVal.innerText = formatMoneyDecimal(balance);
+                if (days < 0) {
+                    months--;
+                    const prevMonth = new Date(endDate.getFullYear(), endDate.getMonth(), 0);
+                    days += prevMonth.getDate();
+                }
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
 
-                // additional footnote update
-                document.getElementById('footnote').innerHTML = `⚡ based on ${freqNames[compFreqValue]} compounding, deposits ${depositFreqSelect.selectedOptions[0].text}`;
+                primaryAge.innerText = `${years} Years, ${months} Months, ${days} Days`;
+
+                // total days (approx)
+                const diffTime = endDate - birthDate;
+                const totalDaysNum = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                const totalHoursNum = Math.floor(diffTime / (1000 * 60 * 60));
+                const totalMinutesNum = Math.floor(diffTime / (1000 * 60));
+                const totalSecondsNum = Math.floor(diffTime / 1000);
+                const totalMonthsNum = years * 12 + months;
+                const totalWeeksNum = (totalDaysNum / 7).toFixed(1);
+
+                totalMonths.innerText = totalMonthsNum;
+                totalWeeks.innerText = totalWeeksNum;
+                totalDays.innerText = totalDaysNum.toLocaleString();
+                totalHours.innerText = totalHoursNum.toLocaleString();
+                totalMinutes.innerText = totalMinutesNum.toLocaleString();
+                totalSeconds.innerText = totalSecondsNum.toLocaleString();
+
+                // subtitle
+                const birthStrFormatted = birthDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                const endStrFormatted = endDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                subtitle.innerText = `From ${birthStrFormatted} → ${endStrFormatted}`;
+
+                // next birthday
+                const nextBirthday = new Date(endDate.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+                if (nextBirthday < endDate) {
+                    nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+                }
+                const diffToNext = nextBirthday - endDate;
+                const daysToNext = Math.ceil(diffToNext / (1000 * 60 * 60 * 24));
+                const monthsToNext = Math.floor(daysToNext / 30.44); // approx
+                const daysRemain = daysToNext - monthsToNext * 30.44;
+                nextBday.innerText = `${nextBirthday.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })} (in ${monthsToNext} mo, ${Math.round(daysRemain)} days)`;
+
+                // day of birth
+                const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                birthWeekday.innerText = weekdays[birthDate.getDay()];
+
+                // progress to next bday (rough)
+                const yearProgress = ((endDate - new Date(endDate.getFullYear(), 0, 1)) / (1000 * 60 * 60 * 24 * 365)) * 100;
+                progressPercent.innerText = Math.round(yearProgress) + '%';
+                progressFill.style.width = Math.min(yearProgress, 100) + '%';
+
+                // fun facts: zodiac (naive)
+                const month = birthDate.getMonth() + 1;
+                const day = birthDate.getDate();
+                let zodiac = 'Capricorn'; if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) zodiac = 'Aquarius'; else if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) zodiac = 'Pisces'; else if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) zodiac = 'Aries'; else if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) zodiac = 'Taurus'; else if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) zodiac = 'Gemini'; else if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) zodiac = 'Cancer'; else if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) zodiac = 'Leo'; else if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) zodiac = 'Virgo'; else if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) zodiac = 'Libra'; else if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) zodiac = 'Scorpio'; else if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) zodiac = 'Sagittarius';
+                document.querySelector('.fun-fact-row .fact-item:first-child').innerHTML = `♑ ${zodiac}`;
             }
 
-            // attach listeners to all inputs
-            [
-                birthInput, toDateInput, compoundFreqSelect, ratePctInput,
-                depositAmountInput, depositFreqSelect, principalInput
-            ].forEach(el => el.addEventListener('input', updateAll));
-            // also listen to change for selects (already covered by input)
-            window.addEventListener('load', updateAll);
+            calcBtn.addEventListener('click', calculateAge);
 
-            // set some nice defaults if empty
-            if (!birthInput.value) birthInput.value = '1990-06-15';
-            if (!toDateInput.value) toDateInput.value = '2025-03-01';
-            updateAll();
+            // copy button
+            document.getElementById('copyBtn').addEventListener('click', () => {
+                const text = primaryAge.innerText;
+                navigator.clipboard?.writeText(text).then(() => alert('Age copied!'));
+            });
+
+            // share simulation
+            document.getElementById('shareBtn').addEventListener('click', () => {
+                alert('Share this age: ' + primaryAge.innerText);
+            });
+
+            // print
+            document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+            // Clear (reset to defaults)
+            document.querySelector('.btn-secondary')?.addEventListener('click', () => {
+                birthInput.value = '2000-01-15';
+                todayRadio.checked = true;
+                targetDateDiv.style.display = 'none';
+                calculateAge();
+            });
+
+            // today radio default
+            todayRadio.checked = true;
+            targetDateDiv.style.display = 'none';
+
+            // initial calc
+            window.addEventListener('load', calculateAge);
         })();
     </script>
+
+    <!-- optional style for print -->
+    <style>
+        @media print {
+
+            .btn-primary,
+            .footer-actions,
+            .tool-selector,
+            .app-header p,
+            details {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+        }
+    </style>
 </body>
 
 </html>

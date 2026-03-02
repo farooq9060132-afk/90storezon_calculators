@@ -4,556 +4,604 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator | 90StoreZon</title>
-    <link rel="stylesheet" href="../css/style.css">
-
+    <title>Age calculator · compound & deposits</title>
     <style>
+        /* RESET & GLOBAL */
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .calculator-container {
-            background: linear-gradient(145deg, #f0f7fc 0%, #e3eff9 100%);
-            min-height: 80vh;
+            background: linear-gradient(145deg, #f0f4fa 0%, #d9e2ef 100%);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4rem 20px;
+            padding: 1rem;
         }
 
         .card {
-            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 2.5rem 2.5rem 2rem 2rem;
+            box-shadow: 0 20px 40px -12px rgba(0, 20, 40, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.6);
             width: 100%;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 48px;
-            box-shadow: 0 30px 50px -20px rgba(0, 30, 50, 0.3);
-            padding: 36px;
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            max-width: 1280px;
+            padding: 2rem 2rem 2.5rem;
+            transition: all 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
         h1 {
-            font-size: 2.4rem;
-            font-weight: 700;
-            margin: 0 0 0.25rem;
-            color: #0b263d;
+            font-size: clamp(2rem, 6vw, 2.8rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #0b2b3c;
             display: flex;
             align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid rgba(0, 70, 100, 0.15);
+            padding-bottom: 0.75rem;
         }
 
         h1 span {
-            background: #3a6b8c;
+            background: #1b4e6b;
             color: white;
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 0.2rem 1rem 0.3rem;
+            border-radius: 60px;
+            margin-left: 0.5rem;
+            white-space: nowrap;
+        }
+
+        /* main grid – clean & tidy */
+        .calculator-panel {
+            display: grid;
+            grid-template-columns: 1.1fr 1.9fr;
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        /* input section */
+        .input-fields {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 2rem;
+            padding: 1.8rem 1.5rem;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.02), 0 8px 18px rgba(0, 40, 60, 0.08);
+            backdrop-filter: blur(4px);
+        }
+
+        .input-group {
+            margin-bottom: 1.6rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: #1c4b66;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .input-group label i {
+            font-style: normal;
+            font-size: 1.2rem;
+        }
+
+        .input-group input,
+        .input-group select {
+            background: white;
+            border: 1px solid #cbd6e3;
+            border-radius: 60px;
+            padding: 0.9rem 1.4rem;
             font-size: 1rem;
             font-weight: 500;
-            padding: 6px 18px;
-            border-radius: 60px;
+            color: #0a2a38;
+            outline: none;
+            transition: 0.15s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
         }
 
-        .sub {
-            color: #2d4b6e;
-            margin-bottom: 30px;
-            border-left: 4px solid #2b6a9e;
-            padding-left: 20px;
-            font-weight: 400;
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #2f7ca6;
+            box-shadow: 0 0 0 3px rgba(47, 124, 166, 0.2);
         }
 
-        .age-grid {
+        .input-group input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .input-group input[type="number"]::-webkit-outer-spin-button,
+        .input-group input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .double-row {
             display: grid;
-            grid-template-columns: 1.1fr 1.5fr;
-            gap: 28px;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
         }
 
-        @media (max-width: 750px) {
-            .age-grid {
-                grid-template-columns: 1fr;
+        /* breakdown area (right side) */
+        .breakdown {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 2rem;
+            padding: 1.8rem 1.8rem 1.5rem;
+            box-shadow: 0 8px 20px rgba(19, 54, 74, 0.12);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .breakdown h2 {
+            font-size: 1.6rem;
+            font-weight: 550;
+            color: #103f55;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px dashed #a0c1d8;
+            padding-bottom: 0.5rem;
+        }
+
+        .age-summary {
+            background: #dbeaf3;
+            padding: 1.2rem 1.2rem;
+            border-radius: 1.5rem;
+            margin: 1rem 0 1.5rem;
+            text-align: center;
+            box-shadow: inset 0 2px 5px #b5cfdf;
+        }
+
+        .age-summary .big-age {
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            color: #083145;
+            letter-spacing: -0.02em;
+        }
+
+        .age-summary .caption {
+            font-size: 1rem;
+            color: #2b5e7a;
+            font-weight: 500;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .detail-item {
+            background: #ecf3f9;
+            border-radius: 1.5rem;
+            padding: 0.9rem 1rem;
+        }
+
+        .detail-item .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #3f627c;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .detail-item .value {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #00283b;
+            line-height: 1.2;
+        }
+
+        .detail-item .sub {
+            font-size: 0.8rem;
+            color: #4f6f88;
+        }
+
+        /* additional deposits & frequency row */
+        .extra-row {
+            background: #deecf5;
+            border-radius: 1.5rem;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0 0.6rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .extra-row .freq-badge {
+            background: #214b61;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* responsive tablet & mobile */
+        @media (max-width: 1024px) and (min-width: 481px) {
+            .calculator-panel {
+                grid-template-columns: 1fr 1.2fr;
+                gap: 1.2rem;
+            }
+
+            .card {
+                padding: 1.8rem;
             }
         }
 
-        /* input panel */
-        .input-panel {
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 32px;
-            padding: 28px;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+        @media (max-width: 680px) {
+            .calculator-panel {
+                grid-template-columns: 1fr;
+                gap: 1.6rem;
+            }
         }
 
-        .input-row {
-            margin-bottom: 24px;
+        @media (max-width: 480px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            .card {
+                padding: 1.25rem 1rem 1.8rem;
+                border-radius: 2rem;
+            }
+
+            h1 {
+                flex-wrap: wrap;
+            }
+
+            .double-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .input-fields {
+                padding: 1.3rem;
+            }
+
+            .breakdown {
+                padding: 1.3rem;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .age-summary .big-age {
+                font-size: 2.8rem;
+            }
         }
 
-        .input-row label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 550;
-            color: #1c3c5e;
-            margin-bottom: 8px;
-            font-size: 1rem;
+        /* small touches */
+        .note {
+            font-size: 0.85rem;
+            color: #306580;
+            margin-top: 1rem;
+            text-align: right;
+            border-top: 1px solid rgba(0, 60, 90, 0.15);
+            padding-top: 1rem;
         }
 
-        .input-wrapper {
-            display: flex;
-            align-items: center;
-            background: white;
-            border-radius: 60px;
-            padding: 4px 20px;
-            border: 1px solid #cbd6e4;
-            transition: 0.15s;
-        }
-
-        .input-wrapper:focus-within {
-            border-color: #1d6bb0;
-            box-shadow: 0 4px 12px rgba(0, 80, 160, 0.15);
-        }
-
-        .input-wrapper input {
-            width: 100%;
+        .btn-calc {
+            background: #1f556f;
             border: none;
-            padding: 14px 0;
-            font-size: 1.1rem;
-            font-weight: 500;
-            background: transparent;
-            color: #0c1f30;
-            outline: none;
-        }
-
-        .input-wrapper input[type="date"] {
-            font-family: 'Inter', sans-serif;
-            color: #1c3c5e;
-        }
-
-        .inline-group {
-            display: flex;
-            gap: 15px;
-        }
-
-        .inline-group .input-row {
-            flex: 1;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 12px;
-            margin: 25px 0 15px;
-        }
-
-        .btn {
-            background: white;
-            border: 1px solid #b9cbdf;
-            padding: 14px 24px;
-            border-radius: 50px;
+            color: white;
             font-weight: 600;
-            color: #1a3857;
-            cursor: pointer;
-            transition: 0.15s;
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: #1d4b75;
-            border-color: #103456;
-            color: white;
-            box-shadow: 0 6px 14px rgba(0, 50, 90, 0.25);
-        }
-
-        .btn-primary:hover {
-            background: #235f91;
-        }
-
-        .btn:hover {
-            background: #e9f0f9;
-        }
-
-        .today-btn {
-            background: #e3effa;
-            border: 1px dashed #2b6a9e;
-        }
-
-        /* result panel */
-        .result-panel {
-            background: #ffffffd9;
-            backdrop-filter: blur(4px);
-            border-radius: 32px;
-            padding: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.9);
-        }
-
-        .age-big {
-            background: linear-gradient(135deg, #1d3d62 0%, #143753 100%);
-            border-radius: 26px;
-            padding: 24px;
-            color: white;
-            margin-bottom: 24px;
-            text-align: center;
-        }
-
-        .age-label {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.8;
-        }
-
-        .age-value {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin: 8px 0;
-        }
-
-        .age-detail {
+            padding: 0.9rem 1.8rem;
+            border-radius: 60px;
             font-size: 1.2rem;
-            opacity: 0.9;
+            cursor: default;
+            box-shadow: 0 8px 14px -8px #0a2e3f;
+            width: fit-content;
+            transition: 0.1s;
+            margin-top: 0.5rem;
         }
 
-        .age-breakdown {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 25px 0;
-        }
-
-        .breakdown-card {
-            background: #f0f7ff;
-            border-radius: 24px;
-            padding: 18px;
-            text-align: center;
-            border: 1px solid white;
-        }
-
-        .breakdown-number {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #1d4b75;
-            line-height: 1.2;
-        }
-
-        .breakdown-label {
-            font-size: 0.8rem;
-            color: #3a6088;
-            text-transform: uppercase;
-        }
-
-        .fun-facts {
-            background: #e8f2fc;
-            border-radius: 24px;
-            padding: 20px;
-            margin: 20px 0;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-
-        .fact-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .fact-icon {
-            font-size: 1.8rem;
-        }
-
-        .fact-content {
-            font-size: 0.95rem;
-            color: #1c3c5e;
-        }
-
-        .fact-label {
-            font-weight: 600;
-            color: #0b263d;
-        }
-
-        .next-birthday {
-            background: white;
-            border-radius: 20px;
-            padding: 18px;
-            border: 1px solid #cde0f2;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .birthday-countdown {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2a5a3a;
-        }
-
-        .birthday-date {
-            color: #3a6088;
-        }
-
-        .milestone-section {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f9fcff;
-            border-radius: 18px;
-            border: 1px dashed #b9d4ef;
-        }
-
-        .milestone-title {
-            font-weight: 600;
-            color: #1c3c5e;
-            margin-bottom: 10px;
-        }
-
-        .milestone-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .milestone-item {
-            background: white;
-            padding: 8px 16px;
-            border-radius: 40px;
-            border: 1px solid #c5d9f0;
-            font-size: 0.9rem;
-        }
-
-        .milestone-item.upcoming {
-            background: #e3f0fa;
-            border-color: #2b6a9e;
-            font-weight: 500;
-        }
-
-        .footnote {
-            font-size: 0.8rem;
-            color: #4f7ba8;
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px dashed #c5d9f0;
+        .btn-calc:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
 
 <body>
-    <!-- Loading Animation -->
-    <div id="loading-screen">
-        <div class="loader"></div>
+    <div class="card">
+        <h1>
+            ⏳ age spectrum
+            <span>compound + deposits</span>
+        </h1>
+
+        <div class="calculator-panel">
+            <!-- left: INPUTS  (birth, reference, compounding, deposits) -->
+            <div class="input-fields">
+                <div class="input-group">
+                    <label><i>📅</i> birth date</label>
+                    <input type="date" id="birthDate" value="1990-06-15">
+                </div>
+
+                <div class="input-group">
+                    <label><i>🔮</i> reference date (to)</label>
+                    <input type="date" id="toDate" value="2025-03-01">
+                </div>
+
+                <div class="double-row">
+                    <div class="input-group">
+                        <label><i>⚡</i> compounding</label>
+                        <select id="compoundFreq">
+                            <option value="1"> yearly</option>
+                            <option value="4" selected> quarterly</option>
+                            <option value="12"> monthly</option>
+                            <option value="365"> daily</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label><i>📈</i> rate (%)</label>
+                        <input type="number" id="ratePct" step="0.1" min="0" value="4.5">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><i>➕</i> regular deposit</label>
+                    <input type="number" id="depositAmount" step="any" min="0" value="500" placeholder="amount">
+                </div>
+
+                <div class="double-row">
+                    <div class="input-group">
+                        <label><i>🔄</i> deposit frequency</label>
+                        <select id="depositFreq">
+                            <option value="12"> monthly</option>
+                            <option value="4"> quarterly</option>
+                            <option value="1"> yearly</option>
+                            <option value="0"> one-time</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label><i>💰</i> initial principal</label>
+                        <input type="number" id="principal" step="any" min="0" value="10000">
+                    </div>
+                </div>
+
+                <!-- static calculate feeling (live update) -->
+                <div class="btn-calc">✨ always live · no click</div>
+            </div>
+
+            <!-- right: BREAKDOWN + age + compound details -->
+            <div class="breakdown" id="breakdownPanel">
+                <h2>📋 breakdown
+                    <span
+                        style="font-size:0.8rem; background:#ced9e3; padding:0.2rem 0.8rem; border-radius:40px;">live</span>
+                </h2>
+                <!-- age summary card -->
+                <div class="age-summary" id="ageSummary">
+                    <div class="big-age" id="exactYears">34.71 y</div>
+                    <div class="caption" id="ageCaption">exact age · years + decimals</div>
+                </div>
+
+                <!-- detailed stats (age in units) -->
+                <div class="detail-grid" id="ageDetails">
+                    <div class="detail-item"><span class="label">years</span>
+                        <div class="value" id="yearsVal">34</div>
+                    </div>
+                    <div class="detail-item"><span class="label">months</span>
+                        <div class="value" id="monthsVal">8</div>
+                    </div>
+                    <div class="detail-item"><span class="label">weeks</span>
+                        <div class="value" id="weeksVal">1802</div>
+                        <div class="sub" id="weeksDecimal"></div>
+                    </div>
+                    <div class="detail-item"><span class="label">days</span>
+                        <div class="value" id="daysVal">12615</div>
+                    </div>
+                </div>
+
+                <!-- extra row: compounding frequency used -->
+                <div class="extra-row" id="compFreqRow">
+                    <span>🧮 compounding </span>
+                    <span class="freq-badge" id="compFreqLabel">quarterly</span>
+                </div>
+
+                <!-- deposit & principal + compound effect -->
+                <div class="detail-grid" style="margin-top:0.2rem;" id="financialGrid">
+                    <div class="detail-item"><span class="label">principal</span>
+                        <div class="value" id="principalVal">10,000</div>
+                    </div>
+                    <div class="detail-item"><span class="label">total deposits</span>
+                        <div class="value" id="totalDepositsVal">500</div>
+                    </div>
+                    <div class="detail-item"><span class="label">interest earned</span>
+                        <div class="value" id="interestVal">3,215</div>
+                    </div>
+                    <div class="detail-item"><span class="label">final balance</span>
+                        <div class="value" id="balanceVal">13,715</div>
+                    </div>
+                </div>
+                <div class="note" id="footnote">⚡ includes future value of periodic deposits (compound each period)
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <div class="logo">
-                <a href="../index.html"><span class="logo-90">90</span><span class="logo-storezon">StoreZon</span></a>
-            </div>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../about.html">About</a></li>
-                <li><a href="../contact.html">Contact</a></li>
-                <li><a href="../privacy-policy.html">Privacy</a></li>
-                <li><a href="../disclaimer.html">Disclaimer</a></li>
-            </ul>
-        </div>
-    </nav>
+    <script>
+        (function () {
+            // DOM elements
+            const birthInput = document.getElementById('birthDate');
+            const toDateInput = document.getElementById('toDate');
+            const compoundFreqSelect = document.getElementById('compoundFreq');
+            const ratePctInput = document.getElementById('ratePct');
+            const depositAmountInput = document.getElementById('depositAmount');
+            const depositFreqSelect = document.getElementById('depositFreq');
+            const principalInput = document.getElementById('principal');
 
-    <section class="calculator-container">
-        <div class="card">
-            <h1>
-                🎂 Age Calculator
-                <span>exact · zodiac · milestones</span>
-            </h1>
-            <div class="sub">Calculate exact age in years, months, days — plus fun facts and upcoming milestones</div>
+            // output fields
+            const exactYearsSpan = document.getElementById('exactYears');
+            const yearsVal = document.getElementById('yearsVal');
+            const monthsVal = document.getElementById('monthsVal');
+            const weeksVal = document.getElementById('weeksVal');
+            const daysVal = document.getElementById('daysVal');
+            const compFreqLabel = document.getElementById('compFreqLabel');
+            const principalVal = document.getElementById('principalVal');
+            const totalDepositsVal = document.getElementById('totalDepositsVal');
+            const interestVal = document.getElementById('interestVal');
+            const balanceVal = document.getElementById('balanceVal');
 
-            <!-- Google Add-on Space -->
-            const asOfDateInput = document.getElementById('asOfDate');
-            const todayBtn = document.getElementById('todayBtn');
-            const swapBtn = document.getElementById('swapBtn');
-            const calculateBtn = document.getElementById('calculateBtn');
-            const presetBtns = document.querySelectorAll('[data-preset]');
+            function updateAll() {
+                // parse inputs
+                const birthStr = birthInput.value;
+                const toStr = toDateInput.value;
+                if (!birthStr || !toStr) return;
 
-            // Result spans
-            const ageYearsSpan = document.getElementById('ageYears');
-            const ageDetailSpan = document.getElementById('ageDetail');
-            const totalMonthsSpan = document.getElementById('totalMonths');
-            const totalWeeksSpan = document.getElementById('totalWeeks');
-            const totalDaysSpan = document.getElementById('totalDays');
+                const birth = new Date(birthStr);
+                const to = new Date(toStr);
+                if (isNaN(birth) || isNaN(to)) return;
 
-            // Fun facts
-            const zodiacSign = document.getElementById('zodiacSign');
-            const birthstone = document.getElementById('birthstone');
-            const birthFlower = document.getElementById('birthFlower');
-            const birthDayOfWeek = document.getElementById('birthDayOfWeek');
+                // time diff in milliseconds
+                let diffMs = to - birth;
+                if (diffMs < 0) diffMs = 0;  // if negative age, set to 0 (avoid chaos)
 
-            // Birthday
-            const nextBirthdayDate = document.getElementById('nextBirthdayDate');
-            const birthdayCountdown = document.getElementById('birthdayCountdown');
-            const milestoneList = document.getElementById('milestoneList');
+                // ----- AGE CALCULATIONS (detailed breakdown) -----
+                const totalDays = diffMs / (1000 * 60 * 60 * 24);
+                const exactYearsNum = totalDays / 365.2425;   // average gregorian year
+                const yearsFull = Math.floor(exactYearsNum);
+                const remainingDaysAfterYears = totalDays - yearsFull * 365.2425;
+                const monthsFull = Math.floor(remainingDaysAfterYears / (365.2425 / 12));
+                // approximate weeks
+                const totalWeeks = totalDays / 7;
+                const weeksFloor = Math.floor(totalWeeks);
+                const daysFloor = Math.floor(totalDays);
 
-            // Life stats
-            const heartbeatCount = document.getElementById('heartbeatCount');
-            const earthOrbits = document.getElementById('earthOrbits');
-            const sleepHours = document.getElementById('sleepHours');
+                // display age
+                exactYearsSpan.innerText = exactYearsNum.toFixed(2) + ' y';
+                yearsVal.innerText = yearsFull;
+                monthsVal.innerText = monthsFull;
+                weeksVal.innerText = weeksFloor.toLocaleString();
+                daysVal.innerText = daysFloor.toLocaleString();
 
-            // Set today's date as default for "as of"
-            function setTodayAsOf() {
-            const today = new Date();
-            const yyyy = today.getFullYear();
-            const mm = String(today.getMonth() + 1).padStart(2, '0');
-            const dd = String(today.getDate()).padStart(2, '0');
-            asOfDateInput.value = `${yyyy}-${mm}-${dd}`;
+                // compounding frequency display
+                const compFreqValue = parseInt(compoundFreqSelect.value, 10);
+                const freqNames = { 1: 'yearly', 4: 'quarterly', 12: 'monthly', 365: 'daily' };
+                compFreqLabel.innerText = freqNames[compFreqValue] || 'quarterly';
+
+                // ----- FINANCIAL (compound + deposits) -----
+                const principal = parseFloat(principalInput.value) || 0;
+                const ratePct = parseFloat(ratePctInput.value) || 0;
+                const annualRate = ratePct / 100;
+                const deposit = parseFloat(depositAmountInput.value) || 0;
+                const depositFreqValue = parseInt(depositFreqSelect.value, 10); // 0 = one-time? we treat as lump sum at end? we will manage separately
+
+                // time in years (exact)
+                const yearsDiff = totalDays / 365.2425;   // can be fractional
+                let finalBalance = principal;
+
+                // FUTURE VALUE with periodic deposits at given compounding frequency
+                // We'll compute future value of principal + future value of deposit stream
+                // using compound periods: n = compoundFreq * years
+                const periodsPerYear = compFreqValue;  // 1,4,12,365
+                const totalPeriods = periodsPerYear * yearsDiff;   // fractional periods allowed (we use exact formula)
+                const ratePerPeriod = annualRate / periodsPerYear;
+
+                // future value of principal: P * (1 + r/n)^(n*t)
+                let fvPrincipal = 0;
+                if (principal !== 0) {
+                    fvPrincipal = principal * Math.pow(1 + ratePerPeriod, totalPeriods);
+                }
+
+                // future value of periodic deposits
+                let fvDeposits = 0;
+                let totalDepositsSum = 0;
+
+                if (deposit > 0 && depositFreqValue > 0) {
+                    // deposit frequency (times per year) : e.g. monthly = 12, quarterly = 4
+                    const depositsPerYear = depositFreqValue;
+                    // number of deposit events (may be fractional, but we treat as exact)
+                    const totalDepositEvents = depositsPerYear * yearsDiff;   // could be fractional, but we floor realistic? better: treat as exact for math.
+                    // payment per period (deposit freq relative to compound freq) – careful: deposit interval and compound interval may differ.
+                    // we simplify: convert to effective per-compound-period deposit if deposit frequency aligns.
+                    // robust: compute FV of annuity with payments at the deposit frequency but compounding at compound frequency.
+                    // To avoid overcomplication, we assume deposits happen at the end of each deposit interval,
+                    // and interest is credited at compound periods. We'll compute using the effective periodic rate per deposit interval.
+                    // But for clean demo we treat it as ordinary annuity using the deposit frequency as payment periods.
+                    // The proper way: number of deposits = floor(depositsPerYear * yearsDiff) ? We'll use exact formula (continuous-like).
+                    // we'll calculate FV of annuity immediate with payments per year = depositFreq, rate per year = annualRate, compounded at compoundFreq.
+                    // Step: convert annual rate to equivalent rate per deposit period.
+                    const depositPeriodsPerYear = depositFreqValue;  // e.g. 12
+                    const totalPayments = depositPeriodsPerYear * yearsDiff; // fractional possible
+
+                    // rate per deposit period: (1+annualRate/compoundFreq)^(compoundFreq/depositFreq) -1
+                    // because each deposit period earns compound over fraction.
+                    const ratePerDepositPeriod = Math.pow(1 + annualRate / periodsPerYear, periodsPerYear / depositPeriodsPerYear) - 1;
+
+                    // future value of annuity immediate (end of period)
+                    if (ratePerDepositPeriod !== 0) {
+                        fvDeposits = deposit * (Math.pow(1 + ratePerDepositPeriod, totalPayments) - 1) / ratePerDepositPeriod;
+                    } else {
+                        fvDeposits = deposit * totalPayments;
+                    }
+
+                    // total nominal deposits (without interest)
+                    totalDepositsSum = deposit * totalPayments;
+                } else if (deposit > 0 && depositFreqValue === 0) {
+                    // one-time deposit at the end? we treat as additional principal at end? simpler: treat as deposit at end (no interest)
+                    // better: treat as a lump sum added at toDate, so no interest.
+                    fvDeposits = deposit;
+                    totalDepositsSum = deposit;
+                } else {
+                    fvDeposits = 0;
+                    totalDepositsSum = 0;
+                }
+
+                // final balance = fvPrincipal + fvDeposits
+                let balance = fvPrincipal + fvDeposits;
+                let interestEarned = balance - principal - totalDepositsSum;
+
+                // formatting numbers
+                const formatMoney = (val) => {
+                    return val.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                };
+                const formatMoneyDecimal = (val) => {
+                    return val.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                };
+
+                principalVal.innerText = formatMoney(principal);
+                totalDepositsVal.innerText = formatMoney(totalDepositsSum);
+                interestVal.innerText = formatMoney(Math.max(0, interestEarned));
+                balanceVal.innerText = formatMoneyDecimal(balance);
+
+                // additional footnote update
+                document.getElementById('footnote').innerHTML = `⚡ based on ${freqNames[compFreqValue]} compounding, deposits ${depositFreqSelect.selectedOptions[0].text}`;
             }
 
-            // Initialize with today
-            setTodayAsOf();
+            // attach listeners to all inputs
+            [
+                birthInput, toDateInput, compoundFreqSelect, ratePctInput,
+                depositAmountInput, depositFreqSelect, principalInput
+            ].forEach(el => el.addEventListener('input', updateAll));
+            // also listen to change for selects (already covered by input)
+            window.addEventListener('load', updateAll);
 
-            // If DOB is empty, set a default
-            if (!dobInput.value) {
-            dobInput.value = '1990-01-01';
-            }
-
-            // Calculate age function
-            function calculateAge() {
-            const dobStr = dobInput.value;
-            const asOfStr = asOfDateInput.value;
-
-            if (!dobStr || !asOfStr) {
-            alert('Please select both dates');
-            return;
-            }
-
-            const dob = new Date(dobStr);
-            const asOf = new Date(asOfStr);
-
-            if (dob > asOf) {
-            alert('Birth date cannot be after the "as of" date');
-            return;
-            }
-
-            // Calculate difference in years, months, days
-            let years = asOf.getFullYear() - dob.getFullYear();
-            let months = asOf.getMonth() - dob.getMonth();
-            let days = asOf.getDate() - dob.getDate();
-
-            // Adjust for negative days
-            if (days < 0) { months--; // Get last day of previous month const lastMonth=new Date(asOf.getFullYear(),
-                asOf.getMonth(), 0); days=lastMonth.getDate() - dob.getDate() + asOf.getDate(); } // Adjust for negative
-                months if (months < 0) { years--; months +=12; } // Update age displays
-                ageYearsSpan.textContent=`${years} years`; ageDetailSpan.textContent=`${years} years, ${months} months,
-                ${days} days`; // Calculate total days, weeks, months const diffTime=asOf - dob; const
-                diffDays=Math.floor(diffTime / (1000 * 60 * 60 * 24)); const diffWeeks=Math.floor(diffDays / 7); const
-                diffMonths=years * 12 + months; totalDaysSpan.textContent=diffDays.toLocaleString();
-                totalWeeksSpan.textContent=diffWeeks.toLocaleString();
-                totalMonthsSpan.textContent=diffMonths.toLocaleString(); // Fun facts based on birth date
-                updateFunFacts(dob); // Next birthday and milestones updateBirthdayInfo(dob, asOf); // Life stats
-                (approximate) updateLifeStats(years, diffDays); } // Update zodiac, birthstone, etc. function
-                updateFunFacts(dob) { const month=dob.getMonth() + 1; const day=dob.getDate(); // Zodiac signs const
-                zodiacs=[ { sign: 'Capricorn' , start: [1,1], end: [1,19] }, { sign: 'Aquarius' , start: [1,20], end:
-                [2,18] }, { sign: 'Pisces' , start: [2,19], end: [3,20] }, { sign: 'Aries' , start: [3,21], end: [4,19]
-                }, { sign: 'Taurus' , start: [4,20], end: [5,20] }, { sign: 'Gemini' , start: [5,21], end: [6,20] }, {
-                sign: 'Cancer' , start: [6,21], end: [7,22] }, { sign: 'Leo' , start: [7,23], end: [8,22] }, {
-                sign: 'Virgo' , start: [8,23], end: [9,22] }, { sign: 'Libra' , start: [9,23], end: [10,22] }, {
-                sign: 'Scorpio' , start: [10,23], end: [11,21] }, { sign: 'Sagittarius' , start: [11,22], end: [12,21]
-                }, { sign: 'Capricorn' , start: [12,22], end: [12,31] } ]; let zodiac='Capricorn' ; for (let z of
-                zodiacs) { if (month===z.start[0] && day>= z.start[1] || month === z.end[0] && day <= z.end[1]) { if
-                    (z.start[0]===1 && z.start[1]===1 && month===12) continue; // avoid capricorn double zodiac=z.sign;
-                    break; } } zodiacSign.textContent=zodiac; // Birthstones const stones={ 1: 'Garnet' , 2: 'Amethyst'
-                    , 3: 'Aquamarine' , 4: 'Diamond' , 5: 'Emerald' , 6: 'Pearl' , 7: 'Ruby' , 8: 'Peridot' ,
-                    9: 'Sapphire' , 10: 'Opal' , 11: 'Topaz' , 12: 'Turquoise' }; birthstone.textContent=stones[month]
-                    || 'Unknown' ; // Birth flowers const flowers={ 1: 'Carnation' , 2: 'Violet' , 3: 'Daffodil' ,
-                    4: 'Daisy' , 5: 'Lily' , 6: 'Rose' , 7: 'Larkspur' , 8: 'Gladiolus' , 9: 'Aster' , 10: 'Marigold' ,
-                    11: 'Chrysanthemum' , 12: 'Poinsettia' }; birthFlower.textContent=flowers[month] || 'Unknown' ; //
-                    Day of week born const days=['Sunday', 'Monday' , 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday'
-                    , 'Saturday' ]; birthDayOfWeek.textContent=days[dob.getDay()]; } // Update birthday and milestones
-                    function updateBirthdayInfo(dob, today) { const birthMonth=dob.getMonth(); const
-                    birthDay=dob.getDate(); // Next birthday let nextBirthday=new Date(today.getFullYear(), birthMonth,
-                    birthDay); if (nextBirthday < today) { nextBirthday=new Date(today.getFullYear() + 1, birthMonth,
-                    birthDay); } // Format next birthday const options={ year: 'numeric' , month: 'long' ,
-                    day: 'numeric' }; nextBirthdayDate.textContent=nextBirthday.toLocaleDateString(undefined, options);
-                    // Days until next birthday const diffTime=nextBirthday - today; const diffDays=Math.ceil(diffTime /
-                    (1000 * 60 * 60 * 24)); birthdayCountdown.textContent=`in ${diffDays} day${diffDays !==1 ? 's' : ''
-                    }`; // Calculate age at next birthday let nextAge=nextBirthday.getFullYear() - dob.getFullYear(); if
-                    (nextBirthday < new Date(dob.getFullYear() + nextAge, dob.getMonth(), dob.getDate())) { nextAge--; }
-                    // Milestones (upcoming 5-year marks) const currentAge=today.getFullYear() - dob.getFullYear();
-                    const milestones=[]; for (let i=5; i <=100; i +=5) { if (i> currentAge && i <= currentAge + 25) {
-                        milestones.push(i); } } let milestoneHtml='' ; milestones.forEach(m=> {
-                        const milestoneDate = new Date(dob.getFullYear() + m, dob.getMonth(), dob.getDate());
-                        const yearsFromNow = m - currentAge;
-                        milestoneHtml += `<span class="milestone-item upcoming">${m} years (in ${yearsFromNow}
-                            year${yearsFromNow !== 1 ? 's' : ''})</span>`;
-                        });
-
-                        if (milestoneHtml === '') {
-                        milestoneHtml = '<span class="milestone-item">No upcoming 5-year milestones</span>';
-                        }
-                        milestoneList.innerHTML = milestoneHtml;
-                        }
-
-                        // Approximate life stats
-                        function updateLifeStats(years, days) {
-                        // Heartbeats (approx 70 bpm)
-                        const heartbeats = Math.round(days * 24 * 60 * 70);
-                        heartbeatCount.textContent = '~' + (heartbeats / 1e6).toFixed(1) + 'M';
-
-                        // Earth orbits
-                        earthOrbits.textContent = years;
-
-                        // Sleep hours (assuming 8 hours/day)
-                        const sleepHrs = days * 8;
-                        sleepHours.textContent = '~' + (sleepHrs / 1000).toFixed(1) + 'k';
-                        }
-
-                        // Event listeners
-                        calculateBtn.addEventListener('click', calculateAge);
-
-                        todayBtn.addEventListener('click', () => {
-                        setTodayAsOf();
-                        calculateAge();
-                        });
-
-                        swapBtn.addEventListener('click', () => {
-                        const dob = dobInput.value;
-                        const asOf = asOfDateInput.value;
-                        if (dob && asOf) {
-                        dobInput.value = asOf;
-                        asOfDateInput.value = dob;
-                        calculateAge();
-                        }
-                        });
-
-                        presetBtns.forEach(btn => {
-                        btn.addEventListener('click', () => {
-                        const preset = btn.getAttribute('data-preset');
-                        if (preset) {
-                        dobInput.value = preset;
-                        calculateAge();
-                        }
-                        });
-                        });
-
-                        // Auto-calculate on page load
-                        window.addEventListener('load', calculateAge);
-
-                        // Also calculate when inputs change (optional)
-                        dobInput.addEventListener('change', calculateAge);
-                        asOfDateInput.addEventListener('change', calculateAge);
-                        })();
-                        </script>
+            // set some nice defaults if empty
+            if (!birthInput.value) birthInput.value = '1990-06-15';
+            if (!toDateInput.value) toDateInput.value = '2025-03-01';
+            updateAll();
+        })();
+    </script>
 </body>
 
 </html>

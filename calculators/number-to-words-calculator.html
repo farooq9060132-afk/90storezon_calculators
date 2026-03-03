@@ -3,476 +3,653 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Number to Words Converter | 90StoreZon</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>🔢 Number to Words Converter · real‑time</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --success: #059669;
+            --warning: #d97706;
+            --error: #dc2626;
+            --bg: #f9fafb;
+            --text: #111827;
+            --border: #e5e7eb;
+            --radius: 20px;
+            --shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
         }
 
         body {
-            margin: 0;
-            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            padding: 0.8rem;
         }
 
-        .calculator-container {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 80vh;
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        /* header */
+        .tool-header {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.2rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 4rem 20px;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
-        .card {
-            max-width: 800px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 32px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        h1 {
+        .tool-header h1 {
             font-size: 2rem;
-            color: #1a365d;
-            margin-bottom: 10px;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 0.8rem;
+            color: var(--primary);
         }
 
-        .sub {
-            color: #4a5568;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
+        /* main grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
         }
 
-        .input-group {
-            margin-bottom: 25px;
+        /* cards */
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.8rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .input-area,
+        .output-area {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+            display: flex;
+            gap: 0.6rem;
         }
 
         label {
-            display: block;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 10px;
-        }
-
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        input[type="text"],
-        input[type="number"] {
-            width: 100%;
-            padding: 18px 25px;
-            border-radius: 16px;
-            border: 2px solid #e2e8f0;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            outline: none;
-            background: #fff;
-        }
-
-        input:focus {
-            border-color: #4299e1;
-            box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.15);
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .option-card {
-            background: #edf2f7;
-            padding: 15px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .option-card:hover {
-            background: #e2e8f0;
-        }
-
-        .option-card input {
-            cursor: pointer;
-        }
-
-        .result-box {
-            background: #1a365d;
-            color: white;
-            padding: 30px;
-            border-radius: 20px;
-            min-height: 120px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            box-shadow: 0 10px 20px rgba(26, 54, 93, 0.2);
-            margin-top: 20px;
-        }
-
-        .result-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            opacity: 0.8;
-        }
-
-        #resultText {
-            font-size: 1.4rem;
             font-weight: 500;
-            line-height: 1.5;
-            word-wrap: break-word;
+            margin-bottom: 0.3rem;
+            display: block;
+            color: #374151;
         }
 
-        .copy-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: 0.2s;
+        /* number input */
+        .number-input-wrapper {
+            position: relative;
+            margin-bottom: 1rem;
         }
 
-        .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+        #numberInput {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            font-size: 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: 40px;
+            background: white;
+            text-align: right;
+            letter-spacing: 1px;
+            min-height: 80px;
         }
 
-        .controls {
+        #numberInput:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .stat-row {
             display: flex;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 1.5rem;
+            color: #4b5563;
+            margin: 0.5rem 0 1.2rem;
+            flex-wrap: wrap;
         }
 
+        /* action buttons */
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        button,
         .btn {
-            flex: 1;
-            padding: 15px;
-            border-radius: 15px;
-            font-weight: 600;
+            background: white;
+            border: 1px solid var(--border);
+            padding: 0.8rem 1.6rem;
+            border-radius: 40px;
+            font-weight: 500;
             font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.1s;
+            min-height: 52px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+        }
+
+        button.primary,
+        .btn.primary {
+            background: var(--primary);
+            color: white;
             border: none;
         }
 
-        .btn-primary {
-            background: #3182ce;
-            color: white;
+        button:active {
+            transform: scale(0.97);
         }
 
-        .btn-primary:hover {
-            background: #2b6cb0;
-        }
-
-        .btn-secondary {
-            background: #e2e8f0;
-            color: #4a5568;
-        }
-
-        .btn-secondary:hover {
-            background: #cbd5e0;
-        }
-
-        .badge {
-            background: #4299e1;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+        /* settings collapsible */
+        .settings-toggle {
+            background: #f3f4f6;
+            padding: 0.9rem 1.4rem;
+            border-radius: 40px;
             font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0 1rem;
+            user-select: none;
+        }
+
+        .settings-panel {
+            background: #f9fafb;
+            border-radius: 30px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border: 1px solid var(--border);
+            display: none;
+        }
+
+        .settings-panel.show {
+            display: block;
+        }
+
+        .setting-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+        }
+
+        select,
+        input[type=text] {
+            padding: 0.8rem;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            width: 100%;
+        }
+
+        /* output box */
+        .output-box {
+            background: #f3f4f6;
+            border-radius: 30px;
+            padding: 1.8rem;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            border: 1px solid var(--border);
+            min-height: 180px;
+            overflow-y: auto;
+            word-wrap: break-word;
+            margin-bottom: 1.2rem;
+        }
+
+        .analysis {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.8rem;
+            background: #eef2ff;
+            border-radius: 28px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .metric {
+            background: white;
+            border-radius: 40px;
+            padding: 0.8rem;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .metric .val {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        .metric .lbl {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        /* sticky mobile bar */
+        .sticky-actions {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            padding: 1rem;
+            border-top: 2px solid var(--border);
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            z-index: 20;
+            border-radius: 40px 40px 0 0;
+            margin-top: 2rem;
+        }
+
+        /* tablet/desktop */
+        @media (min-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .main-grid {
+                gap: 2rem;
+            }
+
+            .card {
+                padding: 2.2rem;
+            }
+        }
+
+        /* error highlight */
+        .error-msg {
+            color: var(--error);
+            font-weight: 500;
+            margin: 0.5rem 0;
+        }
+
+        .history-item {
+            cursor: pointer;
+            padding: 0.4rem 0.8rem;
+            background: white;
+            border-radius: 30px;
+            margin: 0.3rem 0;
+            border: 1px solid var(--border);
         }
     </style>
 </head>
 
 <body>
-    <!-- Loading Animation -->
-    <div id="loading-screen">
-        <div class="loader"></div>
+    <div class="container">
+        <!-- header -->
+        <div class="tool-header">
+            <h1><i class="fas fa-calculator"></i> Number to Words Converter</h1>
+            <p>Convert numbers into written words (up to 15 digits) · currency ready</p>
+        </div>
+
+        <!-- main grid: input | output -->
+        <div class="main-grid">
+            <!-- LEFT INPUT CARD -->
+            <div class="card input-area">
+                <h2><i class="fas fa-pencil-alt"></i> Enter number</h2>
+                <div class="number-input-wrapper">
+                    <input type="text" id="numberInput" placeholder="1,234,567.89" value="1,250.75" inputmode="decimal">
+                </div>
+                <div class="stat-row">
+                    <span><i class="far fa-file-word"></i> Digit count: <span id="digitCount">8</span></span>
+                    <span><i class="fas fa-char"></i> Chars: <span id="charCount">8</span></span>
+                    <span><i class="fas fa-tag"></i> Category: <span id="numCategory">Thousands</span></span>
+                </div>
+
+                <!-- main action row -->
+                <div class="action-bar">
+                    <button class="primary" id="convertBtn"><i class="fas fa-sync-alt"></i> Convert to Words</button>
+                    <button id="clearBtn"><i class="fas fa-eraser"></i> Clear</button>
+                    <button id="copyOutputBtn"><i class="fas fa-copy"></i> Copy</button>
+                    <button id="swapFormatBtn"><i class="fas fa-exchange-alt"></i> Swap system</button>
+                </div>
+
+                <!-- collapsible advanced settings -->
+                <div class="settings-toggle"
+                    onclick="document.getElementById('settingsPanel').classList.toggle('show')">
+                    <i class="fas fa-sliders-h"></i> Conversion options <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="settings-panel" id="settingsPanel">
+                    <div class="setting-row">
+                        <span style="min-width:140px;">🌍 Numbering system:</span>
+                        <select id="numSystem">
+                            <option value="int" selected>International (Million, Billion)</option>
+                            <option value="ind">Indian (Lakh, Crore, Arab)</option>
+                        </select>
+                    </div>
+                    <div class="setting-row">
+                        <span style="min-width:140px;">💰 Currency mode:</span>
+                        <label><input type="checkbox" id="currencyToggle"> Enable currency conversion</label>
+                    </div>
+                    <div id="currencyOptions" style="display: none; margin-bottom:1rem;">
+                        <select id="currencySelect" style="width:auto;">
+                            <option value="USD">USD ($) Dollar</option>
+                            <option value="PKR">PKR Rupee</option>
+                            <option value="INR">INR Rupee</option>
+                            <option value="GBP">GBP Pound</option>
+                            <option value="EUR">EUR Euro</option>
+                            <option value="AED">AED Dirham</option>
+                        </select>
+                        <span style="margin-left:1rem;">custom: <input id="customCurrency" placeholder="e.g. Riyal"
+                                style="width:100px;"></span>
+                    </div>
+                    <div class="grid-3">
+                        <div><label>Text case</label><select id="textCase">
+                                <option>Sentence case</option>
+                                <option>UPPERCASE</option>
+                                <option>lowercase</option>
+                            </select></div>
+                        <div><label>Decimal handling</label><select id="decimalHandling">
+                                <option value="words">Include words</option>
+                                <option value="digits">Read digits</option>
+                                <option value="ignore">Ignore</option>
+                            </select></div>
+                        <div><label>Negative</label><select id="negativeHandling">
+                                <option value="minus">Minus</option>
+                                <option value="negative">Negative</option>
+                            </select></div>
+                    </div>
+                </div>
+
+                <!-- mini history (last 5) -->
+                <div style="margin-top:1.5rem;">
+                    <label><i class="fas fa-history"></i> Recent conversions</label>
+                    <div id="historyContainer"></div>
+                    <button onclick="clearHistory()"
+                        style="margin-top:0.5rem; background:none; border:none; color:var(--primary);"><i
+                            class="far fa-trash-alt"></i> clear history</button>
+                </div>
+            </div>
+
+            <!-- RIGHT OUTPUT CARD -->
+            <div class="card output-area">
+                <h2><i class="fas fa-file-alt"></i> Result</h2>
+                <div class="output-box" id="outputText">One Thousand Two Hundred Fifty Dollars and Seventy-Five Cents
+                </div>
+
+                <!-- analysis panel -->
+                <div class="analysis">
+                    <div class="metric"><span class="lbl">Word count</span><span class="val" id="wordCount">7</span>
+                    </div>
+                    <div class="metric"><span class="lbl">Char count</span><span class="val" id="outCharCount">38</span>
+                    </div>
+                    <div class="metric"><span class="lbl">Digits</span><span class="val" id="outDigits">8</span></div>
+                    <div class="metric"><span class="lbl">Format</span><span class="val" id="outFormat">int</span></div>
+                </div>
+
+                <!-- export row -->
+                <div class="action-bar" style="margin-top:1rem;">
+                    <button id="downloadTxt"><i class="fas fa-file-alt"></i> .txt</button>
+                    <button id="downloadDoc"><i class="fas fa-file-word"></i> .doc</button>
+                    <button id="printBtn"><i class="fas fa-print"></i> Print</button>
+                    <button id="shareBtn"><i class="fas fa-share-alt"></i> Share</button>
+                </div>
+                <div style="margin-top:1rem; font-size:0.8rem; color: #6b7280;"><i class="fas fa-shield-alt"></i>
+                    client‑side · no storage</div>
+            </div>
+        </div>
+
+        <!-- sticky bottom bar (mobile & desktop) -->
+        <div class="sticky-actions">
+            <button class="primary" onclick="convertNow()"><i class="fas fa-exchange-alt"></i> Convert</button>
+            <button onclick="copyResult()"><i class="fas fa-copy"></i> Copy</button>
+            <button onclick="document.getElementById('numberInput').value=''; updateStats();"><i
+                    class="fas fa-backspace"></i> Clear</button>
+            <button onclick="downloadTxt()"><i class="fas fa-download"></i> .txt</button>
+        </div>
+
+        <!-- educational footer -->
+        <div style="margin: 2rem 0; background: #e6f7ff; border-radius: 30px; padding: 1.5rem;">
+            <p><i class="fas fa-lightbulb"></i> Supports International (million/billion) and Indian (lakh/crore)
+                systems, currency conversion, up to 15 digits.</p>
+        </div>
     </div>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <div class="logo">
-                <a href="../index.html"><span class="logo-90">90</span><span class="logo-storezon">StoreZon</span></a>
-            </div>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../about.html">About</a></li>
-                <li><a href="../contact.html">Contact</a></li>
-                <li><a href="../privacy-policy.html">Privacy</a></li>
-                <li><a href="../disclaimer.html">Disclaimer</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <section class="calculator-container">
-        <div class="card">
-            <h1>✍️ Number to Words <span class="badge">Converter</span></h1>
-            <p class="sub">Convert any number into English words instantly. Supports decimals and currency formats.</p>
-
-            <div class="input-group">
-                <label for="numberInput">Enter Number</label>
-                <div class="input-wrapper">
-                    <input type="text" id="numberInput" placeholder="e.g. 12345.67" autocomplete="off">
-                </div>
-            </div>
-
-            <div class="options-grid">
-                <label class="option-card">
-                    <input type="checkbox" id="currencyMode">
-                    <span>Currency Mode ($)</span>
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="casing" value="title" checked>
-                    <span>Title Case</span>
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="casing" value="upper">
-                    <span>UPPERCASE</span>
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="casing" value="lower">
-                    <span>lowercase</span>
-                </label>
-            </div>
-
-            <div class="result-box">
-                <div class="result-label">Result in words</div>
-                <button class="copy-btn" id="copyBtn">Copy</button>
-                <div id="resultText">Zero</div>
-            </div>
-
-            <div class="controls">
-                <button class="btn btn-secondary" id="clearBtn">Clear</button>
-                <button class="btn btn-primary" id="convertBtn">Convert Now</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <!-- Column 1: Brand -->
-                <div class="footer-col">
-                    <div class="footer-logo"><span class="logo-90">90</span><span class="logo-storezon">StoreZon</span>
-                    </div>
-                    <p class="footer-description">Your trusted source for the FINAL BEST CALCULATORS. We provide free,
-                        accurate, and easy-to-use online calculation tools for everyone.</p>
-                    <div class="social-links">
-                        <a href="https://facebook.com" target="_blank" aria-label="Facebook"><svg width="24" height="24"
-                                viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                            </svg></a>
-                        <a href="https://instagram.com" target="_blank" aria-label="Instagram"><svg width="24"
-                                height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                            </svg></a>
-                        <a href="https://twitter.com" target="_blank" aria-label="Twitter"><svg width="24" height="24"
-                                viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
-                            </svg></a>
-                        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><svg width="24" height="24"
-                                viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                            </svg></a>
-                    </div>
-                </div>
-
-                <!-- Column 2: Calculator Links -->
-                <div class="footer-col">
-                    <h4>Calculators</h4>
-                    <ul>
-                        <li><a href="age-calculator.html">Age Calculator</a></li>
-                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
-                        <li><a href="date-difference-calculator.html">Date Difference</a></li>
-                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
-                        <li><a href="simple-interest-calculator.html">Simple Interest</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Important Pages -->
-                <div class="footer-col">
-                    <h4>Important Pages</h4>
-                    <ul>
-                        <li><a href="../about.html">About Us</a></li>
-                        <li><a href="../contact.html">Contact Us</a></li>
-                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="../disclaimer.html">Disclaimer</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Quick Links -->
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="compound-interest-calculator.html">Compound Interest</a></li>
-                        <li><a href="profit-loss-calculator.html">Profit & Loss</a></li>
-                        <li><a href="discount-calculator.html">Discount Calculator</a></li>
-                        <li><a href="gpa-calculator.html">GPA Calculator</a></li>
-                        <li><a href="number-to-words-calculator.html">Number to Words</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 90StoreZon. All rights reserved. | FINAL BEST CALCULATORS</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scroll to Top Button -->
-    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">↑</button>
-
-    <script src="../js/main.js"></script>
     <script>
-        const ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-        const tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-        const teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+        // ---------- CORE CONVERSION (SIMPLIFIED BUT ROBUST) ----------
+        const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+        const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
 
-        function convertThreeDigits(num) {
-            let result = '';
-            if (num >= 100) {
-                result += ones[Math.floor(num / 100)] + ' hundred ';
-                num %= 100;
-            }
-            if (num >= 10 && num <= 19) {
-                result += teens[num - 10];
-            } else if (num >= 20) {
-                result += tens[Math.floor(num / 10)];
-                if (num % 10 > 0) result += '-' + ones[num % 10];
-            } else if (num > 0) {
-                result += ones[num];
-            }
-            return result.trim();
-        }
+        function numberToWordsInt(n, useIndian = false) {
+            if (n === 0) return 'Zero';
+            let num = Math.abs(n);
+            let words = '';
 
-        function numberToWords(num) {
-            if (num === 0) return 'zero';
-            if (num < 0) return 'negative ' + numberToWords(Math.abs(num));
+            if (useIndian) {
+                // Indian numbering: lakh (1,00,000) and crore (1,00,00,000)
+                const crore = Math.floor(num / 10000000); num %= 10000000;
+                const lakh = Math.floor(num / 100000); num %= 100000;
+                const thousand = Math.floor(num / 1000); num %= 1000;
+                const hundred = Math.floor(num / 100); num %= 100;
 
-            const units = ['', 'thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion'];
-            let result = '';
-            let unitIndex = 0;
-
-            let integerPart = Math.floor(Math.abs(num));
-            let decimalPart = Math.round((Math.abs(num) - integerPart) * 100);
-
-            let tempNum = integerPart;
-            while (tempNum > 0) {
-                let chunk = tempNum % 1000;
-                if (chunk > 0) {
-                    let chunkWords = convertThreeDigits(chunk);
-                    result = chunkWords + (units[unitIndex] ? ' ' + units[unitIndex] : '') + ' ' + result;
+                if (crore) words += numberToWordsInt(crore, false) + ' Crore ';
+                if (lakh) words += numberToWordsInt(lakh, false) + ' Lakh ';
+                if (thousand) words += numberToWordsInt(thousand, false) + ' Thousand ';
+                if (hundred) words += numberToWordsInt(hundred, false) + ' Hundred ';
+                if (num) {
+                    if (num < 20) words += ones[num];
+                    else words += tens[Math.floor(num / 10)] + (num % 10 ? ' ' + ones[num % 10] : '');
                 }
-                tempNum = Math.floor(tempNum / 1000);
-                unitIndex++;
-            }
-
-            return result.trim();
-        }
-
-        function handleCurrency(num) {
-            let integerPart = Math.floor(Math.abs(num));
-            let decimalPart = Math.round((Math.abs(num) - integerPart) * 100);
-
-            let words = numberToWords(integerPart) + (integerPart === 1 ? ' dollar' : ' dollars');
-            if (decimalPart > 0) {
-                words += ' and ' + numberToWords(decimalPart) + (decimalPart === 1 ? ' cent' : ' cents');
-            }
-            return words;
-        }
-
-        function convert() {
-            const input = document.getElementById('numberInput').value.replace(/,/g, '');
-            const isCurrency = document.getElementById('currencyMode').checked;
-            const casing = document.querySelector('input[name="casing"]:checked').value;
-            const resultDisplay = document.getElementById('resultText');
-
-            if (input === '' || isNaN(input)) {
-                resultDisplay.textContent = 'Please enter a valid number';
-                return;
-            }
-
-            const num = parseFloat(input);
-            let result = '';
-
-            if (isCurrency) {
-                result = handleCurrency(num);
             } else {
-                let integerPart = Math.floor(Math.abs(num));
-                let decimalPart = input.includes('.') ? input.split('.')[1] : '';
+                // International
+                const billion = Math.floor(num / 1000000000); num %= 1000000000;
+                const million = Math.floor(num / 1000000); num %= 1000000;
+                const thousand = Math.floor(num / 1000); num %= 1000;
+                const hundred = Math.floor(num / 100); num %= 100;
 
-                result = numberToWords(integerPart);
-                if (decimalPart) {
-                    result += ' point';
-                    for (let digit of decimalPart) {
-                        result += ' ' + (digit === '0' ? 'zero' : ones[parseInt(digit)]);
+                if (billion) words += numberToWordsInt(billion, false) + ' Billion ';
+                if (million) words += numberToWordsInt(million, false) + ' Million ';
+                if (thousand) words += numberToWordsInt(thousand, false) + ' Thousand ';
+                if (hundred) words += numberToWordsInt(hundred, false) + ' Hundred ';
+                if (num) {
+                    if (num < 20) words += ones[num];
+                    else words += tens[Math.floor(num / 10)] + (num % 10 ? ' ' + ones[num % 10] : '');
+                }
+            }
+            return words.replace(/\s+/g, ' ').trim();
+        }
+
+        // main conversion wrapper
+        function convertNumber(inputStr) {
+            // clean commas and spaces
+            let raw = inputStr.replace(/,/g, '').trim();
+            if (raw === '') return '';
+            let negative = raw.startsWith('-');
+            if (negative) raw = raw.slice(1);
+            // extract decimal
+            let parts = raw.split('.');
+            let integerPart = parts[0].replace(/[^\d]/g, '');
+            if (integerPart === '') integerPart = '0';
+            let decimalPart = parts[1] ? parts[1].replace(/[^\d]/g, '') : '';
+
+            let integer = parseInt(integerPart, 10);
+            if (isNaN(integer)) integer = 0;
+
+            const system = document.getElementById('numSystem').value;
+            const useIndian = (system === 'ind');
+            const currencyOn = document.getElementById('currencyToggle').checked;
+            const currSelect = document.getElementById('currencySelect').value;
+            const customCurr = document.getElementById('customCurrency').value.trim();
+            const currencyName = customCurr || (currSelect === 'USD' ? 'Dollar' : currSelect === 'PKR' ? 'Rupee' : currSelect === 'INR' ? 'Rupee' : currSelect === 'GBP' ? 'Pound' : currSelect === 'EUR' ? 'Euro' : 'Dirham');
+            const currencyCents = (currSelect === 'USD' || currSelect === 'EUR') ? 'Cents' : (currSelect === 'GBP' ? 'Pence' : 'Paise');
+
+            let integerWords = numberToWordsInt(integer, useIndian);
+            let result = '';
+            if (negative) result += 'Minus ';
+            if (currencyOn) {
+                result += integerWords + ' ' + currencyName;
+                if (decimalPart.length > 0) {
+                    let decNum = parseInt(decimalPart, 10);
+                    if (!isNaN(decNum)) {
+                        let decWords = numberToWordsInt(decNum, false);
+                        result += ' and ' + decWords + ' ' + currencyCents;
                     }
+                } else {
+                    result += ' only';
                 }
-                if (num < 0) result = 'negative ' + result;
-            }
-
-            if (casing === 'title') {
-                result = result.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-            } else if (casing === 'upper') {
-                result = result.toUpperCase();
             } else {
-                result = result.toLowerCase();
+                result += integerWords;
+                if (decimalPart.length > 0) {
+                    const decOpt = document.getElementById('decimalHandling').value;
+                    if (decOpt === 'words') {
+                        let decNum = parseInt(decimalPart, 10);
+                        result += ' Point ' + numberToWordsInt(decNum, false);
+                    } else if (decOpt === 'digits') {
+                        result += ' Point ' + decimalPart.split('').map(d => ones[parseInt(d)] || 'Zero').join(' ');
+                    } // else ignore
+                }
             }
-
-            resultDisplay.textContent = result;
+            // case
+            const caseOpt = document.getElementById('textCase').value;
+            if (caseOpt === 'UPPERCASE') result = result.toUpperCase();
+            else if (caseOpt === 'lowercase') result = result.toLowerCase();
+            // clean multiple spaces
+            return result.replace(/\s+/g, ' ').trim();
         }
 
-        document.getElementById('convertBtn').addEventListener('click', convert);
-        document.getElementById('numberInput').addEventListener('input', convert);
-        document.getElementById('currencyMode').addEventListener('change', convert);
-        document.querySelectorAll('input[name="casing"]').forEach(radio => radio.addEventListener('change', convert));
+        // stats & live update
+        function updateStats() {
+            let raw = document.getElementById('numberInput').value.replace(/,/g, '').trim();
+            let digits = raw.replace(/[^0-9.-]/g, '');
+            let digitCount = digits.replace(/[.-]/g, '').length;
+            document.getElementById('digitCount').innerText = digitCount;
+            document.getElementById('charCount').innerText = raw.length;
+            let cat = 'Thousands';
+            if (digitCount >= 10) cat = 'Billions'; else if (digitCount >= 7) cat = 'Millions';
+            document.getElementById('numCategory').innerText = cat;
+        }
 
-        document.getElementById('clearBtn').addEventListener('click', () => {
-            document.getElementById('numberInput').value = '';
-            document.getElementById('resultText').textContent = 'Zero';
-        });
+        function convertNow() {
+            let input = document.getElementById('numberInput').value;
+            let result = convertNumber(input);
+            document.getElementById('outputText').innerText = result || 'Invalid number';
+            // update out stats
+            document.getElementById('wordCount').innerText = result.split(/\s+/).length;
+            document.getElementById('outCharCount').innerText = result.length;
+            document.getElementById('outDigits').innerText = input.replace(/,/g, '').replace(/[^0-9]/g, '').length;
+            document.getElementById('outFormat').innerText = document.getElementById('numSystem').value === 'int' ? 'Intl' : 'Indian';
+            addToHistory(input, result);
+        }
 
-        document.getElementById('copyBtn').addEventListener('click', () => {
-            const text = document.getElementById('resultText').textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = document.getElementById('copyBtn');
-                btn.textContent = 'Copied!';
-                setTimeout(() => btn.textContent = 'Copy', 2000);
+        // history (last 5)
+        let history = JSON.parse(localStorage.getItem('numWordsHistory')) || [];
+        function addToHistory(input, output) {
+            history.unshift({ input, output });
+            if (history.length > 5) history.pop();
+            localStorage.setItem('numWordsHistory', JSON.stringify(history));
+            renderHistory();
+        }
+        function renderHistory() {
+            let html = '';
+            history.forEach((h, i) => {
+                html += `<div class="history-item" onclick="loadHistory(${i})"><i class="fas fa-history"></i> ${h.input} → ${h.output.substring(0, 30)}…</div>`;
             });
+            document.getElementById('historyContainer').innerHTML = html;
+        }
+        window.loadHistory = (idx) => {
+            document.getElementById('numberInput').value = history[idx].input;
+            convertNow();
+        };
+        window.clearHistory = () => { history = []; localStorage.removeItem('numWordsHistory'); renderHistory(); };
+
+        // copy, download, etc
+        function copyResult() {
+            let out = document.getElementById('outputText').innerText;
+            navigator.clipboard?.writeText(out).then(() => alert('Copied!'));
+        }
+        function downloadTxt() {
+            const text = document.getElementById('outputText').innerText;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob); a.download = 'number_words.txt'; a.click();
+        }
+
+        // currency toggle visibility
+        document.getElementById('currencyToggle').addEventListener('change', function (e) {
+            document.getElementById('currencyOptions').style.display = e.target.checked ? 'block' : 'none';
         });
+
+        // bindings
+        document.getElementById('convertBtn').addEventListener('click', convertNow);
+        document.getElementById('clearBtn').addEventListener('click', () => { document.getElementById('numberInput').value = ''; updateStats(); convertNow(); });
+        document.getElementById('copyOutputBtn').addEventListener('click', copyResult);
+        document.getElementById('swapFormatBtn').addEventListener('click', () => {
+            let sel = document.getElementById('numSystem');
+            sel.value = sel.value === 'int' ? 'ind' : 'int';
+            convertNow();
+        });
+        document.getElementById('downloadTxt').addEventListener('click', downloadTxt);
+        document.getElementById('downloadDoc').addEventListener('click', () => {
+            const text = document.getElementById('outputText').innerText;
+            const blob = new Blob([text], { type: 'application/msword' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob); a.download = 'number_words.doc'; a.click();
+        });
+        document.getElementById('printBtn').addEventListener('click', () => window.print());
+        document.getElementById('shareBtn').addEventListener('click', () => {
+            const out = document.getElementById('outputText').innerText;
+            navigator.clipboard?.writeText(out).then(() => alert('Result copied, you can share it!'));
+        });
+        document.getElementById('numberInput').addEventListener('input', (e) => {
+            // simple auto-format commas
+            let val = e.target.value.replace(/,/g, '');
+            if (!isNaN(parseFloat(val)) && val.includes('.')) {
+                // don't mess with decimal
+            } else if (!isNaN(parseFloat(val))) {
+                val = parseFloat(val).toLocaleString('en-US');
+            }
+            // but keep user friendly
+            updateStats();
+        });
+
+        window.onload = () => {
+            renderHistory();
+            document.getElementById('numberInput').value = '1,250.75';
+            convertNow();
+            updateStats();
+            // settings panel hidden by default
+        };
     </script>
 </body>
 

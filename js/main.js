@@ -259,8 +259,107 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ========================================
-    // Smooth Scroll for Anchor Links
+    // Search Functionality
     // ========================================
+    const searchBtn = document.getElementById('searchBtn');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const closeSearch = document.getElementById('closeSearch');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    // Data for all calculators
+    const calculators = [
+        { name: 'Age Calculator', url: 'calculators/age-calculator.html', desc: 'Calculate your exact age in years, months, and days.' },
+        { name: 'Percentage Calculator', url: 'calculators/percentage-calculator.html', desc: 'Calculate percentages, increases, and decreases easily.' },
+        { name: 'Date Difference Calculator', url: 'calculators/date-difference-calculator.html', desc: 'Find the number of days between two dates.' },
+        { name: 'Loan EMI Calculator', url: 'calculators/loan-emi-calculator.html', desc: 'Calculate your monthly loan installments.' },
+        { name: 'Simple Interest Calculator', url: 'calculators/simple-interest-calculator.html', desc: 'Calculate interest on your savings or loans.' },
+        { name: 'Compound Interest Calculator', url: 'calculators/compound-interest-calculator.html', desc: 'Calculate compounded interest over time.' },
+        { name: 'Profit & Loss Calculator', url: 'calculators/profit-loss-calculator.html', desc: 'Calculate business profit and loss margins.' },
+        { name: 'Discount Calculator', url: 'calculators/discount-calculator.html', desc: 'Find the final price after applying discounts.' },
+        { name: 'GPA Calculator', url: 'calculators/gpa-calculator.html', desc: 'Calculate your semester or cumulative GPA.' },
+        { name: 'Number to Words Converter', url: 'calculators/number-to-words-calculator.html', desc: 'Convert numerical values into written words.' },
+        { name: 'CV Maker', url: 'calculators/cv-maker.html', desc: 'Create a professional resume or CV online.' },
+        { name: 'Invoice Maker', url: 'calculators/invoice-maker.html', desc: 'Generate professional invoices for your business.' },
+        { name: 'AI Content Humanizer', url: 'calculators/ai-content-humanizer.html', desc: 'Transform AI-generated text into human-like content.' }
+    ];
+
+    if (searchBtn && searchOverlay && closeSearch) {
+        // Open search
+        searchBtn.addEventListener('click', () => {
+            searchOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scroll
+            setTimeout(() => searchInput.focus(), 300);
+        });
+
+        // Close search
+        const closeOverlay = () => {
+            searchOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Re-enable scroll
+            searchInput.value = '';
+            renderResults([]);
+        };
+
+        closeSearch.addEventListener('click', closeOverlay);
+
+        // Close on click outside
+        searchOverlay.addEventListener('click', (e) => {
+            if (e.target === searchOverlay) closeOverlay();
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+                closeOverlay();
+            }
+        });
+
+        // Search logic
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            
+            if (query.length === 0) {
+                renderResults([]);
+                return;
+            }
+
+            const filtered = calculators.filter(calc => 
+                calc.name.toLowerCase().includes(query) || 
+                calc.desc.toLowerCase().includes(query)
+            );
+
+            renderResults(filtered);
+        });
+
+        function renderResults(results) {
+            if (results.length === 0 && searchInput.value.length > 0) {
+                searchResults.innerHTML = '<div class="no-results">No tools found matching your search.</div>';
+                return;
+            }
+
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="search-placeholder">Start typing to find tools...</div>';
+                return;
+            }
+
+            // Determine base path (if we are in calculators folder)
+            const isInCalculatorsFolder = window.location.pathname.includes('/calculators/');
+            
+            searchResults.innerHTML = results.map(calc => `
+                <a href="${isInCalculatorsFolder ? '../' + calc.url : calc.url}" class="search-item">
+                    <h4>${highlightText(calc.name, searchInput.value)}</h4>
+                    <p>${highlightText(calc.desc, searchInput.value)}</p>
+                </a>
+            `).join('');
+        }
+
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<strong>$1</strong>');
+        }
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');

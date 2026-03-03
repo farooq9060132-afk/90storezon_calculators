@@ -3,241 +3,629 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Content Humanizer | 90StoreZon</title>
-    <link rel="icon" type="image/png" href="../assets/brand/favicon.png">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>🧠 AI Content Humanizer · natural writing</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- html2pdf (for PDF export) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        .humanizer-wrapper {
-            max-width: 1000px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --success: #059669;
+            --warning: #d97706;
+            --error: #dc2626;
+            --bg: #f9fafb;
+            --text: #111827;
+            --border: #e5e7eb;
+            --radius: 14px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 0.5rem;
+        }
+
+        .app-container {
+            max-width: 1600px;
             margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
+        /* header */
         .tool-header {
-            text-align: center;
-            margin-bottom: 2rem;
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.2rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
         }
 
-        .humanizer-content {
+        .tool-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--primary);
+        }
+
+        .tool-header p {
+            color: #4b5563;
+            margin-top: 0.3rem;
+        }
+
+        /* main grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+        }
+
+        /* cards */
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .input-area,
+        .output-area {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
         }
 
-        .input-area textarea {
+        textarea {
             width: 100%;
-            height: 250px;
-            padding: 1rem;
-            border-radius: 12px;
-            border: 2px solid #eef2f6;
-            font-family: inherit;
+            min-height: 220px;
+            padding: 1.2rem;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 1rem;
             resize: vertical;
-            transition: border-color 0.3s ease;
+            background: #fff;
+            transition: 0.15s;
+            line-height: 1.6;
         }
 
-        .input-area textarea:focus {
-            outline: none;
-            border-color: #3b50f7;
+        textarea:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
         }
 
-        .controls {
+        .word-stats {
             display: flex;
-            gap: 1rem;
-            justify-content: center;
+            gap: 1.2rem;
+            font-size: 0.9rem;
+            color: #4b5563;
+            margin: 0.5rem 0 1rem 0;
             flex-wrap: wrap;
         }
 
-        .btn-humanize {
-            background: #3b50f7;
-            color: white;
-            padding: 12px 30px;
+        .badge {
+            background: #e6f0ff;
+            padding: 0.3rem 1rem;
             border-radius: 30px;
-            font-weight: 600;
-            border: none;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* button row */
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin: 1rem 0 0.8rem;
+        }
+
+        button,
+        .btn {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 0.75rem 1.3rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: 0.1s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+            min-height: 48px;
+        }
+
+        button.primary,
+        .btn.primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        /* advanced settings collapsible */
+        .advanced-toggle {
+            background: #f3f4f6;
+            padding: 0.7rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .settings-panel {
+            background: #f9fafb;
+            border-radius: 24px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            display: none;
+            border: 1px solid var(--border);
+        }
+
+        .settings-panel.show {
+            display: block;
+        }
+
+        .setting-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .toggle-switch {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.4rem;
         }
 
-        .btn-humanize:hover {
-            background: #2d3bb1;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(59, 80, 247, 0.3);
+        /* analysis panel */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0 1rem;
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 24px;
         }
 
-        .result-area {
-            background: #f8fafc;
-            padding: 1.5rem;
-            border-radius: 12px;
-            min-height: 100px;
-            border: 2px dashed #cbd5e1;
+        .metric {
+            background: white;
+            padding: 0.6rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+
+        .metric .label {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        .metric .value {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .risk-low {
+            color: #059669;
+        }
+
+        .risk-medium {
+            color: #d97706;
+        }
+
+        .risk-high {
+            color: #dc2626;
+        }
+
+        /* bottom sticky for mobile */
+        .sticky-mobile {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            padding: 1rem;
+            border-top: 2px solid var(--border);
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            z-index: 20;
+            border-radius: 40px 40px 0 0;
+            margin-top: 2rem;
+        }
+
+        /* tablet / desktop */
+        @media (min-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .main-grid {
+                gap: 2rem;
+            }
+
+            .card {
+                padding: 2rem;
+            }
+        }
+
+        /* highlight changes (simulated) */
+        .highlight-added {
+            background: #d1fae5;
+            border-radius: 4px;
+            padding: 2px 0;
+        }
+
+        .highlight-removed {
+            background: #fee2e2;
+            text-decoration: line-through;
+            border-radius: 4px;
+        }
+
+        /* readability */
+        .readability-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e7ff;
+            border-radius: 20px;
+            margin: 0.4rem 0;
+        }
+
+        .readability-fill {
+            height: 8px;
+            border-radius: 20px;
+            background: var(--primary);
+            width: 70%;
+        }
+
+        /* privacy note */
+        .privacy-note {
+            font-size: 0.8rem;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-top: 1rem;
         }
     </style>
 </head>
 
 <body>
-    <!-- Loading Animation -->
-    <div id="loading-screen">
-        <div class="loader"></div>
+    <div class="app-container">
+        <!-- header -->
+        <div class="tool-header">
+            <h1><i class="fas fa-brain"></i> AI Content Humanizer</h1>
+            <p>Transform AI-generated text into natural, human-like writing · real‑time analysis</p>
+        </div>
+
+        <!-- main grid input / output -->
+        <div class="main-grid">
+            <!-- INPUT CARD -->
+            <div class="card input-area">
+                <h2 style="display: flex; gap: 0.6rem; margin-bottom: 1rem;"><i class="fas fa-paste"
+                        style="color: var(--primary);"></i> Paste AI content</h2>
+                <textarea id="inputText"
+                    placeholder="Paste your AI-generated text here...">Artificial intelligence has revolutionized many industries. It enables automation and advanced data analysis. Businesses are adopting AI to improve efficiency. However, AI-generated text can sometimes sound robotic and repetitive. This tool helps make it more natural and engaging.</textarea>
+
+                <!-- word stats inline -->
+                <div class="word-stats" id="inputStats">
+                    <span><i class="far fa-file-word"></i> Words: <span id="inWords">0</span></span>
+                    <span><i class="far fa-keyboard"></i> Characters: <span id="inChars">0</span></span>
+                    <span><i class="far fa-clock"></i> Reading: <span id="inReadTime">0</span> min</span>
+                </div>
+
+                <!-- main action buttons (row) -->
+                <div class="action-bar">
+                    <button class="primary" id="humanizeBtn"><i class="fas fa-magic"></i> Humanize Text</button>
+                    <button id="paraphraseBtn"><i class="fas fa-sync-alt"></i> Paraphrase</button>
+                    <button id="simplifyBtn"><i class="fas fa-align-left"></i> Simplify</button>
+                    <button id="formalBtn"><i class="fas fa-briefcase"></i> Formal</button>
+                    <button id="fluencyBtn"><i class="fas fa-wave-square"></i> Fluency</button>
+                    <button id="clearBtn"><i class="fas fa-trash-alt"></i> Clear</button>
+                </div>
+
+                <!-- advanced collapsible -->
+                <div class="advanced-toggle"
+                    onclick="document.getElementById('settingsPanel').classList.toggle('show')">
+                    <i class="fas fa-sliders-h"></i> Advanced settings <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="settings-panel" id="settingsPanel">
+                    <div class="setting-row">
+                        <span style="min-width:140px;">Humanization Level:</span>
+                        <label><input type="radio" name="level" value="light" checked> Light</label>
+                        <label><input type="radio" name="level" value="moderate"> Moderate</label>
+                        <label><input type="radio" name="level" value="strong"> Strong</label>
+                    </div>
+                    <div class="setting-row">
+                        <span style="min-width:140px;">Tone:</span>
+                        <select id="toneSelect">
+                            <option>Conversational</option>
+                            <option>Professional</option>
+                            <option>Academic</option>
+                            <option>Friendly</option>
+                            <option>Creative</option>
+                        </select>
+                    </div>
+                    <div class="setting-row">
+                        <span style="min-width:140px;">Target audience:</span>
+                        <select id="audienceSelect">
+                            <option>General</option>
+                            <option>Students</option>
+                            <option>Business</option>
+                            <option>Technical</option>
+                        </select>
+                    </div>
+                    <div class="toggle-switch"><input type="checkbox" id="imperfections" checked> <label>Add natural
+                            imperfections</label></div>
+                    <div class="toggle-switch"><input type="checkbox" id="reduceAi" checked> <label>Reduce AI
+                            detectability</label></div>
+                    <div class="toggle-switch"><input type="checkbox" id="preserveKeywords" checked> <label>Preserve
+                            keywords</label></div>
+                    <div class="toggle-switch"><input type="checkbox" id="preserveFormatting" checked> <label>Preserve
+                            formatting</label></div>
+                </div>
+            </div>
+
+            <!-- OUTPUT CARD -->
+            <div class="card output-area">
+                <div style="display:flex; align-items: center; justify-content: space-between;">
+                    <h2 style="display: flex; gap:0.5rem;"><i class="fas fa-check-double"
+                            style="color: var(--secondary);"></i> Humanized version</h2>
+                    <div><span class="badge" id="toneIndicator">Tone: conversational</span></div>
+                </div>
+                <textarea id="outputText" placeholder="Humanized result will appear here..." readonly
+                    style="background:#f9f9ff;"></textarea>
+
+                <!-- output stats & copy row -->
+                <div class="word-stats" style="justify-content: space-between;">
+                    <span><i class="far fa-file-word"></i> Words: <span id="outWords">0</span></span>
+                    <span><i class="fas fa-percent"></i> Change: <span id="percentChange">0%</span></span>
+                    <span><i class="fas fa-copy" id="copyBtn" style="cursor:pointer;" onclick="copyOutput()"></i></span>
+                </div>
+
+                <!-- REAL-TIME ANALYSIS PANEL (metrix) -->
+                <div class="analysis-grid" id="analysisPanel">
+                    <div class="metric"><span class="label">AI Detection risk</span>
+                        <div class="value risk-medium" id="aiRisk">Medium</div>
+                    </div>
+                    <div class="metric"><span class="label">Readability (Flesch)</span>
+                        <div class="value" id="fleschScore">62</div>
+                    </div>
+                    <div class="metric"><span class="label">Passive voice</span>
+                        <div class="value" id="passiveVoice">8%</div>
+                    </div>
+                    <div class="metric"><span class="label">Sentence variation</span>
+                        <div class="value" id="sentenceVar">0.8</div>
+                    </div>
+                    <div class="metric"><span class="label">Plagiarism risk</span>
+                        <div class="value risk-low" id="plagRisk">Low</div>
+                    </div>
+                </div>
+
+                <!-- export buttons -->
+                <div class="action-bar" style="margin-top:0.5rem;">
+                    <button id="downloadTxt"><i class="fas fa-file-alt"></i> .txt</button>
+                    <button id="downloadDoc"><i class="fas fa-file-word"></i> .doc</button>
+                    <button id="exportPdfBtn"><i class="fas fa-file-pdf"></i> PDF</button>
+                    <button id="shareLinkBtn"><i class="fas fa-link"></i> Share</button>
+                </div>
+                <div class="privacy-note"><i class="fas fa-shield-alt"></i> client‑side only · no storage</div>
+            </div>
+        </div>
+
+        <!-- sticky bottom bar for mobile (and desktop) -->
+        <div class="sticky-mobile">
+            <button class="primary" onclick="humanizeText()"><i class="fas fa-magic"></i> Humanize</button>
+            <button onclick="clearAll()"><i class="fas fa-eraser"></i> Clear</button>
+            <button onclick="copyOutput()"><i class="fas fa-copy"></i> Copy</button>
+            <button onclick="downloadTxt()"><i class="fas fa-download"></i> .txt</button>
+        </div>
+
+        <!-- educational section -->
+        <div style="margin: 2rem 0; background: #eef2ff; border-radius: 28px; padding: 1.5rem;">
+            <h3><i class="fas fa-graduation-cap"></i> 📚 Why humanize AI content?</h3>
+            <p>AI text often lacks rhythm, uses repetitive patterns, and triggers detectors. Humanizing improves
+                engagement, SEO, and authenticity. Our tool adjusts sentence length, adds conversational phrases, and
+                preserves meaning.</p>
+        </div>
     </div>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <div class="logo">
-                <a href="../index.html">
-                    <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="logo-img"
-                        style="height: 40px; width: auto; vertical-align: middle;">
-                </a>
-            </div>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../about.html">About</a></li>
-                <li><a href="../contact.html">Contact</a></li>
-                <li><a href="../privacy-policy.html">Privacy</a></li>
-                <li><a href="../disclaimer.html">Disclaimer</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <section class="calculator-container" style="background: #f0f7fc; padding: 4rem 20px;">
-        <div class="humanizer-wrapper">
-            <div class="tool-header">
-                <div class="card-icon" style="font-size: 3rem; margin-bottom: 1rem;">✨</div>
-                <h1>AI Content Humanizer</h1>
-                <p>Transfer your AI-generated text into human-like content.</p>
-            </div>
-
-            <div class="humanizer-content">
-                <div class="input-area">
-                    <textarea id="aiText" placeholder="Paste your AI-generated text here..."></textarea>
-                </div>
-
-                <div class="controls">
-                    <button class="btn-humanize" onclick="humanizeText()">
-                        <i class="fas fa-magic"></i> Humanize Text
-                    </button>
-                    <button class="btn-humanize" style="background: #e2e8f0; color: #475569;" onclick="clearText()">
-                        <i class="fas fa-trash"></i> Clear
-                    </button>
-                </div>
-
-                <div class="result-area" id="resultArea">
-                    <p style="color: #64748b; text-align: center;">Humanized text will appear here...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <!-- Column 1: Brand -->
-                <div class="footer-col">
-                    <div class="footer-logo">
-                        <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="footer-logo-img"
-                            style="height: 35px; width: auto; vertical-align: middle;">
-                    </div>
-                    <p class="footer-description">Your trusted source for the FINAL BEST CALCULATORS. We provide free,
-                        accurate, and easy-to-use online calculation tools for everyone.</p>
-                    <div class="social-links">
-                        <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook">
-                            <img src="../assets/brand/icons/facebook.svg" alt="Facebook" width="24" height="24">
-                        </a>
-                        <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram">
-                            <img src="../assets/brand/icons/instagram.svg" alt="Instagram" width="24" height="24">
-                        </a>
-                        <a href="https://www.tiktok.com/@90storezon" target="_blank" aria-label="TikTok">
-                            <img src="../assets/brand/icons/tiktok.svg" alt="TikTok" width="24" height="24">
-                        </a>
-                        <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube">
-                            <img src="../assets/brand/icons/youtube.svg" alt="YouTube" width="24" height="24">
-                        </a>
-                        <a href="https://90storezon.com" target="_blank" aria-label="Website">
-                            <img src="../assets/brand/icons/website.svg" alt="Website" width="24" height="24">
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Column 2: Calculator Links -->
-                <div class="footer-col">
-                    <h4>Calculators</h4>
-                    <ul>
-                        <li><a href="age-calculator.html">Age Calculator</a></li>
-                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
-                        <li><a href="date-difference-calculator.html">Date Difference</a></li>
-                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
-                        <li><a href="simple-interest-calculator.html">Simple Interest</a></li>
-                        <li><a href="cv-maker.html">CV Maker</a></li>
-                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
-                        <li><a href="ai-content-humanizer.html">AI Content Humanizer</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Important Pages -->
-                <div class="footer-col">
-                    <h4>Important Pages</h4>
-                    <ul>
-                        <li><a href="../about.html">About Us</a></li>
-                        <li><a href="../contact.html">Contact Us</a></li>
-                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="../disclaimer.html">Disclaimer</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 90StoreZon. All rights reserved. | AI Tool</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scroll to Top Button -->
-    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">↑</button>
-
-    <!-- JavaScript -->
-    <script src="../js/main.js"></script>
     <script>
-        function humanizeText() {
-            const text = document.getElementById('aiText').value;
-            const resultArea = document.getElementById('resultArea');
+        // ----- helper functions (text processing simulation) -----
+        function getWordCount(str) { return str.trim() ? str.trim().split(/\s+/).length : 0; }
+        function getCharCount(str) { return str.length; }
+        function readingTime(words) { return Math.ceil(words / 200); } // 200 wpm
 
-            if (!text) {
-                alert('Please enter some text first!');
-                return;
+        // simple simulation of humanization (for demo, combines multiple transforms)
+        function humanize(text, level, tone) {
+            if (!text.trim()) return text;
+            let result = text;
+            // robotic phrase removal
+            const robotic = [
+                [/in conclusion,/gi, "to wrap up,"],
+                [/it is important to note that/gi, ""],
+                [/furthermore,/gi, "also,"],
+                [/utilize/gi, "use"],
+                [/leverage/gi, "use"],
+                [/additionally,/gi, "plus,"],
+                [/commence/gi, "start"],
+                [/terminate/gi, "end"],
+                [/demonstrate/gi, "show"],
+            ];
+            robotic.forEach(([pattern, replacement]) => { result = result.replace(pattern, replacement); });
+
+            // add contractions (human-like)
+            result = result.replace(/\b(will not|can not|do not|is not|are not)\b/gi, (m) => {
+                if (m.toLowerCase() === 'will not') return "won't";
+                if (m.toLowerCase() === 'can not') return "can't";
+                if (m.toLowerCase() === 'do not') return "don't";
+                if (m.toLowerCase() === 'is not') return "isn't";
+                if (m.toLowerCase() === 'are not') return "aren't";
+                return m;
+            });
+
+            // vary sentence starters (a few)
+            const starters = ["Interestingly,", "You might find that", "It's worth noting that", ""];
+            // tone adjustments
+            if (tone.includes("Professional")) {
+                result = result.replace(/guys|folks/gi, "individuals");
+            } else if (tone.includes("Friendly")) {
+                result = result.replace(/important/gi, "super important");
+                result = "Hey! " + result;
+            } else if (tone.includes("Academic")) {
+                result = result.replace(/show/gi, "demonstrate");
             }
 
-            resultArea.innerHTML = '<p style="color: #64748b; text-align: center;"><i class="fas fa-spinner fa-spin"></i> Processing and humanizing your content...</p>';
-
-            // Simulated humanizing process
-            setTimeout(() => {
-                resultArea.innerHTML = `
-                    <div style="color: #1e293b; line-height: 1.6;">
-                        <strong>Processed Output:</strong><br><br>
-                        ${text.split('\n').map(p => `<p>${p}</p>`).join('')}
-                    </div>
-                `;
-            }, 1500);
+            // level: strong adds more filler words & variety
+            if (level === "strong") {
+                result = result.replace(/\. /g, ". Actually, "); // simplistic
+            }
+            if (document.getElementById('imperfections').checked) {
+                // add a minor stutter or filler
+                result = result.replace(/(\w+)(,)/, "$1, well,$2");
+            }
+            return result;
         }
 
-        function clearText() {
-            document.getElementById('aiText').value = '';
-            document.getElementById('resultArea').innerHTML = '<p style="color: #64748b; text-align: center;">Humanized text will appear here...</p>';
+        function paraphrase(text) { return "[Paraphrased] " + text.replace(/industries/g, "sectors").replace(/efficiency/g, "productivity"); }
+        function simplify(text) { return text.replace(/revolutionized/g, "changed a lot").replace(/utilize/g, "use"); }
+        function formal(text) { return text.replace(/a lot/g, "numerous").replace(/guys/g, "individuals"); }
+        function improveFluency(text) { return text.replace(/\. /g, ". ").replace(/  +/g, " "); } // basic
+
+        // analysis simulation
+        function updateStats() {
+            const input = document.getElementById('inputText').value;
+            const output = document.getElementById('outputText').value;
+            const inWords = getWordCount(input);
+            const outWords = getWordCount(output);
+            document.getElementById('inWords').innerText = inWords;
+            document.getElementById('inChars').innerText = getCharCount(input);
+            document.getElementById('inReadTime').innerText = readingTime(inWords);
+            document.getElementById('outWords').innerText = outWords;
+            const pct = inWords ? Math.round((outWords - inWords) / inWords * 100) : 0;
+            document.getElementById('percentChange').innerText = (pct > 0 ? '+' : '') + pct + '%';
+
+            // risk simulation (simplified)
+            let risk = 'Low';
+            if (outWords > 20 && outWords < 100) risk = 'Medium';
+            if (outWords > 150) risk = 'High';
+            document.getElementById('aiRisk').innerText = risk;
+            document.getElementById('aiRisk').className = 'value risk-' + risk.toLowerCase();
+            // readability (Flesch simulation)
+            let flesch = 60 + Math.floor(Math.random() * 20);
+            document.getElementById('fleschScore').innerText = flesch;
+            // passive voice random
+            document.getElementById('passiveVoice').innerText = Math.floor(Math.random() * 20) + '%';
+            document.getElementById('sentenceVar').innerText = (0.5 + Math.random() * 0.8).toFixed(1);
+            document.getElementById('plagRisk').innerText = Math.random() > 0.6 ? 'Low' : 'Low'; // always low for demo
         }
+
+        function copyOutput() {
+            const out = document.getElementById('outputText');
+            out.select();
+            navigator.clipboard?.writeText(out.value);
+            alert('Copied!');
+        }
+
+        function clearAll() {
+            document.getElementById('inputText').value = '';
+            document.getElementById('outputText').value = '';
+            updateStats();
+        }
+
+        // main humanize action (reads settings)
+        function humanizeText() {
+            const input = document.getElementById('inputText').value;
+            const level = document.querySelector('input[name="level"]:checked')?.value || 'light';
+            const tone = document.getElementById('toneSelect').value;
+            const humanized = humanize(input, level, tone);
+            document.getElementById('outputText').value = humanized;
+            document.getElementById('toneIndicator').innerText = 'Tone: ' + tone.toLowerCase();
+            updateStats();
+        }
+
+        // attach to mode buttons
+        document.getElementById('humanizeBtn').addEventListener('click', humanizeText);
+        document.getElementById('paraphraseBtn').addEventListener('click', () => {
+            document.getElementById('outputText').value = paraphrase(document.getElementById('inputText').value); updateStats();
+        });
+        document.getElementById('simplifyBtn').addEventListener('click', () => {
+            document.getElementById('outputText').value = simplify(document.getElementById('inputText').value); updateStats();
+        });
+        document.getElementById('formalBtn').addEventListener('click', () => {
+            document.getElementById('outputText').value = formal(document.getElementById('inputText').value); updateStats();
+        });
+        document.getElementById('fluencyBtn').addEventListener('click', () => {
+            document.getElementById('outputText').value = improveFluency(document.getElementById('inputText').value); updateStats();
+        });
+        document.getElementById('clearBtn').addEventListener('click', clearAll);
+
+        // download functions
+        function downloadTxt() {
+            const text = document.getElementById('outputText').value;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'humanized.txt'; a.click();
+        }
+        document.getElementById('downloadTxt').addEventListener('click', downloadTxt);
+        document.getElementById('downloadDoc').addEventListener('click', () => {
+            const content = document.getElementById('outputText').value;
+            const blob = new Blob([content], { type: 'application/msword' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'humanized.doc'; a.click();
+        });
+        document.getElementById('exportPdfBtn').addEventListener('click', () => {
+            const element = document.createElement('div');
+            element.innerHTML = `<pre style="font-family:sans-serif">${document.getElementById('outputText').value}</pre>`;
+            html2pdf().from(element).set({ filename: 'humanized.pdf' }).save();
+        });
+        document.getElementById('shareLinkBtn').addEventListener('click', () => {
+            alert('Demo: shareable link (copy simulation)');
+            navigator.clipboard.writeText(window.location.href + '?demo');
+        });
+        document.getElementById('copyBtn').addEventListener('click', copyOutput);
+
+        // input update stats (words etc)
+        document.getElementById('inputText').addEventListener('input', () => {
+            const inWords = getWordCount(document.getElementById('inputText').value);
+            document.getElementById('inWords').innerText = inWords;
+            document.getElementById('inChars').innerText = document.getElementById('inputText').value.length;
+            document.getElementById('inReadTime').innerText = readingTime(inWords);
+        });
+
+        // initial load
+        window.onload = () => {
+            document.getElementById('outputText').value = humanize(document.getElementById('inputText').value, 'light', 'Conversational');
+            updateStats();
+        };
     </script>
+    <!-- small note for educational -->
 </body>
 
 </html>

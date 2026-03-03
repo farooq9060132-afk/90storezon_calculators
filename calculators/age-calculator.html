@@ -1,669 +1,525 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>🎂 Age Calculator · exact age · next birthday · fun facts</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        :root {
-            --primary: #667eea;
-            --primary-dark: #5a67d8;
-            --secondary: #764ba2;
-            --success: #48bb78;
-            --bg-light: #f7fafc;
-            --text-primary: #2d3748;
-            --text-secondary: #718096;
-            --border: #e2e8f0;
-            --accent: #f6ad55;
-            --radius: 16px;
-            --radius-sm: 10px;
-            --space-mob: 16px;
-            --space-tab: 24px;
-            --space-desk: 32px;
-            --shadow: 0 20px 25px -5px rgba(0 0 0 / 0.1), 0 8px 10px -6px rgba(0 0 0 / 0.02);
-        }
-
-        body {
-            background: #edf2f7;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: var(--space-mob);
-        }
-
-        .age-card {
-            max-width: 1400px;
-            width: 100%;
-            background: white;
-            border-radius: calc(var(--radius) * 1.5);
-            box-shadow: var(--shadow);
-            overflow: hidden;
-        }
-
-        /* header */
-        .app-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: clamp(20px, 5vw, 40px);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .app-header h1 {
-            font-size: clamp(2rem, 6vw, 2.8rem);
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            letter-spacing: -0.02em;
-        }
-
-        .app-header p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-            margin-left: auto;
-        }
-
-        /* main 2-col (desktop) */
-        .main-grid {
-            display: flex;
-            flex-direction: column;
-        }
-
-        @media (min-width: 1024px) {
-            .main-grid {
-                flex-direction: row;
-            }
-
-            .input-col {
-                width: 40%;
-                border-right: 2px solid var(--border);
-            }
-
-            .result-col {
-                width: 60%;
-            }
-        }
-
-        .input-col,
-        .result-col {
-            padding: clamp(20px, 4vw, 40px);
-        }
-
-        /* card style */
-        .card {
-            background: var(--bg-light);
-            border-radius: var(--radius);
-            padding: clamp(20px, 4vw, 32px);
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-            margin-bottom: 24px;
-        }
-
-        .input-group {
-            margin-bottom: 28px;
-        }
-
-        .input-group label {
-            font-weight: 600;
-            color: var(--text-secondary);
-            display: block;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-
-        .date-field {
-            display: flex;
-            align-items: center;
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 4px 16px;
-        }
-
-        .date-field input {
-            border: none;
-            outline: none;
-            width: 100%;
-            padding: 16px 0;
-            font-size: 1rem;
-            background: transparent;
-        }
-
-        .date-field button {
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            line-height: 1;
-            padding: 0 6px;
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-            flex-wrap: wrap;
-            background: white;
-            padding: 14px 20px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
-            margin-bottom: 20px;
-        }
-
-        .radio-group label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 18px 36px;
-            border-radius: 60px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 10px 20px -8px var(--primary);
-            transition: all 0.15s;
-            width: 100%;
-            min-height: 64px;
-        }
-
-        .btn-primary:active {
-            transform: scale(0.98);
-            background: var(--primary-dark);
-        }
-
-        /* result area */
-        .result-badge {
-            background: white;
-            border-radius: var(--radius);
-            padding: 28px;
-            border-left: 8px solid var(--primary);
-            box-shadow: var(--shadow);
-        }
-
-        .primary-age {
-            font-size: clamp(2.2rem, 6vw, 3.8rem);
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-
-        .detail-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 16px;
-            margin: 24px 0;
-        }
-
-        .stat-box {
-            background: var(--bg-light);
-            padding: 18px;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--secondary);
-        }
-
-        .fun-fact-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-top: 20px;
-            background: #f0f4ff;
-            border-radius: var(--radius-sm);
-            padding: 20px;
-        }
-
-        .fact-item {
-            background: white;
-            padding: 10px 18px;
-            border-radius: 40px;
-            border: 1px solid var(--border);
-            font-size: 0.95rem;
-        }
-
-        .footer-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 28px;
-            justify-content: flex-end;
-        }
-
-        .footer-actions button {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 40px;
-            padding: 12px 24px;
-            font-weight: 500;
-            cursor: pointer;
-            min-height: 48px;
-        }
-
-        /* mobile collapsible */
-        @media (max-width: 767px) {
-            .result-col details {
-                background: white;
-                border: 1px solid var(--border);
-                border-radius: var(--radius);
-                padding: 12px 16px;
-                margin-bottom: 16px;
-            }
-
-            .result-col summary {
-                font-weight: 700;
-                font-size: 1.1rem;
-                cursor: pointer;
-                padding: 8px 0;
-            }
-
-            .footer-actions {
-                justify-content: center;
-            }
-        }
-
-        /* tablet */
-        @media (min-width: 768px) and (max-width: 1023px) {
-            .main-grid {
-                flex-direction: column;
-            }
-
-            .input-col,
-            .result-col {
-                width: 100%;
-            }
-
-            .detail-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        /* hover desktop */
-        @media (min-width: 1024px) {
-            .btn-primary:hover {
-                background: var(--primary-dark);
-                transform: scale(1.02);
-            }
-
-            .footer-actions button:hover {
-                background: #e2e8f0;
-            }
-        }
-
-        .tool-selector {
-            background: #f1f5f9;
-            border-radius: var(--radius);
-            padding: 20px;
-            margin-bottom: 24px;
-        }
-
-        .tool-selector select,
-        .tool-selector input {
-            width: 100%;
-            padding: 16px;
-            border-radius: 60px;
-            border: 1px solid var(--border);
-            font-size: 1rem;
-            margin-bottom: 12px;
-        }
-
-        .popular-tools {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .popular-tools span {
-            background: white;
-            border-radius: 40px;
-            padding: 10px 18px;
-            border: 1px solid var(--border);
-            cursor: pointer;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="age-card">
-        <header class="app-header">
-            <h1>🎂 Age Calculator</h1>
-            <p>exact age · next birthday · fun facts</p>
-        </header>
-
-        <!-- Tool selector (as requested) -->
-        <div style="padding: 20px 32px 0 32px;">
-            <div class="tool-selector">
-                <label style="font-weight:600; display:block; margin-bottom:8px;">🔧 Select Tool Name</label>
-                <input type="text" placeholder="Enter or select tool name here..." value="Age Calculator"
-                    style="width:100%;">
-                <div class="popular-tools" style="margin-top:12px;">
-                    <span>📝 Content Humanizer</span>
-                    <span>🔍 Grammar Checker</span>
-                    <span>✂️ Paraphrasing</span>
-                    <span>🎂 Age Calculator</span>
-                    <span>📅 Date Difference</span>
-                </div>
-                <div style="margin-top:12px; color:var(--text-secondary); font-size:0.9rem;">یہاں آپ اپنے ٹول کا نام درج
-                    کریں</div>
-            </div>
-        </div>
-
-        <!-- main content -->
-        <div class="main-grid" id="mainGrid">
-            <!-- input column -->
-            <div class="input-col">
-                <div class="card">
-                    <h3 style="margin-bottom:24px; display:flex; gap:8px;">📅 Date of Birth</h3>
-                    <div class="input-group">
-                        <label>Birth date</label>
-                        <div class="date-field">
-                            <input type="date" id="birthDate" value="2000-01-15">
-                            <button>📅</button>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label>Calculate age as of</label>
-                        <div class="radio-group">
-                            <label><input type="radio" name="ageAsOf" id="todayRadio" checked> Today's date</label>
-                            <label><input type="radio" name="ageAsOf" id="specificRadio"> Specific date</label>
-                        </div>
-                        <div class="date-field" id="specificDateField" style="display:none;">
-                            <input type="date" id="targetDate" value="2026-03-02">
-                        </div>
-                    </div>
-
-                    <button class="btn-primary" id="calcAgeBtn">🚀 Calculate Age</button>
-                    <div style="display:flex; gap:12px; margin-top:16px;">
-                        <button class="btn-secondary"
-                            style="flex:1; background:white; border:1px solid var(--border); padding:16px; border-radius:60px;">Clear</button>
-                    </div>
-                </div>
-
-                <!-- quick info -->
-                <div class="card" style="background:#fef9e7;">
-                    <p><strong>💡 Quick tips:</strong> Your birth date cannot be in the future. All results include leap
-                        years.</p>
-                </div>
-            </div>
-
-            <!-- result column -->
-            <div class="result-col">
-                <div class="result-badge" id="resultBox">
-                    <div class="text-secondary" id="subtitle">From 15 Jan 2000 → 2 Mar 2026</div>
-                    <div class="primary-age" id="primaryAge">26 Years, 1 Month, 15 Days</div>
-
-                    <!-- detailed breakdown grid -->
-                    <div class="detail-grid">
-                        <div class="stat-box"><span class="stat-value" id="totalMonths">313</span> months</div>
-                        <div class="stat-box"><span class="stat-value" id="totalWeeks">1,361</span> weeks</div>
-                        <div class="stat-box"><span class="stat-value" id="totalDays">9,529</span> days</div>
-                        <div class="stat-box"><span class="stat-value" id="totalHours">228,696</span> hours</div>
-                        <div class="stat-box"><span class="stat-value" id="totalMinutes">13,721,760</span> min</div>
-                        <div class="stat-box"><span class="stat-value" id="totalSeconds">823,305,600</span> sec</div>
-                    </div>
-
-                    <!-- next birthday + fun facts -->
-                    <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center; margin:20px 0;">
-                        <div><span style="font-weight:600;">🎂 Next birthday:</span> <span id="nextBday">15 Jan 2027 (in
-                                10 months)</span></div>
-                        <div><span style="font-weight:600;">📅 Day of birth:</span> <span
-                                id="birthWeekday">Saturday</span></div>
-                    </div>
-
-                    <div class="fun-fact-row" id="funFactsRow">
-                        <span class="fact-item">♑ Capricorn</span>
-                        <span class="fact-item">🐀 Rat (Chinese)</span>
-                        <span class="fact-item">💎 Garnet</span>
-                        <span class="fact-item">🌸 Carnation</span>
-                        <span class="fact-item">📱 Millennial</span>
-                    </div>
-
-                    <!-- visual progress (optional) -->
-                    <div style="margin:24px 0 12px;">
-                        <div style="display:flex; justify-content:space-between; font-size:0.9rem;">
-                            <span>Progress to next birthday</span> <span id="progressPercent">78%</span>
-                        </div>
-                        <div class="visual-bar"
-                            style="background:var(--border); height:12px; border-radius:40px; overflow:hidden;">
-                            <div class="visual-fill" id="progressFill"
-                                style="width:78%; background:var(--accent); height:100%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="footer-actions">
-                        <button id="shareBtn">📤 Share</button>
-                        <button id="copyBtn">📋 Copy</button>
-                        <button id="printBtn">🖨️ Print</button>
-                    </div>
-                </div>
-
-                <!-- collapsible extras (mobile friendly) -->
-                <details>
-                    <summary>🌟 More fun facts & generation</summary>
-                    <div style="padding:16px; background:white; border-radius:var(--radius-sm);">
-                        <p>✨ Famous birthdays: Michelle Obama (Jan 17), Martin Luther King (Jan 15).</p>
-                        <p>✨ You are part of the Millennial generation (born 1981–1996).</p>
-                        <p>✨ Your birthstone is Garnet · Flower: Carnation.</p>
-                    </div>
-                </details>
-            </div>
-        </div>
-
-        <!-- footer with settings (dark/light toggle demo) -->
-        <div
-            style="padding: 16px 32px; border-top: 2px solid var(--border); display:flex; gap:20px; flex-wrap:wrap; justify-content:space-between; background:white;">
-            <div style="display:flex; gap:16px;">
-                <button
-                    style="padding:10px 20px; border-radius:40px; border:1px solid var(--border); background:white;">🌙
-                    Dark mode (demo)</button>
-                <button
-                    style="padding:10px 20px; border-radius:40px; border:1px solid var(--border); background:white;">📄
-                    Print preview</button>
-            </div>
-            <div style="color:var(--text-secondary);">© 2026 · precision age</div>
-        </div>
-    </div>
-
-    <script>
-        (function () {
-            const today = new Date();
-            const todayStr = today.toISOString().slice(0, 10);
-
-            // DOM elements
-            const birthInput = document.getElementById('birthDate');
-            const todayRadio = document.getElementById('todayRadio');
-            const specificRadio = document.getElementById('specificRadio');
-            const targetDateDiv = document.getElementById('specificDateField');
-            const targetInput = document.getElementById('targetDate');
-            const calcBtn = document.getElementById('calcAgeBtn');
-
-            // result fields
-            const subtitle = document.getElementById('subtitle');
-            const primaryAge = document.getElementById('primaryAge');
-            const totalMonths = document.getElementById('totalMonths');
-            const totalWeeks = document.getElementById('totalWeeks');
-            const totalDays = document.getElementById('totalDays');
-            const totalHours = document.getElementById('totalHours');
-            const totalMinutes = document.getElementById('totalMinutes');
-            const totalSeconds = document.getElementById('totalSeconds');
-            const nextBday = document.getElementById('nextBday');
-            const birthWeekday = document.getElementById('birthWeekday');
-            const progressPercent = document.getElementById('progressPercent');
-            const progressFill = document.getElementById('progressFill');
-
-            // set default target to today
-            targetInput.value = todayStr;
-
-            // toggle specific date field
-            specificRadio.addEventListener('change', function () {
-                targetDateDiv.style.display = 'flex';
-            });
-            todayRadio.addEventListener('change', function () {
-                targetDateDiv.style.display = 'none';
-            });
-
-            // core calculation
-            function calculateAge() {
-                const birthStr = birthInput.value;
-                if (!birthStr) return;
-
-                const birthDate = new Date(birthStr);
-                if (isNaN(birthDate)) return;
-
-                // Determine end date
-                let endDate;
-                if (todayRadio.checked) {
-                    endDate = new Date();
-                } else {
-                    const targetStr = targetInput.value;
-                    if (!targetStr) return;
-                    endDate = new Date(targetStr);
-                }
-
-                if (endDate < birthDate) {
-                    alert("End date cannot be before birth date.");
-                    return;
-                }
-
-                // calculate differences (simple but robust)
-                let years = endDate.getFullYear() - birthDate.getFullYear();
-                let months = endDate.getMonth() - birthDate.getMonth();
-                let days = endDate.getDate() - birthDate.getDate();
-
-                if (days < 0) {
-                    months--;
-                    const prevMonth = new Date(endDate.getFullYear(), endDate.getMonth(), 0);
-                    days += prevMonth.getDate();
-                }
-                if (months < 0) {
-                    years--;
-                    months += 12;
-                }
-
-                primaryAge.innerText = `${years} Years, ${months} Months, ${days} Days`;
-
-                // total days (approx)
-                const diffTime = endDate - birthDate;
-                const totalDaysNum = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-                const totalHoursNum = Math.floor(diffTime / (1000 * 60 * 60));
-                const totalMinutesNum = Math.floor(diffTime / (1000 * 60));
-                const totalSecondsNum = Math.floor(diffTime / 1000);
-                const totalMonthsNum = years * 12 + months;
-                const totalWeeksNum = (totalDaysNum / 7).toFixed(1);
-
-                totalMonths.innerText = totalMonthsNum;
-                totalWeeks.innerText = totalWeeksNum;
-                totalDays.innerText = totalDaysNum.toLocaleString();
-                totalHours.innerText = totalHoursNum.toLocaleString();
-                totalMinutes.innerText = totalMinutesNum.toLocaleString();
-                totalSeconds.innerText = totalSecondsNum.toLocaleString();
-
-                // subtitle
-                const birthStrFormatted = birthDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-                const endStrFormatted = endDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-                subtitle.innerText = `From ${birthStrFormatted} → ${endStrFormatted}`;
-
-                // next birthday
-                const nextBirthday = new Date(endDate.getFullYear(), birthDate.getMonth(), birthDate.getDate());
-                if (nextBirthday < endDate) {
-                    nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
-                }
-                const diffToNext = nextBirthday - endDate;
-                const daysToNext = Math.ceil(diffToNext / (1000 * 60 * 60 * 24));
-                const monthsToNext = Math.floor(daysToNext / 30.44); // approx
-                const daysRemain = daysToNext - monthsToNext * 30.44;
-                nextBday.innerText = `${nextBirthday.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })} (in ${monthsToNext} mo, ${Math.round(daysRemain)} days)`;
-
-                // day of birth
-                const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-                birthWeekday.innerText = weekdays[birthDate.getDay()];
-
-                // progress to next bday (rough)
-                const yearProgress = ((endDate - new Date(endDate.getFullYear(), 0, 1)) / (1000 * 60 * 60 * 24 * 365)) * 100;
-                progressPercent.innerText = Math.round(yearProgress) + '%';
-                progressFill.style.width = Math.min(yearProgress, 100) + '%';
-
-                // fun facts: zodiac (naive)
-                const month = birthDate.getMonth() + 1;
-                const day = birthDate.getDate();
-                let zodiac = 'Capricorn'; if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) zodiac = 'Aquarius'; else if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) zodiac = 'Pisces'; else if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) zodiac = 'Aries'; else if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) zodiac = 'Taurus'; else if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) zodiac = 'Gemini'; else if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) zodiac = 'Cancer'; else if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) zodiac = 'Leo'; else if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) zodiac = 'Virgo'; else if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) zodiac = 'Libra'; else if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) zodiac = 'Scorpio'; else if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) zodiac = 'Sagittarius';
-                document.querySelector('.fun-fact-row .fact-item:first-child').innerHTML = `♑ ${zodiac}`;
-            }
-
-            calcBtn.addEventListener('click', calculateAge);
-
-            // copy button
-            document.getElementById('copyBtn').addEventListener('click', () => {
-                const text = primaryAge.innerText;
-                navigator.clipboard?.writeText(text).then(() => alert('Age copied!'));
-            });
-
-            // share simulation
-            document.getElementById('shareBtn').addEventListener('click', () => {
-                alert('Share this age: ' + primaryAge.innerText);
-            });
-
-            // print
-            document.getElementById('printBtn').addEventListener('click', () => window.print());
-
-            // Clear (reset to defaults)
-            document.querySelector('.btn-secondary')?.addEventListener('click', () => {
-                birthInput.value = '2000-01-15';
-                todayRadio.checked = true;
-                targetDateDiv.style.display = 'none';
-                calculateAge();
-            });
-
-            // today radio default
-            todayRadio.checked = true;
-            targetDateDiv.style.display = 'none';
-
-            // initial calc
-            window.addEventListener('load', calculateAge);
-        })();
-    </script>
-
-    <!-- optional style for print -->
-    <style>
-        @media print {
-
-            .btn-primary,
-            .footer-actions,
-            .tool-selector,
-            .app-header p,
-            details {
-                display: none;
-            }
-
-            body {
-                background: white;
-            }
-        }
-    </style>
-</body>
-
-</html>
+✅ Updated Prompt for Age Calculator
+Create a fully professional Age Calculator Tool that calculates exact age in years, months, days, hours, minutes, and
+seconds with real-time updates, beautiful visual timelines, and multiple date formats. The tool must be optimized for
+Mobile, Tablet, and Desktop with a clean, celebratory interface.
+
+📱 Responsive Design Requirements
+📱 Mobile (320px – 767px)
+Single column vertical flow with sticky header
+
+Large date pickers (minimum 48px height, full-width)
+
+Quick select chips (Today, Yesterday, Custom)
+
+Floating action button for [Calculate Age]
+
+Live age ticker showing real-time age increase
+
+Collapsible "Detailed Breakdown" panel
+
+Results in card format with celebration animations
+
+Bottom sticky bar with [Share] [Save] [Copy]
+
+Font size: 16px–18px for readability
+
+📲 Tablet (768px – 1023px)
+2-column layout
+
+Left: Date selection + Quick picks
+
+Right: Age result + Timeline visualization
+
+Split view for birth date and as of date
+
+Side-by-side date pickers with calendar icons
+
+Card-based UI with 24px padding
+
+Font size: 17px–19px
+
+Mini timeline graph showing life stages
+
+💻 Desktop (1024px+)
+3-panel elegant layout:
+
+Left: Input panel with date pickers and options
+
+Center: Live age display with analog/digital clock
+
+Right: Life timeline + upcoming birthdays
+
+Real-time age counter (updates every second)
+
+Hover tooltips for age components
+
+Keyboard shortcuts (Ctrl+T = Today, Ctrl+C = Copy)
+
+Professional dashboard style with soft gradients
+
+Padding: 32px–48px
+
+🎂 Tool Structure
+🏷️ Tool Header
+🎂 Age Calculator
+Calculate exact age down to the second with beautiful timeline visualization
+
+📅 Input Section
+Birth Details
+text
+🎈 Date of Birth:
+[ Date Picker ] [🕒 Time Picker]
+
+Or quick select:
+[I'm Born] [Just Now] [Custom]
+As Of Date
+text
+📆 Calculate Age As Of:
+[ Date Picker ] [🕒 Time Picker]
+
+Quick options:
+[Today] [Yesterday] [Tomorrow] [Custom Date]
+Timezone Selection
+text
+🌍 Timezone:
+[Your Local Timezone ▼]
+[UTC] [EST] [PST] [GMT] [IST] [Custom]
+🎯 Age Display Modes
+Mode 1: Complete Age Breakdown
+text
+┌─────────────────────────────────────┐
+│ 🎉 YOUR AGE IS │
+├─────────────────────────────────────┤
+│ 25 Years 3 Months 12 Days │
+│ │
+│ 📊 Detailed Breakdown: │
+│ Total Months: 303 months │
+│ Total Weeks: 1,320 weeks │
+│ Total Days: 9,241 days │
+│ Total Hours: 221,784 hours │
+│ Total Minutes: 13,307,040 minutes │
+│ Total Seconds: 798,422,400 seconds │
+│ Total Heartbeats: ~2.8 billion* │
+└─────────────────────────────────────┘
+Mode 2: Live Age Counter (Real-time)
+text
+┌─────────────────────────────────────┐
+│ ⏰ LIVE AGE (Updates Every Second)│
+├─────────────────────────────────────┤
+│ │
+│ 25 Years 3 Months 12 Days │
+│ 05 Hours 23 Minutes 45 Seconds │
+│ │
+│ ↑ Age increasing in real-time │
+│ Next second: 46 seconds │
+└─────────────────────────────────────┘
+Mode 3: Age Difference Calculator
+text
+┌─────────────────────────────────────┐
+│ 👥 AGE DIFFERENCE │
+├─────────────────────────────────────┤
+│ Person 1: 1995-03-15 │
+│ Person 2: 1998-07-22 │
+├─────────────────────────────────────┤
+│ Difference: │
+│ 3 Years 4 Months 7 Days │
+│ │
+│ 📊 Comparison: │
+│ Person 1 is older by 1,223 days │
+│ Age Ratio: 1 : 1.14 │
+│ Generation: Same Millennials │
+└─────────────────────────────────────┘
+📊 Visual Timeline Features
+Life Progress Bar
+text
+LIFE PROGRESS (Based on average 80 years)
+├─────────────────────────────────────┤
+████████░░░░░░░░░░░░░░░░░░░░░░░░░░
+25 years used (31.25% of estimated life)
+
+📈 Milestones:
+✓ Childhood (0-12): Complete
+✓ Teenage (13-19): Complete
+► Adult (20-40): In Progress
+☐ Middle Age (41-60): Upcoming
+☐ Senior (61-80): Upcoming
+Generation & Zodiac Info
+text
+✨ GENERATION & ZODIAC
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Generation: Millennial (1981-1996)
+Zodiac Sign: ♓ Pisces (Feb 19 - Mar 20)
+Chinese Zodiac: 🐷 Pig (Year of the Pig)
+Birthstone: Aquamarine / Bloodstone
+Birth Flower: Daffodil / Jonquil
+Upcoming Birthdays
+text
+🎁 UPCOMING BIRTHDAY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Next Birthday: March 15, 2024
+Countdown: 47 days 5 hours 23 minutes
+
+Age at next birthday: 26 years old
+Birthday on: Friday
+Days until birthday: 47 days
+Sleeps until birthday: 46 sleeps
+
+🎂 Birthday Reminder:
+[Add to Calendar] [Set Reminder] [Share]
+⚙️ Advanced Settings Panel
+Date Format Options
+text
+📆 Date Format:
+○ MM/DD/YYYY (US)
+○ DD/MM/YYYY (UK/EU)
+○ YYYY-MM-DD (ISO)
+○ Full Month Name (March 15, 1995)
+○ Relative (15th March 1995)
+Age Calculation Methods
+text
+🧮 Calculation Method:
+○ Exact (includes time)
+○ Birthday passed (year only)
+○ Korean Age System
+○ Chinese Age System
+○ Western (Standard)
+
+🎯 Rounding:
+○ No rounding (exact)
+○ Round down (completed years)
+○ Round up (next year)
+○ Nearest birthday
+Special Age Formats
+text
+📋 Additional Formats:
+□ Legal Age (Years only)
+□ Retirement Countdown
+□ Driving License Format
+□ Passport Format
+□ Medical/Insurance Format
+□ School Grade Level
+🎨 Visual Themes & Celebrations
+Birthday Theme (Auto-activates near birthday)
+text
+┌─────────────────────────────────────┐
+│ 🎈🎂 HAPPY BIRTHDAY! 🎂🎈 │
+├─────────────────────────────────────┤
+│ │
+│ You are 25 years, 0 months, │
+│ 0 days, 0 hours old today! │
+│ │
+│ ✨ Birthday Confetti Effect ✨ │
+│ 🎵 Play Birthday Song │
+│ 🎁 Birthday Facts & Deals │
+└─────────────────────────────────────┘
+Age Milestone Celebrations
+text
+🏆 AGE MILESTONES REACHED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ 1 Year: First steps complete
+✓ 5 Years: School ready
+✓ 13 Years: Teenager!
+✓ 18 Years: Adult (Legal)
+✓ 21 Years: Legal drinking (US)
+🏆 25 Years: Quarter century! 👑
+☐ 30 Years: Dirty thirty
+☐ 40 Years: Over the hill
+☐ 50 Years: Golden
+☐ 60 Years: Senior citizen
+☐ 65 Years: Retirement eligible
+☐ 80 Years: Octogenarian
+☐ 100 Years: Centenarian 🎉
+📱 Mobile-Optimized Features
+Quick Select Chips
+text
+📅 QUICK BIRTH DATE SELECT
+[Today] [Yesterday] [This week] [This month]
+[1990s] [2000s] [2010s] [Custom]
+
+🎯 QUICK AGE PRESETS
+[Newborn] [1 Year] [5 Years] [10 Years]
+[13 Years] [18 Years] [21 Years] [25 Years]
+[30 Years] [40 Years] [50 Years] [60 Years]
+[65 Years] [70 Years] [80 Years] [100 Years]
+Age Slider (Fun Mode)
+text
+👶 INFANT ━━━━━━●━━━━━━━━━━━ 👴 ELDER
+25 Years
+Slide to see age visualization
+[Live preview of age in words]
+📋 History & Favorites
+Recent Calculations
+text
+📜 RECENT AGE CALCULATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Today: Mom (1955-04-20) → 68 years
+Yesterday: Dad (1952-11-12) → 71 years
+2 days ago: My Birth (1995-03-15) → 28 years
+1 week ago: Sister (1998-07-22) → 25 years
+
+[⭐ Save to Favorites] [🔄 Recalculate] [🗑️ Clear]
+Favorite Birthdays
+text
+⭐ FAVORITE BIRTHDAYS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+👩 Mom - March 20, 1955 (68)
+👨 Dad - Nov 12, 1952 (71)
+👧 Daughter - June 5, 2020 (3)
+👦 Son - Aug 18, 2022 (1)
+💑 Anniversary - Sep 10, 2019 (4 years)
+
+[Edit List] [Share All] [Export CSV]
+📤 Export & Share
+Share Options
+text
+📤 SHARE AGE CARD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌─────────────────────────────────┐
+│ AGE CARD │
+│ 🎂 March 15, 1995 │
+│ 📅 January 15, 2024 │
+│ ========================= │
+│ 28 Years 10 Months 0 Days │
+│ 10,536 Days Old │
+│ Next Birthday: In 60 days │
+│ Generation: Millennial │
+│ Zodiac: Pisces ♓ │
+└─────────────────────────────────┘
+
+[📋 Copy Text] [📸 Save as Image]
+[📄 PDF Report] [🐦 Twitter] [📘 Facebook]
+[📧 Email] [💬 WhatsApp] [🔗 Share Link]
+Age Report Format
+text
+AGE CALCULATION REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Generated: January 15, 2024 14:30
+
+BIRTH DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Date of Birth: March 15, 1995
+Time of Birth: 09:45 AM
+Timezone: America/New_York (EST)
+Day of Birth: Wednesday
+Season: Spring
+
+AGE AS OF
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+As Of Date: January 15, 2024
+As Of Time: 02:30 PM
+Current Age: 28 years 10 months 0 days
+
+DETAILED BREAKDOWN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Years: 28.83 years
+Months: 346 months
+Weeks: 1,505 weeks
+Days: 10,536 days
+Hours: 252,876 hours
+Minutes: 15,172,560 minutes
+Seconds: 910,353,600 seconds
+
+LIFE STATISTICS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Sleeps experienced: ~3,512 nights
+Meals eaten: ~31,608 meals
+Heartbeats: ~3.1 billion
+Breaths taken: ~221 million
+Times blinked: ~84 million
+
+NEXT BIRTHDAY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Date: March 15, 2024
+Day: Friday
+Countdown: 60 days 5 hours
+Age at birthday: 29 years
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Generated by Age Calculator Pro
+🎨 Design System
+Color Palette
+Primary: #2563eb (Royal Blue) - Main actions
+
+Secondary: #7c3aed (Purple) - Special features
+
+Celebration: #059669 (Green) - Birthdays/milestones
+
+Warning: #d97706 (Amber) - Warnings
+
+Romance: #ec4899 (Pink) - Love/anniversary mode
+
+Background: #f9fafb (Off-white)
+
+Surface: #ffffff (White)
+
+Text: #111827 (Dark gray)
+
+Border: #e5e7eb (Light gray)
+
+Timeline Colors:
+
+Past: #2563eb
+
+Present: #7c3aed
+
+Future: #e5e7eb
+
+Milestone: #059669
+
+Typography
+Headings: Poppins/Inter (Bold, 28px–36px)
+
+Age Display: Mono/SF Mono (Bold, 32px–64px)
+
+Body: Inter/SF Pro (Regular, 14px–16px)
+
+Celebration: Playfair Display/Cursive for special dates
+
+UI Elements
+Rounded corners: 12px–24px (softer for celebration feel)
+
+Soft shadows: 0 10px 25px -5px rgba(0,0,0,0.1)
+
+Confetti animations for birthdays
+
+Smooth number counting animations
+
+Glass morphism for cards
+
+Gradient backgrounds for special modes
+
+♿ Accessibility Features
+Compliance (WCAG 2.1 AA)
+Full keyboard navigation (Tab through dates)
+
+Screen reader announcements for age
+
+High contrast mode support
+
+Focus indicators with rings
+
+ARIA labels for all date fields
+
+Error announcements for invalid dates
+
+Color-independent indicators
+
+Font scaling up to 200%
+
+Voice input support for dates
+
+Keyboard Shortcuts
+text
+Tab → Navigate fields
+Ctrl+T → Set to today
+Ctrl+Y → Set to yesterday
+Ctrl+Enter → Calculate
+Esc → Clear all
+Ctrl+C → Copy age
+Ctrl+Shift+C → Copy full report
+↑/↓ → Adjust date by 1 day
+Ctrl+↑/↓ → Adjust by 1 month
+Shift+↑/↓ → Adjust by 1 year
+📚 Educational Section
+Learn About Age Calculation
+text
+📖 HOW AGE IS CALCULATED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 Different Age Systems:
+
+Western Age:
+• Counts completed years since birth
+• Birthday = age increases
+
+Korean Age:
+• Born at 1 year old
+• Everyone ages on New Year's Day
+• Currently 1-2 years older than Western
+
+Chinese Age:
+• Born at 1 year
+• Ages on Chinese New Year
+• Used for traditional purposes
+
+Legal Age:
+• Varies by country
+• 18 for voting, 21 for drinking (US)
+• 16 for driving, 65 for retirement
+
+💡 FUN FACTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Most common birthday: September 9
+• Least common: December 25
+• You share birthday with ~20 million people
+• 1 in 365 chance of shared birthday
+• You'll spend ~26 years sleeping
+• Average person lives ~29,000 days
+
+❓ FAQ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Q: Am I my age on my birthday or at midnight?
+A: Legally, at the exact time of birth
+
+Q: How to calculate age manually?
+A: Subtract years, adjust for months/days
+
+Q: What's my exact age including time?
+A: Use this tool with time selection!
+
+Q: Why do Koreans calculate age differently?
+A: Traditional system counting pregnancy as 1
+⚡ Performance Requirements
+Technical Specs
+✅ Client-side JavaScript (no server)
+
+✅ Real-time updates every second
+
+✅ No page reloads
+
+✅ Optimized animations (60fps)
+
+✅ PWA ready (offline capable)
+
+✅ Local storage for favorites
+
+✅ Lightweight (<150KB total) ✅ Lazy loading for heavy components Browser Support Chrome (latest 2 versions) Firefox
+    (latest 2 versions) Safari (latest 2 versions) Edge (latest 2 versions) Mobile browsers Smart TVs (for birthday
+    countdown) 💎 Premium Features (Monetization) Free Version Basic age calculation (years, months, days) Standard date
+    picker Basic timeline Ads supported Last 5 calculations Pro Version ($3.99/month or $24.99/lifetime) ✨ Live age
+    counter (seconds) ✨ Timezone support ✨ Age difference calculator ✨ Unlimited favorites ✨ Export to PDF/Image ✨ No
+    ads ✨ Birthday reminders ✨ Premium animations ✨ Multiple profiles Family Plan ($7.99/month) ✨ Up to 10 family
+    members ✨ Shared family timeline ✨ Anniversary tracker ✨ Generation tree ✨ Family age report ✨ All Pro features
+    Business API ($29.99/month) ✨ Age verification API ✨ Bulk age calculations ✨ Compliance reports ✨ 10,000 API
+    calls/day ✨ White label option 📱 Mobile Layout Example text ┌─────────────────┐ │ 🎂 AGE │ ├─────────────────┤ │
+    Date of Birth │ │ [March 15, 1995]│ │ [🕒 09:45 AM] │ ├─────────────────┤ │ As of Date │ │ [Jan 15, 2024] │ │ [🕒
+    02:30 PM] │ ├─────────────────┤ │ QUICK: [Today] │ │ [Custom] │ ├─────────────────┤ │ 28 Years │ │ 10 Months │ │ 0
+    Days │ ├─────────────────┤ │ [🔮 Calculate] │ └─────────────────┘ 💻 Desktop Layout Example text
+    ┌─────────────────────────────────────────────────────────┐ │ 🎂 AGE CALCULATOR │
+    ├──────────────────┬──────────────────┬───────────────────┤ │ INPUT │ LIVE AGE DISPLAY │ TIMELINE │
+    ├──────────────────┼──────────────────┼───────────────────┤ │ BIRTH DETAILS │ ⏰ REAL-TIME │ LIFE PROGRESS │ │ │ │
+    ████████░░░░░░░░ │ │ Date: [Mar 15 ]│ 28 Years │ 31.25% Complete │ │ Time: [09:45 AM ]│ 10 Months │ │ │ │ 0 Days │
+    MILESTONES │ │ AS OF DATE │ 5 Hours │ ✓ Born │ │ Date: [Jan 15 ]│ 23 Minutes │ ✓ School │ │ Time: [02:30 PM ]│ 45
+    Seconds │ ✓ Adult │ │ │ │ ► Career │ │ QUICK SELECT │ ↑ Updating │ ☐ Retirement │ │ [Today] [Custom] │ every second
+    │ │ ├──────────────────┼──────────────────┼───────────────────┤ │ DETAILED BREAKDOWN │ NEXT BIRTHDAY │ │ Total Days:
+    10,536 days │ In 60 days │ │ Total Hours: 252,876 hours │ Turning 29 │ │ Total Minutes: 15,172,560 min │ Friday,
+    March 15 │ └──────────────────────────────────────┴───────────────────┘ 🎯 Special Use Cases Legal & Professional
+    text ⚖️ LEGAL AGE CALCULATOR MODE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Purpose: [Voting] [Drinking] [Driving]
+    [Retirement] [Contract] Jurisdiction: [United States ▼] [State: California ▼] Legal Age Requirements: ✓ Voting: 18+
+    (Eligible) ✓ Drinking: 21+ (Eligible in 2 years) ✓ Driving: 16+ (Eligible) ✓ Contract: 18+ (Eligible) ✓ Adult: 18+
+    (Eligible) Compliance Status: ✅ All requirements checked Medical/Health text 🏥 MEDICAL AGE MODE
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Gestational Age: For pregnancy tracking Adjusted Age: For premature babies Bone
+    Age: For pediatric development Developmental Age: Milestone tracking Vaccination Schedule: ✓ Birth: Hep B ✓ 2
+    months: DTaP, Hib, IPV ✓ 4 months: DTaP, Hib, IPV ☐ 6 months: DTaP, Hib (Due in 2 weeks) Astronomical Age text 🌌
+    COSMIC AGE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Age in Earth Years: 28.83 Age in Martian Years: 15.34 Mars years Age
+    in Venusian Days: 16,894 Venus days Age in Jupiter Years: 2.43 Jupiter years Next birthday on Mars: In 687 Earth
+    days Age on Mercury: 119.5 Mercury years 🎨 Bonus Features Birthday Countdown Widget text 🎂 BIRTHDAY COUNTDOWN
+    WIDGET ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ [⬇️ Install on Home Screen] Sarah's Birthday ░░░░░░░░░░░░░░░ 60% In 18
+    days: March 15, 2024 [Set Reminder] [Buy Gift] [Send Wishes] Age in Pop Culture text 🎬 AGE IN POP CULTURE
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Your age in movies: • Same age as Harry Potter in "Half-Blood Prince" • Same age
+    as Wednesday Addams in Season 1 • 3 years younger than Taylor Swift • 5 years older than Billie Eilish Famous people
+    born on your day: • Albert Einstein (1879) • Eva Longoria (1975) • Will.i.am (1975) • Fabio (1959) This
+    comprehensive prompt ensures the Age Calculator will be: Accurate - Exact age down to the second Celebratory - Fun
+    birthday features Educational - Learn about age systems Visual - Beautiful timelines Professional - Legal/medical
+    modes Shareable - Beautiful age cards Monetizable - Clear upgrade paths Accessible - Works for everyone

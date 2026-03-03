@@ -25,10 +25,19 @@
                         style="height: 40px; width: auto; vertical-align: middle;">
                 </a>
             </div>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
+                        <div class="nav-right">
+                <button class="search-btn" id="searchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="index.html">Home</a></li>
@@ -39,6 +48,32 @@
             </ul>
         </div>
     </nav>
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search Calculators</h3>
+                <button id="closeSearch" class="close-search">&times;</button>
+            </div>
+            <div class="search-body">
+                <div class="search-input-group">
+                    <input type="text" id="searchInput" placeholder="Search for tools like 'Age', 'EMI', 'Profit'..."
+                        autocomplete="off">
+                    <div class="search-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div class="search-results" id="searchResults">
+                    <!-- Results will be injected here -->
+                    <div class="search-placeholder">Start typing to find tools...</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section class="page-header">
         <div class="container">

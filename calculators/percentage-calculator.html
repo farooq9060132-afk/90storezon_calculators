@@ -329,377 +329,495 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Fira+Code:wght@400;500&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
-    <div class="calculator-app" id="app">
-        <!-- header -->
-        <div style="padding: 24px 28px 0 28px; background: white; border-bottom: 1px solid #e5e7eb;">
-            <h1>📊 Percentage Calculator</h1>
-            <p style="color: #4b5563; margin: 6px 0 16px;">Calculate percentages instantly · 8 modes · financial grade
-            </p>
+    <div id="loading-screen">
+        <div class="loader"></div>
+    </div>    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="logo-img">
+                    <span class="logo-90">90</span><span class="logo-storezon">StoreZon</span>
+                </a>
+            </div>
+            
+            <div class="header-search">
+                <button class="header-search-btn" id="headerSearchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" x2="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <input type="text" id="headerSearchInput" placeholder="Search calculators..." autocomplete="off">
+                <div id="headerSearchResults" class="search-dropdown"></div>
+            </div>
+
+            <div class="nav-right">
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
         </div>
+    </nav>
 
-        <!-- dynamic main area : 3-col desktop, falls back via grid -->
-        <div class="desktop-panel" id="mainPanel">
-            <!-- LEFT PANEL: INPUT + MODES + ACTIONS -->
-            <div class="panel">
-                <div class="mode-tabs" id="modeTabs" role="tablist">
-                    <button class="mode-tab active" data-mode="1">📌 Basic</button>
-                    <button class="mode-tab" data-mode="2">📈 Change</button>
-                    <button class="mode-tab" data-mode="3">❓ What %</button>
-                    <button class="mode-tab" data-mode="4">⚖️ Difference</button>
-                    <button class="mode-tab" data-mode="5">➕ Add/Sub %</button>
-                    <button class="mode-tab" data-mode="6">📊 Ratio</button>
-                    <button class="mode-tab" data-mode="7">🔄 Reverse</button>
-                    <button class="mode-tab" data-mode="8">📦 Bulk</button>
-                </div>
-
-                <!-- mode container : fields will be injected by js, but we keep static skeleton with js binding -->
-                <div id="inputPanel" style="min-height: 280px;">
-                    <!-- javascript populates fields here -->
-                    <p style="color:#9ca3af; text-align:center;">loading modes...</p>
-                </div>
-
-                <!-- sticky action bar (mobile/tablet) -->
-                <div class="action-bar">
-                    <button class="btn btn-primary" id="calculateBtn" style="flex:2;">🧮 Calculate</button>
-                    <button class="btn btn-outline" id="resetBtn">⟲ Reset</button>
-                    <button class="btn btn-outline" id="swapBtn" title="swap values (mode specific)">⇅ Swap</button>
-                </div>
-
-                <!-- advanced collapsible (mobile) -->
-                <details style="margin-top: 12px;">
-                    <summary style="font-weight:600; padding:12px; background:#f3f4f6; border-radius:40px;">⚙️ Advanced
-                        precision</summary>
-                    <div style="margin-top:12px; display:flex; gap:12px; flex-wrap:wrap;">
-                        <label>Decimals: <select id="decimalSelect">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2" selected>2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="auto">Auto</option>
-                            </select></label>
-                        <label>Rounding: <select id="roundSelect">
-                                <option>Nearest</option>
-                                <option>Up</option>
-                                <option>Down</option>
-                                <option>None</option>
-                            </select></label>
-                        <label><input type="checkbox" id="currencyToggle"> 💰 Currency mode (USD)</label>
-                    </div>
-                </details>
+    <div class="main-content-wrapper">
+        <div class="calculator-app" id="app">
+            <!-- header -->
+            <div style="padding: 24px 28px 0 28px; background: white; border-bottom: 1px solid #e5e7eb;">
+                <h1>📊 Percentage Calculator</h1>
+                <p style="color: #4b5563; margin: 6px 0 16px;">Calculate percentages instantly · 8 modes · financial
+                    grade
+                </p>
             </div>
 
-            <!-- CENTER PANEL: LIVE RESULT + FORMULA + DASHBOARD -->
-            <div class="panel" style="background:#ffffff;">
-                <div style="display:flex; justify-content:space-between;">
-                    <h2>📋 Result</h2>
-                    <div><kbd style="background:#e5e7eb; padding:6px 10px; border-radius:20px;">Enter</kbd></div>
-                </div>
-                <div class="result-dashboard" id="resultDashboard">
-                    <div class="big-result" id="mainResult">0</div>
-                    <div class="progress-bar" style="margin:12px 0 16px;">
-                        <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+            <!-- dynamic main area : 3-col desktop, falls back via grid -->
+            <div class="desktop-panel" id="mainPanel">
+                <!-- LEFT PANEL: INPUT + MODES + ACTIONS -->
+                <div class="panel">
+                    <div class="mode-tabs" id="modeTabs" role="tablist">
+                        <button class="mode-tab active" data-mode="1">📌 Basic</button>
+                        <button class="mode-tab" data-mode="2">📈 Change</button>
+                        <button class="mode-tab" data-mode="3">❓ What %</button>
+                        <button class="mode-tab" data-mode="4">⚖️ Difference</button>
+                        <button class="mode-tab" data-mode="5">➕ Add/Sub %</button>
+                        <button class="mode-tab" data-mode="6">📊 Ratio</button>
+                        <button class="mode-tab" data-mode="7">🔄 Reverse</button>
+                        <button class="mode-tab" data-mode="8">📦 Bulk</button>
                     </div>
-                    <div id="formulaDisplay" class="text-mono"
-                        style="background:#e5e7eb; padding:12px; border-radius:16px;">Formula: —</div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:16px;">
-                        <div><span class="text-mono" id="fraction">—</span> <span style="color:#6b7280;">fraction</span>
+
+                    <!-- mode container : fields will be injected by js, but we keep static skeleton with js binding -->
+                    <div id="inputPanel" style="min-height: 280px;">
+                        <!-- javascript populates fields here -->
+                        <p style="color:#9ca3af; text-align:center;">loading modes...</p>
+                    </div>
+
+                    <!-- sticky action bar (mobile/tablet) -->
+                    <div class="action-bar">
+                        <button class="btn btn-primary" id="calculateBtn" style="flex:2;">🧮 Calculate</button>
+                        <button class="btn btn-outline" id="resetBtn">⟲ Reset</button>
+                        <button class="btn btn-outline" id="swapBtn" title="swap values (mode specific)">⇅ Swap</button>
+                    </div>
+
+                    <!-- advanced collapsible (mobile) -->
+                    <details style="margin-top: 12px;">
+                        <summary style="font-weight:600; padding:12px; background:#f3f4f6; border-radius:40px;">⚙️
+                            Advanced
+                            precision</summary>
+                        <div style="margin-top:12px; display:flex; gap:12px; flex-wrap:wrap;">
+                            <label>Decimals: <select id="decimalSelect">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="auto">Auto</option>
+                                </select></label>
+                            <label>Rounding: <select id="roundSelect">
+                                    <option>Nearest</option>
+                                    <option>Up</option>
+                                    <option>Down</option>
+                                    <option>None</option>
+                                </select></label>
+                            <label><input type="checkbox" id="currencyToggle"> 💰 Currency mode (USD)</label>
                         </div>
-                        <div><span class="text-mono" id="decimal">—</span> <span style="color:#6b7280;">decimal</span>
-                        </div>
-                        <div><span class="text-mono" id="ratio">—</span> <span style="color:#6b7280;">ratio</span></div>
-                        <div><span id="wordDesc" style="color:#374151;">—</span></div>
-                    </div>
-                    <div style="display:flex; gap:12px; margin-top:20px;">
-                        <button class="btn btn-outline" id="copyResult">📋 Copy</button>
-                        <button class="btn btn-outline" id="shareDummy">📤 Share</button>
-                    </div>
+                    </details>
                 </div>
 
-                <!-- memory mini -->
-                <div style="margin-top:16px;"><span style="font-weight:600;">Memory:</span>
-                    <button class="btn btn-outline" style="min-height:40px; padding:6px 12px;">M+</button>
-                    <button class="btn btn-outline" style="min-height:40px; padding:6px 12px;">MR</button>
-                    <button class="btn btn-outline" style="min-height:40px; padding:6px 12px;">MC</button>
-                </div>
-            </div>
-
-            <!-- RIGHT PANEL: VISUAL + HISTORY + PRESETS -->
-            <div class="panel" style="background: white;">
-                <h2>📊 Visual & history</h2>
-                <!-- pie / chart area -->
-                <div style="text-align:center; margin:12px 0;">
-                    <div class="mini-pie" id="pieChart"
-                        style="background: conic-gradient(#2563eb 0deg 0deg, #e5e7eb 0deg 360deg);"></div>
-                    <div style="display:flex; justify-content:center; gap:24px;">
-                        <span><span style="color:#2563eb;">●</span> part</span>
-                        <span><span style="color:#e5e7eb;">●</span> whole</span>
-                    </div>
-                </div>
-                <!-- comparison bar (increase/decrease) -->
-                <div style="margin:20px 0; padding:16px; background:#f3f4f6; border-radius:20px;">
+                <!-- CENTER PANEL: LIVE RESULT + FORMULA + DASHBOARD -->
+                <div class="panel" style="background:#ffffff;">
                     <div style="display:flex; justify-content:space-between;">
-                        <span>before</span><span>after</span>
+                        <h2>📋 Result</h2>
+                        <div><kbd style="background:#e5e7eb; padding:6px 10px; border-radius:20px;">Enter</kbd></div>
                     </div>
-                    <div style="display:flex; height:16px; border-radius:20px; overflow:hidden; margin:8px 0;">
-                        <span style="background:#2563eb; width:50%;" id="barBefore"></span>
-                        <span style="background:#059669; width:50%;" id="barAfter"></span>
+                    <div class="result-dashboard" id="resultDashboard">
+                        <div class="big-result" id="mainResult">0</div>
+                        <div class="progress-bar" style="margin:12px 0 16px;">
+                            <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+                        </div>
+                        <div id="formulaDisplay" class="text-mono"
+                            style="background:#e5e7eb; padding:12px; border-radius:16px;">Formula: —</div>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:16px;">
+                            <div><span class="text-mono" id="fraction">—</span> <span
+                                    style="color:#6b7280;">fraction</span>
+                            </div>
+                            <div><span class="text-mono" id="decimal">—</span> <span
+                                    style="color:#6b7280;">decimal</span>
+                            </div>
+                            <div><span class="text-mono" id="ratio">—</span> <span style="color:#6b7280;">ratio</span>
+                            </div>
+                            <div><span id="wordDesc" style="color:#374151;">—</span></div>
+                        </div>
+                        <div style="display:flex; gap:12px; margin-top:20px;">
+                            <button class="btn btn-outline" id="copyResult">📋 Copy</button>
+                            <button class="btn btn-outline" id="shareDummy">📤 Share</button>
+                        </div>
                     </div>
-                    <span id="changeIndicator" class="text-success">↗ +0% change</span>
+
+                    <!-- memory mini -->
+                    <div style="margin-top:16px;"><span style="font-weight:600;">Memory:</span>
+                        <button class="btn btn-outline" style="min-height:40px; padding:6px 12px;">M+</button>
+                        <button class="btn btn-outline" style="min-height:40px; padding:6px 12px;">MR</button>
+                        <button class="btn btn-outline" style="min-height:40px; padding:6px 12px;">MC</button>
+                    </div>
                 </div>
 
-                <!-- history -->
-                <h3>📜 recent</h3>
-                <div id="historyBox" style="max-height:150px; overflow-y:auto;">
-                    <div class="history-item">15% of 200 = 30</div>
-                    <div class="history-item">50 → 75 = +50%</div>
-                    <div class="history-item">25 is 12.5% of 200</div>
-                </div>
+                <!-- RIGHT PANEL: VISUAL + HISTORY + PRESETS -->
+                <div class="panel" style="background: white;">
+                    <h2>📊 Visual & history</h2>
+                    <!-- pie / chart area -->
+                    <div style="text-align:center; margin:12px 0;">
+                        <div class="mini-pie" id="pieChart"
+                            style="background: conic-gradient(#2563eb 0deg 0deg, #e5e7eb 0deg 360deg);"></div>
+                        <div style="display:flex; justify-content:center; gap:24px;">
+                            <span><span style="color:#2563eb;">●</span> part</span>
+                            <span><span style="color:#e5e7eb;">●</span> whole</span>
+                        </div>
+                    </div>
+                    <!-- comparison bar (increase/decrease) -->
+                    <div style="margin:20px 0; padding:16px; background:#f3f4f6; border-radius:20px;">
+                        <div style="display:flex; justify-content:space-between;">
+                            <span>before</span><span>after</span>
+                        </div>
+                        <div style="display:flex; height:16px; border-radius:20px; overflow:hidden; margin:8px 0;">
+                            <span style="background:#2563eb; width:50%;" id="barBefore"></span>
+                            <span style="background:#059669; width:50%;" id="barAfter"></span>
+                        </div>
+                        <span id="changeIndicator" class="text-success">↗ +0% change</span>
+                    </div>
 
-                <!-- quick presets -->
-                <div style="margin-top:16px;">
-                    <select id="presetSelect" style="padding:12px; border-radius:40px;">
-                        <option>🛒 Discount 20%</option>
-                        <option>💰 GST 18%</option>
-                        <option>📈 ROI 15%</option>
-                        <option>🏋️ body fat 22%</option>
-                    </select>
+                    <!-- history -->
+                    <h3>📜 recent</h3>
+                    <div id="historyBox" style="max-height:150px; overflow-y:auto;">
+                        <div class="history-item">15% of 200 = 30</div>
+                        <div class="history-item">50 → 75 = +50%</div>
+                        <div class="history-item">25 is 12.5% of 200</div>
+                    </div>
+
+                    <!-- quick presets -->
+                    <div style="margin-top:16px;">
+                        <select id="presetSelect" style="padding:12px; border-radius:40px;">
+                            <option>🛒 Discount 20%</option>
+                            <option>💰 GST 18%</option>
+                            <option>📈 ROI 15%</option>
+                            <option>🏋️ body fat 22%</option>
+                        </select>
+                    </div>
+                    <p class="text-mono" style="margin-top:20px; font-size:13px;">⚡ realtime · <span
+                            id="calcTime">0ms</span></p>
                 </div>
-                <p class="text-mono" style="margin-top:20px; font-size:13px;">⚡ realtime · <span
-                        id="calcTime">0ms</span></p>
+            </div>
+
+            <!-- educational footer -->
+            <div
+                style="padding:20px 28px; border-top:1px solid #e5e7eb; background:#f9fafb; display:flex; flex-wrap:wrap; gap:24px;">
+                <div style="max-width:300px;"><strong>📖 per cent = per hundred</strong><br>10% = divide by 10 · 5% =
+                    half
+                    of 10%</div>
+                <div><strong>❓ FAQ</strong> · % of vs. % change</div>
+                <div style="margin-left:auto;">✨ Pro: all modes + export</div>
             </div>
         </div>
 
-        <!-- educational footer -->
-        <div
-            style="padding:20px 28px; border-top:1px solid #e5e7eb; background:#f9fafb; display:flex; flex-wrap:wrap; gap:24px;">
-            <div style="max-width:300px;"><strong>📖 per cent = per hundred</strong><br>10% = divide by 10 · 5% = half
-                of 10%</div>
-            <div><strong>❓ FAQ</strong> · % of vs. % change</div>
-            <div style="margin-left:auto;">✨ Pro: all modes + export</div>
-        </div>
-    </div>
+        <script>
+            (function () {
+                // ----- state & helpers -----
+                let currentMode = '1';    // basic
+                const modeTabs = document.querySelectorAll('.mode-tab');
+                const inputPanel = document.getElementById('inputPanel');
+                const mainResultEl = document.getElementById('mainResult');
+                const formulaEl = document.getElementById('formulaDisplay');
+                const fractionEl = document.getElementById('fraction');
+                const decimalEl = document.getElementById('decimal');
+                const ratioEl = document.getElementById('ratio');
+                const wordDesc = document.getElementById('wordDesc');
+                const progressFill = document.getElementById('progressFill');
+                const pieChart = document.getElementById('pieChart');
+                const changeIndicator = document.getElementById('changeIndicator');
+                const barBefore = document.getElementById('barBefore');
+                const barAfter = document.getElementById('barAfter');
+                const historyBox = document.getElementById('historyBox');
+                const currencyToggle = document.getElementById('currencyToggle');
+                const decimalSelect = document.getElementById('decimalSelect');
+                const roundSelect = document.getElementById('roundSelect');
+                const calculateBtn = document.getElementById('calculateBtn');
+                const resetBtn = document.getElementById('resetBtn');
+                const swapBtn = document.getElementById('swapBtn');
+                const copyResult = document.getElementById('copyResult');
 
-    <script>
-        (function () {
-            // ----- state & helpers -----
-            let currentMode = '1';    // basic
-            const modeTabs = document.querySelectorAll('.mode-tab');
-            const inputPanel = document.getElementById('inputPanel');
-            const mainResultEl = document.getElementById('mainResult');
-            const formulaEl = document.getElementById('formulaDisplay');
-            const fractionEl = document.getElementById('fraction');
-            const decimalEl = document.getElementById('decimal');
-            const ratioEl = document.getElementById('ratio');
-            const wordDesc = document.getElementById('wordDesc');
-            const progressFill = document.getElementById('progressFill');
-            const pieChart = document.getElementById('pieChart');
-            const changeIndicator = document.getElementById('changeIndicator');
-            const barBefore = document.getElementById('barBefore');
-            const barAfter = document.getElementById('barAfter');
-            const historyBox = document.getElementById('historyBox');
-            const currencyToggle = document.getElementById('currencyToggle');
-            const decimalSelect = document.getElementById('decimalSelect');
-            const roundSelect = document.getElementById('roundSelect');
-            const calculateBtn = document.getElementById('calculateBtn');
-            const resetBtn = document.getElementById('resetBtn');
-            const swapBtn = document.getElementById('swapBtn');
-            const copyResult = document.getElementById('copyResult');
+                // dynamic placeholders for mode fields
+                let fieldValues = { val1: 15, val2: 200, val3: 50, val4: 75 }; // simplified, but full
 
-            // dynamic placeholders for mode fields
-            let fieldValues = { val1: 15, val2: 200, val3: 50, val4: 75 }; // simplified, but full
-
-            // Render input fields based on mode
-            function renderMode(mode) {
-                let html = '';
-                if (mode === '1') { // basic: what is X% of Y
-                    html = `
+                // Render input fields based on mode
+                function renderMode(mode) {
+                    let html = '';
+                    if (mode === '1') { // basic: what is X% of Y
+                        html = `
           <label>What is <input type="number" id="val1" value="15" step="any" placeholder="percent"> %</label>
           <label>of <input type="number" id="val2" value="200" step="any" placeholder="value"></label>
         `;
-                } else if (mode === '2') { // change
-                    html = `<label>From <input type="number" id="val1" value="50" step="any"></label>
+                    } else if (mode === '2') { // change
+                        html = `<label>From <input type="number" id="val1" value="50" step="any"></label>
                 <label>To <input type="number" id="val2" value="75" step="any"></label>`;
-                } else if (mode === '3') { // is what %
-                    html = `<label><input type="number" id="val1" value="25"> is what % of <input type="number" id="val2" value="200"></label>`;
-                } else if (mode === '4') { // difference
-                    html = `<label>Value A <input type="number" id="val1" value="120"></label>
+                    } else if (mode === '3') { // is what %
+                        html = `<label><input type="number" id="val1" value="25"> is what % of <input type="number" id="val2" value="200"></label>`;
+                    } else if (mode === '4') { // difference
+                        html = `<label>Value A <input type="number" id="val1" value="120"></label>
                 <label>Value B <input type="number" id="val2" value="80"></label>`;
-                } else if (mode === '5') { // add/sub
-                    html = `<label><input type="number" id="val1" value="500"> + <input type="number" id="val2" value="15"> % </label>
+                    } else if (mode === '5') { // add/sub
+                        html = `<label><input type="number" id="val1" value="500"> + <input type="number" id="val2" value="15"> % </label>
                 <label>or - <input type="number" id="val3" value="425" placeholder="result? just calc"></label>`;
-                } else if (mode === '6') { // ratio
-                    html = `<label><input type="number" id="val1" value="30"> out of <input type="number" id="val2" value="120"></label>`;
-                } else if (mode === '7') { // reverse
-                    html = `<label><input type="number" id="val1" value="75"> is <input type="number" id="val2" value="20"> % of what?</label>`;
-                } else if (mode === '8') { // bulk (simplified)
-                    html = `<label>Original: <input type="number" id="val1" value="1000"></label>
+                    } else if (mode === '6') { // ratio
+                        html = `<label><input type="number" id="val1" value="30"> out of <input type="number" id="val2" value="120"></label>`;
+                    } else if (mode === '7') { // reverse
+                        html = `<label><input type="number" id="val1" value="75"> is <input type="number" id="val2" value="20"> % of what?</label>`;
+                    } else if (mode === '8') { // bulk (simplified)
+                        html = `<label>Original: <input type="number" id="val1" value="1000"></label>
                 <label>Tax % <input type="number" id="val2" value="10"></label>
                 <label>Discount % <input type="number" id="val3" value="5"></label>
                 <label>Fee % <input type="number" id="val4" value="2"></label>`;
-                }
-                inputPanel.innerHTML = html;
-            }
-
-            // ----- calculation core (simplified but covers all modes) -----
-            function compute() {
-                const mode = currentMode;
-                let a = parseFloat(document.getElementById('val1')?.value) || 0;
-                let b = parseFloat(document.getElementById('val2')?.value) || 0;
-                let c = parseFloat(document.getElementById('val3')?.value) || 0;
-                let d = parseFloat(document.getElementById('val4')?.value) || 0;
-                let result = 0, formulaStr = '', fractionStr = '', decimalStr = '', ratioStr = '';
-                let word = '';
-                let part = a, whole = b;
-
-                if (mode === '1') { // % of
-                    result = (a / 100) * b;
-                    formulaStr = `(${a} ÷ 100) × ${b} = ${result.toFixed(2)}`;
-                    part = result; whole = b;
-                } else if (mode === '2') { // change
-                    result = ((b - a) / a) * 100;
-                    formulaStr = `((${b} - ${a}) ÷ ${a}) × 100 = ${result.toFixed(2)}%`;
-                    part = b - a; whole = a;
-                } else if (mode === '3') { // is what %
-                    result = (a / b) * 100;
-                    formulaStr = `(${a} ÷ ${b}) × 100 = ${result.toFixed(2)}%`;
-                    part = a; whole = b;
-                } else if (mode === '4') { // difference
-                    let avg = (a + b) / 2;
-                    result = (Math.abs(a - b) / avg) * 100;
-                    formulaStr = `|${a}-${b}| ÷ ((${a}+${b})/2) × 100 = ${result.toFixed(2)}%`;
-                    part = Math.abs(a - b); whole = avg;
-                } else if (mode === '5') { // add% (simplified: first + %)
-                    result = a + (a * b / 100);
-                    formulaStr = `${a} + ${b}% = ${result.toFixed(2)}`;
-                    part = result - a; whole = a;
-                } else if (mode === '6') { // ratio
-                    result = (a / b) * 100;
-                    fractionStr = `${a}/${b}`; decimalStr = (a / b).toFixed(4); ratioStr = `${a}:${b}`;
-                    formulaStr = `${a} out of ${b} = ${result.toFixed(2)}%`;
-                    part = a; whole = b;
-                } else if (mode === '7') { // reverse
-                    result = a / (b / 100);
-                    formulaStr = `${a} ÷ (${b}/100) = ${result.toFixed(2)}`;
-                    part = a; whole = result;
-                } else if (mode === '8') { // bulk: apply tax, disc, fee (simple stacking)
-                    let temp = a;
-                    temp = temp + (temp * b / 100); // tax
-                    temp = temp - (temp * c / 100); // disc
-                    temp = temp + (temp * d / 100); // fee
-                    result = temp;
-                    formulaStr = `after tax ${b}% disc ${c}% fee ${d}% = ${result.toFixed(2)}`;
-                    part = result - a; whole = a;
+                    }
+                    inputPanel.innerHTML = html;
                 }
 
-                // apply decimal rounding
-                let dec = decimalSelect.value === 'auto' ? 2 : parseInt(decimalSelect.value);
-                let rounded = result;
-                if (!isNaN(rounded)) {
-                    if (roundSelect.value === 'Up') rounded = Math.ceil(rounded * 100) / 100;
-                    else if (roundSelect.value === 'Down') rounded = Math.floor(rounded * 100) / 100;
-                    else rounded = parseFloat(rounded.toFixed(dec));
+                // ----- calculation core (simplified but covers all modes) -----
+                function compute() {
+                    const mode = currentMode;
+                    let a = parseFloat(document.getElementById('val1')?.value) || 0;
+                    let b = parseFloat(document.getElementById('val2')?.value) || 0;
+                    let c = parseFloat(document.getElementById('val3')?.value) || 0;
+                    let d = parseFloat(document.getElementById('val4')?.value) || 0;
+                    let result = 0, formulaStr = '', fractionStr = '', decimalStr = '', ratioStr = '';
+                    let word = '';
+                    let part = a, whole = b;
+
+                    if (mode === '1') { // % of
+                        result = (a / 100) * b;
+                        formulaStr = `(${a} ÷ 100) × ${b} = ${result.toFixed(2)}`;
+                        part = result; whole = b;
+                    } else if (mode === '2') { // change
+                        result = ((b - a) / a) * 100;
+                        formulaStr = `((${b} - ${a}) ÷ ${a}) × 100 = ${result.toFixed(2)}%`;
+                        part = b - a; whole = a;
+                    } else if (mode === '3') { // is what %
+                        result = (a / b) * 100;
+                        formulaStr = `(${a} ÷ ${b}) × 100 = ${result.toFixed(2)}%`;
+                        part = a; whole = b;
+                    } else if (mode === '4') { // difference
+                        let avg = (a + b) / 2;
+                        result = (Math.abs(a - b) / avg) * 100;
+                        formulaStr = `|${a}-${b}| ÷ ((${a}+${b})/2) × 100 = ${result.toFixed(2)}%`;
+                        part = Math.abs(a - b); whole = avg;
+                    } else if (mode === '5') { // add% (simplified: first + %)
+                        result = a + (a * b / 100);
+                        formulaStr = `${a} + ${b}% = ${result.toFixed(2)}`;
+                        part = result - a; whole = a;
+                    } else if (mode === '6') { // ratio
+                        result = (a / b) * 100;
+                        fractionStr = `${a}/${b}`; decimalStr = (a / b).toFixed(4); ratioStr = `${a}:${b}`;
+                        formulaStr = `${a} out of ${b} = ${result.toFixed(2)}%`;
+                        part = a; whole = b;
+                    } else if (mode === '7') { // reverse
+                        result = a / (b / 100);
+                        formulaStr = `${a} ÷ (${b}/100) = ${result.toFixed(2)}`;
+                        part = a; whole = result;
+                    } else if (mode === '8') { // bulk: apply tax, disc, fee (simple stacking)
+                        let temp = a;
+                        temp = temp + (temp * b / 100); // tax
+                        temp = temp - (temp * c / 100); // disc
+                        temp = temp + (temp * d / 100); // fee
+                        result = temp;
+                        formulaStr = `after tax ${b}% disc ${c}% fee ${d}% = ${result.toFixed(2)}`;
+                        part = result - a; whole = a;
+                    }
+
+                    // apply decimal rounding
+                    let dec = decimalSelect.value === 'auto' ? 2 : parseInt(decimalSelect.value);
+                    let rounded = result;
+                    if (!isNaN(rounded)) {
+                        if (roundSelect.value === 'Up') rounded = Math.ceil(rounded * 100) / 100;
+                        else if (roundSelect.value === 'Down') rounded = Math.floor(rounded * 100) / 100;
+                        else rounded = parseFloat(rounded.toFixed(dec));
+                    }
+
+                    if (currencyToggle.checked && !isNaN(rounded)) {
+                        mainResultEl.innerText = `$${rounded.toFixed(2)}`;
+                    } else {
+                        mainResultEl.innerText = rounded;
+                    }
+
+                    formulaEl.innerText = 'Formula: ' + formulaStr;
+                    if (mode === '6') {
+                        fractionEl.innerText = fractionStr || '—';
+                        decimalEl.innerText = decimalStr || (result / 100).toFixed(4);
+                        ratioEl.innerText = ratioStr || '—';
+                    } else {
+                        fractionEl.innerText = `${part.toFixed(1)}/${whole.toFixed(1)}`;
+                        decimalEl.innerText = (part / whole).toFixed(4);
+                        ratioEl.innerText = `${part.toFixed(1)}:${whole.toFixed(1)}`;
+                    }
+                    wordDesc.innerText = `${a} percent of something`;
+
+                    // visual
+                    let percentOfWhole = whole === 0 ? 0 : (part / whole) * 100;
+                    progressFill.style.width = Math.min(percentOfWhole, 100) + '%';
+                    let angle = (percentOfWhole / 100) * 360;
+                    pieChart.style.background = `conic-gradient(#2563eb 0deg ${angle}deg, #e5e7eb ${angle}deg 360deg)`;
+
+                    if (mode === '2' || mode === '4') {
+                        let chg = ((b - a) / a * 100) || 0;
+                        changeIndicator.innerText = (chg >= 0 ? '↗ +' : '↘ ') + chg.toFixed(1) + '%';
+                        changeIndicator.className = chg >= 0 ? 'text-success' : 'text-error';
+                        barBefore.style.width = '50%'; barAfter.style.width = '50%';
+                    } else {
+                        changeIndicator.innerText = '↗ +0%';
+                    }
+
+                    // push to history (simplified)
+                    let histEntry = `${a} ${mode} ${b} = ${rounded}`;
+                    let newDiv = document.createElement('div');
+                    newDiv.className = 'history-item'; newDiv.innerText = histEntry;
+                    historyBox.prepend(newDiv);
+                    if (historyBox.children.length > 5) historyBox.removeChild(historyBox.lastChild);
                 }
 
-                if (currencyToggle.checked && !isNaN(rounded)) {
-                    mainResultEl.innerText = `$${rounded.toFixed(2)}`;
-                } else {
-                    mainResultEl.innerText = rounded;
+                // event listeners
+                function setActiveTab(mode) {
+                    modeTabs.forEach(t => t.classList.remove('active'));
+                    document.querySelector(`.mode-tab[data-mode="${mode}"]`).classList.add('active');
+                    currentMode = mode;
+                    renderMode(mode);
                 }
 
-                formulaEl.innerText = 'Formula: ' + formulaStr;
-                if (mode === '6') {
-                    fractionEl.innerText = fractionStr || '—';
-                    decimalEl.innerText = decimalStr || (result / 100).toFixed(4);
-                    ratioEl.innerText = ratioStr || '—';
-                } else {
-                    fractionEl.innerText = `${part.toFixed(1)}/${whole.toFixed(1)}`;
-                    decimalEl.innerText = (part / whole).toFixed(4);
-                    ratioEl.innerText = `${part.toFixed(1)}:${whole.toFixed(1)}`;
-                }
-                wordDesc.innerText = `${a} percent of something`;
-
-                // visual
-                let percentOfWhole = whole === 0 ? 0 : (part / whole) * 100;
-                progressFill.style.width = Math.min(percentOfWhole, 100) + '%';
-                let angle = (percentOfWhole / 100) * 360;
-                pieChart.style.background = `conic-gradient(#2563eb 0deg ${angle}deg, #e5e7eb ${angle}deg 360deg)`;
-
-                if (mode === '2' || mode === '4') {
-                    let chg = ((b - a) / a * 100) || 0;
-                    changeIndicator.innerText = (chg >= 0 ? '↗ +' : '↘ ') + chg.toFixed(1) + '%';
-                    changeIndicator.className = chg >= 0 ? 'text-success' : 'text-error';
-                    barBefore.style.width = '50%'; barAfter.style.width = '50%';
-                } else {
-                    changeIndicator.innerText = '↗ +0%';
-                }
-
-                // push to history (simplified)
-                let histEntry = `${a} ${mode} ${b} = ${rounded}`;
-                let newDiv = document.createElement('div');
-                newDiv.className = 'history-item'; newDiv.innerText = histEntry;
-                historyBox.prepend(newDiv);
-                if (historyBox.children.length > 5) historyBox.removeChild(historyBox.lastChild);
-            }
-
-            // event listeners
-            function setActiveTab(mode) {
-                modeTabs.forEach(t => t.classList.remove('active'));
-                document.querySelector(`.mode-tab[data-mode="${mode}"]`).classList.add('active');
-                currentMode = mode;
-                renderMode(mode);
-            }
-
-            modeTabs.forEach(tab => {
-                tab.addEventListener('click', (e) => {
-                    setActiveTab(tab.dataset.mode);
-                    compute(); // optional realtime
+                modeTabs.forEach(tab => {
+                    tab.addEventListener('click', (e) => {
+                        setActiveTab(tab.dataset.mode);
+                        compute(); // optional realtime
+                    });
                 });
-            });
 
-            calculateBtn.addEventListener('click', compute);
-            resetBtn.addEventListener('click', () => {
-                renderMode(currentMode);
-                compute();
-            });
-            swapBtn.addEventListener('click', () => {
-                let inp1 = document.getElementById('val1');
-                let inp2 = document.getElementById('val2');
-                if (inp1 && inp2) { let tmp = inp1.value; inp1.value = inp2.value; inp2.value = tmp; compute(); }
-            });
-            copyResult.addEventListener('click', () => {
-                navigator.clipboard?.writeText(mainResultEl.innerText);
-            });
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') { e.preventDefault(); compute(); }
-                if (e.key === 'Escape') { resetBtn.click(); }
-            });
-
-            // init
-            setActiveTab('1');
-            compute();
-
-            // preset selector quick fill (mock)
-            document.getElementById('presetSelect').addEventListener('change', (e) => {
-                if (e.target.value.includes('20')) {
-                    if (document.getElementById('val1')) document.getElementById('val1').value = 20;
-                    if (document.getElementById('val2')) document.getElementById('val2').value = 100;
+                calculateBtn.addEventListener('click', compute);
+                resetBtn.addEventListener('click', () => {
+                    renderMode(currentMode);
                     compute();
-                }
-            });
+                });
+                swapBtn.addEventListener('click', () => {
+                    let inp1 = document.getElementById('val1');
+                    let inp2 = document.getElementById('val2');
+                    if (inp1 && inp2) { let tmp = inp1.value; inp1.value = inp2.value; inp2.value = tmp; compute(); }
+                });
+                copyResult.addEventListener('click', () => {
+                    navigator.clipboard?.writeText(mainResultEl.innerText);
+                });
 
-            // real-time toggle (optional)
-            document.querySelectorAll('input').forEach(inp => inp?.addEventListener('input', compute));
-            currencyToggle.addEventListener('change', compute);
-            decimalSelect.addEventListener('change', compute);
-            roundSelect.addEventListener('change', compute);
-        })();
-    </script>
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') { e.preventDefault(); compute(); }
+                    if (e.key === 'Escape') { resetBtn.click(); }
+                });
+
+                // init
+                setActiveTab('1');
+                compute();
+
+                // preset selector quick fill (mock)
+                document.getElementById('presetSelect').addEventListener('change', (e) => {
+                    if (e.target.value.includes('20')) {
+                        if (document.getElementById('val1')) document.getElementById('val1').value = 20;
+                        if (document.getElementById('val2')) document.getElementById('val2').value = 100;
+                        compute();
+                    }
+                });
+
+                // real-time toggle (optional)
+                document.querySelectorAll('input').forEach(inp => inp?.addEventListener('input', compute));
+                currencyToggle.addEventListener('change', compute);
+                decimalSelect.addEventListener('change', compute);
+                roundSelect.addEventListener('change', compute);
+            })();
+        </script>
+    </div>
     <!-- ensure input event after dynamic render -->
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Column 1: Brand -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="footer-logo-img">
+                    </div>
+                    <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools. Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook">
+                            <img src="../assets/brand/icons/facebook.svg" alt="Facebook" width="20" height="20">
+                        </a>
+                        <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram">
+                            <img src="../assets/brand/icons/instagram.svg" alt="Instagram" width="20" height="20">
+                        </a>
+                        <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube">
+                            <img src="../assets/brand/icons/youtube.svg" alt="YouTube" width="20" height="20">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Calculators -->
+                <div class="footer-col">
+                    <h4>Calculators</h4>
+                    <ul>
+                        <li><a href="age-calculator.html">Age Calculator</a></li>
+                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
+                        <li><a href="gpa-calculator.html">GPA Calculator</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Tools -->
+                <div class="footer-col">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="cv-maker.html">CV Maker</a></li>
+                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
+                        <li><a href="ai-content-humanizer.html">AI Content Humanizer</a></li>
+                        <li><a href="number-to-words-calculator.html">Number to Words</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Links -->
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../contact.html">Contact Us</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 90StoreZon. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="../privacy-policy.html">Privacy</a>
+                    <a href="../disclaimer.html">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

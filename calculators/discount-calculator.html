@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>✅ Discount Calculator · full‑stack tool</title>
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         * {
             margin: 0;
@@ -16,10 +17,15 @@
         body {
             background: #f9fafb;
             color: #111827;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-content-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            min-height: calc(100vh - 70px);
             padding: 16px;
         }
 
@@ -464,353 +470,319 @@
 </head>
 
 <body>
-    <div class="calculator" id="discountApp">
-        <div class="header">
-            <h1>🏷️ Discount Calculator</h1>
-            <p>Calculate discounts, savings, tax & final price instantly · stacked / reverse / profit</p>
-        </div>
-
-        <div class="dashboard">
-            <!-- INPUT PANEL -->
-            <div class="input-panel">
-                <div class="mode-switch">
-                    <span class="mode-btn" :class="{active: mode===1}" @click="setMode(1)"><i>①</i> %</span>
-                    <span class="mode-btn" :class="{active: mode===2}" @click="setMode(2)"><i>②</i> Fixed</span>
-                    <span class="mode-btn" :class="{active: mode===3}" @click="setMode(3)"><i>③</i> Reverse</span>
-                    <span class="mode-btn" :class="{active: mode===4}" @click="setMode(4)"><i>④</i> Stacked</span>
-                    <span class="mode-btn" :class="{active: mode===5}" @click="setMode(5)"><i>⑤</i> Profit</span>
-                    <span class="mode-btn" :class="{active: mode===6}" @click="setMode(6)"><i>⑥</i> Bulk</span>
-                </div>
-
-                <!-- main dynamic inputs based on mode -->
-                <div v-show="mode===1 || mode===2 || mode===3 || mode===4 || mode===5 || mode===6">
-                    <!-- price & disc (shared) -->
-                    <div class="input-group">
-                        <label>💰 Original Price / Cost</label>
-                        <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
-                                type="number" v-model.number="originalPrice" placeholder="0.00" @input="calc"></div>
-                    </div>
-
-                    <!-- discount row for perc/fixed/stacked -->
-                    <div v-if="mode===1 || mode===2 || mode===4">
-                        <div class="discount-row">
-                            <div class="input-group" style="flex:2">
-                                <label>Discount</label>
-                                <div class="input-wrapper">
-                                    <span v-if="discountType==='%'">%</span><span v-else class="currency">{{
-                                        currencySymbol }}</span>
-                                    <input type="number" v-model.number="discountValue" placeholder="20" @input="calc">
-                                </div>
-                            </div>
-                            <div class="discount-type">
-                                <label><input type="radio" value="%" v-model="discountType"> %</label>
-                                <label><input type="radio" value="fixed" v-model="discountType"> fixed</label>
-                            </div>
-                        </div>
-                        <div v-if="mode===4" class="input-group">
-                            <label>➕ Second discount ( % )</label>
-                            <div class="input-wrapper"><span>%</span><input type="number"
-                                    v-model.number="secondDiscount" @input="calc"></div>
-                        </div>
-                    </div>
-
-                    <!-- reverse mode : sale price & disc% -->
-                    <div v-if="mode===3">
-                        <div class="input-group"><label>🏷️ Sale price</label>
-                            <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
-                                    type="number" v-model.number="salePrice" @input="calc"></div>
-                        </div>
-                        <div class="input-group"><label>📉 Discount %</label>
-                            <div class="input-wrapper"><span>%</span><input type="number"
-                                    v-model.number="reverseDiscount" @input="calc"></div>
-                        </div>
-                    </div>
-
-                    <!-- profit mode -->
-                    <div v-if="mode===5">
-                        <div class="input-group"><label>💰 Cost price</label>
-                            <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
-                                    type="number" v-model.number="costPrice" @input="calc"></div>
-                        </div>
-                        <div class="input-group"><label>🛒 Selling price</label>
-                            <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
-                                    type="number" v-model.number="sellingPrice" @input="calc"></div>
-                        </div>
-                    </div>
-
-                    <!-- bulk mode -->
-                    <div v-if="mode===6">
-                        <div class="input-group"><label>📦 Unit price</label>
-                            <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
-                                    type="number" v-model.number="unitPrice" @input="calc"></div>
-                        </div>
-                        <div class="input-group"><label>🔢 Quantity</label>
-                            <div class="input-wrapper"><input type="number" v-model.number="bulkQty" @input="calc">
-                            </div>
-                        </div>
-                        <div class="input-group"><label>📉 Discount %</label>
-                            <div class="input-wrapper"><span>%</span><input type="number" v-model.number="bulkDisc"
-                                    @input="calc"></div>
-                        </div>
-                    </div>
-
-                    <!-- tax and quantity (common) -->
-                    <div class="input-group"><label>🧾 Tax % (optional)</label>
-                        <div class="input-wrapper"><span>%</span><input type="number" v-model.number="taxPercent"
-                                @input="calc"></div>
-                    </div>
-                    <div class="input-group"><label>🔢 Quantity</label>
-                        <div class="input-wrapper"><input type="number" v-model.number="quantity" min="1" @input="calc">
-                        </div>
-                    </div>
-
-                    <!-- currency / advanced -->
-                    <div class="advanced-toggle" @click="toggleAdvanced">{{ advancedOpen ? '▼' : '▶' }} Advanced &
-                        currency</div>
-                    <div class="advanced-content" :class="{show: advancedOpen}">
-                        <div class="row-flex">
-                            <select class="select-sm" v-model="currencyCode" @change="updateCurrency">
-                                <option value="USD">🇺🇸 USD</option>
-                                <option value="PKR">🇵🇰 PKR</option>
-                                <option value="INR">🇮🇳 INR</option>
-                                <option value="GBP">🇬🇧 GBP</option>
-                                <option value="EUR">🇪🇺 EUR</option>
-                                <option value="AED">🇦🇪 AED</option>
-                            </select>
-                            <label><input type="checkbox" v-model="taxInclusive"> Tax inclusive</label>
-                            <label><input type="checkbox" v-model="rounding"> Rounding</label>
-                        </div>
-                        <div style="margin-top:10px"><small>💳 Cash vs card: 2% fee <span class="badge">sim</span> card
-                                adds {{ (finalPrice*0.02).toFixed(2) }}</small></div>
-                    </div>
-                </div>
-
-                <!-- STICKY ACTION BAR (mobile) -->
-                <div class="action-bar">
-                    <button class="btn btn-primary" @click="calc">🧮 Calculate</button>
-                    <button class="btn btn-clear" @click="clearAll">🗑️ Clear</button>
-                    <button class="btn btn-copy" @click="copyResult">📋 Copy</button>
-                </div>
-                <div style="font-size:0.8rem; color:#4b5563; margin-top:8px;" class="only-mobile">← swipe / advanced
-                    below</div>
+    <div id="loading-screen">
+        <div class="loader"></div>
+    </div>    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="logo-img">
+                    <span class="logo-90">90</span><span class="logo-storezon">StoreZon</span>
+                </a>
+            </div>
+            
+            <div class="header-search">
+                <button class="header-search-btn" id="headerSearchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" x2="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <input type="text" id="headerSearchInput" placeholder="Search calculators..." autocomplete="off">
+                <div id="headerSearchResults" class="search-dropdown"></div>
             </div>
 
-            <!-- RESULT PANEL -->
-            <div class="result-panel">
-                <div style="display: flex; justify-content: space-between;">
-                    <h3 style="font-weight: 600;">📊 results</h3>
-                    <span><button class="btn" style="padding:6px 14px; min-height:auto;" @click="exportCSV">📥
-                            CSV</button></span>
+            <div class="nav-right">
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
-                <!-- dynamic main stats -->
-                <div class="result-cards">
-                    <div class="stat-card">
-                        <div class="stat-label">Final price</div>
-                        <div class="stat-value">{{ formatMoney(finalPrice) }}</div>
-                        <div class="stat-note">incl. tax</div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content-wrapper">
+        <div class="calculator" id="discountApp">
+            <div class="header">
+                <h1>🏷️ Discount Calculator</h1>
+                <p>Calculate discounts, savings, tax & final price instantly · stacked / reverse / profit</p>
+            </div>
+
+            <div class="dashboard">
+                <!-- INPUT PANEL -->
+                <div class="input-panel">
+                    <div class="mode-switch">
+                        <span class="mode-btn" :class="{active: mode===1}" @click="setMode(1)"><i>①</i> %</span>
+                        <span class="mode-btn" :class="{active: mode===2}" @click="setMode(2)"><i>②</i> Fixed</span>
+                        <span class="mode-btn" :class="{active: mode===3}" @click="setMode(3)"><i>③</i> Reverse</span>
+                        <span class="mode-btn" :class="{active: mode===4}" @click="setMode(4)"><i>④</i> Stacked</span>
+                        <span class="mode-btn" :class="{active: mode===5}" @click="setMode(5)"><i>⑤</i> Profit</span>
+                        <span class="mode-btn" :class="{active: mode===6}" @click="setMode(6)"><i>⑥</i> Bulk</span>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-label">You save</div>
-                        <div class="stat-value text-green">{{ formatMoney(totalSave) }}</div>
-                        <div class="stat-note">-{{ savePercent }}%</div>
+
+                    <!-- main dynamic inputs based on mode -->
+                    <div v-show="mode===1 || mode===2 || mode===3 || mode===4 || mode===5 || mode===6">
+                        <!-- price & disc (shared) -->
+                        <div class="input-group">
+                            <label>💰 Original Price / Cost</label>
+                            <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
+                                    type="number" v-model.number="originalPrice" placeholder="0.00" @input="calc"></div>
+                        </div>
+
+                        <!-- discount row for perc/fixed/stacked -->
+                        <div v-if="mode===1 || mode===2 || mode===4">
+                            <div class="discount-row">
+                                <div class="input-group" style="flex:2">
+                                    <label>Discount</label>
+                                    <div class="input-wrapper">
+                                        <span v-if="discountType==='%'">%</span><span v-else class="currency">{{
+                                            currencySymbol }}</span>
+                                        <input type="number" v-model.number="discountValue" placeholder="20"
+                                            @input="calc">
+                                    </div>
+                                </div>
+                                <div class="discount-type">
+                                    <label><input type="radio" value="%" v-model="discountType"> %</label>
+                                    <label><input type="radio" value="fixed" v-model="discountType"> fixed</label>
+                                </div>
+                            </div>
+                            <div v-if="mode===4" class="input-group">
+                                <label>➕ Second discount ( % )</label>
+                                <div class="input-wrapper"><span>%</span><input type="number"
+                                        v-model.number="secondDiscount" @input="calc"></div>
+                            </div>
+                        </div>
+
+                        <!-- reverse mode : sale price & disc% -->
+                        <div v-if="mode===3">
+                            <div class="input-group"><label>🏷️ Sale price</label>
+                                <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
+                                        type="number" v-model.number="salePrice" @input="calc"></div>
+                            </div>
+                            <div class="input-group"><label>📉 Discount %</label>
+                                <div class="input-wrapper"><span>%</span><input type="number"
+                                        v-model.number="reverseDiscount" @input="calc"></div>
+                            </div>
+                        </div>
+
+                        <!-- profit mode -->
+                        <div v-if="mode===5">
+                            <div class="input-group"><label>💰 Cost price</label>
+                                <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
+                                        type="number" v-model.number="costPrice" @input="calc"></div>
+                            </div>
+                            <div class="input-group"><label>🛒 Selling price</label>
+                                <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
+                                        type="number" v-model.number="sellingPrice" @input="calc"></div>
+                            </div>
+                        </div>
+
+                        <!-- bulk mode -->
+                        <div v-if="mode===6">
+                            <div class="input-group"><label>📦 Unit price</label>
+                                <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
+                                        type="number" v-model.number="unitPrice" @input="calc"></div>
+                            </div>
+                            <div class="input-group"><label>🔢 Quantity</label>
+                                <div class="input-wrapper"><input type="number" v-model.number="bulkQty" @input="calc">
+                                </div>
+                            </div>
+                            <div class="input-group"><label>📉 Discount %</label>
+                                <div class="input-wrapper"><span>%</span><input type="number" v-model.number="bulkDisc"
+                                        @input="calc"></div>
+                            </div>
+                        </div>
+
+                        <!-- tax and quantity (common) -->
+                        <div class="input-group"><label>🧾 Tax % (optional)</label>
+                            <div class="input-wrapper"><span>%</span><input type="number" v-model.number="taxPercent"
+                                    @input="calc"></div>
+                        </div>
+                        <div class="input-group"><label>🔢 Quantity</label>
+                            <div class="input-wrapper"><input type="number" v-model.number="quantity" min="1"
+                                    @input="calc">
+                            </div>
+                        </div>
+
+                        <!-- currency / advanced -->
+                        <div class="advanced-toggle" @click="toggleAdvanced">{{ advancedOpen ? '▼' : '▶' }} Advanced &
+                            currency</div>
+                        <div class="advanced-content" :class="{show: advancedOpen}">
+                            <div class="row-flex">
+                                <select class="select-sm" v-model="currencyCode" @change="updateCurrency">
+                                    <option value="USD">🇺🇸 USD</option>
+                                    <option value="PKR">🇵🇰 PKR</option>
+                                    <option value="INR">🇮🇳 INR</option>
+                                    <option value="GBP">🇬🇧 GBP</option>
+                                    <option value="EUR">🇪🇺 EUR</option>
+                                    <option value="AED">🇦🇪 AED</option>
+                                </select>
+                                <label><input type="checkbox" v-model="taxInclusive"> Tax inclusive</label>
+                                <label><input type="checkbox" v-model="rounding"> Rounding</label>
+                            </div>
+                            <div style="margin-top:10px"><small>💳 Cash vs card: 2% fee <span class="badge">sim</span>
+                                    card
+                                    adds {{ (finalPrice*0.02).toFixed(2) }}</small></div>
+                        </div>
                     </div>
-                </div>
-                <!-- progress bar savings -->
-                <div class="progress-section">
-                    <div class="progress-label"><span>Savings</span><span>{{ savePercent }}%</span></div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-fill" :style="{width: Math.min(savePercent,100)+'%'}"></div>
+
+                    <!-- STICKY ACTION BAR (mobile) -->
+                    <div class="action-bar">
+                        <button class="btn btn-primary" @click="calc">🧮 Calculate</button>
+                        <button class="btn btn-clear" @click="clearAll">🗑️ Clear</button>
+                        <button class="btn btn-copy" @click="copyResult">📋 Copy</button>
                     </div>
-                </div>
-                <!-- mini chart before/after -->
-                <div class="mini-chart">
-                    <div class="chart-before" :style="{width: originalPrice/(originalPrice+finalPrice)*100+'%'}">B
-                        {{formatMoney(originalPrice)}}</div>
-                    <div class="chart-after" :style="{width: finalPrice/(originalPrice+finalPrice)*100+'%'}">A
-                        {{formatMoney(finalPrice)}}</div>
+                    <div style="font-size:0.8rem; color:#4b5563; margin-top:8px;" class="only-mobile">← swipe / advanced
+                        below</div>
                 </div>
 
-                <!-- detailed table -->
-                <div style="background:#f9fafb; border-radius:16px; padding:16px;">
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-                        <span>Original:</span><span class="stat-note">{{ formatMoney(originalPrice||0) }}</span>
-                        <span>Discount:</span><span class="stat-note">{{ discountDesc }}</span>
-                        <span>Tax {{taxPercent}}%:</span><span>{{ formatMoney(taxAmount) }}</span>
-                        <span>Per item:</span><span>{{ formatMoney(perItemPrice) }}</span>
-                        <span>Total (x{{quantity||1}}):</span><span>{{ formatMoney(finalPrice) }}</span>
+                <!-- RESULT PANEL -->
+                <div class="result-panel">
+                    <div style="display: flex; justify-content: space-between;">
+                        <h3 style="font-weight: 600;">📊 results</h3>
+                        <span><button class="btn" style="padding:6px 14px; min-height:auto;" @click="exportCSV">📥
+                                CSV</button></span>
                     </div>
-                    <hr>
-                    <div v-if="mode===4"><span>Stacked total off: {{ stackedEffective }}%</span></div>
-                    <div v-if="mode===5">Profit: {{formatMoney(profitAmt)}} ({{ profitPercent }}%)</div>
-                    <div v-if="mode===6">Bulk save: {{ formatMoney(bulkSave) }}</div>
-                </div>
+                    <!-- dynamic main stats -->
+                    <div class="result-cards">
+                        <div class="stat-card">
+                            <div class="stat-label">Final price</div>
+                            <div class="stat-value">{{ formatMoney(finalPrice) }}</div>
+                            <div class="stat-note">incl. tax</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">You save</div>
+                            <div class="stat-value text-green">{{ formatMoney(totalSave) }}</div>
+                            <div class="stat-note">-{{ savePercent }}%</div>
+                        </div>
+                    </div>
+                    <!-- progress bar savings -->
+                    <div class="progress-section">
+                        <div class="progress-label"><span>Savings</span><span>{{ savePercent }}%</span></div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-fill" :style="{width: Math.min(savePercent,100)+'%'}"></div>
+                        </div>
+                    </div>
+                    <!-- mini chart before/after -->
+                    <div class="mini-chart">
+                        <div class="chart-before" :style="{width: originalPrice/(originalPrice+finalPrice)*100+'%'}">B
+                            {{formatMoney(originalPrice)}}</div>
+                        <div class="chart-after" :style="{width: finalPrice/(originalPrice+finalPrice)*100+'%'}">A
+                            {{formatMoney(finalPrice)}}</div>
+                    </div>
 
-                <!-- history snapshot -->
-                <div class="history-panel">
-                    <div style="display:flex; justify-content:space-between;">
-                        <span>📋 last 3 calculations</span>
-                        <button style="background:none; border:none; color:#2563eb;"
-                            @click="clearHistory">clear</button>
+                    <!-- detailed table -->
+                    <div style="background:#f9fafb; border-radius:16px; padding:16px;">
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                            <span>Original:</span><span class="stat-note">{{ formatMoney(originalPrice||0) }}</span>
+                            <span>Discount:</span><span class="stat-note">{{ discountDesc }}</span>
+                            <span>Tax {{taxPercent}}%:</span><span>{{ formatMoney(taxAmount) }}</span>
+                            <span>Per item:</span><span>{{ formatMoney(perItemPrice) }}</span>
+                            <span>Total (x{{quantity||1}}):</span><span>{{ formatMoney(finalPrice) }}</span>
+                        </div>
+                        <hr>
+                        <div v-if="mode===4"><span>Stacked total off: {{ stackedEffective }}%</span></div>
+                        <div v-if="mode===5">Profit: {{formatMoney(profitAmt)}} ({{ profitPercent }}%)</div>
+                        <div v-if="mode===6">Bulk save: {{ formatMoney(bulkSave) }}</div>
                     </div>
-                    <div v-for="(h,i) in history.slice(-3).reverse()" :key="i"
-                        style="font-size:0.85rem; padding:4px 0;">{{h}}</div>
-                </div>
-                <!-- educational snippet -->
-                <div style="font-size:0.8rem; background:#eff6ff; border-radius:12px; padding:12px; margin-top:12px;">
-                    💡 <strong>Stacked discount:</strong> first 20% then 10% = 28% total off.
+
+                    <!-- history snapshot -->
+                    <div class="history-panel">
+                        <div style="display:flex; justify-content:space-between;">
+                            <span>📋 last 3 calculations</span>
+                            <button style="background:none; border:none; color:#2563eb;"
+                                @click="clearHistory">clear</button>
+                        </div>
+                        <div v-for="(h,i) in history.slice(-3).reverse()" :key="i"
+                            style="font-size:0.85rem; padding:4px 0;">{{h}}</div>
+                    </div>
+                    <!-- educational snippet -->
+                    <div
+                        style="font-size:0.8rem; background:#eff6ff; border-radius:12px; padding:12px; margin-top:12px;">
+                        💡 <strong>Stacked discount:</strong> first 20% then 10% = 28% total off.
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Column 1: Brand -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="footer-logo-img">
+                    </div>
+                    <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools. Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook">
+                            <img src="../assets/brand/icons/facebook.svg" alt="Facebook" width="20" height="20">
+                        </a>
+                        <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram">
+                            <img src="../assets/brand/icons/instagram.svg" alt="Instagram" width="20" height="20">
+                        </a>
+                        <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube">
+                            <img src="../assets/brand/icons/youtube.svg" alt="YouTube" width="20" height="20">
+                        </a>
+                    </div>
+                </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script>
-        new Vue({
-            el: '#discountApp',
-            data: {
-                mode: 1,
-                originalPrice: 1000,
-                discountType: '%',
-                discountValue: 20,
-                secondDiscount: 10,
-                taxPercent: 5,
-                quantity: 1,
-                currencyCode: 'USD',
-                taxInclusive: false,
-                rounding: false,
-                advancedOpen: false,
-                // reverse
-                salePrice: 800,
-                reverseDiscount: 20,
-                // profit
-                costPrice: 500,
-                sellingPrice: 800,
-                // bulk
-                unitPrice: 100,
-                bulkQty: 50,
-                bulkDisc: 15,
-                // computed fields will be stored
-                finalPrice: 840,
-                totalSave: 200,
-                savePercent: 20,
-                taxAmount: 40,
-                perItemPrice: 800,
-                profitAmt: 300,
-                profitPercent: 60,
-                stackedEffective: 28,
-                bulkSave: 750,
-                originalPricePrev: 1000,
-                discountDesc: '20%',
-                history: ['$1000 → $840 (save 20%)', '$50 → $40 (save 10%)', '$200 → $150 save 25%'],
-                currencySymbol: '$',
-            },
-            mounted() { this.calc(); this.loadHistory(); },
-            methods: {
-                setMode(m) { this.mode = m; this.calc(); },
-                toggleAdvanced() { this.advancedOpen = !this.advancedOpen; },
-                updateCurrency() {
-                    const symbols = { USD: '$', PKR: '₨', INR: '₹', GBP: '£', EUR: '€', AED: 'د.إ' };
-                    this.currencySymbol = symbols[this.currencyCode] || '$';
-                },
-                calc() {
-                    // simplified calculation for demo – aggregates main fields
-                    let base = this.originalPrice || 0;
-                    let disc = this.discountValue || 0;
-                    let final = base;
-                    let save = 0;
-                    if (this.mode === 1 || this.mode === 2) {
-                        if (this.discountType === '%') { save = base * disc / 100; final = base - save; }
-                        else { save = Math.min(disc, base); final = base - save; }
-                    }
-                    else if (this.mode === 4) { // stacked
-                        let afterFirst = base * (1 - disc / 100);
-                        final = afterFirst * (1 - (this.secondDiscount || 0) / 100);
-                        save = base - final;
-                    }
-                    else if (this.mode === 3) { // reverse
-                        base = this.salePrice / (1 - (this.reverseDiscount || 0) / 100);
-                        final = this.salePrice; save = base - final;
-                        this.originalPrice = Math.round(base * 100) / 100;
-                    }
-                    else if (this.mode === 5) {
-                        this.profitAmt = (this.sellingPrice - this.costPrice);
-                        this.profitPercent = (this.profitAmt / this.costPrice * 100) || 0;
-                        final = this.sellingPrice; base = this.costPrice; save = 0;
-                    }
-                    else if (this.mode === 6) {
-                        let totalBase = (this.unitPrice || 0) * (this.bulkQty || 1);
-                        let discAmt = totalBase * (this.bulkDisc || 0) / 100;
-                        final = totalBase - discAmt;
-                        save = discAmt; base = totalBase;
-                        this.bulkSave = discAmt;
-                    }
+                <!-- Column 2: Calculators -->
+                <div class="footer-col">
+                    <h4>Calculators</h4>
+                    <ul>
+                        <li><a href="age-calculator.html">Age Calculator</a></li>
+                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
+                        <li><a href="gpa-calculator.html">GPA Calculator</a></li>
+                    </ul>
+                </div>
 
-                    const tax = (this.taxPercent || 0) / 100 * final;
-                    const finalWithTax = this.taxInclusive ? final + tax : final;
-                    this.finalPrice = this.rounding ? Math.round(finalWithTax) : Math.round(finalWithTax * 100) / 100;
-                    this.taxAmount = this.rounding ? Math.round(tax) : Math.round(tax * 100) / 100;
-                    this.totalSave = save;
-                    this.savePercent = base > 0 ? ((save / base) * 100).toFixed(1) : 0;
-                    this.perItemPrice = this.quantity ? final / this.quantity : final;
-                    this.discountDesc = this.mode === 2 ? '$' + this.discountValue : this.discountValue + '%';
+                <!-- Column 3: Tools -->
+                <div class="footer-col">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="cv-maker.html">CV Maker</a></li>
+                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
+                        <li><a href="ai-content-humanizer.html">AI Content Humanizer</a></li>
+                        <li><a href="number-to-words-calculator.html">Number to Words</a></li>
+                    </ul>
+                </div>
 
-                    // history push (only if meaningful)
-                    let entry = `${this.formatMoney(base)} → ${this.formatMoney(this.finalPrice)} (save ${this.savePercent}%)`;
-                    this.history.push(entry);
-                    if (this.history.length > 20) this.history.shift();
-                    localStorage.setItem('discHist', JSON.stringify(this.history));
-                },
-                clearAll() {
-                    this.originalPrice = 0; this.discountValue = 0; this.taxPercent = 0; this.quantity = 1; this.calc();
-                },
-                copyResult() {
-                    navigator.clipboard?.writeText(`Final: ${this.formatMoney(this.finalPrice)}, save ${this.savePercent}%`);
-                    alert('📋 copied');
-                },
-                formatMoney(val) {
-                    if (isNaN(val)) val = 0;
-                    return this.currencySymbol + (this.rounding ? Math.round(val) : val.toFixed(2));
-                },
-                exportCSV() {
-                    let csv = "Description,Value\nFinal Price," + this.finalPrice + "\nSaved," + this.totalSave;
-                    alert('csv simulated (console)'); console.log(csv);
-                },
-                clearHistory() { this.history = []; localStorage.removeItem('discHist'); },
-                loadHistory() {
-                    let saved = localStorage.getItem('discHist');
-                    if (saved) this.history = JSON.parse(saved);
-                }
-            },
-            watch: { mode: 'calc', originalPrice: 'calc', discountValue: 'calc', secondDiscount: 'calc', taxPercent: 'calc', quantity: 'calc', salePrice: 'calc', reverseDiscount: 'calc', costPrice: 'calc', sellingPrice: 'calc', unitPrice: 'calc', bulkQty: 'calc', bulkDisc: 'calc', discountType: 'calc', taxInclusive: 'calc', rounding: 'calc' }
-        });
-    </script>
-    <!-- ensure mobile bottom sticky style (action bar visible) -->
-    <style>
-        @media (max-width: 767px) {
-            .action-bar {
-                position: sticky;
-                bottom: 10px;
-                background: white;
-                padding: 8px 0;
-                z-index: 10;
-                border-top: 1px solid #e5e7eb;
-            }
+                <!-- Column 4: Links -->
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../contact.html">Contact Us</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
 
-            .only-mobile {
-                display: block;
-            }
-        }
+            <div class="footer-bottom">
+                <p>&copy; 2024 90StoreZon. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="../privacy-policy.html">Privacy</a>
+                    <a href="../disclaimer.html">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-        @media (min-width: 768px) {
-            .only-mobile {
-                display: none;
-            }
-        }
+    
 
-        .btn:hover {
-            filter: brightness(0.96);
-        }
-    </style>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

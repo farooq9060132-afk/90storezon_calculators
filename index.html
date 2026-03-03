@@ -91,60 +91,38 @@
         <div class="container nav-container">
             <div class="logo">
                 <a href="index.html">
-                    <img src="assets/brand/logo.png" alt="90StoreZon Logo" class="logo-img"
-                        style="height: 40px; width: auto; vertical-align: middle;">
+                    <img src="assets/brand/logo.png" alt="90StoreZon Logo" class="logo-img">
+                    <span class="logo-90">90</span><span class="logo-storezon">StoreZon</span>
                 </a>
             </div>
-            <div class="nav-right">
-                <button class="search-btn" id="searchBtn" aria-label="Search">
+
+            <div class="header-search">
+                <button class="header-search-btn" id="headerSearchBtn" aria-label="Search">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
                 </button>
+                <input type="text" id="headerSearchInput" placeholder="Search calculators..." autocomplete="off">
+                <div id="headerSearchResults" class="search-dropdown"></div>
+            </div>
+
+            <div class="nav-right">
                 <div class="nav-toggle" id="navToggle">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
             </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="privacy-policy.html">Privacy</a></li>
-                <li><a href="disclaimer.html">Disclaimer</a></li>
-            </ul>
         </div>
     </nav>
 
-    <!-- Search Overlay -->
-    <div class="search-overlay" id="searchOverlay">
-        <div class="search-container">
-            <div class="search-header">
-                <h3>Search Calculators</h3>
-                <button id="closeSearch" class="close-search">&times;</button>
-            </div>
-            <div class="search-body">
-                <div class="search-input-group">
-                    <input type="text" id="searchInput" placeholder="Search for tools like 'Age', 'EMI', 'Profit'..."
-                        autocomplete="off">
-                    <div class="search-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                    </div>
-                </div>
-                <div class="search-results" id="searchResults">
-                    <!-- Results will be injected here -->
-                    <div class="search-placeholder">Start typing to find tools...</div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -460,47 +438,48 @@
                 <!-- Column 1: Brand -->
                 <div class="footer-col">
                     <div class="footer-logo">
-                        <img src="assets/brand/logo.png" alt="90StoreZon Logo" class="footer-logo-img"
-                            style="height: 35px; width: auto; vertical-align: middle;">
+                        <img src="assets/brand/logo.png" alt="90StoreZon Logo" class="footer-logo-img">
                     </div>
-                    <p class="footer-description">Your trusted source for the FINAL BEST CALCULATORS. We provide free,
-                        accurate, and easy-to-use online calculation tools for everyone.</p>
+                    <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools.
+                        Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
                     <div class="social-links">
                         <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook">
-                            <img src="assets/brand/icons/facebook.svg" alt="Facebook" width="24" height="24">
+                            <img src="assets/brand/icons/facebook.svg" alt="Facebook" width="20" height="20">
                         </a>
                         <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram">
-                            <img src="assets/brand/icons/instagram.svg" alt="Instagram" width="24" height="24">
-                        </a>
-                        <a href="https://www.tiktok.com/@90storezon" target="_blank" aria-label="TikTok">
-                            <img src="assets/brand/icons/tiktok.svg" alt="TikTok" width="24" height="24">
+                            <img src="assets/brand/icons/instagram.svg" alt="Instagram" width="20" height="20">
                         </a>
                         <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube">
-                            <img src="assets/brand/icons/youtube.svg" alt="YouTube" width="24" height="24">
-                        </a>
-                        <a href="https://90storezon.com" target="_blank" aria-label="Website">
-                            <img src="assets/brand/icons/website.svg" alt="Website" width="24" height="24">
+                            <img src="assets/brand/icons/youtube.svg" alt="YouTube" width="20" height="20">
                         </a>
                     </div>
                 </div>
 
-                <!-- Column 2: Calculator Links -->
+                <!-- Column 2: Calculators -->
                 <div class="footer-col">
                     <h4>Calculators</h4>
                     <ul>
                         <li><a href="calculators/age-calculator.html">Age Calculator</a></li>
                         <li><a href="calculators/percentage-calculator.html">Percentage Calculator</a></li>
-                        <li><a href="calculators/date-difference-calculator.html">Date Difference</a></li>
                         <li><a href="calculators/loan-emi-calculator.html">Loan EMI</a></li>
-                        <li><a href="calculators/simple-interest-calculator.html">Simple Interest</a></li>
-                        <li><a href="calculators/cv-maker.html">CV Maker</a></li>
-                        <li><a href="calculators/invoice-maker.html">Invoice Maker</a></li>
+                        <li><a href="calculators/gpa-calculator.html">GPA Calculator</a></li>
                     </ul>
                 </div>
 
-                <!-- Column 3: Important Pages -->
+                <!-- Column 3: Tools -->
                 <div class="footer-col">
-                    <h4>Important Pages</h4>
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="calculators/cv-maker.html">CV Maker</a></li>
+                        <li><a href="calculators/invoice-maker.html">Invoice Maker</a></li>
+                        <li><a href="calculators/ai-content-humanizer.html">AI Content Humanizer</a></li>
+                        <li><a href="calculators/number-to-words-calculator.html">Number to Words</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Links -->
+                <div class="footer-col">
+                    <h4>About</h4>
                     <ul>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="contact.html">Contact Us</a></li>
@@ -508,22 +487,14 @@
                         <li><a href="disclaimer.html">Disclaimer</a></li>
                     </ul>
                 </div>
-
-                <!-- Column 4: Quick Links -->
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="calculators/compound-interest-calculator.html">Compound Interest</a></li>
-                        <li><a href="calculators/profit-loss-calculator.html">Profit & Loss</a></li>
-                        <li><a href="calculators/discount-calculator.html">Discount Calculator</a></li>
-                        <li><a href="calculators/gpa-calculator.html">GPA Calculator</a></li>
-                        <li><a href="calculators/number-to-words-calculator.html">Number to Words</a></li>
-                    </ul>
-                </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2024 90StoreZon. All rights reserved. | FINAL BEST CALCULATORS</p>
+                <p>&copy; 2024 90StoreZon. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="privacy-policy.html">Privacy</a>
+                    <a href="disclaimer.html">Disclaimer</a>
+                </div>
             </div>
         </div>
     </footer>

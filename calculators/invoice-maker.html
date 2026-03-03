@@ -3,808 +3,1328 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice Maker | 90StoreZon</title>
-    <link rel="icon" type="image/png" href="../assets/brand/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Professional Invoice Maker · Financial Grade</title>
+    <!-- Fonts & Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&family=Roboto+Mono:wght@400;500;600&family=Playfair+Display:wght@400;500;600&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <style>
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f8fafc;
-            margin: 0;
-            padding: 0;
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --success: #059669;
+            --warning: #d97706;
+            --error: #dc2626;
+            --info: #0891b2;
+            --background: #f9fafb;
+            --surface: #ffffff;
+            --text: #111827;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+            --money: #059669;
+            --draft: #6b7280;
+            --sent: #0891b2;
+            --viewed: #7c3aed;
+            --paid: #059669;
+            --overdue: #dc2626;
+            --partial: #d97706;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+            --radius-sm: 8px;
         }
 
-        .invoice-outer-wrapper {
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* App Container */
+        .invoice-app {
             max-width: 1600px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            overflow: hidden;
-            backdrop-filter: blur(10px);
+            padding: 16px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Tool Header */
-        .tool-banner {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px 40px;
+        /* Header */
+        .tool-header {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+
+        .tool-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tool-header h1 i {
+            color: var(--primary);
+        }
+
+        .tool-header p {
+            color: var(--text-light);
+            font-size: clamp(14px, 3vw, 16px);
+            margin-top: 4px;
+        }
+
+        /* Progress Tracker - Mobile/Tablet */
+        .progress-tracker {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: var(--surface);
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .logo-area h1 {
-            font-size: 2.2em;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 5px;
-        }
-
-        .logo-area p {
-            opacity: 0.9;
-            font-size: 1em;
-        }
-
-        .user-actions {
+        .progress-steps {
             display: flex;
-            gap: 15px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
-        .btn-light {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 25px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .step.active {
+            color: var(--primary);
+        }
+
+        .step.completed {
+            color: var(--success);
+        }
+
+        .step i {
+            font-size: 16px;
+        }
+
+        .step-progress-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            min-width: 200px;
+        }
+
+        .step-progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 80%;
+            border-radius: 4px;
+        }
+
+        /* Dashboard Overview */
+        .dashboard {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .dashboard h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .btn-light:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
-        /* Main Layout */
+        .stat-card {
+            background: var(--background);
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .stat-value.draft {
+            color: var(--draft);
+        }
+
+        .stat-value.sent {
+            color: var(--sent);
+        }
+
+        .stat-value.paid {
+            color: var(--paid);
+        }
+
+        .stat-value.overdue {
+            color: var(--overdue);
+        }
+
+        .recent-activity {
+            margin-top: 20px;
+        }
+
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-details {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge.paid {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge.sent {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge.overdue {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge.viewed {
+            background: #f3e8ff;
+            color: #6b21a8;
+        }
+
+        /* Main Layout - Responsive */
         .main-layout {
             display: grid;
-            grid-template-columns: 400px 1fr;
-            gap: 0;
-            height: calc(100vh - 140px);
-            min-height: 700px;
+            gap: 20px;
+            grid-template-columns: 1fr;
         }
 
-        /* Sidebar */
-        .sidebar {
-            background: #f8fafc;
-            padding: 25px;
-            border-right: 2px solid #e2e8f0;
-            overflow-y: auto;
+        @media (min-width: 768px) {
+            .main-layout {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
-        .sidebar-section {
-            background: white;
-            border-radius: 16px;
+        @media (min-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1.2fr 1.5fr 0.9fr;
+            }
+        }
+
+        /* Panels */
+        .panel {
+            background: var(--surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
             padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-sm);
+            overflow-y: auto;
+            max-height: 80vh;
         }
 
-        .section-title {
+        .panel h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: #1e293b;
-            font-size: 1.1em;
-            font-weight: 600;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f1f5f9;
+            gap: 8px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
         }
 
-        .section-title i {
-            color: #667eea;
+        /* Form Sections */
+        .form-section {
+            margin-bottom: 24px;
+        }
+
+        .form-section h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            color: #475569;
-            font-size: 0.9em;
+            font-size: 13px;
             font-weight: 500;
+            color: var(--text-light);
+            margin-bottom: 4px;
         }
 
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .form-control {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
             font-size: 14px;
-            transition: all 0.3s;
-            background: white;
+            transition: all 0.2s;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        .form-control:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        /* Product Manager */
-        .product-manager {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .product-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .product-tab {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            background: #f1f5f9;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            color: #64748b;
-            transition: all 0.3s;
-        }
-
-        .product-tab.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .product-card {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .product-card:hover {
-            border-color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -10px rgba(102, 126, 234, 0.3);
-        }
-
-        .product-name {
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 5px;
-        }
-
-        .product-price {
-            color: #667eea;
-            font-weight: 700;
-            font-size: 1.1em;
-        }
-
-        /* Invoice Preview */
-        .invoice-preview {
-            padding: 30px;
-            overflow-y: auto;
-            background: linear-gradient(135deg, #f1f5f9 0%, #ffffff 100%);
-        }
-
-        .invoice-canvas {
-            background: white;
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.2);
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        /* Invoice Template Styles */
-        .invoice-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #f1f5f9;
-        }
-
-        .invoice-brand h2 {
-            color: #1e293b;
-            font-size: 2em;
-            margin-bottom: 5px;
-        }
-
-        .invoice-brand p {
-            color: #64748b;
-        }
-
-        .invoice-badge {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .invoice-meta-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f8fafc;
-            border-radius: 16px;
-        }
-
-        .meta-item {
-            text-align: center;
-        }
-
-        .meta-label {
-            color: #64748b;
-            font-size: 0.85em;
-            margin-bottom: 5px;
-        }
-
-        .meta-value {
-            color: #1e293b;
-            font-weight: 700;
-            font-size: 1.1em;
-        }
-
-        .party-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-            padding: 25px;
-            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-            border-radius: 16px;
-        }
-
-        .party-box h3 {
-            color: #1e293b;
-            margin-bottom: 15px;
-            font-size: 1.1em;
-        }
-
-        .party-box p {
-            color: #475569;
-            margin-bottom: 5px;
-            font-size: 0.95em;
-        }
-
-        /* Invoice Table */
-        .invoice-table {
+        /* Items Table */
+        .items-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 25px 0;
+            font-size: 14px;
         }
 
-        .invoice-table th {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            color: white;
-            padding: 15px;
+        .items-table th {
+            text-align: left;
+            padding: 12px 8px;
+            background: var(--background);
             font-weight: 600;
-            font-size: 0.95em;
+            color: var(--text-light);
+            border-bottom: 2px solid var(--border);
         }
 
-        .invoice-table th:first-child {
-            border-radius: 12px 0 0 12px;
+        .items-table td {
+            padding: 8px;
+            border-bottom: 1px solid var(--border);
         }
 
-        .invoice-table th:last-child {
-            border-radius: 0 12px 12px 0;
-        }
-
-        .invoice-table td {
-            padding: 15px;
-            border-bottom: 2px solid #f1f5f9;
-        }
-
-        .invoice-table input {
+        .items-table input {
             width: 100%;
-            padding: 8px 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 0.95em;
+            padding: 6px 8px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: 'Roboto Mono', monospace;
         }
 
-        .remove-btn {
-            color: #ef4444;
+        .item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            padding: 6px;
+            border: none;
+            background: none;
+            color: var(--text-light);
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1.2em;
+            border-radius: 4px;
         }
 
-        .remove-btn:hover {
-            transform: scale(1.2);
+        .btn-icon:hover {
+            background: var(--background);
+            color: var(--error);
         }
 
-        /* Summary */
-        .summary-box {
-            width: 350px;
-            margin-left: auto;
-            padding: 25px;
-            background: #f8fafc;
-            border-radius: 16px;
+        /* Summary Cards */
+        .summary-card {
+            background: var(--background);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin-bottom: 16px;
         }
 
         .summary-row {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 2px solid #e2e8f0;
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border);
         }
 
         .summary-row.total {
-            border-bottom: none;
-            font-size: 1.3em;
             font-weight: 700;
-            color: #1e293b;
-            padding-top: 20px;
+            font-size: 18px;
+            border-bottom: none;
+            border-top: 2px solid var(--border);
+            padding-top: 16px;
+            margin-top: 8px;
         }
 
-        /* Export Toolbar */
-        .export-toolbar {
-            display: flex;
-            gap: 15px;
-            justify-content: flex-end;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #e2e8f0;
-        }
-
-        .export-btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 50px;
+        .money {
+            font-family: 'Roboto Mono', monospace;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1em;
+            color: var(--money);
         }
 
-        .export-btn.pdf {
-            background: #ef4444;
-            color: white;
-            box-shadow: 0 10px 20px -10px #ef4444;
-        }
-
-        .export-btn.png {
-            background: #10b981;
-            color: white;
-            box-shadow: 0 10px 20px -10px #10b981;
-        }
-
-        .export-btn.jpg {
-            background: #f59e0b;
-            color: white;
-            box-shadow: 0 10px 20px -10px #f59e0b;
-        }
-
-        .export-btn:hover {
-            transform: translateY(-3px);
-            filter: brightness(110%);
-        }
-
-        /* Templates */
-        .template-picker {
+        /* Template Gallery */
+        .template-gallery {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
-        .template-option {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 15px 10px;
+        .template-item {
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
         }
 
-        .template-option:hover,
-        .template-option.active {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .template-item.active {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .template-preview {
+            height: 80px;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        /* Live Preview */
+        .invoice-preview {
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+            font-size: 14px;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .preview-company {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .preview-invoice-no {
+            font-family: 'Roboto Mono', monospace;
+            color: var(--text-light);
+        }
+
+        /* Client Panel */
+        .client-card {
+            background: var(--background);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .client-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .client-contact {
+            color: var(--text-light);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .client-stats {
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .payment-timeline {
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 16px;
+            border-left: 2px solid var(--border);
+            padding-left: 20px;
+        }
+
+        .timeline-item:last-child {
+            border-left-color: transparent;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        /* Floating Action Button (Mobile) */
+        .fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        @media (max-width: 767px) {
+            .fab {
+                display: flex;
+            }
+        }
+
+        /* Sticky Bottom Bar (Mobile) */
+        .sticky-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 12px 16px;
+            display: flex;
+            gap: 12px;
+            justify-content: space-around;
+            z-index: 90;
+            display: none;
+        }
+
+        @media (max-width: 767px) {
+            .sticky-bottom-bar {
+                display: flex;
+            }
+
+            body {
+                padding-bottom: 80px;
+            }
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
             color: white;
         }
 
-        .template-option i {
-            font-size: 24px;
-            margin-bottom: 8px;
-            display: block;
+        .btn-primary:hover {
+            background: var(--primary-dark);
         }
 
-        /* Status Badge */
-        .status-badge {
-            display: inline-block;
-            padding: 6px 15px;
-            border-radius: 50px;
-            font-size: 0.9em;
-            font-weight: 600;
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
         }
 
-        .status-paid {
-            background: #d1fae5;
-            color: #065f46;
+        .btn-outline:hover {
+            background: var(--background);
         }
 
-        .status-pending {
-            background: #fed7aa;
-            color: #92400e;
+        .btn-success {
+            background: var(--success);
+            color: white;
         }
 
-        .status-overdue {
-            background: #fee2e2;
-            color: #991b1b;
+        /* Keyboard Shortcuts Hint */
+        .shortcuts-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 8px 12px;
+            font-size: 12px;
+            color: var(--text-light);
+            box-shadow: var(--shadow);
+            display: none;
         }
 
-        @media (max-width: 1200px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-                height: auto;
+        @media (min-width: 1024px) {
+            .shortcuts-hint {
+                display: block;
             }
         }
+
+        /* Responsive Typography */
+        @media (max-width: 767px) {
+            body {
+                font-size: 15px;
+            }
+
+            .panel {
+                padding: 16px;
+            }
+        }
+
+        /* Accessibility */
+        .focus-visible:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                transform: translateY(10px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .animate-in {
+            animation: slideIn 0.3s ease-out;
+        }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Include html2canvas for image export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- Include jspdf for PDF export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 
 <body>
-    <!-- Loading Animation -->
     <div id="loading-screen">
         <div class="loader"></div>
-    </div>
-
-    <!-- Navigation Bar -->
+    </div>    <!-- Navigation Bar -->
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <div class="logo">
                 <a href="../index.html">
-                    <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="logo-img"
-                        style="height: 40px; width: auto; vertical-align: middle;">
+                    <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="logo-img">
+                    <span class="logo-90">90</span><span class="logo-storezon">StoreZon</span>
                 </a>
             </div>
-                        <div class="nav-right">
-                <button class="search-btn" id="searchBtn" aria-label="Search">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
+            
+            <div class="header-search">
+                <button class="header-search-btn" id="headerSearchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        <line x1="21" x2="21" x2="16.65" y2="16.65"></line>
                     </svg>
                 </button>
+                <input type="text" id="headerSearchInput" placeholder="Search calculators..." autocomplete="off">
+                <div id="headerSearchResults" class="search-dropdown"></div>
+            </div>
+
+            <div class="nav-right">
                 <div class="nav-toggle" id="navToggle">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
             </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../about.html">About</a></li>
-                <li><a href="../contact.html">Contact</a></li>
-                <li><a href="../privacy-policy.html">Privacy</a></li>
-                <li><a href="../disclaimer.html">Disclaimer</a></li>
-            </ul>
         </div>
     </nav>
-    <!-- Search Overlay -->
-    <div class="search-overlay" id="searchOverlay">
-        <div class="search-container">
-            <div class="search-header">
-                <h3>Search Calculators</h3>
-                <button id="closeSearch" class="close-search">&times;</button>
-            </div>
-            <div class="search-body">
-                <div class="search-input-group">
-                    <input type="text" id="searchInput" placeholder="Search for tools like 'Age', 'EMI', 'Profit'..."
-                        autocomplete="off">
-                    <div class="search-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                    </div>
-                </div>
-                <div class="search-results" id="searchResults">
-                    <!-- Results will be injected here -->
-                    <div class="search-placeholder">Start typing to find tools...</div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <section class="calculator-container" style="background: #f0f7fc; padding: 4rem 20px;">
-        <div class="invoice-outer-wrapper">
+    <div class="main-content-wrapper">
+        <div class="invoice-app">
             <!-- Header -->
-            <div class="tool-banner">
-                <div class="logo-area">
-                    <h1><i class="fas fa-file-invoice"></i> Invoice Maker</h1>
-                    <p>Create, customize & share professional invoices</p>
+            <header class="tool-header">
+                <h1>
+                    <i class="fas fa-file-invoice"></i>
+                    Professional Invoice Maker
+                </h1>
+                <p>Create, send, and track invoices that get you paid faster - GST/VAT ready, multi-currency support</p>
+            </header>
+
+            <!-- Progress Tracker (Mobile/Tablet) -->
+            <div class="progress-tracker">
+                <div class="progress-steps">
+                    <span class="step completed"><i class="fas fa-check-circle"></i> Details</span>
+                    <span class="step active"><i class="fas fa-circle"></i> Items</span>
+                    <span class="step"><i class="far fa-circle"></i> Preview</span>
+                    <span class="step"><i class="far fa-circle"></i> Send</span>
                 </div>
-                <div class="user-actions">
-                    <button class="btn-light" onclick="saveInvoice()">
-                        <i class="fas fa-save"></i> Save Draft
-                    </button>
-                    <button class="btn-light" onclick="loadInvoice()">
-                        <i class="fas fa-folder-open"></i> Load
-                    </button>
+                <div class="step-progress-bar">
+                    <div class="step-progress-fill" style="width: 50%"></div>
                 </div>
             </div>
 
-            <!-- Main Layout -->
+            <!-- Dashboard Overview -->
+            <section class="dashboard">
+                <h2><i class="fas fa-chart-line"></i> Invoice Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Draft</div>
+                        <div class="stat-value draft">3</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Sent</div>
+                        <div class="stat-value sent">12</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Paid</div>
+                        <div class="stat-value paid">8</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Overdue</div>
+                        <div class="stat-value overdue">2</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total</div>
+                        <div class="stat-value">25</div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Invoiced (MTD)</div>
+                        <div class="stat-value money">$24,500</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Received</div>
+                        <div class="stat-value money">$18,200</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Pending</div>
+                        <div class="stat-value money">$6,300</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Avg. Payment</div>
+                        <div class="stat-value">12 days</div>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h4>Recent Activity</h4>
+                    <div class="activity-item">
+                        <div class="activity-details">
+                            <span class="badge paid">Paid</span>
+                            <strong>INV-2024-012</strong>
+                            <span>$2,500</span>
+                            <span class="text-light">Jan 15</span>
+                        </div>
+                        <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-details">
+                            <span class="badge viewed">Viewed</span>
+                            <strong>INV-2024-013</strong>
+                            <span>$3,200</span>
+                            <span class="text-light">Jan 14</span>
+                        </div>
+                        <i class="fas fa-eye" style="color: var(--viewed);"></i>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-details">
+                            <span class="badge overdue">Overdue</span>
+                            <strong>INV-2024-011</strong>
+                            <span>$1,800</span>
+                            <span class="text-light">Jan 10</span>
+                        </div>
+                        <i class="fas fa-exclamation-triangle" style="color: var(--overdue);"></i>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
+                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Create New Invoice</button>
+                    <button class="btn btn-outline"><i class="fas fa-upload"></i> Import</button>
+                    <button class="btn btn-outline"><i class="fas fa-copy"></i> Templates</button>
+                </div>
+            </section>
+
+            <!-- Main 3-Panel Layout -->
             <div class="main-layout">
-                <!-- Sidebar Controls -->
-                <div class="sidebar">
-                    <!-- Template Selection -->
-                    <div class="sidebar-section">
-                        <div class="section-title">
-                            <i class="fas fa-palette"></i>
-                            <span>Invoice Template</span>
-                        </div>
-                        <div class="template-picker">
-                            <div class="template-option active" onclick="setTemplate('modern')">
-                                <i class="fas fa-layer-group"></i>
-                                Modern
-                            </div>
-                            <div class="template-option" onclick="setTemplate('classic')">
-                                <i class="fas fa-scroll"></i>
-                                Classic
-                            </div>
-                            <div class="template-option" onclick="setTemplate('minimal')">
-                                <i class="fas fa-minus-circle"></i>
-                                Minimal
-                            </div>
-                            <div class="template-option" onclick="setTemplate('corporate')">
-                                <i class="fas fa-building"></i>
-                                Corporate
-                            </div>
-                        </div>
-                    </div>
+                <!-- LEFT PANEL: Invoice Editor -->
+                <div class="panel">
+                    <h3><i class="fas fa-edit"></i> Invoice Editor</h3>
 
-                    <!-- Business Details -->
-                    <div class="sidebar-section">
-                        <div class="section-title">
-                            <i class="fas fa-store"></i>
-                            <span>Your Business Details</span>
+                    <!-- Basic Information -->
+                    <div class="form-section">
+                        <h4>Basic Information</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Invoice Number</label>
+                                <div style="display: flex; gap: 4px;">
+                                    <input type="text" class="form-control" value="INV-2024-" style="width: 80px;">
+                                    <input type="text" class="form-control" value="014" style="width: 60px;">
+                                    <button class="btn-icon"><i class="fas fa-sync-alt"></i></button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Invoice Date</label>
+                                <input type="date" class="form-control" value="2024-01-15">
+                            </div>
+                            <div class="form-group">
+                                <label>Due Date</label>
+                                <input type="date" class="form-control" value="2024-02-14">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Business Name</label>
-                            <input type="text" id="businessName" value="Your Business Name"
-                                placeholder="Your company name">
-                        </div>
-                        <div class="form-group">
-                            <label>Business Email</label>
-                            <input type="email" id="businessEmail" value="business@example.com"
-                                placeholder="business@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label>Business Phone</label>
-                            <input type="text" id="businessPhone" value="+1 234 567 890" placeholder="+1 234 567 890">
-                        </div>
-                        <div class="form-group">
-                            <label>Business Address</label>
-                            <textarea id="businessAddress"
-                                rows="2">123 Business Ave, Suite 100, New York, NY 10001</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Tax ID / GST</label>
-                            <input type="text" id="taxId" value="TAX123456789">
-                        </div>
-                    </div>
 
-                    <!-- Client Details -->
-                    <div class="sidebar-section">
-                        <div class="section-title">
-                            <i class="fas fa-user"></i>
-                            <span>Client Details</span>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
+                            <span class="badge" style="background: #dbeafe; color: #1e40af;">Net 15</span>
+                            <span class="badge" style="background: #f3f4f6;">Net 30</span>
+                            <span class="badge" style="background: #f3f4f6;">Net 45</span>
+                            <span class="badge" style="background: #f3f4f6;">Due on receipt</span>
                         </div>
-                        <div class="form-group">
-                            <label>Client Name</label>
-                            <input type="text" id="clientName" value="John Smith" placeholder="Client name">
-                        </div>
-                        <div class="form-group">
-                            <label>Client Email</label>
-                            <input type="email" id="clientEmail" value="client@example.com"
-                                placeholder="client@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label>Client Phone</label>
-                            <input type="text" id="clientPhone" value="+1 987 654 321" placeholder="+1 987 654 321">
-                        </div>
-                        <div class="form-group">
-                            <label>Client Address</label>
-                            <textarea id="clientAddress" rows="2">456 Client Street, Los Angeles, CA 90001</textarea>
-                        </div>
-                    </div>
 
-                    <!-- Invoice Details -->
-                    <div class="sidebar-section">
-                        <div class="section-title">
-                            <i class="fas fa-file-invoice"></i>
-                            <span>Invoice Details</span>
-                        </div>
-                        <div class="form-group">
-                            <label>Invoice Number</label>
-                            <input type="text" id="invoiceNumber" value="INV-2024-001">
-                        </div>
-                        <div class="form-group">
-                            <label>Invoice Date</label>
-                            <input type="date" id="invoiceDate" value="2024-03-01">
-                        </div>
-                        <div class="form-group">
-                            <label>Due Date</label>
-                            <input type="date" id="dueDate" value="2024-03-15">
-                        </div>
-                        <div class="form-group">
-                            <label>Payment Status</label>
-                            <select id="paymentStatus">
-                                <option value="paid">Paid</option>
-                                <option value="pending" selected>Pending</option>
-                                <option value="overdue">Overdue</option>
+                        <div class="form-group" style="margin-top: 12px;">
+                            <label>Currency</label>
+                            <select class="form-control">
+                                <option>USD ($)</option>
+                                <option>EUR (€)</option>
+                                <option>GBP (£)</option>
+                                <option>JPY (¥)</option>
+                                <option>INR (₹)</option>
+                                <option>PKR (₨)</option>
+                                <option>AED (د.إ)</option>
                             </select>
                         </div>
                     </div>
 
-                    <!-- Product Manager -->
-                    <div class="sidebar-section">
-                        <div class="section-title">
-                            <i class="fas fa-box"></i>
-                            <span>Product Manager</span>
+                    <!-- From (Your Business) -->
+                    <div class="form-section">
+                        <h4>From (Your Business)</h4>
+                        <div class="form-group">
+                            <label>Business Name</label>
+                            <input type="text" class="form-control" value="Your Company Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Tax ID / VAT</label>
+                            <input type="text" class="form-control" placeholder="_____________">
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" class="form-control" placeholder="Street Address">
+                            <div style="display: flex; gap: 4px; margin-top: 4px;">
+                                <input type="text" class="form-control" placeholder="City" style="flex:2">
+                                <input type="text" class="form-control" placeholder="State" style="flex:1">
+                                <input type="text" class="form-control" placeholder="ZIP" style="flex:1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- To (Client) -->
+                    <div class="form-section">
+                        <h4>To (Client)</h4>
+                        <div class="form-group">
+                            <label>Client Name</label>
+                            <input type="text" class="form-control" value="Acme Corporation">
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Person</label>
+                            <input type="text" class="form-control" value="John Smith">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" value="john@acme.com">
+                        </div>
+                    </div>
+
+                    <!-- Line Items -->
+                    <div class="form-section">
+                        <h4>Invoice Items</h4>
+                        <table class="items-table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Qty</th>
+                                    <th>Rate</th>
+                                    <th>Tax</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" value="Website Design"></td>
+                                    <td><input type="number" value="1" min="1"></td>
+                                    <td><input type="number" value="2500" step="0.01"></td>
+                                    <td><input type="text" value="10%"></td>
+                                    <td class="money">$2,750</td>
+                                    <td><button class="btn-icon"><i class="fas fa-trash"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" value="Logo Design"></td>
+                                    <td><input type="number" value="2" min="1"></td>
+                                    <td><input type="number" value="500" step="0.01"></td>
+                                    <td><input type="text" value="10%"></td>
+                                    <td class="money">$1,100</td>
+                                    <td><button class="btn-icon"><i class="fas fa-trash"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" value="Hosting Setup"></td>
+                                    <td><input type="number" value="1" min="1"></td>
+                                    <td><input type="number" value="150" step="0.01"></td>
+                                    <td><input type="text" value="10%"></td>
+                                    <td class="money">$165</td>
+                                    <td><button class="btn-icon"><i class="fas fa-trash"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" value="Maintenance"></td>
+                                    <td><input type="number" value="1" min="1"></td>
+                                    <td><input type="number" value="200" step="0.01"></td>
+                                    <td><input type="text" value="10%"></td>
+                                    <td class="money">$220</td>
+                                    <td><button class="btn-icon"><i class="fas fa-trash"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div style="display: flex; gap: 8px; margin-top: 12px;">
+                            <button class="btn btn-outline"><i class="fas fa-plus"></i> Add Item</button>
+                            <button class="btn btn-outline"><i class="fas fa-list"></i> Product List</button>
+                        </div>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="summary-card">
+                        <h4 style="margin-bottom: 12px;">Invoice Summary</h4>
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span class="money">$3,350.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax (10%):</span>
+                            <span class="money">$335.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Discount (5%):</span>
+                            <span class="money">-$167.50</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span class="money">$25.00</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total Due:</span>
+                            <span class="money" style="font-size: 20px;">$3,592.50</span>
+                        </div>
+                    </div>
+
+                    <!-- Template Selection -->
+                    <div class="form-section">
+                        <h4>Template</h4>
+                        <div class="template-gallery">
+                            <div class="template-item active">
+                                <div class="template-preview"
+                                    style="background: linear-gradient(135deg, #2563eb20, #ffffff);"></div>
+                                <span>Modern</span>
+                            </div>
+                            <div class="template-item">
+                                <div class="template-preview"
+                                    style="background: linear-gradient(135deg, #6b7280, #ffffff);"></div>
+                                <span>Classic</span>
+                            </div>
+                            <div class="template-item">
+                                <div class="template-preview"
+                                    style="background: linear-gradient(135deg, #7c3aed20, #ffffff);"></div>
+                                <span>Minimal</span>
+                            </div>
+                            <div class="template-item">
+                                <div class="template-preview"
+                                    style="background: linear-gradient(135deg, #05966920, #ffffff);"></div>
+                                <span>Corporate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CENTER PANEL: Live Preview -->
+                <div class="panel">
+                    <h3><i class="fas fa-eye"></i> Live Preview</h3>
+                    <div class="invoice-preview">
+                        <div class="preview-header">
+                            <div class="preview-company">YOUR COMPANY</div>
+                            <div class="preview-invoice-no">INV-2024-014</div>
                         </div>
 
-                        <div class="product-tabs">
-                            <button class="product-tab active" onclick="showProductTab('products')">Products</button>
-                            <button class="product-tab" onclick="showProductTab('custom')">Custom</button>
-                        </div>
-
-                        <div id="products-tab">
-                            <div class="product-grid">
-                                <!-- Products will be populated here -->
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 24px;">
+                            <div>
+                                <strong>Bill To:</strong><br>
+                                Acme Corporation<br>
+                                John Smith<br>
+                                123 Business Ave<br>
+                                john@acme.com
+                            </div>
+                            <div style="text-align: right;">
+                                <strong>Invoice Date:</strong> Jan 15, 2024<br>
+                                <strong>Due Date:</strong> Feb 14, 2024<br>
+                                <strong>Payment Terms:</strong> Net 15
                             </div>
                         </div>
 
-                        <div id="custom-tab" style="display: none;">
-                            <div class="form-group">
-                                <label>Product Name</label>
-                                <input type="text" id="customProductName" placeholder="Product name">
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+                            <thead>
+                                <tr style="background: #f9fafb;">
+                                    <th style="padding: 8px; text-align: left;">Item</th>
+                                    <th style="padding: 8px; text-align: right;">Qty</th>
+                                    <th style="padding: 8px; text-align: right;">Rate</th>
+                                    <th style="padding: 8px; text-align: right;">Tax</th>
+                                    <th style="padding: 8px; text-align: right;">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Website Design</td>
+                                    <td style="text-align: right;">1</td>
+                                    <td style="text-align: right;">$2,500</td>
+                                    <td style="text-align: right;">10%</td>
+                                    <td style="text-align: right;">$2,750</td>
+                                </tr>
+                                <tr>
+                                    <td>Logo Design</td>
+                                    <td style="text-align: right;">2</td>
+                                    <td style="text-align: right;">$500</td>
+                                    <td style="text-align: right;">10%</td>
+                                    <td style="text-align: right;">$1,100</td>
+                                </tr>
+                                <tr>
+                                    <td>Hosting Setup</td>
+                                    <td style="text-align: right;">1</td>
+                                    <td style="text-align: right;">$150</td>
+                                    <td style="text-align: right;">10%</td>
+                                    <td style="text-align: right;">$165</td>
+                                </tr>
+                                <tr>
+                                    <td>Maintenance</td>
+                                    <td style="text-align: right;">1</td>
+                                    <td style="text-align: right;">$200</td>
+                                    <td style="text-align: right;">10%</td>
+                                    <td style="text-align: right;">$220</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div style="border-top: 2px solid #e5e7eb; padding-top: 16px;">
+                            <div style="display: flex; justify-content: flex-end;">
+                                <div style="width: 250px;">
+                                    <div style="display: flex; justify-content: space-between; padding: 4px 0;">
+                                        <span>Subtotal:</span>
+                                        <span>$3,350.00</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; padding: 4px 0;">
+                                        <span>Tax:</span>
+                                        <span>$335.00</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; padding: 4px 0;">
+                                        <span>Discount (5%):</span>
+                                        <span>-$167.50</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; padding: 4px 0;">
+                                        <span>Shipping:</span>
+                                        <span>$25.00</span>
+                                    </div>
+                                    <div
+                                        style="display: flex; justify-content: space-between; font-weight: 700; font-size: 18px; margin-top: 8px; padding-top: 8px; border-top: 2px solid #e5e7eb;">
+                                        <span>Total:</span>
+                                        <span style="color: #059669;">$3,592.50</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <input type="text" id="customProductDesc" placeholder="Description">
+                        </div>
+
+                        <div style="margin-top: 24px; font-size: 12px; color: #6b7280; text-align: center;">
+                            Thank you for your business!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT PANEL: Client & Payment Tracking -->
+                <div class="panel">
+                    <h3><i class="fas fa-users"></i> Client Panel</h3>
+
+                    <div class="client-card">
+                        <div class="client-name">Acme Corporation</div>
+                        <div class="client-contact">John Smith · john@acme.com</div>
+                        <div class="client-stats">
+                            <span><i class="fas fa-file-invoice"></i> 5 invoices</span>
+                            <span><i class="fas fa-dollar-sign"></i> $24,500 total</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-outline" style="flex:1"><i class="fas fa-plus"></i> New</button>
+                            <button class="btn btn-outline" style="flex:1"><i class="fas fa-history"></i>
+                                History</button>
+                        </div>
+                    </div>
+
+                    <h4 style="margin: 20px 0 12px;">Payment Status</h4>
+                    <div class="summary-card">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                            <span class="badge sent" style="font-size: 14px; padding: 6px 12px;">● Sent (Not
+                                Paid)</span>
+                            <span class="money">$3,592.50</span>
+                        </div>
+
+                        <div class="payment-timeline">
+                            <div class="timeline-item">
+                                <strong>Sent</strong><br>
+                                <span style="color: var(--text-light);">Jan 15, 2024 10:30 AM</span>
                             </div>
-                            <div class="form-group">
-                                <label>Price ($)</label>
-                                <input type="number" id="customProductPrice" min="0" step="0.01" placeholder="0.00">
+                            <div class="timeline-item">
+                                <strong>Viewed</strong><br>
+                                <span style="color: var(--text-light);">Jan 15, 2024 2:15 PM</span>
                             </div>
-                            <button class="btn-light" onclick="addCustomProduct()"
-                                style="width: 100%; background: #667eea; color: white; border: none;">
-                                <i class="fas fa-plus"></i> Add to Invoice
+                            <div class="timeline-item">
+                                <strong>Due</strong><br>
+                                <span style="color: var(--text-light);">Feb 14, 2024</span>
+                            </div>
+                            <div class="timeline-item">
+                                <strong>Paid</strong><br>
+                                <span style="color: var(--text-light);">Pending</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 20px;">
+                            <button class="btn btn-outline" style="width: 100%; margin-bottom: 8px;">
+                                <i class="fas fa-bell"></i> Send Reminder
+                            </button>
+                            <button class="btn btn-primary" style="width: 100%;">
+                                <i class="fas fa-credit-card"></i> Process Payment
                             </button>
                         </div>
                     </div>
 
-                    <!-- Discount & Tax -->
-                    <div class="sidebar-section">
-                        <div class="section-title">
-                            <i class="fas fa-calculator"></i>
-                            <span>Discount & Tax</span>
+                    <h4 style="margin: 20px 0 12px;">Smart Suggestions</h4>
+                    <div class="summary-card">
+                        <div style="margin-bottom: 12px;">
+                            <i class="fas fa-robot" style="color: var(--secondary);"></i>
+                            <strong> Recurring Invoice</strong>
                         </div>
-                        <div class="form-group">
-                            <label>Discount Type</label>
-                            <select id="discountType" onchange="toggleDiscount()">
-                                <option value="none">No Discount</option>
-                                <option value="percentage">Percentage (%)</option>
-                                <option value="fixed">Fixed Amount ($)</option>
-                            </select>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
+                            <span class="badge" style="background: #dbeafe;">Monthly</span>
+                            <span class="badge" style="background: #f3f4f6;">Next: Feb 15</span>
                         </div>
-                        <div class="form-group" id="discountField" style="display: none;">
-                            <label>Discount Value</label>
-                            <input type="number" id="discountValue" min="0" step="0.01" value="0"
-                                onchange="updateInvoice()">
-                        </div>
-                        <div class="form-group">
-                            <label>Tax Rate (%)</label>
-                            <input type="number" id="taxRate" min="0" max="100" step="0.1" value="10"
-                                onchange="updateInvoice()">
-                        </div>
-                        <div class="form-group">
-                            <label>Shipping Cost ($)</label>
-                            <input type="number" id="shippingCost" min="0" step="0.01" value="0"
-                                onchange="updateInvoice()">
-                        </div>
+                        <button class="btn btn-outline" style="width: 100%;">Set Recurring</button>
                     </div>
 
-                    <!-- Notes -->
-                    <div class="sidebar-section">
-                        <div class="section-title">
-                            <i class="fas fa-sticky-note"></i>
-                            <span>Notes & Terms</span>
+                    <div class="summary-card">
+                        <div style="margin-bottom: 12px;">
+                            <i class="fas fa-lightbulb" style="color: var(--warning);"></i>
+                            <strong> Suggested Items</strong>
                         </div>
-                        <div class="form-group">
-                            <label>Invoice Notes</label>
-                            <textarea id="invoiceNotes" rows="2">Thank you for your business!</textarea>
+                        <div style="margin-bottom: 8px;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Monthly Maintenance</span>
+                                <span class="money">$200</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>SEO Services</span>
+                                <span class="money">$300</span>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Payment Terms</label>
-                            <textarea id="paymentTerms"
-                                rows="2">Payment due within 15 days. Late payments subject to 2% monthly interest.</textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Invoice Preview -->
-                <div class="invoice-preview">
-                    <div id="invoiceCanvas" class="invoice-canvas">
-                        <!-- Invoice content will be dynamically generated here -->
+                        <button class="btn btn-outline" style="width: 100%;">Add All</button>
                     </div>
 
-                    <!-- Export Toolbar -->
-                    <div class="export-toolbar">
-                        <button class="export-btn pdf" onclick="exportAsPDF()">
-                            <i class="fas fa-file-pdf"></i> Export as PDF
-                        </button>
-                        <button class="export-btn png" onclick="exportAsPNG()">
-                            <i class="fas fa-file-image"></i> Export as PNG
-                        </button>
-                        <button class="export-btn jpg" onclick="exportAsJPG()">
-                            <i class="fas fa-file-image"></i> Export as JPG
-                        </button>
-                        <button class="export-btn" style="background: #1e293b; color: white;"
-                            onclick="copyToClipboard()">
-                            <i class="fas fa-link"></i> Share Link
-                        </button>
+                    <h4 style="margin: 20px 0 12px;">Export & Share</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <button class="btn btn-outline"><i class="fas fa-file-pdf"></i> PDF</button>
+                        <button class="btn btn-outline"><i class="fas fa-envelope"></i> Email</button>
+                        <button class="btn btn-outline"><i class="fas fa-file-excel"></i> Excel</button>
+                        <button class="btn btn-outline"><i class="fas fa-link"></i> Link</button>
                     </div>
                 </div>
             </div>
-    </section>
 
+            <!-- Floating Action Button (Mobile) -->
+            <button class="fab" aria-label="Quick actions">
+                <i class="fas fa-plus"></i>
+            </button>
+
+            <!-- Sticky Bottom Bar (Mobile) -->
+            <div class="sticky-bottom-bar">
+                <button class="btn btn-outline"><i class="fas fa-save"></i> Draft</button>
+                <button class="btn btn-outline"><i class="fas fa-eye"></i> Preview</button>
+                <button class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send</button>
+            </div>
+
+            <!-- Keyboard Shortcuts Hint -->
+            <div class="shortcuts-hint">
+                <i class="fas fa-keyboard"></i> Shortcuts: Ctrl+S (Save) · Ctrl+P (PDF) · Ctrl+Shift+S (Send)
+            </div>
+        </div>
+
+        <script>
+            // Real-time preview update simulation
+            document.querySelectorAll('.form-control, .items-table input').forEach(input => {
+                input.addEventListener('input', function () {
+                    // In a real app, this would update the preview
+                    console.log('Update preview:', this.value);
+                });
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function (e) {
+                if (e.ctrlKey || e.metaKey) {
+                    switch (e.key) {
+                        case 's':
+                            e.preventDefault();
+                            alert('Save draft (simulated)');
+                            break;
+                        case 'p':
+                            e.preventDefault();
+                            alert('Generate PDF (simulated)');
+                            break;
+                        case 'S': // Shift+S
+                            if (e.shiftKey) {
+                                e.preventDefault();
+                                alert('Send invoice (simulated)');
+                            }
+                            break;
+                    }
+                }
+            });
+
+            // Template selection
+            document.querySelectorAll('.template-item').forEach(item => {
+                item.addEventListener('click', function () {
+                    document.querySelectorAll('.template-item').forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Mobile collapsible sections (simplified)
+            if (window.innerWidth <= 767) {
+                document.querySelectorAll('.form-section h4').forEach(header => {
+                    header.style.cursor = 'pointer';
+                    header.addEventListener('click', function () {
+                        const content = this.nextElementSibling;
+                        while (content && !content.classList.contains('form-section')) {
+                            if (content.style) {
+                                content.style.display = content.style.display === 'none' ? 'block' : 'none';
+                            }
+                            break;
+                        }
+                    });
+                });
+            }
+
+            // Accessibility announcements
+            function announce(message) {
+                const announcer = document.createElement('div');
+                announcer.setAttribute('aria-live', 'polite');
+                announcer.classList.add('sr-only');
+                document.body.appendChild(announcer);
+                setTimeout(() => {
+                    announcer.textContent = message;
+                    setTimeout(() => announcer.remove(), 1000);
+                }, 100);
+            }
+
+            // Demo: announce when invoice is "saved"
+            document.querySelector('.btn-primary')?.addEventListener('click', () => {
+                announce('Invoice saved successfully');
+            });
+        </script>
+    </div>
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -812,47 +1332,47 @@
                 <!-- Column 1: Brand -->
                 <div class="footer-col">
                     <div class="footer-logo">
-                        <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="footer-logo-img"
-                            style="height: 35px; width: auto; vertical-align: middle;">
+                        <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="footer-logo-img">
                     </div>
-                    <p class="footer-description">Your trusted source for the FINAL BEST CALCULATORS. We provide free,
-                        accurate, and easy-to-use online calculation tools for everyone.</p>
+                    <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools. Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
                     <div class="social-links">
                         <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook">
-                            <img src="../assets/brand/icons/facebook.svg" alt="Facebook" width="24" height="24">
+                            <img src="../assets/brand/icons/facebook.svg" alt="Facebook" width="20" height="20">
                         </a>
                         <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram">
-                            <img src="../assets/brand/icons/instagram.svg" alt="Instagram" width="24" height="24">
-                        </a>
-                        <a href="https://www.tiktok.com/@90storezon" target="_blank" aria-label="TikTok">
-                            <img src="../assets/brand/icons/tiktok.svg" alt="TikTok" width="24" height="24">
+                            <img src="../assets/brand/icons/instagram.svg" alt="Instagram" width="20" height="20">
                         </a>
                         <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube">
-                            <img src="../assets/brand/icons/youtube.svg" alt="YouTube" width="24" height="24">
-                        </a>
-                        <a href="https://90storezon.com" target="_blank" aria-label="Website">
-                            <img src="../assets/brand/icons/website.svg" alt="Website" width="24" height="24">
+                            <img src="../assets/brand/icons/youtube.svg" alt="YouTube" width="20" height="20">
                         </a>
                     </div>
                 </div>
 
-                <!-- Column 2: Calculator Links -->
+                <!-- Column 2: Calculators -->
                 <div class="footer-col">
                     <h4>Calculators</h4>
                     <ul>
                         <li><a href="age-calculator.html">Age Calculator</a></li>
                         <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
-                        <li><a href="date-difference-calculator.html">Date Difference</a></li>
                         <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
-                        <li><a href="simple-interest-calculator.html">Simple Interest</a></li>
-                        <li><a href="cv-maker.html">CV Maker</a></li>
-                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
+                        <li><a href="gpa-calculator.html">GPA Calculator</a></li>
                     </ul>
                 </div>
 
-                <!-- Column 3: Important Pages -->
+                <!-- Column 3: Tools -->
                 <div class="footer-col">
-                    <h4>Important Pages</h4>
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="cv-maker.html">CV Maker</a></li>
+                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
+                        <li><a href="ai-content-humanizer.html">AI Content Humanizer</a></li>
+                        <li><a href="number-to-words-calculator.html">Number to Words</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Links -->
+                <div class="footer-col">
+                    <h4>About</h4>
                     <ul>
                         <li><a href="../about.html">About Us</a></li>
                         <li><a href="../contact.html">Contact Us</a></li>
@@ -863,444 +1383,18 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2024 90StoreZon. All rights reserved. | Invoice Maker Tool</p>
+                <p>&copy; 2024 90StoreZon. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="../privacy-policy.html">Privacy</a>
+                    <a href="../disclaimer.html">Disclaimer</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Scroll to Top Button -->
-    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">↑</button>
+    
 
-    <!-- JavaScript -->
     <script src="../js/main.js"></script>
-
-    <script>
-        // Sample products database
-        const productsDB = [
-            { name: 'Web Design', description: 'Professional website design', price: 499.99 },
-            { name: 'SEO Package', description: 'Monthly SEO optimization', price: 299.99 },
-            { name: 'Social Media Management', description: 'Monthly social media management', price: 399.99 },
-            { name: 'Content Writing', description: 'Professional content creation', price: 199.99 },
-            { name: 'Email Marketing', description: 'Monthly email campaigns', price: 249.99 },
-            { name: 'Logo Design', description: 'Professional logo design', price: 149.99 },
-            { name: 'Branding Package', description: 'Complete branding solution', price: 899.99 },
-            { name: 'Consultation', description: '1-hour consultation session', price: 99.99 }
-        ];
-
-        let invoiceItems = [
-            { product: 'Web Design', description: 'Professional website design', qty: 1, price: 499.99 },
-            { product: 'SEO Package', description: 'Monthly SEO optimization', qty: 3, price: 299.99 }
-        ];
-
-        let currentTemplate = 'modern';
-
-        // Initialize
-        window.onload = function () {
-            renderProductGrid();
-            updateInvoice();
-            setupEventListeners();
-        };
-
-        function renderProductGrid() {
-            const grid = document.querySelector('.product-grid');
-            grid.innerHTML = '';
-
-            productsDB.forEach(product => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.onclick = () => addProductToInvoice(product);
-                card.innerHTML = `
-                    <div class="product-name">${product.name}</div>
-                    <div style="font-size: 12px; color: #64748b; margin: 5px 0;">${product.description}</div>
-                    <div class="product-price">$${product.price.toFixed(2)}</div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function addProductToInvoice(product) {
-            invoiceItems.push({
-                product: product.name,
-                description: product.description,
-                qty: 1,
-                price: product.price
-            });
-            updateInvoice();
-        }
-
-        function addCustomProduct() {
-            const name = document.getElementById('customProductName').value;
-            const desc = document.getElementById('customProductDesc').value;
-            const price = parseFloat(document.getElementById('customProductPrice').value);
-
-            if (name && price) {
-                invoiceItems.push({
-                    product: name,
-                    description: desc || 'Custom product',
-                    qty: 1,
-                    price: price
-                });
-                updateInvoice();
-
-                // Clear fields
-                document.getElementById('customProductName').value = '';
-                document.getElementById('customProductDesc').value = '';
-                document.getElementById('customProductPrice').value = '';
-            } else {
-                alert('Please enter product name and price');
-            }
-        }
-
-        function addRow() {
-            invoiceItems.push({
-                product: 'New Item',
-                description: 'Description',
-                qty: 1,
-                price: 0
-            });
-            updateInvoice();
-        }
-
-        function removeItem(index) {
-            invoiceItems.splice(index, 1);
-            updateInvoice();
-        }
-
-        function updateItem(index, field, value) {
-            if (field === 'qty' || field === 'price') {
-                value = parseFloat(value) || 0;
-            }
-            invoiceItems[index][field] = value;
-            updateInvoice();
-        }
-
-        function updateInvoice() {
-            const canvas = document.getElementById('invoiceCanvas');
-
-            // Get all form values
-            const businessName = document.getElementById('businessName').value;
-            const businessEmail = document.getElementById('businessEmail').value;
-            const businessPhone = document.getElementById('businessPhone').value;
-            const businessAddress = document.getElementById('businessAddress').value;
-            const taxId = document.getElementById('taxId').value;
-
-            const clientName = document.getElementById('clientName').value;
-            const clientEmail = document.getElementById('clientEmail').value;
-            const clientPhone = document.getElementById('clientPhone').value;
-            const clientAddress = document.getElementById('clientAddress').value;
-
-            const invoiceNumber = document.getElementById('invoiceNumber').value;
-            const invoiceDate = document.getElementById('invoiceDate').value;
-            const dueDate = document.getElementById('dueDate').value;
-            const paymentStatus = document.getElementById('paymentStatus').value;
-
-            const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
-            const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
-
-            const discountType = document.getElementById('discountType').value;
-            const discountValue = parseFloat(document.getElementById('discountValue').value) || 0;
-
-            const invoiceNotes = document.getElementById('invoiceNotes').value;
-            const paymentTerms = document.getElementById('paymentTerms').value;
-
-            // Calculate totals
-            let subtotal = 0;
-            invoiceItems.forEach(item => {
-                subtotal += item.qty * item.price;
-            });
-
-            // Calculate discount
-            let discountAmount = 0;
-            if (discountType === 'percentage') {
-                discountAmount = subtotal * (discountValue / 100);
-            } else if (discountType === 'fixed') {
-                discountAmount = discountValue;
-            }
-
-            const afterDiscount = subtotal - discountAmount;
-            const taxAmount = afterDiscount * (taxRate / 100);
-            const total = afterDiscount + taxAmount + shippingCost;
-
-            // Generate invoice HTML based on template
-            canvas.innerHTML = generateInvoiceHTML(
-                currentTemplate,
-                businessName, businessEmail, businessPhone, businessAddress, taxId,
-                clientName, clientEmail, clientPhone, clientAddress,
-                invoiceNumber, invoiceDate, dueDate, paymentStatus,
-                invoiceItems, subtotal, discountAmount, taxAmount, taxRate,
-                shippingCost, total, invoiceNotes, paymentTerms
-            );
-
-            // Update status badge
-            updateStatusBadge(paymentStatus);
-        }
-
-        function generateInvoiceHTML(template, businessName, businessEmail, businessPhone, businessAddress, taxId,
-            clientName, clientEmail, clientPhone, clientAddress,
-            invoiceNumber, invoiceDate, dueDate, paymentStatus,
-            items, subtotal, discountAmount, taxAmount, taxRate,
-            shippingCost, total, notes, terms) {
-
-            const statusClass = paymentStatus === 'paid' ? 'status-paid' :
-                paymentStatus === 'pending' ? 'status-pending' : 'status-overdue';
-
-            let itemsHTML = '';
-            items.forEach((item, index) => {
-                itemsHTML += `
-                    <tr>
-                        <td><input type="text" value="${item.product}" onchange="updateItem(${index}, 'product', this.value)"></td>
-                        <td><input type="text" value="${item.description}" onchange="updateItem(${index}, 'description', this.value)"></td>
-                        <td><input type="number" value="${item.qty}" min="1" onchange="updateItem(${index}, 'qty', this.value)" style="width: 80px;"></td>
-                        <td><input type="number" value="${item.price.toFixed(2)}" min="0" step="0.01" onchange="updateItem(${index}, 'price', this.value)" style="width: 100px;"></td>
-                        <td>$${(item.qty * item.price).toFixed(2)}</td>
-                        <td><i class="fas fa-trash remove-btn" onclick="removeItem(${index})"></i></td>
-                    </tr>
-                `;
-            });
-
-            return `
-                <div class="invoice-header">
-                    <div class="invoice-brand">
-                        <h2>${businessName}</h2>
-                        <p>${businessEmail} | ${businessPhone}</p>
-                    </div>
-                    <div class="invoice-badge">
-                        INVOICE
-                    </div>
-                </div>
-
-                <div class="invoice-meta-grid">
-                    <div class="meta-item">
-                        <div class="meta-label">Invoice #</div>
-                        <div class="meta-value">${invoiceNumber}</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Invoice Date</div>
-                        <div class="meta-value">${invoiceDate}</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Due Date</div>
-                        <div class="meta-value">${dueDate}</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Status</div>
-                        <div class="meta-value"><span class="status-badge ${statusClass}">${paymentStatus.toUpperCase()}</span></div>
-                    </div>
-                </div>
-
-                <div class="party-info">
-                    <div class="party-box">
-                        <h3>From:</h3>
-                        <p><strong>${businessName}</strong></p>
-                        <p>${businessAddress}</p>
-                        <p>Email: ${businessEmail}</p>
-                        <p>Phone: ${businessPhone}</p>
-                        <p>Tax ID: ${taxId}</p>
-                    </div>
-                    <div class="party-box">
-                        <h3>Bill To:</h3>
-                        <p><strong>${clientName}</strong></p>
-                        <p>${clientAddress}</p>
-                        <p>Email: ${clientEmail}</p>
-                        <p>Phone: ${clientPhone}</p>
-                    </div>
-                </div>
-
-                <table class="invoice-table">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Description</th>
-                            <th>Qty</th>
-                            <th>Unit Price</th>
-                            <th>Total</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${itemsHTML}
-                        <tr>
-                            <td colspan="6" style="text-align: right; padding: 20px;">
-                                <button class="btn-light" onclick="addRow()" style="background: #667eea; color: white; border: none; padding: 8px 20px;">
-                                    <i class="fas fa-plus"></i> Add Item
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="summary-box">
-                    <div class="summary-row">
-                        <span>Subtotal:</span>
-                        <span>$${subtotal.toFixed(2)}</span>
-                    </div>
-                    ${discountAmount > 0 ? `
-                    <div class="summary-row">
-                        <span>Discount:</span>
-                        <span>-$${discountAmount.toFixed(2)}</span>
-                    </div>
-                    ` : ''}
-                    <div class="summary-row">
-                        <span>Tax (${taxRate}%):</span>
-                        <span>$${taxAmount.toFixed(2)}</span>
-                    </div>
-                    ${shippingCost > 0 ? `
-                    <div class="summary-row">
-                        <span>Shipping:</span>
-                        <span>$${shippingCost.toFixed(2)}</span>
-                    </div>
-                    ` : ''}
-                    <div class="summary-row total">
-                        <span>Total:</span>
-                        <span>$${total.toFixed(2)}</span>
-                    </div>
-                </div>
-
-                <div style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed #e2e8f0;">
-                    <p><strong>Notes:</strong> ${notes}</p>
-                    <p><strong>Terms:</strong> ${terms}</p>
-                </div>
-            `;
-        }
-
-        function updateStatusBadge(status) {
-            // Status badge is now handled in the invoice generation
-        }
-
-        function toggleDiscount() {
-            const type = document.getElementById('discountType').value;
-            const field = document.getElementById('discountField');
-            field.style.display = type === 'none' ? 'none' : 'block';
-            updateInvoice();
-        }
-
-        function showProductTab(tab) {
-            document.querySelectorAll('.product-tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-
-            document.getElementById('products-tab').style.display = tab === 'products' ? 'block' : 'none';
-            document.getElementById('custom-tab').style.display = tab === 'custom' ? 'block' : 'none';
-        }
-
-        function setTemplate(template) {
-            currentTemplate = template;
-            document.querySelectorAll('.template-option').forEach(opt => opt.classList.remove('active'));
-            event.target.classList.add('active');
-            updateInvoice();
-        }
-
-        function setupEventListeners() {
-            const inputs = ['businessName', 'businessEmail', 'businessPhone', 'businessAddress', 'taxId',
-                'clientName', 'clientEmail', 'clientPhone', 'clientAddress',
-                'invoiceNumber', 'invoiceDate', 'dueDate', 'paymentStatus',
-                'taxRate', 'shippingCost', 'discountType', 'discountValue',
-                'invoiceNotes', 'paymentTerms'];
-
-            inputs.forEach(id => {
-                document.getElementById(id).addEventListener('input', updateInvoice);
-                document.getElementById(id).addEventListener('change', updateInvoice);
-            });
-        }
-
-        // Export Functions
-        function exportAsPDF() {
-            const { jsPDF } = window.jspdf;
-            const element = document.getElementById('invoiceCanvas');
-
-            html2canvas(element, {
-                scale: 2,
-                backgroundColor: '#ffffff',
-                logging: false
-            }).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF({
-                    orientation: 'portrait',
-                    unit: 'px',
-                    format: [canvas.width * 0.75, canvas.height * 0.75]
-                });
-
-                pdf.addImage(imgData, 'PNG', 0, 0, canvas.width * 0.75, canvas.height * 0.75);
-                pdf.save(`Invoice-${document.getElementById('invoiceNumber').value}.pdf`);
-            });
-        }
-
-        function exportAsPNG() {
-            const element = document.getElementById('invoiceCanvas');
-
-            html2canvas(element, {
-                scale: 2,
-                backgroundColor: '#ffffff',
-                logging: false
-            }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = `Invoice-${document.getElementById('invoiceNumber').value}.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            });
-        }
-
-        function exportAsJPG() {
-            const element = document.getElementById('invoiceCanvas');
-
-            html2canvas(element, {
-                scale: 2,
-                backgroundColor: '#ffffff',
-                logging: false
-            }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = `Invoice-${document.getElementById('invoiceNumber').value}.jpg`;
-                link.href = canvas.toDataURL('image/jpeg', 0.9);
-                link.click();
-            });
-        }
-
-        function copyToClipboard() {
-            // Create a shareable link (simulated)
-            const dummyLink = `https://invoiceforge.com/invoice/${document.getElementById('invoiceNumber').value}`;
-
-            navigator.clipboard.writeText(dummyLink).then(() => {
-                alert('Invoice link copied to clipboard!');
-            }).catch(() => {
-                prompt('Copy this link manually:', dummyLink);
-            });
-        }
-
-        function saveInvoice() {
-            const invoiceData = {
-                businessName: document.getElementById('businessName').value,
-                clientName: document.getElementById('clientName').value,
-                invoiceNumber: document.getElementById('invoiceNumber').value,
-                items: invoiceItems,
-                total: calculateTotal()
-            };
-
-            localStorage.setItem('invoiceDraft', JSON.stringify(invoiceData));
-            alert('Invoice draft saved!');
-        }
-
-        function loadInvoice() {
-            const saved = localStorage.getItem('invoiceDraft');
-            if (saved) {
-                const data = JSON.parse(saved);
-                document.getElementById('businessName').value = data.businessName;
-                document.getElementById('clientName').value = data.clientName;
-                document.getElementById('invoiceNumber').value = data.invoiceNumber;
-                invoiceItems = data.items;
-                updateInvoice();
-                alert('Invoice draft loaded!');
-            } else {
-                alert('No saved draft found.');
-            }
-        }
-
-        function calculateTotal() {
-            let subtotal = 0;
-            invoiceItems.forEach(item => {
-                subtotal += item.qty * item.price;
-            });
-            return subtotal;
-        }
-    </script>
 </body>
 
 </html>

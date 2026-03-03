@@ -4,14 +4,14 @@
  */
 
 // Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    
+document.addEventListener('DOMContentLoaded', function () {
+
     // ========================================
     // Loading Screen
     // ========================================
     const loadingScreen = document.getElementById('loading-screen');
-    
-    window.addEventListener('load', function() {
+
+    window.addEventListener('load', function () {
         setTimeout(() => {
             loadingScreen.classList.add('hidden');
         }, 500);
@@ -22,19 +22,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
-    
+
     if (navToggle) {
-        navToggle.addEventListener('click', function() {
+        navToggle.addEventListener('click', function () {
             navMenu.classList.toggle('active');
-            
+
             // Animate hamburger icon
             const spans = navToggle.querySelectorAll('span');
-            spans[0].style.transform = navMenu.classList.contains('active') 
-                ? 'rotate(45deg) translate(5px, 5px)' 
+            spans[0].style.transform = navMenu.classList.contains('active')
+                ? 'rotate(45deg) translate(5px, 5px)'
                 : 'none';
             spans[1].style.opacity = navMenu.classList.contains('active') ? '0' : '1';
-            spans[2].style.transform = navMenu.classList.contains('active') 
-                ? 'rotate(-45deg) translate(7px, -6px)' 
+            spans[2].style.transform = navMenu.classList.contains('active')
+                ? 'rotate(-45deg) translate(7px, -6px)'
                 : 'none';
         });
     }
@@ -59,15 +59,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.getElementById('navbar');
     let lastScroll = 0;
 
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         const currentScroll = window.pageYOffset;
-        
+
         if (currentScroll > 100) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-        
+
         lastScroll = currentScroll;
     });
 
@@ -75,24 +75,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // Floating Particles Animation
     // ========================================
     const particlesContainer = document.getElementById('particles');
-    
+
     if (particlesContainer) {
         const particleSymbols = ['🔢', '➕', '➖', '✖️', '➗', '📊', '📈', '💯', '🧮', '📐'];
         const particleCount = 15;
-        
+
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             particle.textContent = particleSymbols[Math.floor(Math.random() * particleSymbols.length)];
-            
+
             // Random position
             particle.style.left = Math.random() * 100 + '%';
             particle.style.top = Math.random() * 100 + '%';
-            
+
             // Random animation delay and duration
             particle.style.animationDelay = Math.random() * 5 + 's';
             particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            
+
             particlesContainer.appendChild(particle);
         }
     }
@@ -101,17 +101,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Scroll to Top Button
     // ========================================
     const scrollTopBtn = document.getElementById('scrollTopBtn');
-    
+
     if (scrollTopBtn) {
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             if (window.pageYOffset > 300) {
                 scrollTopBtn.classList.add('visible');
             } else {
                 scrollTopBtn.classList.remove('visible');
             }
         });
-        
-        scrollTopBtn.addEventListener('click', function() {
+
+        scrollTopBtn.addEventListener('click', function () {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Scroll Fade-in Animation
     // ========================================
     const fadeElements = document.querySelectorAll('.fade-in-scroll');
-    
+
     const fadeInObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     });
-    
+
     fadeElements.forEach(element => {
         fadeInObserver.observe(element);
     });
@@ -143,10 +143,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // FAQ Accordion
     // ========================================
     const faqItems = document.querySelectorAll('.faq-item');
-    
+
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
-        
+
         question.addEventListener('click', () => {
             // Close other open items
             faqItems.forEach(otherItem => {
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     otherItem.classList.remove('active');
                 }
             });
-            
+
             // Toggle current item
             item.classList.toggle('active');
         });
@@ -164,22 +164,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Contact Form Validation
     // ========================================
     const contactForm = document.getElementById('contactForm');
-    
+
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             // Get form fields
             const name = document.getElementById('name');
             const email = document.getElementById('email');
             const subject = document.getElementById('subject');
             const message = document.getElementById('message');
-            
+
             // Clear previous errors
             clearErrors();
-            
+
             let isValid = true;
-            
+
             // Validate name
             if (name.value.trim() === '') {
                 showError(name, 'Name is required');
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 showError(name, 'Name must be at least 2 characters');
                 isValid = false;
             }
-            
+
             // Validate email
             if (email.value.trim() === '') {
                 showError(email, 'Email is required');
@@ -197,13 +197,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 showError(email, 'Please enter a valid email address');
                 isValid = false;
             }
-            
+
             // Validate subject
             if (subject.value.trim() === '') {
                 showError(subject, 'Subject is required');
                 isValid = false;
             }
-            
+
             // Validate message
             if (message.value.trim() === '') {
                 showError(message, 'Message is required');
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 showError(message, 'Message must be at least 10 characters');
                 isValid = false;
             }
-            
+
             // If form is valid, show success message
             if (isValid) {
                 showSuccessMessage();
@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     // Helper function to show error
     function showError(input, message) {
         const formGroup = input.parentElement;
@@ -230,42 +230,40 @@ document.addEventListener('DOMContentLoaded', function() {
         formGroup.appendChild(error);
         input.classList.add('error');
     }
-    
+
     // Helper function to clear errors
     function clearErrors() {
         const errors = document.querySelectorAll('.error-message');
         errors.forEach(error => error.remove());
-        
+
         const errorInputs = document.querySelectorAll('.error');
         errorInputs.forEach(input => input.classList.remove('error'));
     }
-    
+
     // Helper function to validate email
     function isValidEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
-    
+
     // Helper function to show success message
     function showSuccessMessage() {
         const successDiv = document.createElement('div');
         successDiv.className = 'success-message';
         successDiv.innerHTML = '<p>✓ Thank you! Your message has been sent successfully.</p>';
         contactForm.insertBefore(successDiv, contactForm.firstChild);
-        
+
         setTimeout(() => {
             successDiv.remove();
         }, 5000);
     }
 
     // ========================================
-    // Search Functionality
+    // Header Search Functionality
     // ========================================
-    const searchBtn = document.getElementById('searchBtn');
-    const searchOverlay = document.getElementById('searchOverlay');
-    const closeSearch = document.getElementById('closeSearch');
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
+    const headerSearchInput = document.getElementById('headerSearchInput');
+    const headerSearchBtn = document.getElementById('headerSearchBtn');
+    const headerSearchResults = document.getElementById('headerSearchResults');
 
     // Data for all calculators
     const calculators = [
@@ -284,73 +282,83 @@ document.addEventListener('DOMContentLoaded', function() {
         { name: 'AI Content Humanizer', url: 'calculators/ai-content-humanizer.html', desc: 'Transform AI-generated text into human-like content.' }
     ];
 
-    if (searchBtn && searchOverlay && closeSearch) {
-        // Open search
-        searchBtn.addEventListener('click', () => {
-            searchOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scroll
-            setTimeout(() => searchInput.focus(), 300);
-        });
+    if (headerSearchInput && headerSearchResults) {
+        let currentFiltered = [];
 
-        // Close search
-        const closeOverlay = () => {
-            searchOverlay.classList.remove('active');
-            document.body.style.overflow = 'auto'; // Re-enable scroll
-            searchInput.value = '';
-            renderResults([]);
-        };
-
-        closeSearch.addEventListener('click', closeOverlay);
-
-        // Close on click outside
-        searchOverlay.addEventListener('click', (e) => {
-            if (e.target === searchOverlay) closeOverlay();
-        });
-
-        // Close on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
-                closeOverlay();
-            }
-        });
-
-        // Search logic
-        searchInput.addEventListener('input', (e) => {
+        // Dynamic Filtering
+        headerSearchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase().trim();
-            
+
             if (query.length === 0) {
-                renderResults([]);
+                headerSearchResults.classList.remove('active');
+                currentFiltered = [];
                 return;
             }
 
-            const filtered = calculators.filter(calc => 
-                calc.name.toLowerCase().includes(query) || 
+            currentFiltered = calculators.filter(calc =>
+                calc.name.toLowerCase().includes(query) ||
                 calc.desc.toLowerCase().includes(query)
             );
 
-            renderResults(filtered);
+            renderHeaderResults(currentFiltered, query);
+            headerSearchResults.classList.add('active');
         });
 
-        function renderResults(results) {
-            if (results.length === 0 && searchInput.value.length > 0) {
-                searchResults.innerHTML = '<div class="no-results">No tools found matching your search.</div>';
-                return;
-            }
+        // Search Button Logic (Open first matching tool)
+        if (headerSearchBtn) {
+            headerSearchBtn.addEventListener('click', () => {
+                const query = headerSearchInput.value.toLowerCase().trim();
+                if (query.length > 0 && currentFiltered.length > 0) {
+                    redirectToTool(currentFiltered[0].url);
+                } else if (query.length > 0) {
+                    alert('No matching tools found.');
+                }
+            });
+        }
 
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!headerSearchInput.contains(e.target) && !headerSearchResults.contains(e.target)) {
+                headerSearchResults.classList.remove('active');
+            }
+        });
+
+        // Show dropdown on focus if input has value
+        headerSearchInput.addEventListener('focus', () => {
+            if (headerSearchInput.value.trim().length > 0) {
+                headerSearchResults.classList.add('active');
+            }
+        });
+
+        // Handle Enter key
+        headerSearchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const query = headerSearchInput.value.toLowerCase().trim();
+                if (query.length > 0 && currentFiltered.length > 0) {
+                    redirectToTool(currentFiltered[0].url);
+                }
+            }
+        });
+
+        function renderHeaderResults(results, query) {
             if (results.length === 0) {
-                searchResults.innerHTML = '<div class="search-placeholder">Start typing to find tools...</div>';
+                headerSearchResults.innerHTML = '<div class="search-dropdown-no-results">No tools found.</div>';
                 return;
             }
 
-            // Determine base path (if we are in calculators folder)
             const isInCalculatorsFolder = window.location.pathname.includes('/calculators/');
-            
-            searchResults.innerHTML = results.map(calc => `
-                <a href="${isInCalculatorsFolder ? '../' + calc.url : calc.url}" class="search-item">
-                    <h4>${highlightText(calc.name, searchInput.value)}</h4>
-                    <p>${highlightText(calc.desc, searchInput.value)}</p>
+
+            headerSearchResults.innerHTML = results.map(calc => `
+                <a href="${isInCalculatorsFolder ? '../' + calc.url : calc.url}" class="search-dropdown-item">
+                    <h4>${highlightText(calc.name, query)}</h4>
+                    <p>${highlightText(calc.desc, query)}</p>
                 </a>
             `).join('');
+        }
+
+        function redirectToTool(url) {
+            const isInCalculatorsFolder = window.location.pathname.includes('/calculators/');
+            window.location.href = isInCalculatorsFolder ? '../' + url : url;
         }
 
         function highlightText(text, query) {
@@ -361,7 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             if (href !== '#' && href !== '') {
                 e.preventDefault();

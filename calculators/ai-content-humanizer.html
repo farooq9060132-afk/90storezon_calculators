@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- html2pdf (for PDF export) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         * {
             margin: 0;
@@ -306,326 +307,437 @@
         .privacy-note {
             font-size: 0.8rem;
             color: #6b7280;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
             margin-top: 1rem;
         }
     </style>
 </head>
 
 <body>
-    <div class="app-container">
-        <!-- header -->
-        <div class="tool-header">
-            <h1><i class="fas fa-brain"></i> AI Content Humanizer</h1>
-            <p>Transform AI-generated text into natural, human-like writing · real‑time analysis</p>
+    <div id="loading-screen">
+        <div class="loader"></div>
+    </div>    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="logo-img">
+                    <span class="logo-90">90</span><span class="logo-storezon">StoreZon</span>
+                </a>
+            </div>
+            
+            <div class="header-search">
+                <button class="header-search-btn" id="headerSearchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" x2="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <input type="text" id="headerSearchInput" placeholder="Search calculators..." autocomplete="off">
+                <div id="headerSearchResults" class="search-dropdown"></div>
+            </div>
+
+            <div class="nav-right">
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
         </div>
+    </nav>
 
-        <!-- main grid input / output -->
-        <div class="main-grid">
-            <!-- INPUT CARD -->
-            <div class="card input-area">
-                <h2 style="display: flex; gap: 0.6rem; margin-bottom: 1rem;"><i class="fas fa-paste"
-                        style="color: var(--primary);"></i> Paste AI content</h2>
-                <textarea id="inputText"
-                    placeholder="Paste your AI-generated text here...">Artificial intelligence has revolutionized many industries. It enables automation and advanced data analysis. Businesses are adopting AI to improve efficiency. However, AI-generated text can sometimes sound robotic and repetitive. This tool helps make it more natural and engaging.</textarea>
+    <div class="main-content-wrapper">
+        <div class="app-container">
+            <!-- header -->
+            <div class="tool-header">
+                <h1><i class="fas fa-brain"></i> AI Content Humanizer</h1>
+                <p>Transform AI-generated text into natural, human-like writing · real‑time analysis</p>
+            </div>
 
-                <!-- word stats inline -->
-                <div class="word-stats" id="inputStats">
-                    <span><i class="far fa-file-word"></i> Words: <span id="inWords">0</span></span>
-                    <span><i class="far fa-keyboard"></i> Characters: <span id="inChars">0</span></span>
-                    <span><i class="far fa-clock"></i> Reading: <span id="inReadTime">0</span> min</span>
+            <!-- main grid input / output -->
+            <div class="main-grid">
+                <!-- INPUT CARD -->
+                <div class="card input-area">
+                    <h2 style="display: flex; gap: 0.6rem; margin-bottom: 1rem;"><i class="fas fa-paste"
+                            style="color: var(--primary);"></i> Paste AI content</h2>
+                    <textarea id="inputText"
+                        placeholder="Paste your AI-generated text here...">Artificial intelligence has revolutionized many industries. It enables automation and advanced data analysis. Businesses are adopting AI to improve efficiency. However, AI-generated text can sometimes sound robotic and repetitive. This tool helps make it more natural and engaging.</textarea>
+
+                    <!-- word stats inline -->
+                    <div class="word-stats" id="inputStats">
+                        <span><i class="far fa-file-word"></i> Words: <span id="inWords">0</span></span>
+                        <span><i class="far fa-keyboard"></i> Characters: <span id="inChars">0</span></span>
+                        <span><i class="far fa-clock"></i> Reading: <span id="inReadTime">0</span> min</span>
+                    </div>
+
+                    <!-- main action buttons (row) -->
+                    <div class="action-bar">
+                        <button class="primary" id="humanizeBtn"><i class="fas fa-magic"></i> Humanize Text</button>
+                        <button id="paraphraseBtn"><i class="fas fa-sync-alt"></i> Paraphrase</button>
+                        <button id="simplifyBtn"><i class="fas fa-align-left"></i> Simplify</button>
+                        <button id="formalBtn"><i class="fas fa-briefcase"></i> Formal</button>
+                        <button id="fluencyBtn"><i class="fas fa-wave-square"></i> Fluency</button>
+                        <button id="clearBtn"><i class="fas fa-trash-alt"></i> Clear</button>
+                    </div>
+
+                    <!-- advanced collapsible -->
+                    <div class="advanced-toggle"
+                        onclick="document.getElementById('settingsPanel').classList.toggle('show')">
+                        <i class="fas fa-sliders-h"></i> Advanced settings <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="settings-panel" id="settingsPanel">
+                        <div class="setting-row">
+                            <span style="min-width:140px;">Humanization Level:</span>
+                            <label><input type="radio" name="level" value="light" checked> Light</label>
+                            <label><input type="radio" name="level" value="moderate"> Moderate</label>
+                            <label><input type="radio" name="level" value="strong"> Strong</label>
+                        </div>
+                        <div class="setting-row">
+                            <span style="min-width:140px;">Tone:</span>
+                            <select id="toneSelect">
+                                <option>Conversational</option>
+                                <option>Professional</option>
+                                <option>Academic</option>
+                                <option>Friendly</option>
+                                <option>Creative</option>
+                            </select>
+                        </div>
+                        <div class="setting-row">
+                            <span style="min-width:140px;">Target audience:</span>
+                            <select id="audienceSelect">
+                                <option>General</option>
+                                <option>Students</option>
+                                <option>Business</option>
+                                <option>Technical</option>
+                            </select>
+                        </div>
+                        <div class="toggle-switch"><input type="checkbox" id="imperfections" checked> <label>Add natural
+                                imperfections</label></div>
+                        <div class="toggle-switch"><input type="checkbox" id="reduceAi" checked> <label>Reduce AI
+                                detectability</label></div>
+                        <div class="toggle-switch"><input type="checkbox" id="preserveKeywords" checked> <label>Preserve
+                                keywords</label></div>
+                        <div class="toggle-switch"><input type="checkbox" id="preserveFormatting" checked>
+                            <label>Preserve
+                                formatting</label>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- main action buttons (row) -->
-                <div class="action-bar">
-                    <button class="primary" id="humanizeBtn"><i class="fas fa-magic"></i> Humanize Text</button>
-                    <button id="paraphraseBtn"><i class="fas fa-sync-alt"></i> Paraphrase</button>
-                    <button id="simplifyBtn"><i class="fas fa-align-left"></i> Simplify</button>
-                    <button id="formalBtn"><i class="fas fa-briefcase"></i> Formal</button>
-                    <button id="fluencyBtn"><i class="fas fa-wave-square"></i> Fluency</button>
-                    <button id="clearBtn"><i class="fas fa-trash-alt"></i> Clear</button>
-                </div>
+                <!-- OUTPUT CARD -->
+                <div class="card output-area">
+                    <div style="display:flex; align-items: center; justify-content: space-between;">
+                        <h2 style="display: flex; gap:0.5rem;"><i class="fas fa-check-double"
+                                style="color: var(--secondary);"></i> Humanized version</h2>
+                        <div><span class="badge" id="toneIndicator">Tone: conversational</span></div>
+                    </div>
+                    <textarea id="outputText" placeholder="Humanized result will appear here..." readonly
+                        style="background:#f9f9ff;"></textarea>
 
-                <!-- advanced collapsible -->
-                <div class="advanced-toggle"
-                    onclick="document.getElementById('settingsPanel').classList.toggle('show')">
-                    <i class="fas fa-sliders-h"></i> Advanced settings <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="settings-panel" id="settingsPanel">
-                    <div class="setting-row">
-                        <span style="min-width:140px;">Humanization Level:</span>
-                        <label><input type="radio" name="level" value="light" checked> Light</label>
-                        <label><input type="radio" name="level" value="moderate"> Moderate</label>
-                        <label><input type="radio" name="level" value="strong"> Strong</label>
+                    <!-- output stats & copy row -->
+                    <div class="word-stats" style="justify-content: space-between;">
+                        <span><i class="far fa-file-word"></i> Words: <span id="outWords">0</span></span>
+                        <span><i class="fas fa-percent"></i> Change: <span id="percentChange">0%</span></span>
+                        <span><i class="fas fa-copy" id="copyBtn" style="cursor:pointer;"
+                                onclick="copyOutput()"></i></span>
                     </div>
-                    <div class="setting-row">
-                        <span style="min-width:140px;">Tone:</span>
-                        <select id="toneSelect">
-                            <option>Conversational</option>
-                            <option>Professional</option>
-                            <option>Academic</option>
-                            <option>Friendly</option>
-                            <option>Creative</option>
-                        </select>
+
+                    <!-- REAL-TIME ANALYSIS PANEL (metrix) -->
+                    <div class="analysis-grid" id="analysisPanel">
+                        <div class="metric"><span class="label">AI Detection risk</span>
+                            <div class="value risk-medium" id="aiRisk">Medium</div>
+                        </div>
+                        <div class="metric"><span class="label">Readability (Flesch)</span>
+                            <div class="value" id="fleschScore">62</div>
+                        </div>
+                        <div class="metric"><span class="label">Passive voice</span>
+                            <div class="value" id="passiveVoice">8%</div>
+                        </div>
+                        <div class="metric"><span class="label">Sentence variation</span>
+                            <div class="value" id="sentenceVar">0.8</div>
+                        </div>
+                        <div class="metric"><span class="label">Plagiarism risk</span>
+                            <div class="value risk-low" id="plagRisk">Low</div>
+                        </div>
                     </div>
-                    <div class="setting-row">
-                        <span style="min-width:140px;">Target audience:</span>
-                        <select id="audienceSelect">
-                            <option>General</option>
-                            <option>Students</option>
-                            <option>Business</option>
-                            <option>Technical</option>
-                        </select>
+
+                    <!-- export buttons -->
+                    <div class="action-bar" style="margin-top:0.5rem;">
+                        <button id="downloadTxt"><i class="fas fa-file-alt"></i> .txt</button>
+                        <button id="downloadDoc"><i class="fas fa-file-word"></i> .doc</button>
+                        <button id="exportPdfBtn"><i class="fas fa-file-pdf"></i> PDF</button>
+                        <button id="shareLinkBtn"><i class="fas fa-link"></i> Share</button>
                     </div>
-                    <div class="toggle-switch"><input type="checkbox" id="imperfections" checked> <label>Add natural
-                            imperfections</label></div>
-                    <div class="toggle-switch"><input type="checkbox" id="reduceAi" checked> <label>Reduce AI
-                            detectability</label></div>
-                    <div class="toggle-switch"><input type="checkbox" id="preserveKeywords" checked> <label>Preserve
-                            keywords</label></div>
-                    <div class="toggle-switch"><input type="checkbox" id="preserveFormatting" checked> <label>Preserve
-                            formatting</label></div>
+                    <div class="privacy-note"><i class="fas fa-shield-alt"></i> client‑side only · no storage</div>
                 </div>
             </div>
 
-            <!-- OUTPUT CARD -->
-            <div class="card output-area">
-                <div style="display:flex; align-items: center; justify-content: space-between;">
-                    <h2 style="display: flex; gap:0.5rem;"><i class="fas fa-check-double"
-                            style="color: var(--secondary);"></i> Humanized version</h2>
-                    <div><span class="badge" id="toneIndicator">Tone: conversational</span></div>
-                </div>
-                <textarea id="outputText" placeholder="Humanized result will appear here..." readonly
-                    style="background:#f9f9ff;"></textarea>
+            <!-- sticky bottom bar for mobile (and desktop) -->
+            <div class="sticky-mobile">
+                <button class="primary" onclick="humanizeText()"><i class="fas fa-magic"></i> Humanize</button>
+                <button onclick="clearAll()"><i class="fas fa-eraser"></i> Clear</button>
+                <button onclick="copyOutput()"><i class="fas fa-copy"></i> Copy</button>
+                <button onclick="downloadTxt()"><i class="fas fa-download"></i> .txt</button>
+            </div>
 
-                <!-- output stats & copy row -->
-                <div class="word-stats" style="justify-content: space-between;">
-                    <span><i class="far fa-file-word"></i> Words: <span id="outWords">0</span></span>
-                    <span><i class="fas fa-percent"></i> Change: <span id="percentChange">0%</span></span>
-                    <span><i class="fas fa-copy" id="copyBtn" style="cursor:pointer;" onclick="copyOutput()"></i></span>
-                </div>
-
-                <!-- REAL-TIME ANALYSIS PANEL (metrix) -->
-                <div class="analysis-grid" id="analysisPanel">
-                    <div class="metric"><span class="label">AI Detection risk</span>
-                        <div class="value risk-medium" id="aiRisk">Medium</div>
-                    </div>
-                    <div class="metric"><span class="label">Readability (Flesch)</span>
-                        <div class="value" id="fleschScore">62</div>
-                    </div>
-                    <div class="metric"><span class="label">Passive voice</span>
-                        <div class="value" id="passiveVoice">8%</div>
-                    </div>
-                    <div class="metric"><span class="label">Sentence variation</span>
-                        <div class="value" id="sentenceVar">0.8</div>
-                    </div>
-                    <div class="metric"><span class="label">Plagiarism risk</span>
-                        <div class="value risk-low" id="plagRisk">Low</div>
-                    </div>
-                </div>
-
-                <!-- export buttons -->
-                <div class="action-bar" style="margin-top:0.5rem;">
-                    <button id="downloadTxt"><i class="fas fa-file-alt"></i> .txt</button>
-                    <button id="downloadDoc"><i class="fas fa-file-word"></i> .doc</button>
-                    <button id="exportPdfBtn"><i class="fas fa-file-pdf"></i> PDF</button>
-                    <button id="shareLinkBtn"><i class="fas fa-link"></i> Share</button>
-                </div>
-                <div class="privacy-note"><i class="fas fa-shield-alt"></i> client‑side only · no storage</div>
+            <!-- educational section -->
+            <div style="margin: 2rem 0; background: #eef2ff; border-radius: 28px; padding: 1.5rem;">
+                <h3><i class="fas fa-graduation-cap"></i> 📚 Why humanize AI content?</h3>
+                <p>AI text often lacks rhythm, uses repetitive patterns, and triggers detectors. Humanizing improves
+                    engagement, SEO, and authenticity. Our tool adjusts sentence length, adds conversational phrases,
+                    and
+                    preserves meaning.</p>
             </div>
         </div>
 
-        <!-- sticky bottom bar for mobile (and desktop) -->
-        <div class="sticky-mobile">
-            <button class="primary" onclick="humanizeText()"><i class="fas fa-magic"></i> Humanize</button>
-            <button onclick="clearAll()"><i class="fas fa-eraser"></i> Clear</button>
-            <button onclick="copyOutput()"><i class="fas fa-copy"></i> Copy</button>
-            <button onclick="downloadTxt()"><i class="fas fa-download"></i> .txt</button>
-        </div>
+        <script>
+            // ----- helper functions (text processing simulation) -----
+            function getWordCount(str) { return str.trim() ? str.trim().split(/\s+/).length : 0; }
+            function getCharCount(str) { return str.length; }
+            function readingTime(words) { return Math.ceil(words / 200); } // 200 wpm
 
-        <!-- educational section -->
-        <div style="margin: 2rem 0; background: #eef2ff; border-radius: 28px; padding: 1.5rem;">
-            <h3><i class="fas fa-graduation-cap"></i> 📚 Why humanize AI content?</h3>
-            <p>AI text often lacks rhythm, uses repetitive patterns, and triggers detectors. Humanizing improves
-                engagement, SEO, and authenticity. Our tool adjusts sentence length, adds conversational phrases, and
-                preserves meaning.</p>
-        </div>
-    </div>
+            // simple simulation of humanization (for demo, combines multiple transforms)
+            function humanize(text, level, tone) {
+                if (!text.trim()) return text;
+                let result = text;
+                // robotic phrase removal
+                const robotic = [
+                    [/in conclusion,/gi, "to wrap up,"],
+                    [/it is important to note that/gi, ""],
+                    [/furthermore,/gi, "also,"],
+                    [/utilize/gi, "use"],
+                    [/leverage/gi, "use"],
+                    [/additionally,/gi, "plus,"],
+                    [/commence/gi, "start"],
+                    [/terminate/gi, "end"],
+                    [/demonstrate/gi, "show"],
+                ];
+                robotic.forEach(([pattern, replacement]) => { result = result.replace(pattern, replacement); });
 
-    <script>
-        // ----- helper functions (text processing simulation) -----
-        function getWordCount(str) { return str.trim() ? str.trim().split(/\s+/).length : 0; }
-        function getCharCount(str) { return str.length; }
-        function readingTime(words) { return Math.ceil(words / 200); } // 200 wpm
+                // add contractions (human-like)
+                result = result.replace(/\b(will not|can not|do not|is not|are not)\b/gi, (m) => {
+                    if (m.toLowerCase() === 'will not') return "won't";
+                    if (m.toLowerCase() === 'can not') return "can't";
+                    if (m.toLowerCase() === 'do not') return "don't";
+                    if (m.toLowerCase() === 'is not') return "isn't";
+                    if (m.toLowerCase() === 'are not') return "aren't";
+                    return m;
+                });
 
-        // simple simulation of humanization (for demo, combines multiple transforms)
-        function humanize(text, level, tone) {
-            if (!text.trim()) return text;
-            let result = text;
-            // robotic phrase removal
-            const robotic = [
-                [/in conclusion,/gi, "to wrap up,"],
-                [/it is important to note that/gi, ""],
-                [/furthermore,/gi, "also,"],
-                [/utilize/gi, "use"],
-                [/leverage/gi, "use"],
-                [/additionally,/gi, "plus,"],
-                [/commence/gi, "start"],
-                [/terminate/gi, "end"],
-                [/demonstrate/gi, "show"],
-            ];
-            robotic.forEach(([pattern, replacement]) => { result = result.replace(pattern, replacement); });
+                // vary sentence starters (a few)
+                const starters = ["Interestingly,", "You might find that", "It's worth noting that", ""];
+                // tone adjustments
+                if (tone.includes("Professional")) {
+                    result = result.replace(/guys|folks/gi, "individuals");
+                } else if (tone.includes("Friendly")) {
+                    result = result.replace(/important/gi, "super important");
+                    result = "Hey! " + result;
+                } else if (tone.includes("Academic")) {
+                    result = result.replace(/show/gi, "demonstrate");
+                }
 
-            // add contractions (human-like)
-            result = result.replace(/\b(will not|can not|do not|is not|are not)\b/gi, (m) => {
-                if (m.toLowerCase() === 'will not') return "won't";
-                if (m.toLowerCase() === 'can not') return "can't";
-                if (m.toLowerCase() === 'do not') return "don't";
-                if (m.toLowerCase() === 'is not') return "isn't";
-                if (m.toLowerCase() === 'are not') return "aren't";
-                return m;
+                // level: strong adds more filler words & variety
+                if (level === "strong") {
+                    result = result.replace(/\. /g, ". Actually, "); // simplistic
+                }
+                if (document.getElementById('imperfections').checked) {
+                    // add a minor stutter or filler
+                    result = result.replace(/(\w+)(,)/, "$1, well,$2");
+                }
+                return result;
+            }
+
+            function paraphrase(text) { return "[Paraphrased] " + text.replace(/industries/g, "sectors").replace(/efficiency/g, "productivity"); }
+            function simplify(text) { return text.replace(/revolutionized/g, "changed a lot").replace(/utilize/g, "use"); }
+            function formal(text) { return text.replace(/a lot/g, "numerous").replace(/guys/g, "individuals"); }
+            function improveFluency(text) { return text.replace(/\. /g, ". ").replace(/  +/g, " "); } // basic
+
+            // analysis simulation
+            function updateStats() {
+                const input = document.getElementById('inputText').value;
+                const output = document.getElementById('outputText').value;
+                const inWords = getWordCount(input);
+                const outWords = getWordCount(output);
+                document.getElementById('inWords').innerText = inWords;
+                document.getElementById('inChars').innerText = getCharCount(input);
+                document.getElementById('inReadTime').innerText = readingTime(inWords);
+                document.getElementById('outWords').innerText = outWords;
+                const pct = inWords ? Math.round((outWords - inWords) / inWords * 100) : 0;
+                document.getElementById('percentChange').innerText = (pct > 0 ? '+' : '') + pct + '%';
+
+                // risk simulation (simplified)
+                let risk = 'Low';
+                if (outWords > 20 && outWords < 100) risk = 'Medium';
+                if (outWords > 150) risk = 'High';
+                document.getElementById('aiRisk').innerText = risk;
+                document.getElementById('aiRisk').className = 'value risk-' + risk.toLowerCase();
+                // readability (Flesch simulation)
+                let flesch = 60 + Math.floor(Math.random() * 20);
+                document.getElementById('fleschScore').innerText = flesch;
+                // passive voice random
+                document.getElementById('passiveVoice').innerText = Math.floor(Math.random() * 20) + '%';
+                document.getElementById('sentenceVar').innerText = (0.5 + Math.random() * 0.8).toFixed(1);
+                document.getElementById('plagRisk').innerText = Math.random() > 0.6 ? 'Low' : 'Low'; // always low for demo
+            }
+
+            function copyOutput() {
+                const out = document.getElementById('outputText');
+                out.select();
+                navigator.clipboard?.writeText(out.value);
+                alert('Copied!');
+            }
+
+            function clearAll() {
+                document.getElementById('inputText').value = '';
+                document.getElementById('outputText').value = '';
+                updateStats();
+            }
+
+            // main humanize action (reads settings)
+            function humanizeText() {
+                const input = document.getElementById('inputText').value;
+                const level = document.querySelector('input[name="level"]:checked')?.value || 'light';
+                const tone = document.getElementById('toneSelect').value;
+                const humanized = humanize(input, level, tone);
+                document.getElementById('outputText').value = humanized;
+                document.getElementById('toneIndicator').innerText = 'Tone: ' + tone.toLowerCase();
+                updateStats();
+            }
+
+            // attach to mode buttons
+            document.getElementById('humanizeBtn').addEventListener('click', humanizeText);
+            document.getElementById('paraphraseBtn').addEventListener('click', () => {
+                document.getElementById('outputText').value = paraphrase(document.getElementById('inputText').value); updateStats();
+            });
+            document.getElementById('simplifyBtn').addEventListener('click', () => {
+                document.getElementById('outputText').value = simplify(document.getElementById('inputText').value); updateStats();
+            });
+            document.getElementById('formalBtn').addEventListener('click', () => {
+                document.getElementById('outputText').value = formal(document.getElementById('inputText').value); updateStats();
+            });
+            document.getElementById('fluencyBtn').addEventListener('click', () => {
+                document.getElementById('outputText').value = improveFluency(document.getElementById('inputText').value); updateStats();
+            });
+            document.getElementById('clearBtn').addEventListener('click', clearAll);
+
+            // download functions
+            function downloadTxt() {
+                const text = document.getElementById('outputText').value;
+                const blob = new Blob([text], { type: 'text/plain' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'humanized.txt'; a.click();
+            }
+            document.getElementById('downloadTxt').addEventListener('click', downloadTxt);
+            document.getElementById('downloadDoc').addEventListener('click', () => {
+                const content = document.getElementById('outputText').value;
+                const blob = new Blob([content], { type: 'application/msword' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'humanized.doc'; a.click();
+            });
+            document.getElementById('exportPdfBtn').addEventListener('click', () => {
+                const element = document.createElement('div');
+                element.innerHTML = `<pre style="font-family:sans-serif">${document.getElementById('outputText').value}</pre>`;
+                html2pdf().from(element).set({ filename: 'humanized.pdf' }).save();
+            });
+            document.getElementById('shareLinkBtn').addEventListener('click', () => {
+                alert('Demo: shareable link (copy simulation)');
+                navigator.clipboard.writeText(window.location.href + '?demo');
+            });
+            document.getElementById('copyBtn').addEventListener('click', copyOutput);
+
+            // input update stats (words etc)
+            document.getElementById('inputText').addEventListener('input', () => {
+                const inWords = getWordCount(document.getElementById('inputText').value);
+                document.getElementById('inWords').innerText = inWords;
+                document.getElementById('inChars').innerText = document.getElementById('inputText').value.length;
+                document.getElementById('inReadTime').innerText = readingTime(inWords);
             });
 
-            // vary sentence starters (a few)
-            const starters = ["Interestingly,", "You might find that", "It's worth noting that", ""];
-            // tone adjustments
-            if (tone.includes("Professional")) {
-                result = result.replace(/guys|folks/gi, "individuals");
-            } else if (tone.includes("Friendly")) {
-                result = result.replace(/important/gi, "super important");
-                result = "Hey! " + result;
-            } else if (tone.includes("Academic")) {
-                result = result.replace(/show/gi, "demonstrate");
-            }
+            // initial load
+            window.onload = () => {
+                document.getElementById('outputText').value = humanize(document.getElementById('inputText').value, 'light', 'Conversational');
+                updateStats();
+            };
+        </script>
+        <!-- small note for educational -->
 
-            // level: strong adds more filler words & variety
-            if (level === "strong") {
-                result = result.replace(/\. /g, ". Actually, "); // simplistic
-            }
-            if (document.getElementById('imperfections').checked) {
-                // add a minor stutter or filler
-                result = result.replace(/(\w+)(,)/, "$1, well,$2");
-            }
-            return result;
-        }
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Column 1: Brand -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="footer-logo-img">
+                    </div>
+                    <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools. Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook">
+                            <img src="../assets/brand/icons/facebook.svg" alt="Facebook" width="20" height="20">
+                        </a>
+                        <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram">
+                            <img src="../assets/brand/icons/instagram.svg" alt="Instagram" width="20" height="20">
+                        </a>
+                        <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube">
+                            <img src="../assets/brand/icons/youtube.svg" alt="YouTube" width="20" height="20">
+                        </a>
+                    </div>
+                </div>
 
-        function paraphrase(text) { return "[Paraphrased] " + text.replace(/industries/g, "sectors").replace(/efficiency/g, "productivity"); }
-        function simplify(text) { return text.replace(/revolutionized/g, "changed a lot").replace(/utilize/g, "use"); }
-        function formal(text) { return text.replace(/a lot/g, "numerous").replace(/guys/g, "individuals"); }
-        function improveFluency(text) { return text.replace(/\. /g, ". ").replace(/  +/g, " "); } // basic
+                <!-- Column 2: Calculators -->
+                <div class="footer-col">
+                    <h4>Calculators</h4>
+                    <ul>
+                        <li><a href="age-calculator.html">Age Calculator</a></li>
+                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
+                        <li><a href="gpa-calculator.html">GPA Calculator</a></li>
+                    </ul>
+                </div>
 
-        // analysis simulation
-        function updateStats() {
-            const input = document.getElementById('inputText').value;
-            const output = document.getElementById('outputText').value;
-            const inWords = getWordCount(input);
-            const outWords = getWordCount(output);
-            document.getElementById('inWords').innerText = inWords;
-            document.getElementById('inChars').innerText = getCharCount(input);
-            document.getElementById('inReadTime').innerText = readingTime(inWords);
-            document.getElementById('outWords').innerText = outWords;
-            const pct = inWords ? Math.round((outWords - inWords) / inWords * 100) : 0;
-            document.getElementById('percentChange').innerText = (pct > 0 ? '+' : '') + pct + '%';
+                <!-- Column 3: Tools -->
+                <div class="footer-col">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="cv-maker.html">CV Maker</a></li>
+                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
+                        <li><a href="ai-content-humanizer.html">AI Content Humanizer</a></li>
+                        <li><a href="number-to-words-calculator.html">Number to Words</a></li>
+                    </ul>
+                </div>
 
-            // risk simulation (simplified)
-            let risk = 'Low';
-            if (outWords > 20 && outWords < 100) risk = 'Medium';
-            if (outWords > 150) risk = 'High';
-            document.getElementById('aiRisk').innerText = risk;
-            document.getElementById('aiRisk').className = 'value risk-' + risk.toLowerCase();
-            // readability (Flesch simulation)
-            let flesch = 60 + Math.floor(Math.random() * 20);
-            document.getElementById('fleschScore').innerText = flesch;
-            // passive voice random
-            document.getElementById('passiveVoice').innerText = Math.floor(Math.random() * 20) + '%';
-            document.getElementById('sentenceVar').innerText = (0.5 + Math.random() * 0.8).toFixed(1);
-            document.getElementById('plagRisk').innerText = Math.random() > 0.6 ? 'Low' : 'Low'; // always low for demo
-        }
+                <!-- Column 4: Links -->
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../contact.html">Contact Us</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
 
-        function copyOutput() {
-            const out = document.getElementById('outputText');
-            out.select();
-            navigator.clipboard?.writeText(out.value);
-            alert('Copied!');
-        }
+            <div class="footer-bottom">
+                <p>&copy; 2024 90StoreZon. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="../privacy-policy.html">Privacy</a>
+                    <a href="../disclaimer.html">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-        function clearAll() {
-            document.getElementById('inputText').value = '';
-            document.getElementById('outputText').value = '';
-            updateStats();
-        }
 
-        // main humanize action (reads settings)
-        function humanizeText() {
-            const input = document.getElementById('inputText').value;
-            const level = document.querySelector('input[name="level"]:checked')?.value || 'light';
-            const tone = document.getElementById('toneSelect').value;
-            const humanized = humanize(input, level, tone);
-            document.getElementById('outputText').value = humanized;
-            document.getElementById('toneIndicator').innerText = 'Tone: ' + tone.toLowerCase();
-            updateStats();
-        }
-
-        // attach to mode buttons
-        document.getElementById('humanizeBtn').addEventListener('click', humanizeText);
-        document.getElementById('paraphraseBtn').addEventListener('click', () => {
-            document.getElementById('outputText').value = paraphrase(document.getElementById('inputText').value); updateStats();
-        });
-        document.getElementById('simplifyBtn').addEventListener('click', () => {
-            document.getElementById('outputText').value = simplify(document.getElementById('inputText').value); updateStats();
-        });
-        document.getElementById('formalBtn').addEventListener('click', () => {
-            document.getElementById('outputText').value = formal(document.getElementById('inputText').value); updateStats();
-        });
-        document.getElementById('fluencyBtn').addEventListener('click', () => {
-            document.getElementById('outputText').value = improveFluency(document.getElementById('inputText').value); updateStats();
-        });
-        document.getElementById('clearBtn').addEventListener('click', clearAll);
-
-        // download functions
-        function downloadTxt() {
-            const text = document.getElementById('outputText').value;
-            const blob = new Blob([text], { type: 'text/plain' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'humanized.txt'; a.click();
-        }
-        document.getElementById('downloadTxt').addEventListener('click', downloadTxt);
-        document.getElementById('downloadDoc').addEventListener('click', () => {
-            const content = document.getElementById('outputText').value;
-            const blob = new Blob([content], { type: 'application/msword' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'humanized.doc'; a.click();
-        });
-        document.getElementById('exportPdfBtn').addEventListener('click', () => {
-            const element = document.createElement('div');
-            element.innerHTML = `<pre style="font-family:sans-serif">${document.getElementById('outputText').value}</pre>`;
-            html2pdf().from(element).set({ filename: 'humanized.pdf' }).save();
-        });
-        document.getElementById('shareLinkBtn').addEventListener('click', () => {
-            alert('Demo: shareable link (copy simulation)');
-            navigator.clipboard.writeText(window.location.href + '?demo');
-        });
-        document.getElementById('copyBtn').addEventListener('click', copyOutput);
-
-        // input update stats (words etc)
-        document.getElementById('inputText').addEventListener('input', () => {
-            const inWords = getWordCount(document.getElementById('inputText').value);
-            document.getElementById('inWords').innerText = inWords;
-            document.getElementById('inChars').innerText = document.getElementById('inputText').value.length;
-            document.getElementById('inReadTime').innerText = readingTime(inWords);
-        });
-
-        // initial load
-        window.onload = () => {
-            document.getElementById('outputText').value = humanize(document.getElementById('inputText').value, 'light', 'Conversational');
-            updateStats();
-        };
-    </script>
-    <!-- small note for educational -->
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

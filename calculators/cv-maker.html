@@ -8,645 +8,76 @@
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- html2pdf (export) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-        }
-
-        :root {
-            --primary: #2563eb;
-            --secondary: #7c3aed;
-            --success: #059669;
-            --warning: #d97706;
-            --error: #dc2626;
-            --bg: #f9fafb;
-            --text: #111827;
-            --border: #e5e7eb;
-            --radius: 18px;
-            --shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--text);
-            padding: 0.8rem;
-        }
-
-        .cv-maker {
-            max-width: 1500px;
-            margin: 0 auto;
-        }
-
-        /* header */
-        .tool-header {
-            background: white;
-            border-radius: var(--radius);
-            padding: 1.2rem 2rem;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .tool-header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            color: var(--primary);
-        }
-
-        .tool-header p {
-            color: #4b5563;
-        }
-
-        /* main grid */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        /* form card */
-        .form-card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-        }
-
-        .form-section {
-            background: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 1.2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-section h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.8rem;
-        }
-
-        label {
-            font-weight: 500;
-            font-size: 0.9rem;
-            margin-bottom: 0.2rem;
-            display: block;
-            color: #374151;
-        }
-
-        input,
-        textarea,
-        select {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            font-size: 1rem;
-            background: white;
-            transition: 0.15s;
-        }
-
-        input:focus,
-        textarea:focus,
-        select:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        /* dynamic entries (experience, education) */
-        .entry-row {
-            background: #f9fafb;
-            border-radius: 20px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border: 1px solid #eef2f6;
-        }
-
-        .entry-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .entry-header button {
-            background: none;
-            border: none;
-            color: var(--error);
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-
-        .btn-add {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 40px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 0.5rem 0 1rem;
-            cursor: pointer;
-        }
-
-        /* preview panel */
-        .preview-card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 2rem;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            overflow-y: auto;
-            max-height: 90vh;
-            position: sticky;
-            top: 1rem;
-        }
-
-        #cvPreview {
-            background: white;
-            font-family: 'Inter', system-ui, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 0 0 1px #e2e8f0;
-        }
-
-        .preview-header {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            border-bottom: 3px solid var(--primary);
-            padding-bottom: 1.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .preview-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: #dbeafe;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: var(--primary);
-            border: 3px solid white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            object-fit: cover;
-        }
-
-        .preview-name {
-            font-size: 2.3rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .preview-title {
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-top: 0.2rem;
-        }
-
-        .preview-contact {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.2rem;
-            margin: 1rem 0;
-            color: #4b5563;
-        }
-
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            border-left: 6px solid var(--primary);
-            padding-left: 1rem;
-            margin: 1.5rem 0 1rem;
-        }
-
-        .exp-item,
-        .edu-item {
-            margin-bottom: 1.2rem;
-        }
-
-        .exp-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .exp-company {
-            color: var(--secondary);
-        }
-
-        /* sticky bottom bar */
-        .sticky-actions {
-            position: sticky;
-            bottom: 0;
-            background: white;
-            padding: 1rem;
-            border-top: 2px solid var(--border);
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            z-index: 20;
-            border-radius: 40px 40px 0 0;
-            margin-top: 2rem;
-        }
-
-        button,
-        .btn {
-            background: white;
-            border: 1px solid var(--border);
-            padding: 0.7rem 1.4rem;
-            border-radius: 40px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            cursor: pointer;
-            transition: 0.1s;
-            min-height: 48px;
-        }
-
-        button.primary,
-        .btn.primary {
-            background: var(--primary);
-            color: white;
-            border: none;
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        /* tablet/desktop */
-        @media (min-width: 768px) {
-            .main-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .main-grid {
-                grid-template-columns: 1.1fr 0.9fr;
-            }
-        }
-
-        /* avatar upload */
-        .avatar-upload {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .avatar-preview-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--primary);
-        }
-    </style>
-</head>
-
-<body>
-    <div class="cv-maker">
-        <!-- header -->
-        <div class="tool-header">
-            <h1><i class="fas fa-file-alt"></i> CV Maker</h1>
-            <p>Build a professional CV · live preview · export PDF</p>
-        </div>
-
-        <!-- main grid: form (left) + preview (right) -->
-        <div class="main-grid">
-            <!-- LEFT: FORM -->
-            <div class="form-card">
-                <!-- PERSONAL DETAILS (collapsible behavior via details/summary) -->
-                <div class="form-section">
-                    <h3><i class="fas fa-user-circle"></i> Personal details</h3>
-                    <div class="avatar-upload">
-                        <div><label>Profile photo</label><input type="file" id="avatarUpload" accept="image/*"
-                                onchange="handleAvatar(event)"></div>
-                        <img id="avatarPreviewImg" class="avatar-preview-img"
-                            src="https://via.placeholder.com/60?text=You" alt="avatar">
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Column 1: Brand -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="footer-logo-img">
                     </div>
-                    <div class="grid-2">
-                        <div><label>Full name</label><input id="fullName" value="Alex Johnson"
-                                placeholder="Alex Johnson"></div>
-                        <div><label>Professional title</label><input id="jobTitle" value="Product Designer"
-                                placeholder="e.g. Marketing Lead"></div>
-                        <div><label>Email</label><input id="email" value="alex@example.com"></div>
-                        <div><label>Phone</label><input id="phone" value="+1 234 567 890"></div>
-                        <div><label>Address</label><input id="address" value="San Francisco, CA"></div>
-                        <div><label>Website / Portfolio</label><input id="website" value="alex.design"></div>
+                    <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools. Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook">
+                            <img src="../assets/brand/icons/facebook.svg" alt="Facebook" width="20" height="20">
+                        </a>
+                        <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram">
+                            <img src="../assets/brand/icons/instagram.svg" alt="Instagram" width="20" height="20">
+                        </a>
+                        <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube">
+                            <img src="../assets/brand/icons/youtube.svg" alt="YouTube" width="20" height="20">
+                        </a>
                     </div>
                 </div>
 
-                <!-- SUMMARY -->
-                <div class="form-section">
-                    <h3><i class="fas fa-pen"></i> Professional summary</h3>
-                    <textarea id="summary"
-                        rows="3">Creative product designer with 6+ years of experience in user-centered design, leading cross-functional teams to deliver impactful digital products. Passionate about accessibility and design systems.</textarea>
+                <!-- Column 2: Calculators -->
+                <div class="footer-col">
+                    <h4>Calculators</h4>
+                    <ul>
+                        <li><a href="age-calculator.html">Age Calculator</a></li>
+                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
+                        <li><a href="gpa-calculator.html">GPA Calculator</a></li>
+                    </ul>
                 </div>
 
-                <!-- EXPERIENCE (dynamic) -->
-                <div class="form-section">
-                    <h3><i class="fas fa-briefcase"></i> Work experience</h3>
-                    <div id="expContainer"></div>
-                    <button class="btn-add" onclick="addExperience()"><i class="fas fa-plus-circle"></i> Add
-                        experience</button>
+                <!-- Column 3: Tools -->
+                <div class="footer-col">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="cv-maker.html">CV Maker</a></li>
+                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
+                        <li><a href="ai-content-humanizer.html">AI Content Humanizer</a></li>
+                        <li><a href="number-to-words-calculator.html">Number to Words</a></li>
+                    </ul>
                 </div>
 
-                <!-- EDUCATION (dynamic) -->
-                <div class="form-section">
-                    <h3><i class="fas fa-graduation-cap"></i> Education</h3>
-                    <div id="eduContainer"></div>
-                    <button class="btn-add" onclick="addEducation()"><i class="fas fa-plus-circle"></i> Add
-                        education</button>
-                </div>
-
-                <!-- SKILLS & LANGUAGES -->
-                <div class="form-section">
-                    <h3><i class="fas fa-code"></i> Skills & languages</h3>
-                    <label>Skills (comma separated)</label>
-                    <input id="skills" value="UI/UX, Figma, Adobe XD, HTML/CSS, Design Systems, User Research">
-                    <div class="grid-2" style="margin-top:1rem;">
-                        <div><label>Languages</label><input id="languages" value="English (native), Spanish (fluent)">
-                        </div>
-                        <div><label>Interests</label><input id="interests" value="Photography, hiking"></div>
-                    </div>
+                <!-- Column 4: Links -->
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../contact.html">Contact Us</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- RIGHT: PREVIEW -->
-            <div class="preview-card">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-                    <h2 style="color: var(--primary);"><i class="fas fa-eye"></i> CV preview</h2>
-                    <div><button class="primary" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Download
-                            PDF</button></div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 90StoreZon. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="../privacy-policy.html">Privacy</a>
+                    <a href="../disclaimer.html">Disclaimer</a>
                 </div>
-                <div id="cvPreview"></div>
             </div>
         </div>
+    </footer>
 
-        <!-- sticky bottom bar (mobile & desktop) -->
-        <div class="sticky-actions">
-            <button class="primary" onclick="updatePreview()"><i class="fas fa-sync-alt"></i> Refresh preview</button>
-            <button onclick="saveDraft()"><i class="fas fa-save"></i> Save draft</button>
-            <button onclick="loadDraft()"><i class="fas fa-folder-open"></i> Load draft</button>
-            <button onclick="downloadJSON()"><i class="fas fa-download"></i> Export JSON</button>
-            <button onclick="window.print()"><i class="fas fa-print"></i> Print</button>
-        </div>
+    
 
-        <!-- educational footer -->
-        <div style="margin: 2rem 0; background: #e0f2fe; border-radius: 30px; padding: 1.5rem;">
-            <p><i class="fas fa-lightbulb"></i> Tip: Keep your CV to 1-2 pages, use strong action verbs, and tailor for
-                each job.</p>
-        </div>
-    </div>
-
-    <script>
-        // ---------- DATA STRUCTURES ----------
-        let experiences = [
-            { title: "Senior Product Designer", company: "Design Studio", start: "2021", end: "present", desc: "Lead design for SaaS platform; increased user retention by 20%." }
-        ];
-        let educations = [
-            { degree: "BFA in Graphic Design", institution: "University of Arts", year: "2018" }
-        ];
-        let avatarDataURL = "";
-
-        // RENDER DYNAMIC FIELDS (experience, education)
-        function renderExperiences() {
-            const container = document.getElementById('expContainer');
-            container.innerHTML = '';
-            experiences.forEach((exp, idx) => {
-                const div = document.createElement('div');
-                div.className = 'entry-row';
-                div.innerHTML = `
-        <div class="entry-header">
-          <strong>${exp.title || 'New position'}</strong>
-          <button onclick="removeExp(${idx})"><i class="fas fa-trash-alt"></i></button>
-        </div>
-        <div class="grid-2">
-          <input type="text" placeholder="Job title" value="${exp.title || ''}" onchange="updateExp(${idx}, 'title', this.value)">
-          <input type="text" placeholder="Company" value="${exp.company || ''}" onchange="updateExp(${idx}, 'company', this.value)">
-          <input type="text" placeholder="Start" value="${exp.start || ''}" onchange="updateExp(${idx}, 'start', this.value)">
-          <input type="text" placeholder="End" value="${exp.end || ''}" onchange="updateExp(${idx}, 'end', this.value)">
-        </div>
-        <textarea placeholder="Description" rows="2" style="margin-top:0.5rem;" onchange="updateExp(${idx}, 'desc', this.value)">${exp.desc || ''}</textarea>
-      `;
-                container.appendChild(div);
-            });
-        }
-
-        function renderEducations() {
-            const container = document.getElementById('eduContainer');
-            container.innerHTML = '';
-            educations.forEach((edu, idx) => {
-                const div = document.createElement('div');
-                div.className = 'entry-row';
-                div.innerHTML = `
-        <div class="entry-header">
-          <strong>${edu.degree || 'New degree'}</strong>
-          <button onclick="removeEdu(${idx})"><i class="fas fa-trash-alt"></i></button>
-        </div>
-        <div class="grid-3">
-          <input type="text" placeholder="Degree" value="${edu.degree || ''}" onchange="updateEdu(${idx}, 'degree', this.value)">
-          <input type="text" placeholder="Institution" value="${edu.institution || ''}" onchange="updateEdu(${idx}, 'institution', this.value)">
-          <input type="text" placeholder="Year" value="${edu.year || ''}" onchange="updateEdu(${idx}, 'year', this.value)">
-        </div>
-      `;
-                container.appendChild(div);
-            });
-        }
-
-        window.updateExp = (idx, field, val) => { experiences[idx][field] = val; updatePreview(); };
-        window.updateEdu = (idx, field, val) => { educations[idx][field] = val; updatePreview(); };
-        window.removeExp = (idx) => { experiences.splice(idx, 1); renderExperiences(); updatePreview(); };
-        window.removeEdu = (idx) => { educations.splice(idx, 1); renderEducations(); updatePreview(); };
-        window.addExperience = () => { experiences.push({ title: '', company: '', start: '', end: '', desc: '' }); renderExperiences(); updatePreview(); };
-        window.addEducation = () => { educations.push({ degree: '', institution: '', year: '' }); renderEducations(); updatePreview(); };
-
-        // avatar upload
-        window.handleAvatar = (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (ev) => { avatarDataURL = ev.target.result; document.getElementById('avatarPreviewImg').src = ev.target.result; updatePreview(); };
-                reader.readAsDataURL(file);
-            }
-        };
-
-        // LIVE PREVIEW RENDER
-        function updatePreview() {
-            const name = document.getElementById('fullName').value || 'Your Name';
-            const title = document.getElementById('jobTitle').value || '';
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const address = document.getElementById('address').value;
-            const website = document.getElementById('website').value;
-            const summary = document.getElementById('summary').value;
-            const skills = document.getElementById('skills').value.split(',').map(s => s.trim()).join(' · ');
-            const languages = document.getElementById('languages').value;
-            const interests = document.getElementById('interests').value;
-
-            let expHTML = '';
-            experiences.forEach(e => {
-                if (e.title || e.company) {
-                    expHTML += `<div class="exp-item"><div class="exp-title">${e.title} <span class="exp-company">@${e.company}</span></div><div style="color:#4b5563;">${e.start} – ${e.end}</div><p>${e.desc || ''}</p></div>`;
-                }
-            });
-
-            let eduHTML = '';
-            educations.forEach(e => {
-                if (e.degree || e.institution) {
-                    eduHTML += `<div class="exp-item"><div class="exp-title">${e.degree}</div><div>${e.institution}, ${e.year}</div></div>`;
-                }
-            });
-
-            const avatarHTML = avatarDataURL ? `<img src="${avatarDataURL}" class="preview-avatar" style="object-fit:cover;">` : `<div class="preview-avatar"><i class="fas fa-user"></i></div>`;
-
-            const preview = document.getElementById('cvPreview');
-            preview.innerHTML = `
-      <div style="color:var(--text);">
-        <div class="preview-header">
-          ${avatarHTML}
-          <div>
-            <div class="preview-name">${name}</div>
-            <div class="preview-title">${title}</div>
-          </div>
-        </div>
-        <div class="preview-contact">
-          ${email ? '<span><i class="fas fa-envelope"></i> ' + email + '</span>' : ''}
-          ${phone ? '<span><i class="fas fa-phone-alt"></i> ' + phone + '</span>' : ''}
-          ${address ? '<span><i class="fas fa-map-pin"></i> ' + address + '</span>' : ''}
-          ${website ? '<span><i class="fas fa-globe"></i> ' + website + '</span>' : ''}
-        </div>
-
-        ${summary ? `<div><div class="section-title">Profile</div><p>${summary}</p></div>` : ''}
-
-        ${expHTML ? `<div><div class="section-title">Experience</div>${expHTML}</div>` : ''}
-        ${eduHTML ? `<div><div class="section-title">Education</div>${eduHTML}</div>` : ''}
-
-        <div><div class="section-title">Skills & more</div>
-          <p><strong>Skills:</strong> ${skills}</p>
-          <p><strong>Languages:</strong> ${languages}</p>
-          <p><strong>Interests:</strong> ${interests}</p>
-        </div>
-      </div>
-    `;
-        }
-
-        // EXPORT PDF
-        window.downloadPDF = () => {
-            const element = document.getElementById('cvPreview');
-            html2pdf().from(element).set({ filename: 'my_cv.pdf', margin: 0.5 }).save();
-        };
-
-        // SAVE / LOAD DRAFT (localStorage)
-        window.saveDraft = () => {
-            const state = {
-                fullName: document.getElementById('fullName').value,
-                jobTitle: document.getElementById('jobTitle').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                address: document.getElementById('address').value,
-                website: document.getElementById('website').value,
-                summary: document.getElementById('summary').value,
-                skills: document.getElementById('skills').value,
-                languages: document.getElementById('languages').value,
-                interests: document.getElementById('interests').value,
-                experiences, educations, avatarDataURL
-            };
-            localStorage.setItem('cvDraft', JSON.stringify(state));
-            alert('Draft saved locally');
-        };
-
-        window.loadDraft = () => {
-            const raw = localStorage.getItem('cvDraft');
-            if (!raw) return alert('No draft found');
-            const s = JSON.parse(raw);
-            document.getElementById('fullName').value = s.fullName || '';
-            document.getElementById('jobTitle').value = s.jobTitle || '';
-            document.getElementById('email').value = s.email || '';
-            document.getElementById('phone').value = s.phone || '';
-            document.getElementById('address').value = s.address || '';
-            document.getElementById('website').value = s.website || '';
-            document.getElementById('summary').value = s.summary || '';
-            document.getElementById('skills').value = s.skills || '';
-            document.getElementById('languages').value = s.languages || '';
-            document.getElementById('interests').value = s.interests || '';
-            experiences = s.experiences || [];
-            educations = s.educations || [];
-            avatarDataURL = s.avatarDataURL || '';
-            if (avatarDataURL) document.getElementById('avatarPreviewImg').src = avatarDataURL;
-            renderExperiences(); renderEducations(); updatePreview();
-        };
-
-        window.downloadJSON = () => {
-            const data = {
-                personal: {
-                    name: document.getElementById('fullName').value,
-                    title: document.getElementById('jobTitle').value,
-                    email: document.getElementById('email').value,
-                    phone: document.getElementById('phone').value,
-                    address: document.getElementById('address').value,
-                    website: document.getElementById('website').value,
-                    summary: document.getElementById('summary').value,
-                    skills: document.getElementById('skills').value,
-                    languages: document.getElementById('languages').value,
-                    interests: document.getElementById('interests').value,
-                },
-                experiences, educations
-            };
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'cv_backup.json';
-            a.click();
-        };
-
-        // initial render
-        window.onload = () => {
-            renderExperiences();
-            renderEducations();
-            updatePreview();
-            // auto-update on input
-            document.querySelectorAll('input, textarea, select').forEach(el => el.addEventListener('input', updatePreview));
-        };
-    </script>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

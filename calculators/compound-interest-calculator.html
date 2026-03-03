@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Compound Interest Calculator · Fintech dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         * {
             margin: 0;
@@ -389,6 +390,45 @@
 </head>
 
 <body>
+    <div id="loading-screen">
+        <div class="loader"></div>
+    </div>    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="logo-img">
+                    <span class="logo-90">90</span><span class="logo-storezon">StoreZon</span>
+                </a>
+            </div>
+            
+            <div class="header-search">
+                <button class="header-search-btn" id="headerSearchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" x2="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <input type="text" id="headerSearchInput" placeholder="Search calculators..." autocomplete="off">
+                <div id="headerSearchResults" class="search-dropdown"></div>
+            </div>
+
+            <div class="nav-right">
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="dashboard">
             <!-- LEFT INPUT SECTION -->
@@ -420,7 +460,8 @@
                     <!-- compounding -->
                     <div class="compounding-row">
                         <div class="compounding-option"><input type="radio" name="freq" value="1" id="annually" checked>
-                            <label for="annually">Annually</label></div>
+                            <label for="annually">Annually</label>
+                        </div>
                         <div class="compounding-option"><input type="radio" name="freq" value="2" id="semi"> <label
                                 for="semi">Semi</label></div>
                         <div class="compounding-option"><input type="radio" name="freq" value="4" id="quarterly"> <label
@@ -714,6 +755,76 @@
     </script>
 
     <!-- dummy lightweight chart style -->
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Column 1: Brand -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="footer-logo-img">
+                    </div>
+                    <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools. Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook">
+                            <img src="../assets/brand/icons/facebook.svg" alt="Facebook" width="20" height="20">
+                        </a>
+                        <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram">
+                            <img src="../assets/brand/icons/instagram.svg" alt="Instagram" width="20" height="20">
+                        </a>
+                        <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube">
+                            <img src="../assets/brand/icons/youtube.svg" alt="YouTube" width="20" height="20">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Calculators -->
+                <div class="footer-col">
+                    <h4>Calculators</h4>
+                    <ul>
+                        <li><a href="age-calculator.html">Age Calculator</a></li>
+                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
+                        <li><a href="gpa-calculator.html">GPA Calculator</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Tools -->
+                <div class="footer-col">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="cv-maker.html">CV Maker</a></li>
+                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
+                        <li><a href="ai-content-humanizer.html">AI Content Humanizer</a></li>
+                        <li><a href="number-to-words-calculator.html">Number to Words</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Links -->
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../contact.html">Contact Us</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 90StoreZon. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="../privacy-policy.html">Privacy</a>
+                    <a href="../disclaimer.html">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

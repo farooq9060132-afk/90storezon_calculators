@@ -7,6 +7,7 @@
     <title>🔢 Number to Words Converter · real‑time</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         * {
             margin: 0;
@@ -316,341 +317,458 @@
 </head>
 
 <body>
-    <div class="container">
-        <!-- header -->
-        <div class="tool-header">
-            <h1><i class="fas fa-calculator"></i> Number to Words Converter</h1>
-            <p>Convert numbers into written words (up to 15 digits) · currency ready</p>
+    <div id="loading-screen">
+        <div class="loader"></div>
+    </div>    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="logo-img">
+                    <span class="logo-90">90</span><span class="logo-storezon">StoreZon</span>
+                </a>
+            </div>
+            
+            <div class="header-search">
+                <button class="header-search-btn" id="headerSearchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" x2="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <input type="text" id="headerSearchInput" placeholder="Search calculators..." autocomplete="off">
+                <div id="headerSearchResults" class="search-dropdown"></div>
+            </div>
+
+            <div class="nav-right">
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
         </div>
+    </nav>
 
-        <!-- main grid: input | output -->
-        <div class="main-grid">
-            <!-- LEFT INPUT CARD -->
-            <div class="card input-area">
-                <h2><i class="fas fa-pencil-alt"></i> Enter number</h2>
-                <div class="number-input-wrapper">
-                    <input type="text" id="numberInput" placeholder="1,234,567.89" value="1,250.75" inputmode="decimal">
-                </div>
-                <div class="stat-row">
-                    <span><i class="far fa-file-word"></i> Digit count: <span id="digitCount">8</span></span>
-                    <span><i class="fas fa-char"></i> Chars: <span id="charCount">8</span></span>
-                    <span><i class="fas fa-tag"></i> Category: <span id="numCategory">Thousands</span></span>
+    <div class="main-content-wrapper">
+        <div class="container">
+            <!-- header -->
+            <div class="tool-header">
+                <h1><i class="fas fa-calculator"></i> Number to Words Converter</h1>
+                <p>Convert numbers into written words (up to 15 digits) · currency ready</p>
+            </div>
+
+            <!-- main grid: input | output -->
+            <div class="main-grid">
+                <!-- LEFT INPUT CARD -->
+                <div class="card input-area">
+                    <h2><i class="fas fa-pencil-alt"></i> Enter number</h2>
+                    <div class="number-input-wrapper">
+                        <input type="text" id="numberInput" placeholder="1,234,567.89" value="1,250.75"
+                            inputmode="decimal">
+                    </div>
+                    <div class="stat-row">
+                        <span><i class="far fa-file-word"></i> Digit count: <span id="digitCount">8</span></span>
+                        <span><i class="fas fa-char"></i> Chars: <span id="charCount">8</span></span>
+                        <span><i class="fas fa-tag"></i> Category: <span id="numCategory">Thousands</span></span>
+                    </div>
+
+                    <!-- main action row -->
+                    <div class="action-bar">
+                        <button class="primary" id="convertBtn"><i class="fas fa-sync-alt"></i> Convert to
+                            Words</button>
+                        <button id="clearBtn"><i class="fas fa-eraser"></i> Clear</button>
+                        <button id="copyOutputBtn"><i class="fas fa-copy"></i> Copy</button>
+                        <button id="swapFormatBtn"><i class="fas fa-exchange-alt"></i> Swap system</button>
+                    </div>
+
+                    <!-- collapsible advanced settings -->
+                    <div class="settings-toggle"
+                        onclick="document.getElementById('settingsPanel').classList.toggle('show')">
+                        <i class="fas fa-sliders-h"></i> Conversion options <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="settings-panel" id="settingsPanel">
+                        <div class="setting-row">
+                            <span style="min-width:140px;">🌍 Numbering system:</span>
+                            <select id="numSystem">
+                                <option value="int" selected>International (Million, Billion)</option>
+                                <option value="ind">Indian (Lakh, Crore, Arab)</option>
+                            </select>
+                        </div>
+                        <div class="setting-row">
+                            <span style="min-width:140px;">💰 Currency mode:</span>
+                            <label><input type="checkbox" id="currencyToggle"> Enable currency conversion</label>
+                        </div>
+                        <div id="currencyOptions" style="display: none; margin-bottom:1rem;">
+                            <select id="currencySelect" style="width:auto;">
+                                <option value="USD">USD ($) Dollar</option>
+                                <option value="PKR">PKR Rupee</option>
+                                <option value="INR">INR Rupee</option>
+                                <option value="GBP">GBP Pound</option>
+                                <option value="EUR">EUR Euro</option>
+                                <option value="AED">AED Dirham</option>
+                            </select>
+                            <span style="margin-left:1rem;">custom: <input id="customCurrency" placeholder="e.g. Riyal"
+                                    style="width:100px;"></span>
+                        </div>
+                        <div class="grid-3">
+                            <div><label>Text case</label><select id="textCase">
+                                    <option>Sentence case</option>
+                                    <option>UPPERCASE</option>
+                                    <option>lowercase</option>
+                                </select></div>
+                            <div><label>Decimal handling</label><select id="decimalHandling">
+                                    <option value="words">Include words</option>
+                                    <option value="digits">Read digits</option>
+                                    <option value="ignore">Ignore</option>
+                                </select></div>
+                            <div><label>Negative</label><select id="negativeHandling">
+                                    <option value="minus">Minus</option>
+                                    <option value="negative">Negative</option>
+                                </select></div>
+                        </div>
+                    </div>
+
+                    <!-- mini history (last 5) -->
+                    <div style="margin-top:1.5rem;">
+                        <label><i class="fas fa-history"></i> Recent conversions</label>
+                        <div id="historyContainer"></div>
+                        <button onclick="clearHistory()"
+                            style="margin-top:0.5rem; background:none; border:none; color:var(--primary);"><i
+                                class="far fa-trash-alt"></i> clear history</button>
+                    </div>
                 </div>
 
-                <!-- main action row -->
-                <div class="action-bar">
-                    <button class="primary" id="convertBtn"><i class="fas fa-sync-alt"></i> Convert to Words</button>
-                    <button id="clearBtn"><i class="fas fa-eraser"></i> Clear</button>
-                    <button id="copyOutputBtn"><i class="fas fa-copy"></i> Copy</button>
-                    <button id="swapFormatBtn"><i class="fas fa-exchange-alt"></i> Swap system</button>
-                </div>
+                <!-- RIGHT OUTPUT CARD -->
+                <div class="card output-area">
+                    <h2><i class="fas fa-file-alt"></i> Result</h2>
+                    <div class="output-box" id="outputText">One Thousand Two Hundred Fifty Dollars and Seventy-Five
+                        Cents
+                    </div>
 
-                <!-- collapsible advanced settings -->
-                <div class="settings-toggle"
-                    onclick="document.getElementById('settingsPanel').classList.toggle('show')">
-                    <i class="fas fa-sliders-h"></i> Conversion options <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="settings-panel" id="settingsPanel">
-                    <div class="setting-row">
-                        <span style="min-width:140px;">🌍 Numbering system:</span>
-                        <select id="numSystem">
-                            <option value="int" selected>International (Million, Billion)</option>
-                            <option value="ind">Indian (Lakh, Crore, Arab)</option>
-                        </select>
+                    <!-- analysis panel -->
+                    <div class="analysis">
+                        <div class="metric"><span class="lbl">Word count</span><span class="val" id="wordCount">7</span>
+                        </div>
+                        <div class="metric"><span class="lbl">Char count</span><span class="val"
+                                id="outCharCount">38</span>
+                        </div>
+                        <div class="metric"><span class="lbl">Digits</span><span class="val" id="outDigits">8</span>
+                        </div>
+                        <div class="metric"><span class="lbl">Format</span><span class="val" id="outFormat">int</span>
+                        </div>
                     </div>
-                    <div class="setting-row">
-                        <span style="min-width:140px;">💰 Currency mode:</span>
-                        <label><input type="checkbox" id="currencyToggle"> Enable currency conversion</label>
-                    </div>
-                    <div id="currencyOptions" style="display: none; margin-bottom:1rem;">
-                        <select id="currencySelect" style="width:auto;">
-                            <option value="USD">USD ($) Dollar</option>
-                            <option value="PKR">PKR Rupee</option>
-                            <option value="INR">INR Rupee</option>
-                            <option value="GBP">GBP Pound</option>
-                            <option value="EUR">EUR Euro</option>
-                            <option value="AED">AED Dirham</option>
-                        </select>
-                        <span style="margin-left:1rem;">custom: <input id="customCurrency" placeholder="e.g. Riyal"
-                                style="width:100px;"></span>
-                    </div>
-                    <div class="grid-3">
-                        <div><label>Text case</label><select id="textCase">
-                                <option>Sentence case</option>
-                                <option>UPPERCASE</option>
-                                <option>lowercase</option>
-                            </select></div>
-                        <div><label>Decimal handling</label><select id="decimalHandling">
-                                <option value="words">Include words</option>
-                                <option value="digits">Read digits</option>
-                                <option value="ignore">Ignore</option>
-                            </select></div>
-                        <div><label>Negative</label><select id="negativeHandling">
-                                <option value="minus">Minus</option>
-                                <option value="negative">Negative</option>
-                            </select></div>
-                    </div>
-                </div>
 
-                <!-- mini history (last 5) -->
-                <div style="margin-top:1.5rem;">
-                    <label><i class="fas fa-history"></i> Recent conversions</label>
-                    <div id="historyContainer"></div>
-                    <button onclick="clearHistory()"
-                        style="margin-top:0.5rem; background:none; border:none; color:var(--primary);"><i
-                            class="far fa-trash-alt"></i> clear history</button>
+                    <!-- export row -->
+                    <div class="action-bar" style="margin-top:1rem;">
+                        <button id="downloadTxt"><i class="fas fa-file-alt"></i> .txt</button>
+                        <button id="downloadDoc"><i class="fas fa-file-word"></i> .doc</button>
+                        <button id="printBtn"><i class="fas fa-print"></i> Print</button>
+                        <button id="shareBtn"><i class="fas fa-share-alt"></i> Share</button>
+                    </div>
+                    <div style="margin-top:1rem; font-size:0.8rem; color: #6b7280;"><i class="fas fa-shield-alt"></i>
+                        client‑side · no storage</div>
                 </div>
             </div>
 
-            <!-- RIGHT OUTPUT CARD -->
-            <div class="card output-area">
-                <h2><i class="fas fa-file-alt"></i> Result</h2>
-                <div class="output-box" id="outputText">One Thousand Two Hundred Fifty Dollars and Seventy-Five Cents
-                </div>
+            <!-- sticky bottom bar (mobile & desktop) -->
+            <div class="sticky-actions">
+                <button class="primary" onclick="convertNow()"><i class="fas fa-exchange-alt"></i> Convert</button>
+                <button onclick="copyResult()"><i class="fas fa-copy"></i> Copy</button>
+                <button onclick="document.getElementById('numberInput').value=''; updateStats();"><i
+                        class="fas fa-backspace"></i> Clear</button>
+                <button onclick="downloadTxt()"><i class="fas fa-download"></i> .txt</button>
+            </div>
 
-                <!-- analysis panel -->
-                <div class="analysis">
-                    <div class="metric"><span class="lbl">Word count</span><span class="val" id="wordCount">7</span>
-                    </div>
-                    <div class="metric"><span class="lbl">Char count</span><span class="val" id="outCharCount">38</span>
-                    </div>
-                    <div class="metric"><span class="lbl">Digits</span><span class="val" id="outDigits">8</span></div>
-                    <div class="metric"><span class="lbl">Format</span><span class="val" id="outFormat">int</span></div>
-                </div>
-
-                <!-- export row -->
-                <div class="action-bar" style="margin-top:1rem;">
-                    <button id="downloadTxt"><i class="fas fa-file-alt"></i> .txt</button>
-                    <button id="downloadDoc"><i class="fas fa-file-word"></i> .doc</button>
-                    <button id="printBtn"><i class="fas fa-print"></i> Print</button>
-                    <button id="shareBtn"><i class="fas fa-share-alt"></i> Share</button>
-                </div>
-                <div style="margin-top:1rem; font-size:0.8rem; color: #6b7280;"><i class="fas fa-shield-alt"></i>
-                    client‑side · no storage</div>
+            <!-- educational footer -->
+            <div style="margin: 2rem 0; background: #e6f7ff; border-radius: 30px; padding: 1.5rem;">
+                <p><i class="fas fa-lightbulb"></i> Supports International (million/billion) and Indian (lakh/crore)
+                    systems, currency conversion, up to 15 digits.</p>
             </div>
         </div>
 
-        <!-- sticky bottom bar (mobile & desktop) -->
-        <div class="sticky-actions">
-            <button class="primary" onclick="convertNow()"><i class="fas fa-exchange-alt"></i> Convert</button>
-            <button onclick="copyResult()"><i class="fas fa-copy"></i> Copy</button>
-            <button onclick="document.getElementById('numberInput').value=''; updateStats();"><i
-                    class="fas fa-backspace"></i> Clear</button>
-            <button onclick="downloadTxt()"><i class="fas fa-download"></i> .txt</button>
-        </div>
+        <script>
+            // ---------- CORE CONVERSION (SIMPLIFIED BUT ROBUST) ----------
+            const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+            const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
 
-        <!-- educational footer -->
-        <div style="margin: 2rem 0; background: #e6f7ff; border-radius: 30px; padding: 1.5rem;">
-            <p><i class="fas fa-lightbulb"></i> Supports International (million/billion) and Indian (lakh/crore)
-                systems, currency conversion, up to 15 digits.</p>
-        </div>
-    </div>
+            function numberToWordsInt(n, useIndian = false) {
+                if (n === 0) return 'Zero';
+                let num = Math.abs(n);
+                let words = '';
 
-    <script>
-        // ---------- CORE CONVERSION (SIMPLIFIED BUT ROBUST) ----------
-        const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
-        const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+                if (useIndian) {
+                    // Indian numbering: lakh (1,00,000) and crore (1,00,00,000)
+                    const crore = Math.floor(num / 10000000); num %= 10000000;
+                    const lakh = Math.floor(num / 100000); num %= 100000;
+                    const thousand = Math.floor(num / 1000); num %= 1000;
+                    const hundred = Math.floor(num / 100); num %= 100;
 
-        function numberToWordsInt(n, useIndian = false) {
-            if (n === 0) return 'Zero';
-            let num = Math.abs(n);
-            let words = '';
-
-            if (useIndian) {
-                // Indian numbering: lakh (1,00,000) and crore (1,00,00,000)
-                const crore = Math.floor(num / 10000000); num %= 10000000;
-                const lakh = Math.floor(num / 100000); num %= 100000;
-                const thousand = Math.floor(num / 1000); num %= 1000;
-                const hundred = Math.floor(num / 100); num %= 100;
-
-                if (crore) words += numberToWordsInt(crore, false) + ' Crore ';
-                if (lakh) words += numberToWordsInt(lakh, false) + ' Lakh ';
-                if (thousand) words += numberToWordsInt(thousand, false) + ' Thousand ';
-                if (hundred) words += numberToWordsInt(hundred, false) + ' Hundred ';
-                if (num) {
-                    if (num < 20) words += ones[num];
-                    else words += tens[Math.floor(num / 10)] + (num % 10 ? ' ' + ones[num % 10] : '');
-                }
-            } else {
-                // International
-                const billion = Math.floor(num / 1000000000); num %= 1000000000;
-                const million = Math.floor(num / 1000000); num %= 1000000;
-                const thousand = Math.floor(num / 1000); num %= 1000;
-                const hundred = Math.floor(num / 100); num %= 100;
-
-                if (billion) words += numberToWordsInt(billion, false) + ' Billion ';
-                if (million) words += numberToWordsInt(million, false) + ' Million ';
-                if (thousand) words += numberToWordsInt(thousand, false) + ' Thousand ';
-                if (hundred) words += numberToWordsInt(hundred, false) + ' Hundred ';
-                if (num) {
-                    if (num < 20) words += ones[num];
-                    else words += tens[Math.floor(num / 10)] + (num % 10 ? ' ' + ones[num % 10] : '');
-                }
-            }
-            return words.replace(/\s+/g, ' ').trim();
-        }
-
-        // main conversion wrapper
-        function convertNumber(inputStr) {
-            // clean commas and spaces
-            let raw = inputStr.replace(/,/g, '').trim();
-            if (raw === '') return '';
-            let negative = raw.startsWith('-');
-            if (negative) raw = raw.slice(1);
-            // extract decimal
-            let parts = raw.split('.');
-            let integerPart = parts[0].replace(/[^\d]/g, '');
-            if (integerPart === '') integerPart = '0';
-            let decimalPart = parts[1] ? parts[1].replace(/[^\d]/g, '') : '';
-
-            let integer = parseInt(integerPart, 10);
-            if (isNaN(integer)) integer = 0;
-
-            const system = document.getElementById('numSystem').value;
-            const useIndian = (system === 'ind');
-            const currencyOn = document.getElementById('currencyToggle').checked;
-            const currSelect = document.getElementById('currencySelect').value;
-            const customCurr = document.getElementById('customCurrency').value.trim();
-            const currencyName = customCurr || (currSelect === 'USD' ? 'Dollar' : currSelect === 'PKR' ? 'Rupee' : currSelect === 'INR' ? 'Rupee' : currSelect === 'GBP' ? 'Pound' : currSelect === 'EUR' ? 'Euro' : 'Dirham');
-            const currencyCents = (currSelect === 'USD' || currSelect === 'EUR') ? 'Cents' : (currSelect === 'GBP' ? 'Pence' : 'Paise');
-
-            let integerWords = numberToWordsInt(integer, useIndian);
-            let result = '';
-            if (negative) result += 'Minus ';
-            if (currencyOn) {
-                result += integerWords + ' ' + currencyName;
-                if (decimalPart.length > 0) {
-                    let decNum = parseInt(decimalPart, 10);
-                    if (!isNaN(decNum)) {
-                        let decWords = numberToWordsInt(decNum, false);
-                        result += ' and ' + decWords + ' ' + currencyCents;
+                    if (crore) words += numberToWordsInt(crore, false) + ' Crore ';
+                    if (lakh) words += numberToWordsInt(lakh, false) + ' Lakh ';
+                    if (thousand) words += numberToWordsInt(thousand, false) + ' Thousand ';
+                    if (hundred) words += numberToWordsInt(hundred, false) + ' Hundred ';
+                    if (num) {
+                        if (num < 20) words += ones[num];
+                        else words += tens[Math.floor(num / 10)] + (num % 10 ? ' ' + ones[num % 10] : '');
                     }
                 } else {
-                    result += ' only';
+                    // International
+                    const billion = Math.floor(num / 1000000000); num %= 1000000000;
+                    const million = Math.floor(num / 1000000); num %= 1000000;
+                    const thousand = Math.floor(num / 1000); num %= 1000;
+                    const hundred = Math.floor(num / 100); num %= 100;
+
+                    if (billion) words += numberToWordsInt(billion, false) + ' Billion ';
+                    if (million) words += numberToWordsInt(million, false) + ' Million ';
+                    if (thousand) words += numberToWordsInt(thousand, false) + ' Thousand ';
+                    if (hundred) words += numberToWordsInt(hundred, false) + ' Hundred ';
+                    if (num) {
+                        if (num < 20) words += ones[num];
+                        else words += tens[Math.floor(num / 10)] + (num % 10 ? ' ' + ones[num % 10] : '');
+                    }
                 }
-            } else {
-                result += integerWords;
-                if (decimalPart.length > 0) {
-                    const decOpt = document.getElementById('decimalHandling').value;
-                    if (decOpt === 'words') {
+                return words.replace(/\s+/g, ' ').trim();
+            }
+
+            // main conversion wrapper
+            function convertNumber(inputStr) {
+                // clean commas and spaces
+                let raw = inputStr.replace(/,/g, '').trim();
+                if (raw === '') return '';
+                let negative = raw.startsWith('-');
+                if (negative) raw = raw.slice(1);
+                // extract decimal
+                let parts = raw.split('.');
+                let integerPart = parts[0].replace(/[^\d]/g, '');
+                if (integerPart === '') integerPart = '0';
+                let decimalPart = parts[1] ? parts[1].replace(/[^\d]/g, '') : '';
+
+                let integer = parseInt(integerPart, 10);
+                if (isNaN(integer)) integer = 0;
+
+                const system = document.getElementById('numSystem').value;
+                const useIndian = (system === 'ind');
+                const currencyOn = document.getElementById('currencyToggle').checked;
+                const currSelect = document.getElementById('currencySelect').value;
+                const customCurr = document.getElementById('customCurrency').value.trim();
+                const currencyName = customCurr || (currSelect === 'USD' ? 'Dollar' : currSelect === 'PKR' ? 'Rupee' : currSelect === 'INR' ? 'Rupee' : currSelect === 'GBP' ? 'Pound' : currSelect === 'EUR' ? 'Euro' : 'Dirham');
+                const currencyCents = (currSelect === 'USD' || currSelect === 'EUR') ? 'Cents' : (currSelect === 'GBP' ? 'Pence' : 'Paise');
+
+                let integerWords = numberToWordsInt(integer, useIndian);
+                let result = '';
+                if (negative) result += 'Minus ';
+                if (currencyOn) {
+                    result += integerWords + ' ' + currencyName;
+                    if (decimalPart.length > 0) {
                         let decNum = parseInt(decimalPart, 10);
-                        result += ' Point ' + numberToWordsInt(decNum, false);
-                    } else if (decOpt === 'digits') {
-                        result += ' Point ' + decimalPart.split('').map(d => ones[parseInt(d)] || 'Zero').join(' ');
-                    } // else ignore
+                        if (!isNaN(decNum)) {
+                            let decWords = numberToWordsInt(decNum, false);
+                            result += ' and ' + decWords + ' ' + currencyCents;
+                        }
+                    } else {
+                        result += ' only';
+                    }
+                } else {
+                    result += integerWords;
+                    if (decimalPart.length > 0) {
+                        const decOpt = document.getElementById('decimalHandling').value;
+                        if (decOpt === 'words') {
+                            let decNum = parseInt(decimalPart, 10);
+                            result += ' Point ' + numberToWordsInt(decNum, false);
+                        } else if (decOpt === 'digits') {
+                            result += ' Point ' + decimalPart.split('').map(d => ones[parseInt(d)] || 'Zero').join(' ');
+                        } // else ignore
+                    }
                 }
+                // case
+                const caseOpt = document.getElementById('textCase').value;
+                if (caseOpt === 'UPPERCASE') result = result.toUpperCase();
+                else if (caseOpt === 'lowercase') result = result.toLowerCase();
+                // clean multiple spaces
+                return result.replace(/\s+/g, ' ').trim();
             }
-            // case
-            const caseOpt = document.getElementById('textCase').value;
-            if (caseOpt === 'UPPERCASE') result = result.toUpperCase();
-            else if (caseOpt === 'lowercase') result = result.toLowerCase();
-            // clean multiple spaces
-            return result.replace(/\s+/g, ' ').trim();
-        }
 
-        // stats & live update
-        function updateStats() {
-            let raw = document.getElementById('numberInput').value.replace(/,/g, '').trim();
-            let digits = raw.replace(/[^0-9.-]/g, '');
-            let digitCount = digits.replace(/[.-]/g, '').length;
-            document.getElementById('digitCount').innerText = digitCount;
-            document.getElementById('charCount').innerText = raw.length;
-            let cat = 'Thousands';
-            if (digitCount >= 10) cat = 'Billions'; else if (digitCount >= 7) cat = 'Millions';
-            document.getElementById('numCategory').innerText = cat;
-        }
+            // stats & live update
+            function updateStats() {
+                let raw = document.getElementById('numberInput').value.replace(/,/g, '').trim();
+                let digits = raw.replace(/[^0-9.-]/g, '');
+                let digitCount = digits.replace(/[.-]/g, '').length;
+                document.getElementById('digitCount').innerText = digitCount;
+                document.getElementById('charCount').innerText = raw.length;
+                let cat = 'Thousands';
+                if (digitCount >= 10) cat = 'Billions'; else if (digitCount >= 7) cat = 'Millions';
+                document.getElementById('numCategory').innerText = cat;
+            }
 
-        function convertNow() {
-            let input = document.getElementById('numberInput').value;
-            let result = convertNumber(input);
-            document.getElementById('outputText').innerText = result || 'Invalid number';
-            // update out stats
-            document.getElementById('wordCount').innerText = result.split(/\s+/).length;
-            document.getElementById('outCharCount').innerText = result.length;
-            document.getElementById('outDigits').innerText = input.replace(/,/g, '').replace(/[^0-9]/g, '').length;
-            document.getElementById('outFormat').innerText = document.getElementById('numSystem').value === 'int' ? 'Intl' : 'Indian';
-            addToHistory(input, result);
-        }
+            function convertNow() {
+                let input = document.getElementById('numberInput').value;
+                let result = convertNumber(input);
+                document.getElementById('outputText').innerText = result || 'Invalid number';
+                // update out stats
+                document.getElementById('wordCount').innerText = result.split(/\s+/).length;
+                document.getElementById('outCharCount').innerText = result.length;
+                document.getElementById('outDigits').innerText = input.replace(/,/g, '').replace(/[^0-9]/g, '').length;
+                document.getElementById('outFormat').innerText = document.getElementById('numSystem').value === 'int' ? 'Intl' : 'Indian';
+                addToHistory(input, result);
+            }
 
-        // history (last 5)
-        let history = JSON.parse(localStorage.getItem('numWordsHistory')) || [];
-        function addToHistory(input, output) {
-            history.unshift({ input, output });
-            if (history.length > 5) history.pop();
-            localStorage.setItem('numWordsHistory', JSON.stringify(history));
-            renderHistory();
-        }
-        function renderHistory() {
-            let html = '';
-            history.forEach((h, i) => {
-                html += `<div class="history-item" onclick="loadHistory(${i})"><i class="fas fa-history"></i> ${h.input} → ${h.output.substring(0, 30)}…</div>`;
+            // history (last 5)
+            let history = JSON.parse(localStorage.getItem('numWordsHistory')) || [];
+            function addToHistory(input, output) {
+                history.unshift({ input, output });
+                if (history.length > 5) history.pop();
+                localStorage.setItem('numWordsHistory', JSON.stringify(history));
+                renderHistory();
+            }
+            function renderHistory() {
+                let html = '';
+                history.forEach((h, i) => {
+                    html += `<div class="history-item" onclick="loadHistory(${i})"><i class="fas fa-history"></i> ${h.input} → ${h.output.substring(0, 30)}…</div>`;
+                });
+                document.getElementById('historyContainer').innerHTML = html;
+            }
+            window.loadHistory = (idx) => {
+                document.getElementById('numberInput').value = history[idx].input;
+                convertNow();
+            };
+            window.clearHistory = () => { history = []; localStorage.removeItem('numWordsHistory'); renderHistory(); };
+
+            // copy, download, etc
+            function copyResult() {
+                let out = document.getElementById('outputText').innerText;
+                navigator.clipboard?.writeText(out).then(() => alert('Copied!'));
+            }
+            function downloadTxt() {
+                const text = document.getElementById('outputText').innerText;
+                const blob = new Blob([text], { type: 'text/plain' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob); a.download = 'number_words.txt'; a.click();
+            }
+
+            // currency toggle visibility
+            document.getElementById('currencyToggle').addEventListener('change', function (e) {
+                document.getElementById('currencyOptions').style.display = e.target.checked ? 'block' : 'none';
             });
-            document.getElementById('historyContainer').innerHTML = html;
-        }
-        window.loadHistory = (idx) => {
-            document.getElementById('numberInput').value = history[idx].input;
-            convertNow();
-        };
-        window.clearHistory = () => { history = []; localStorage.removeItem('numWordsHistory'); renderHistory(); };
 
-        // copy, download, etc
-        function copyResult() {
-            let out = document.getElementById('outputText').innerText;
-            navigator.clipboard?.writeText(out).then(() => alert('Copied!'));
-        }
-        function downloadTxt() {
-            const text = document.getElementById('outputText').innerText;
-            const blob = new Blob([text], { type: 'text/plain' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob); a.download = 'number_words.txt'; a.click();
-        }
+            // bindings
+            document.getElementById('convertBtn').addEventListener('click', convertNow);
+            document.getElementById('clearBtn').addEventListener('click', () => { document.getElementById('numberInput').value = ''; updateStats(); convertNow(); });
+            document.getElementById('copyOutputBtn').addEventListener('click', copyResult);
+            document.getElementById('swapFormatBtn').addEventListener('click', () => {
+                let sel = document.getElementById('numSystem');
+                sel.value = sel.value === 'int' ? 'ind' : 'int';
+                convertNow();
+            });
+            document.getElementById('downloadTxt').addEventListener('click', downloadTxt);
+            document.getElementById('downloadDoc').addEventListener('click', () => {
+                const text = document.getElementById('outputText').innerText;
+                const blob = new Blob([text], { type: 'application/msword' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob); a.download = 'number_words.doc'; a.click();
+            });
+            document.getElementById('printBtn').addEventListener('click', () => window.print());
+            document.getElementById('shareBtn').addEventListener('click', () => {
+                const out = document.getElementById('outputText').innerText;
+                navigator.clipboard?.writeText(out).then(() => alert('Result copied, you can share it!'));
+            });
+            document.getElementById('numberInput').addEventListener('input', (e) => {
+                // simple auto-format commas
+                let val = e.target.value.replace(/,/g, '');
+                if (!isNaN(parseFloat(val)) && val.includes('.')) {
+                    // don't mess with decimal
+                } else if (!isNaN(parseFloat(val))) {
+                    val = parseFloat(val).toLocaleString('en-US');
+                }
+                // but keep user friendly
+                updateStats();
+            });
 
-        // currency toggle visibility
-        document.getElementById('currencyToggle').addEventListener('change', function (e) {
-            document.getElementById('currencyOptions').style.display = e.target.checked ? 'block' : 'none';
-        });
+            window.onload = () => {
+                renderHistory();
+                document.getElementById('numberInput').value = '1,250.75';
+                convertNow();
+                updateStats();
+                // settings panel hidden by default
+            };
+        </script>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Column 1: Brand -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="footer-logo-img">
+                    </div>
+                    <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools. Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook">
+                            <img src="../assets/brand/icons/facebook.svg" alt="Facebook" width="20" height="20">
+                        </a>
+                        <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram">
+                            <img src="../assets/brand/icons/instagram.svg" alt="Instagram" width="20" height="20">
+                        </a>
+                        <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube">
+                            <img src="../assets/brand/icons/youtube.svg" alt="YouTube" width="20" height="20">
+                        </a>
+                    </div>
+                </div>
 
-        // bindings
-        document.getElementById('convertBtn').addEventListener('click', convertNow);
-        document.getElementById('clearBtn').addEventListener('click', () => { document.getElementById('numberInput').value = ''; updateStats(); convertNow(); });
-        document.getElementById('copyOutputBtn').addEventListener('click', copyResult);
-        document.getElementById('swapFormatBtn').addEventListener('click', () => {
-            let sel = document.getElementById('numSystem');
-            sel.value = sel.value === 'int' ? 'ind' : 'int';
-            convertNow();
-        });
-        document.getElementById('downloadTxt').addEventListener('click', downloadTxt);
-        document.getElementById('downloadDoc').addEventListener('click', () => {
-            const text = document.getElementById('outputText').innerText;
-            const blob = new Blob([text], { type: 'application/msword' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob); a.download = 'number_words.doc'; a.click();
-        });
-        document.getElementById('printBtn').addEventListener('click', () => window.print());
-        document.getElementById('shareBtn').addEventListener('click', () => {
-            const out = document.getElementById('outputText').innerText;
-            navigator.clipboard?.writeText(out).then(() => alert('Result copied, you can share it!'));
-        });
-        document.getElementById('numberInput').addEventListener('input', (e) => {
-            // simple auto-format commas
-            let val = e.target.value.replace(/,/g, '');
-            if (!isNaN(parseFloat(val)) && val.includes('.')) {
-                // don't mess with decimal
-            } else if (!isNaN(parseFloat(val))) {
-                val = parseFloat(val).toLocaleString('en-US');
-            }
-            // but keep user friendly
-            updateStats();
-        });
+                <!-- Column 2: Calculators -->
+                <div class="footer-col">
+                    <h4>Calculators</h4>
+                    <ul>
+                        <li><a href="age-calculator.html">Age Calculator</a></li>
+                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
+                        <li><a href="gpa-calculator.html">GPA Calculator</a></li>
+                    </ul>
+                </div>
 
-        window.onload = () => {
-            renderHistory();
-            document.getElementById('numberInput').value = '1,250.75';
-            convertNow();
-            updateStats();
-            // settings panel hidden by default
-        };
-    </script>
+                <!-- Column 3: Tools -->
+                <div class="footer-col">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="cv-maker.html">CV Maker</a></li>
+                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
+                        <li><a href="ai-content-humanizer.html">AI Content Humanizer</a></li>
+                        <li><a href="number-to-words-calculator.html">Number to Words</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Links -->
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../contact.html">Contact Us</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 90StoreZon. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="../privacy-policy.html">Privacy</a>
+                    <a href="../disclaimer.html">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

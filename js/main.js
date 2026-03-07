@@ -346,10 +346,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            const isInCalculatorsFolder = window.location.pathname.includes('/calculators/');
+            // More robust path detection
+            const pathSegments = window.location.pathname.split('/').filter(s => s);
+            const isInCalculatorsFolder = pathSegments.some(s => s.toLowerCase() === 'calculators');
+            const prefix = isInCalculatorsFolder ? '../' : '';
 
             headerSearchResults.innerHTML = results.map(calc => `
-                <a href="${isInCalculatorsFolder ? '../' + calc.url : calc.url}" class="search-dropdown-item">
+                <a href="${prefix}${calc.url}" class="search-dropdown-item">
                     <h4>${highlightText(calc.name, query)}</h4>
                     <p>${highlightText(calc.desc, query)}</p>
                 </a>
@@ -357,8 +360,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         function redirectToTool(url) {
-            const isInCalculatorsFolder = window.location.pathname.includes('/calculators/');
-            window.location.href = isInCalculatorsFolder ? '../' + url : url;
+            const pathSegments = window.location.pathname.split('/').filter(s => s);
+            const isInCalculatorsFolder = pathSegments.some(s => s.toLowerCase() === 'calculators');
+            const prefix = isInCalculatorsFolder ? '../' : '';
+            window.location.href = prefix + url;
         }
 
         function highlightText(text, query) {

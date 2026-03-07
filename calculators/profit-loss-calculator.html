@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>✅ Profit & Loss Calculator · SaaS style</title>
+    <!-- original styles (unchanged) -->
     <style>
         * {
             margin: 0;
@@ -361,10 +362,228 @@
             gap: 1rem;
             align-items: center;
         }
+
+        /* ===== NEW SEO CONTENT STYLES (responsive, no tool changes) ===== */
+        .seo-wrapper {
+            max-width: 1440px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .seo-above {
+            background: white;
+            border-radius: 2rem;
+            padding: 2rem 2.2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+        }
+
+        .seo-below {
+            background: white;
+            border-radius: 2rem;
+            padding: 2.2rem;
+            margin-top: 2rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        .seo-below h2 {
+            font-size: 2rem;
+            font-weight: 650;
+            color: #1f2937;
+            margin: 2.2rem 0 1rem 0;
+            border-left: 6px solid #2563eb;
+            padding-left: 1.3rem;
+        }
+
+        .seo-below h2:first-of-type {
+            margin-top: 0.2rem;
+        }
+
+        .seo-below h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin: 1.8rem 0 0.8rem 0;
+        }
+
+        .seo-below p,
+        .seo-below li {
+            font-size: 1.1rem;
+            color: #2d3c5a;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .seo-below ul,
+        .seo-below ol {
+            padding-left: 2rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .seo-below li {
+            margin-bottom: 0.5rem;
+        }
+
+        .step-guide {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: #f0f7ff;
+            border-radius: 2rem;
+            padding: 2rem;
+            margin: 1.8rem 0;
+        }
+
+        .step-guide div {
+            flex: 1 1 170px;
+            background: white;
+            border-radius: 1.3rem;
+            padding: 1.2rem;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 50, 90, 0.05);
+            border: 1px solid #e9f0f8;
+        }
+
+        .step-guide strong {
+            font-size: 1.3rem;
+            color: #2563eb;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.3rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-grid div {
+            background: #f1f6fd;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            border-left: 5px solid #2563eb;
+        }
+
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        .benefit-grid div {
+            background: #eaf3fc;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .faq-grid div {
+            background: #f5f9ff;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid #dde9f5;
+        }
+
+        .faq-grid h4 {
+            font-size: 1.2rem;
+            color: #1a2d4c;
+            margin-bottom: 0.5rem;
+        }
+
+        hr {
+            margin: 2.5rem 0;
+            border: 1px solid #cbd5e1;
+        }
+
+        .seo-above h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0b2a4a;
+            margin-bottom: 0.5rem;
+        }
+
+        .seo-above .intro {
+            font-size: 1.3rem;
+            color: #2c4c6e;
+            border-left: 5px solid #2563eb;
+            padding-left: 1.8rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .seo-above {
+                padding: 1.5rem;
+            }
+
+            .seo-below {
+                padding: 1.5rem;
+            }
+
+            .seo-above h1 {
+                font-size: 2rem;
+            }
+
+            .step-guide div {
+                flex: 1 1 100%;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <!-- loading screen (unchanged) -->
+    <div id="loading-screen">
+        <div class="loader"></div>
+    </div>
+    <!-- Navigation Bar (unchanged, added from previous pattern) -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="header-search">
+                <button class="header-search-btn" id="headerSearchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <input type="text" id="headerSearchInput" placeholder="Search calculators..." autocomplete="off">
+                <div id="headerSearchResults" class="search-dropdown"></div>
+            </div>
+            <div class="nav-right">
+                <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="../index.html" class="active">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- +++ ABOVE CALCULATOR: H1 + intro (SEO friendly) +++ -->
+    <div class="seo-wrapper seo-above">
+        <h1>Profit & Loss Calculator</h1>
+        <div class="intro">
+            <p>📊 Instantly calculate profit, loss, margin, and markup for any product or business. Enter cost price,
+                selling price, and quantity – see detailed results, break‑even analysis, and advanced trading metrics.
+                Perfect for retailers, e‑commerce, and small businesses.</p>
+        </div>
+    </div>
+
+    <!-- ########## CALCULATOR TOOL – EXACT ORIGINAL (NOTHING CHANGED) ########## -->
     <div class="container">
         <h1>📊 Profit & Loss Calculator <span class="badge">SaaS · realtime</span></h1>
 
@@ -497,11 +716,12 @@
                     <div><span class="metric-label">Bulk Net Margin</span> <span id="liveBulkNet">33.33%</span></div>
                 </div>
 
-                <!-- educational teaser (SEO friendly) -->
+                <!-- educational teaser (SEO friendly) – part of original, kept untouched -->
                 <div style="margin-top: 2rem; font-size:0.9rem; background:white; border-radius:1rem; padding:1rem;">
                     <p><strong>📘 What is profit?</strong> Profit = SP – CP. <strong>Loss</strong> when CP > SP.
                         <strong>Margin vs Markup:</strong> Margin (profit/SP), Markup (profit/CP). Break‑even: fixed
-                        cost / (SP – var).</p>
+                        cost / (SP – var).
+                    </p>
                     <p style="color:#2563eb;">🔎 Keywords: profit and loss calculator online · calculate profit
                         percentage · business profit · margin vs markup</p>
                 </div>
@@ -509,6 +729,170 @@
         </div>
     </div>
 
+    <!-- +++ BELOW CALCULATOR: COMPLETE SEO CONTENT (no tool changes) +++ -->
+    <div class="seo-wrapper seo-below">
+        <h2>What is a Profit & Loss Calculator?</h2>
+        <p>A <strong>Profit & Loss Calculator</strong> helps you quickly determine the financial outcome of a sale. By
+            entering cost price (CP), selling price (SP), and quantity, you get instant profit/loss, profit percentage,
+            margin, markup, and more. It’s essential for retailers, dropshippers, and anyone tracking business
+            performance.</p>
+
+        <h2>How to Use the Profit & Loss Calculator (Step-by-Step Guide)</h2>
+        <div class="step-guide">
+            <div><strong>Step 1</strong> Enter the cost price (what you paid).</div>
+            <div><strong>Step 2</strong> Enter the selling price (what you charge).</div>
+            <div><strong>Step 3</strong> Adjust quantity if selling multiple units.</div>
+            <div><strong>Step 4</strong> Click <strong>Calculate</strong> or watch live updates.</div>
+            <div><strong>Step 5</strong> View profit, margin, markup, and advanced metrics (break‑even, bulk, trading).
+            </div>
+        </div>
+
+        <h2>Features of This Profit & Loss Calculator</h2>
+        <div class="feature-grid">
+            <div><strong>📐 core P&L</strong> – profit, loss, percentage, margin, markup.</div>
+            <div><strong>➕ quantity support</strong> – totals for bulk orders.</div>
+            <div><strong>⚡ break‑even</strong> – fixed cost, variable cost, BE units.</div>
+            <div><strong>🎯 target profit</strong> – find required selling price.</div>
+            <div><strong>🔄 reverse & trading</strong> – CP from SP + profit %, fee & ROI.</div>
+            <div><strong>📊 bulk business</strong> – total cost, revenue, margin.</div>
+        </div>
+
+        <h2>Benefits of Using an Online Profit & Loss Calculator</h2>
+        <div class="benefit-grid">
+            <div>✔ <strong>Speed</strong> – instant results, no manual errors.</div>
+            <div>✔ <strong>Better pricing</strong> – understand margin before listing.</div>
+            <div>✔ <strong>Plan inventory</strong> – simulate different quantities.</div>
+            <div>✔ <strong>Free & accessible</strong> – on any device.</div>
+            <div>✔ <strong>Educational</strong> – learn margin vs markup.</div>
+        </div>
+
+        <h2>How Profit is Calculated (Formulas)</h2>
+        <p style="background:#e9f2fc; padding:1rem; border-radius:1.5rem;"><strong>Profit = (Selling Price – Cost Price)
+                × Quantity</strong><br>
+            <strong>Profit % (on CP)</strong> = (Profit / CP) × 100<br>
+            <strong>Margin</strong> = (Profit / SP) × 100<br>
+            <strong>Markup</strong> = (Profit / CP) × 100 (same as profit %).
+        </p>
+
+        <h2>Examples of Profit & Loss Calculations</h2>
+        <h3>🛍️ Retail item</h3>
+        <p>CP $50, SP $75, qty 10 → profit $250, margin 33.3%, markup 50%.</p>
+        <h3>📦 Bulk order with fixed costs</h3>
+        <p>Fixed $500, var $10/unit, SP $30/unit, 100 units → BE = 25 units, total profit = $1,500.</p>
+        <h3>📈 Trading with fee</h3>
+        <p>Buy $100, sell $130, qty 20, fee 1% → gross $600, net $594, ROI 29.7%.</p>
+
+        <h2>Where Profit & Loss Calculations Are Used</h2>
+        <ul>
+            <li><strong>🛒 E‑commerce & retail</strong> – pricing, discounts, margins.</li>
+            <li><strong>🏭 Manufacturing</strong> – cost per unit, break‑even analysis.</li>
+            <li><strong>📊 Stock trading</strong> – net profit after fees, ROI.</li>
+            <li><strong>🧾 Small business accounting</strong> – daily P&L tracking.</li>
+            <li><strong>📦 Wholesale & distribution</strong> – bulk order profitability.</li>
+        </ul>
+
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <div class="faq-grid">
+            <div>
+                <h4>1. What’s the difference between margin and markup?</h4> Margin is profit % of selling price; markup
+                is profit % of cost price. Example: CP $80, SP $100 → margin 20%, markup 25%.
+            </div>
+            <div>
+                <h4>2. How do I calculate loss percentage?</h4> Loss % = (Loss / CP) × 100. Our calculator shows it
+                automatically when CP > SP.
+            </div>
+            <div>
+                <h4>3. Can I use this for service‑based pricing?</h4> Yes – CP = your cost to deliver, SP = what you
+                charge. Works perfectly.
+            </div>
+            <div>
+                <h4>4. What is break‑even point (BEP)?</h4> BEP = Fixed cost / (Selling price – Variable cost per unit).
+                The calculator shows it live in the advanced panel.
+            </div>
+            <div>
+                <h4>5. Does this calculator include taxes?</h4> It shows pre‑tax profit. You can adjust SP to include
+                tax or use the trading fee field as a tax proxy.
+            </div>
+            <div>
+                <h4>6. How accurate is the trading ROI?</h4> ROI = (Net profit / Total cost) × 100, where total cost
+                includes fees. It's exact.
+            </div>
+            <div>
+                <h4>7. Can I save my calculations?</h4> Yes – use the “Save current” button. History is stored locally
+                and can be exported as CSV.
+            </div>
+            <div>
+                <h4>8. Is this mobile friendly?</h4> Absolutely – it adapts to any screen size with sticky buttons for
+                easy use.
+            </div>
+        </div>
+
+        <h2>Conclusion</h2>
+        <p>A <strong>Profit & Loss Calculator</strong> is a must‑have tool for any business owner, trader, or student.
+            It removes guesswork, helps you price products confidently, and reveals the true profitability of each sale.
+            [Internal Link – will be added later] and explore more financial tools like [Internal Link – will be added
+            later].</p>
+        <hr>
+        <p style="font-size:1rem;"><strong>Related keywords:</strong> profit and loss calculator online · calculate
+            profit percentage · business profit · margin vs markup · break‑even analysis · trading ROI calculator.</p>
+    </div>
+
+    <!-- Footer (unchanged from earlier pages – adding typical footer) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo"><img src="../assets/brand/logo.png" alt="90StoreZon Logo"
+                            class="footer-logo-img"></div>
+                    <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools.
+                        Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook"><img
+                                src="../assets/brand/icons/facebook.svg" alt="Facebook" width="20" height="20"></a>
+                        <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram"><img
+                                src="../assets/brand/icons/instagram.svg" alt="Instagram" width="20" height="20"></a>
+                        <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube"><img
+                                src="../assets/brand/icons/youtube.svg" alt="YouTube" width="20" height="20"></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Calculators</h4>
+                    <ul>
+                        <li><a href="age-calculator.html">Age Calculator</a></li>
+                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
+                        <li><a href="gpa-calculator.html">GPA Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="cv-maker.html">CV Maker</a></li>
+                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
+                        <li><a href="ai-content-humanizer.html">AI Content Humanizer</a></li>
+                        <li><a href="number-to-words-calculator.html">Number to Words</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../contact.html">Contact Us</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 90StoreZon. All rights reserved.</p>
+                <div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a
+                        href="../disclaimer.html">Disclaimer</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <!-- original calculator script (exact, unchanged) -->
     <script>
         (function () {
             // ----- DOM elements -----

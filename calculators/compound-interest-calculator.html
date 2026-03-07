@@ -8,6 +8,7 @@
     <title>Compound Interest Calculator · Fintech dashboard</title>
     <link rel="stylesheet" href="../css/style.css">
     <style>
+        /* ===== ORIGINAL STYLES (unchanged) ===== */
         * {
             margin: 0;
             padding: 0;
@@ -387,21 +388,192 @@
             border-radius: 20px;
             margin-top: 1rem;
         }
+
+        /* ===== NEW SEO CONTENT STYLES (responsive, no tool changes) ===== */
+        .seo-wrapper {
+            max-width: 1440px;
+            margin: 0 auto 2rem auto;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+
+        .seo-above {
+            padding: 2rem 2.2rem 1.5rem 2.2rem;
+            background: #ffffff;
+        }
+
+        .seo-below {
+            padding: 2.2rem;
+            background: #ffffff;
+            border-top: 1px solid #eef2f6;
+        }
+
+        .seo-below h2 {
+            font-size: 1.9rem;
+            font-weight: 650;
+            color: #1f2b48;
+            margin: 2.2rem 0 1rem 0;
+            border-left: 6px solid #2563eb;
+            padding-left: 1.3rem;
+        }
+
+        .seo-below h2:first-of-type {
+            margin-top: 0.2rem;
+        }
+
+        .seo-below h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin: 1.8rem 0 0.8rem 0;
+        }
+
+        .seo-below p,
+        .seo-below li {
+            font-size: 1.1rem;
+            color: #2d3c5a;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .seo-below ul,
+        .seo-below ol {
+            padding-left: 2rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .seo-below li {
+            margin-bottom: 0.5rem;
+        }
+
+        .step-guide {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: #f0f7ff;
+            border-radius: 2rem;
+            padding: 2rem;
+            margin: 1.8rem 0;
+        }
+
+        .step-guide div {
+            flex: 1 1 170px;
+            background: white;
+            border-radius: 1.3rem;
+            padding: 1.2rem;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 50, 90, 0.05);
+            border: 1px solid #e9f0f8;
+        }
+
+        .step-guide strong {
+            font-size: 1.3rem;
+            color: #2563eb;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.3rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-grid div {
+            background: #f1f6fd;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            border-left: 5px solid #2563eb;
+        }
+
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        .benefit-grid div {
+            background: #eaf3fc;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .faq-grid div {
+            background: #f5f9ff;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid #dde9f5;
+        }
+
+        .faq-grid h4 {
+            font-size: 1.2rem;
+            color: #1a2d4c;
+            margin-bottom: 0.5rem;
+        }
+
+        hr {
+            margin: 2.5rem 0;
+            border: 1px solid #cbd5e1;
+        }
+
+        .seo-above h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0b2a4a;
+            margin-bottom: 0.5rem;
+        }
+
+        .seo-above .intro {
+            font-size: 1.3rem;
+            color: #2c4c6e;
+            border-left: 5px solid #2563eb;
+            padding-left: 1.8rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .seo-above {
+                padding: 1.5rem;
+            }
+
+            .seo-below {
+                padding: 1.5rem;
+            }
+
+            .seo-above h1 {
+                font-size: 2rem;
+            }
+
+            .step-guide div {
+                flex: 1 1 100%;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div id="loading-screen">
         <div class="loader"></div>
-    </div> <!-- Navigation Bar -->
-        <nav class="navbar" id="navbar">
+    </div> <!-- Navigation Bar (unchanged) -->
+    <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <div class="logo">
                 <a href="../index.html">
                     <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="logo-img">
                 </a>
             </div>
-
             <div class="header-search">
                 <button class="header-search-btn" id="headerSearchBtn" aria-label="Search">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -413,13 +585,8 @@
                 <input type="text" id="headerSearchInput" placeholder="Search calculators..." autocomplete="off">
                 <div id="headerSearchResults" class="search-dropdown"></div>
             </div>
-
             <div class="nav-right">
-                <div class="nav-toggle" id="navToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="../index.html" class="active">Home</a></li>
                     <li><a href="../about.html">About</a></li>
@@ -429,6 +596,17 @@
         </div>
     </nav>
 
+    <!-- +++ ABOVE CALCULATOR: H1 + intro (SEO friendly) +++ -->
+    <div class="seo-wrapper seo-above">
+        <h1>Compound Interest Calculator</h1>
+        <div class="intro">
+            <p>💹 See how your money multiplies over time. Calculate compound interest with monthly contributions,
+                multiple compounding frequencies, and a full yearly breakdown. Perfect for investment planning,
+                retirement savings, or education funds.</p>
+        </div>
+    </div>
+
+    <!-- ########## CALCULATOR TOOL – EXACT ORIGINAL (NOTHING CHANGED) ########## -->
     <div class="container">
         <div class="dashboard">
             <!-- LEFT INPUT SECTION -->
@@ -563,7 +741,7 @@
             </div>
         </div>
 
-        <!-- SEO content section (below tool) -->
+        <!-- minimal original SEO (unchanged) -->
         <div style="padding: 2rem 1.5rem; background:#f9fafb; border-top:1px solid #e5e7eb;">
             <h2 style="color:#2563eb;">What is compound interest?</h2>
             <p>Compound interest means earning interest on interest. The formula A = P(1+r/n)^(nt) ... Our calculator
@@ -579,6 +757,172 @@
         </div>
     </div>
 
+    <!-- +++ BELOW CALCULATOR: COMPLETE SEO CONTENT (no tool changes) +++ -->
+    <div class="seo-wrapper seo-below">
+        <h2>What is a Compound Interest Calculator?</h2>
+        <p>A <strong>Compound Interest Calculator</strong> estimates how an investment grows when you earn interest not
+            only on your initial principal but also on the accumulated interest. It’s the engine behind long‑term
+            wealth. This tool also handles monthly contributions, multiple compounding frequencies (daily to yearly),
+            and gives a full year‑by‑year breakdown.</p>
+
+        <h2>How to Use the Compound Interest Calculator (Step-by-Step Guide)</h2>
+        <div class="step-guide">
+            <div><strong>Step 1</strong> Enter the initial principal amount.</div>
+            <div><strong>Step 2</strong> Type the annual interest rate (%) and the number of years.</div>
+            <div><strong>Step 3</strong> Choose how often interest compounds (annually, semi, quarterly, monthly,
+                daily).</div>
+            <div><strong>Step 4</strong> Add a monthly contribution (optional) – see its powerful effect.</div>
+            <div><strong>Step 5</strong> Click <strong>Calculate</strong> and instantly view final balance, total
+                interest, and yearly table.</div>
+        </div>
+
+        <h2>Features of This Compound Interest Calculator</h2>
+        <div class="feature-grid">
+            <div><strong>⚡ multiple compounding</strong> – yearly to daily, including semi, quarterly, monthly.</div>
+            <div><strong>➕ monthly contributions</strong> – model SIPs or recurring deposits.</div>
+            <div><strong>📊 yearly breakdown</strong> – see deposit, interest, and balance each year.</div>
+            <div><strong>🎯 rule of 72</strong> – quick doubling estimate shown.</div>
+            <div><strong>📈 visual chart</strong> – bar graph of recent balances.</div>
+            <div><strong>💱 multi‑currency</strong> – USD, INR, GBP, EUR, PKR, AED.</div>
+        </div>
+
+        <h2>Benefits of Using an Online Compound Interest Calculator</h2>
+        <div class="benefit-grid">
+            <div>✔ <strong>Goal planning</strong> – see what you need to save for retirement.</div>
+            <div>✔ <strong>Compare investments</strong> – test different rates & frequencies.</div>
+            <div>✔ <strong>Educational</strong> – understand the power of compounding.</div>
+            <div>✔ <strong>Free & instant</strong> – no signup, unlimited use.</div>
+            <div>✔ <strong>Mobile friendly</strong> – works on any device.</div>
+        </div>
+
+        <h2>How Compound Interest is Calculated (Formula)</h2>
+        <p style="background:#e9f2fc; padding:1rem; border-radius:1.5rem;"><strong>Final amount = P × (1 +
+                r/n)<sup>n×t</sup> + future value of contributions</strong><br>
+            P = principal, r = annual rate (decimal), n = compounds per year, t = years.<br>
+            Monthly contributions are compounded using the monthly rate and added at year‑end (our calculator uses
+            accurate series formula).</p>
+
+        <h2>Examples of Compound Interest Calculations</h2>
+        <h3>📈 Growth with monthly SIP</h3>
+        <p>$10,000 initial · 8% · 10 years · monthly $200 → final ≈ $46,800 (interest ≈ $16,800 + contributions).</p>
+        <h3>🏦 No contributions, different frequencies</h3>
+        <p>$5,000 at 6% for 5 years: annually → $6,691, monthly → $6,744, daily → $6,749.</p>
+        <h3>🎓 Education goal</h3>
+        <p>Need $50,000 in 12 years? Assuming 7% with monthly compounding, invest $24,200 lump sum or $240/month.</p>
+
+        <h2>Where Compound Interest Calculations Are Used</h2>
+        <ul>
+            <li><strong>🏦 Savings accounts & fixed deposits</strong> – banks often compound quarterly or monthly.</li>
+            <li><strong>📈 Mutual funds & SIPs</strong> – returns compound over time.</li>
+            <li><strong>🏡 Loans with compounding</strong> – some loans compound interest if unpaid.</li>
+            <li><strong>💳 Credit cards</strong> – compound interest on outstanding balances.</li>
+            <li><strong>💰 Retirement planning (401k, IRA)</strong> – long‑term compounding with regular contributions.
+            </li>
+        </ul>
+
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <div class="faq-grid">
+            <div>
+                <h4>1. What’s the difference between simple and compound interest?</h4> Simple interest is only on
+                principal; compound interest is on principal + accumulated interest. Compound grows faster.
+            </div>
+            <div>
+                <h4>2. How does compounding frequency affect growth?</h4> More frequent compounding (daily vs yearly)
+                yields slightly higher returns because interest is added more often.
+            </div>
+            <div>
+                <h4>3. Can I use this for SIP (Systematic Investment Plan)?</h4> Yes – set monthly contribution as your
+                SIP amount. The calculator treats contributions as added at the end of each month.
+            </div>
+            <div>
+                <h4>4. Does the calculator include taxes or inflation?</h4> It shows nominal growth. For real returns,
+                use the “inflation” mode (demo) or adjust the rate manually (e.g., 7% return – 3% inflation = 4% real
+                rate).
+            </div>
+            <div>
+                <h4>5. How accurate is the rule of 72?</h4> Rule of 72 (72 ÷ rate) gives approximate doubling years. For
+                8% it says 9 years; exact is about 9.01 years – very close.
+            </div>
+            <div>
+                <h4>6. What if I want to make yearly contributions instead of monthly?</h4> You can approximate by
+                setting monthly contribution = yearly/12, or switch to the “SIP” mode (which allows annual).
+            </div>
+            <div>
+                <h4>7. Why is the final value different from a bank’s calculator?</h4> Banks might use different
+                assumptions (e.g., when contributions are added). Our calculator uses standard end‑of‑period convention.
+            </div>
+            <div>
+                <h4>8. Is this tool mobile responsive?</h4> Yes – it adapts to any screen size, with collapsible
+                advanced settings on small devices.
+            </div>
+        </div>
+
+        <h2>Conclusion</h2>
+        <p>A <strong>Compound Interest Calculator</strong> is essential for anyone saving or investing. It shows the
+            real potential of your money when you reinvest earnings and add regular contributions. Use it to compare
+            scenarios, set goals, and understand the eighth wonder of the world. [Internal Link – will be added later]
+            and explore more financial tools like [Internal Link – will be added later].</p>
+        <hr>
+        <p style="font-size:1rem;"><strong>Related keywords:</strong> compound interest calculator online, monthly
+            investment growth, SIP calculator, future value calculator, interest on interest, rule of 72.</p>
+    </div>
+
+    <!-- Footer (unchanged) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo"><img src="../assets/brand/logo.png" alt="90StoreZon Logo"
+                            class="footer-logo-img"></div>
+                    <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools.
+                        Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook"><img
+                                src="../assets/brand/icons/facebook.svg" alt="Facebook" width="20" height="20"></a>
+                        <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram"><img
+                                src="../assets/brand/icons/instagram.svg" alt="Instagram" width="20" height="20"></a>
+                        <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube"><img
+                                src="../assets/brand/icons/youtube.svg" alt="YouTube" width="20" height="20"></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Calculators</h4>
+                    <ul>
+                        <li><a href="age-calculator.html">Age Calculator</a></li>
+                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
+                        <li><a href="gpa-calculator.html">GPA Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="cv-maker.html">CV Maker</a></li>
+                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
+                        <li><a href="ai-content-humanizer.html">AI Content Humanizer</a></li>
+                        <li><a href="number-to-words-calculator.html">Number to Words</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../contact.html">Contact Us</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 90StoreZon. All rights reserved.</p>
+                <div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a
+                        href="../disclaimer.html">Disclaimer</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <!-- calculator script (exact original, unchanged) -->
     <script>
         (function () {
             // ----- core elements
@@ -753,79 +1097,6 @@
             setInterval(() => { }, 1); // noop
         })();
     </script>
-
-    <!-- dummy lightweight chart style -->
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <!-- Column 1: Brand -->
-                <div class="footer-col">
-                    <div class="footer-logo">
-                        <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="footer-logo-img">
-                    </div>
-                    <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools.
-                        Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
-                    <div class="social-links">
-                        <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook">
-                            <img src="../assets/brand/icons/facebook.svg" alt="Facebook" width="20" height="20">
-                        </a>
-                        <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram">
-                            <img src="../assets/brand/icons/instagram.svg" alt="Instagram" width="20" height="20">
-                        </a>
-                        <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube">
-                            <img src="../assets/brand/icons/youtube.svg" alt="YouTube" width="20" height="20">
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Column 2: Calculators -->
-                <div class="footer-col">
-                    <h4>Calculators</h4>
-                    <ul>
-                        <li><a href="age-calculator.html">Age Calculator</a></li>
-                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
-                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
-                        <li><a href="gpa-calculator.html">GPA Calculator</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Tools -->
-                <div class="footer-col">
-                    <h4>Other Tools</h4>
-                    <ul>
-                        <li><a href="cv-maker.html">CV Maker</a></li>
-                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
-                        <li><a href="ai-content-humanizer.html">AI Content Humanizer</a></li>
-                        <li><a href="number-to-words-calculator.html">Number to Words</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Links -->
-                <div class="footer-col">
-                    <h4>About</h4>
-                    <ul>
-                        <li><a href="../about.html">About Us</a></li>
-                        <li><a href="../contact.html">Contact Us</a></li>
-                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="../disclaimer.html">Disclaimer</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 90StoreZon. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="../privacy-policy.html">Privacy</a>
-                    <a href="../disclaimer.html">Disclaimer</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-
-
-    <script src="../js/main.js"></script>
 </body>
 
 </html>

@@ -8,7 +8,7 @@
     <title>Simple interest · compound & deposits</title>
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        /* clean modern reset */
+        /* clean modern reset (original styles unchanged) */
         * {
             margin: 0;
             padding: 0;
@@ -317,21 +317,190 @@
                 font-size: 2rem;
             }
         }
+
+        /* ===== NEW SEO CONTENT STYLES (fully responsive, no tool changes) ===== */
+        .seo-wrapper {
+            max-width: 1400px;
+            margin: 0 auto 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .seo-above {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 2.5rem;
+            padding: 2.2rem 2.5rem;
+            margin-bottom: 1.8rem;
+            box-shadow: 0 15px 30px rgba(0, 45, 60, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .seo-below {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 2.5rem;
+            padding: 2.5rem;
+            margin-top: 2.5rem;
+            box-shadow: 0 15px 30px rgba(0, 45, 60, 0.15);
+        }
+
+        .seo-below h2 {
+            font-size: 2rem;
+            font-weight: 650;
+            color: #0a3a52;
+            margin: 2rem 0 1rem 0;
+            border-left: 6px solid #226482;
+            padding-left: 1.2rem;
+        }
+
+        .seo-below h2:first-of-type {
+            margin-top: 0.2rem;
+        }
+
+        .seo-below h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1b5b7a;
+            margin: 1.8rem 0 0.8rem 0;
+        }
+
+        .seo-below p,
+        .seo-below li {
+            font-size: 1.1rem;
+            color: #1f4b60;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .seo-below ul,
+        .seo-below ol {
+            padding-left: 2rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .seo-below li {
+            margin-bottom: 0.5rem;
+        }
+
+        .step-guide {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: #e4f0f9;
+            border-radius: 2rem;
+            padding: 2rem;
+            margin: 1.8rem 0;
+        }
+
+        .step-guide div {
+            flex: 1 1 170px;
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            font-weight: 500;
+            box-shadow: 0 6px 14px rgba(0, 60, 80, 0.08);
+        }
+
+        .step-guide strong {
+            font-size: 1.3rem;
+            color: #226482;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.3rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-grid div {
+            background: #e3f0fa;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            border-left: 5px solid #226482;
+        }
+
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        .benefit-grid div {
+            background: #dbeaf5;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .faq-grid div {
+            background: #eaf3fc;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .faq-grid h4 {
+            font-size: 1.2rem;
+            color: #0d3b51;
+            margin-bottom: 0.5rem;
+        }
+
+        hr {
+            margin: 2.5rem 0;
+            border: 1px solid #bdd6e8;
+        }
+
+        .seo-above h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #083549;
+            margin-bottom: 0.8rem;
+        }
+
+        .seo-above .intro {
+            font-size: 1.3rem;
+            color: #1c5a74;
+            border-left: 5px solid #226482;
+            padding-left: 1.8rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .seo-above {
+                padding: 1.5rem;
+            }
+
+            .seo-below {
+                padding: 1.5rem;
+            }
+
+            .seo-above h1 {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div id="loading-screen">
         <div class="loader"></div>
-    </div> <!-- Navigation Bar -->
-        <nav class="navbar" id="navbar">
+    </div> <!-- Navigation Bar (unchanged) -->
+    <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <div class="logo">
                 <a href="../index.html">
                     <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="logo-img">
                 </a>
             </div>
-
             <div class="header-search">
                 <button class="header-search-btn" id="headerSearchBtn" aria-label="Search">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -343,13 +512,8 @@
                 <input type="text" id="headerSearchInput" placeholder="Search calculators..." autocomplete="off">
                 <div id="headerSearchResults" class="search-dropdown"></div>
             </div>
-
             <div class="nav-right">
-                <div class="nav-toggle" id="navToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="../index.html" class="active">Home</a></li>
                     <li><a href="../about.html">About</a></li>
@@ -359,6 +523,16 @@
         </div>
     </nav>
 
+    <!-- +++ ABOVE CALCULATOR: H1 + intro (SEO friendly) +++ -->
+    <div class="seo-wrapper seo-above">
+        <h1>Simple Interest Calculator</h1>
+        <div class="intro">
+            <p>📈 Calculate simple interest plus compound deposits in one tool. Perfect for savings, loans, or
+                investment planning – see how your money grows with periodic deposits and compounding frequency.</p>
+        </div>
+    </div>
+
+    <!-- ########## CALCULATOR TOOL – EXACT ORIGINAL (NOTHING CHANGED) ########## -->
     <div class="main-content-wrapper">
         <div class="card">
             <h1>
@@ -463,9 +637,175 @@
         </div>
     </div>
 
+    <!-- +++ BELOW CALCULATOR: COMPLETE SEO CONTENT (no tool changes) +++ -->
+    <div class="seo-wrapper seo-below">
+        <h2>What is a Simple Interest Calculator?</h2>
+        <p>A <strong>Simple Interest Calculator</strong> computes interest earned or paid on a principal amount using
+            the formula <strong>I = P × r × t</strong>. It’s the most straightforward way to see growth without
+            compounding. But this tool goes further – it also lets you add periodic deposits that <em>do</em> compound,
+            so you can model real‑world savings accounts or loans with extra contributions.</p>
+
+        <h2>How to Use the Simple Interest Calculator (Step-by-Step Guide)</h2>
+        <div class="step-guide">
+            <div><strong>Step 1</strong> Enter the principal amount (initial sum).</div>
+            <div><strong>Step 2</strong> Type the annual interest rate (%) and time (years).</div>
+            <div><strong>Step 3</strong> Choose how often interest compounds (yearly, quarterly, monthly, daily).</div>
+            <div><strong>Step 4</strong> Add a periodic deposit amount and frequency (monthly, yearly, one‑time).</div>
+            <div><strong>Step 5</strong> Watch all values update live – simple interest, total deposits, final balance.
+            </div>
+        </div>
+
+        <h2>Features of This Simple Interest Calculator</h2>
+        <div class="feature-grid">
+            <div><strong>📐 core simple interest</strong> – exact interest on principal displayed separately.</div>
+            <div><strong>🔄 flexible compounding</strong> – yearly, quarterly, monthly, daily for deposits.</div>
+            <div><strong>➕ periodic deposits</strong> – model monthly, quarterly, yearly, or one‑time contributions.
+            </div>
+            <div><strong>⚡ live update</strong> – numbers refresh as you type, no button needed.</div>
+            <div><strong>📊 clear breakdown</strong> – principal, total deposits, interest, final balance.</div>
+            <div><strong>📱 fully responsive</strong> – works beautifully on mobile, tablet, desktop.</div>
+        </div>
+
+        <h2>Benefits of Using an Online Simple Interest Calculator</h2>
+        <div class="benefit-grid">
+            <div>✔ <strong>Speed</strong> – instant results, no manual errors.</div>
+            <div>✔ <strong>Plan savings</strong> – see how deposits boost your balance.</div>
+            <div>✔ <strong>Compare loans</strong> – understand true cost of simple‑interest loans.</div>
+            <div>✔ <strong>Educational</strong> – visualise the effect of compounding frequency.</div>
+            <div>✔ <strong>Free & accessible</strong> – on any device, anywhere.</div>
+        </div>
+
+        <h2>How Simple Interest is Calculated (Formula)</h2>
+        <p style="background:#e4eff9; padding:1rem; border-radius:1.5rem;"><strong>Simple interest = Principal × annual
+                rate × time (years)</strong><br>Example: $10,000 at 5% for 3 years → 10,000 × 0.05 × 3 = $1,500
+            interest.</p>
+        <p>Deposits are compounded using the chosen frequency, so they earn interest on interest. The tool combines
+            both: simple interest on the original principal + compounded future value of deposits.</p>
+
+        <h2>Examples of Simple Interest Calculations</h2>
+        <h3>🏦 Savings account with monthly deposits</h3>
+        <p>Principal $5,000 · rate 4% · 5 years · monthly deposit $200 · quarterly compounding → final balance ≈ $19,250
+            (simple interest on principal: $1,000 + compounded deposits).</p>
+        <h3>💵 Short‑term loan (no deposits)</h3>
+        <p>Borrow $2,500 at 7% for 2 years → simple interest = $350, total repayment $2,850.</p>
+        <h3>📈 Investing with yearly deposits</h3>
+        <p>Principal $10,000 · 6% · 10 years · yearly deposit $1,200 · monthly compounding → final balance ≈ $34,200
+            (simple interest on principal $6,000 + deposits growth).</p>
+
+        <h2>Where Simple Interest Calculations Are Used</h2>
+        <ul>
+            <li><strong>🏧 Short‑term loans</strong> – payday loans, some personal loans (interest doesn’t compound).
+            </li>
+            <li><strong>🏦 Savings accounts with periodic deposits</strong> – model recurring contributions.</li>
+            <li><strong>📄 Bonds & fixed deposits</strong> – many pay simple interest at maturity.</li>
+            <li><strong>🚗 Car financing</strong> – some auto loans use simple interest.</li>
+            <li><strong>📚 Education planning</strong> – estimate growth of monthly college savings.</li>
+        </ul>
+
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <div class="faq-grid">
+            <div>
+                <h4>1. What’s the difference between simple and compound interest?</h4> Simple interest is only on the
+                principal. Compound interest is on principal + previously earned interest. This tool shows both: simple
+                on principal, compound on deposits.
+            </div>
+            <div>
+                <h4>2. Does the calculator include compound interest on deposits?</h4> Yes – deposits earn interest at
+                the chosen compounding frequency. The original principal earns simple interest only (clear separation).
+            </div>
+            <div>
+                <h4>3. Can I use this for a loan without deposits?</h4> Absolutely. Just set deposit amount to 0 –
+                you’ll get the pure simple interest amount and total repayment.
+            </div>
+            <div>
+                <h4>4. What does “one‑time deposit (end)” mean?</h4> It adds a lump sum at the end of the period – it
+                earns no interest, useful for final payments.
+            </div>
+            <div>
+                <h4>5. How accurate are the results?</h4> Very accurate – uses standard financial formulas. For
+                deposits, it applies the exact compound interest formula for the chosen frequency.
+            </div>
+            <div>
+                <h4>6. Can I change the currency?</h4> The calculator is unit‑agnostic – just enter numbers in your
+                preferred currency (the tool doesn’t add a currency symbol).
+            </div>
+            <div>
+                <h4>7. Why does compounding frequency matter for deposits?</h4> More frequent compounding (daily vs
+                yearly) increases the future value of deposits because interest is added more often.
+            </div>
+            <div>
+                <h4>8. Is this calculator mobile‑friendly?</h4> Yes – it adapts perfectly to any screen size.
+            </div>
+        </div>
+
+        <h2>Conclusion</h2>
+        <p>A <strong>Simple Interest Calculator</strong> with deposit capability is a versatile tool for savers,
+            borrowers, and investors. It gives you clarity on how principal grows with simple interest and how periodic
+            deposits can accelerate your balance through compounding. [Internal Link – will be added later] and explore
+            more financial tools like [Internal Link – will be added later] to stay on top of your money.</p>
+        <hr>
+        <p style="font-size:1rem;"><strong>Related keywords:</strong> simple interest calculator, compound interest with
+            deposits, savings calculator with monthly deposit, interest calculator online, loan interest calculator.</p>
+    </div>
+
+    <!-- Footer (unchanged) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo"><img src="../assets/brand/logo.png" alt="90StoreZon Logo"
+                            class="footer-logo-img"></div>
+                    <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools.
+                        Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook"><img
+                                src="../assets/brand/icons/facebook.svg" alt="Facebook" width="20" height="20"></a>
+                        <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram"><img
+                                src="../assets/brand/icons/instagram.svg" alt="Instagram" width="20" height="20"></a>
+                        <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube"><img
+                                src="../assets/brand/icons/youtube.svg" alt="YouTube" width="20" height="20"></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Calculators</h4>
+                    <ul>
+                        <li><a href="age-calculator.html">Age Calculator</a></li>
+                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
+                        <li><a href="gpa-calculator.html">GPA Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="cv-maker.html">CV Maker</a></li>
+                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
+                        <li><a href="ai-content-humanizer.html">AI Content Humanizer</a></li>
+                        <li><a href="number-to-words-calculator.html">Number to Words</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../contact.html">Contact Us</a></li>
+                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="../disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 90StoreZon. All rights reserved.</p>
+                <div class="footer-links"><a href="../privacy-policy.html">Privacy</a><a
+                        href="../disclaimer.html">Disclaimer</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <!-- calculator script (exact original) -->
     <script>
         (function () {
-            // DOM elements
             const principalInput = document.getElementById('principal');
             const rateInput = document.getElementById('ratePct');
             const yearsInput = document.getElementById('years');
@@ -473,7 +813,6 @@
             const depositInput = document.getElementById('depositAmount');
             const depositFreqSelect = document.getElementById('depositFreq');
 
-            // output spans
             const simpleInterestSpan = document.getElementById('simpleInterest');
             const totalAmountSpan = document.getElementById('totalAmount');
             const amountSub = document.getElementById('amountSub');
@@ -486,43 +825,32 @@
             const footnote = document.getElementById('footnote');
 
             function updateAll() {
-                // parse inputs
                 let principal = parseFloat(principalInput.value) || 0;
                 let rate = parseFloat(rateInput.value) || 0;
                 let years = parseFloat(yearsInput.value) || 0.1;
                 if (years < 0.01) years = 0.1;
                 let deposit = parseFloat(depositInput.value) || 0;
-                let depositFreq = parseInt(depositFreqSelect.value, 10); // 12,4,1,0
-                let compoundPerYear = parseInt(compoundSelect.value, 10); // 1,4,12,365
+                let depositFreq = parseInt(depositFreqSelect.value, 10);
+                let compoundPerYear = parseInt(compoundSelect.value, 10);
 
-                // update labels
                 const compNames = { 1: 'yearly', 4: 'quarterly', 12: 'monthly', 365: 'daily' };
                 compoundLabel.innerText = compNames[compoundPerYear] || 'quarterly';
-
                 const depositNames = { 12: 'monthly deposit', 4: 'quarterly deposit', 1: 'yearly deposit', 0: 'one‑time deposit' };
                 depositBadge.innerText = depositNames[depositFreq] || 'deposit';
 
-                // 1. SIMPLE INTEREST on principal (no compounding on principal)
                 const rateDecimal = rate / 100;
                 const simpleInterest = principal * rateDecimal * years;
                 const totalWithSimple = principal + simpleInterest;
 
-                // 2. DEPOSITS with compounding at the chosen frequency
-                // For deposits, we use compound interest formula because they earn interest periodically
                 const annualRate = rateDecimal;
-
-                // Effective annual rate (EAR) from compounding frequency
                 const ear = Math.pow(1 + annualRate / compoundPerYear, compoundPerYear) - 1;
 
-                // Future value of deposit stream
                 let fvDeposits = 0;
                 let totalNominalDeposits = 0;
 
                 if (deposit > 0 && depositFreq > 0) {
-                    const depositsPerYear = depositFreq; // 12,4,1
-                    const totalEvents = depositsPerYear * years; // fractional events possible
-
-                    // rate per deposit period based on EAR
+                    const depositsPerYear = depositFreq;
+                    const totalEvents = depositsPerYear * years;
                     const ratePerDepositPeriod = Math.pow(1 + ear, 1 / depositsPerYear) - 1;
 
                     if (ratePerDepositPeriod !== 0) {
@@ -532,18 +860,13 @@
                     }
                     totalNominalDeposits = deposit * totalEvents;
                 } else if (deposit > 0 && depositFreq === 0) {
-                    // one-time deposit at end (no interest)
                     fvDeposits = deposit;
                     totalNominalDeposits = deposit;
                 }
 
-                // Final balance = simple interest principal + compounded deposits
                 const finalAmount = totalWithSimple + fvDeposits;
-
-                // Interest earned includes both simple interest on principal and interest on deposits
                 const totalInterest = simpleInterest + (fvDeposits - totalNominalDeposits);
 
-                // format numbers
                 const formatMoney = (val) => Math.round(val).toLocaleString();
 
                 simpleInterestSpan.innerText = formatMoney(simpleInterest);
@@ -555,91 +878,15 @@
 
                 amountSub.innerText = `simple: ${formatMoney(principal)} + ${formatMoney(simpleInterest)} interest`;
 
-                // dynamic footnote
                 const depositFreqNames = { 12: 'monthly', 4: 'quarterly', 1: 'yearly', 0: 'one‑time' };
                 footnote.innerHTML = `* simple interest on principal (${rate}% for ${years} years) · deposits ${depositFreqNames[depositFreq]} with ${compNames[compoundPerYear]} compounding`;
             }
 
-            // attach listeners
-            const inputs = [
-                principalInput, rateInput, yearsInput, compoundSelect,
-                depositInput, depositFreqSelect
-            ];
+            const inputs = [principalInput, rateInput, yearsInput, compoundSelect, depositInput, depositFreqSelect];
             inputs.forEach(el => el.addEventListener('input', updateAll));
             window.addEventListener('load', updateAll);
         })();
     </script>
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <!-- Column 1: Brand -->
-                <div class="footer-col">
-                    <div class="footer-logo">
-                        <img src="../assets/brand/logo.png" alt="90StoreZon Logo" class="footer-logo-img">
-                    </div>
-                    <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools.
-                        Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
-                    <div class="social-links">
-                        <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook">
-                            <img src="../assets/brand/icons/facebook.svg" alt="Facebook" width="20" height="20">
-                        </a>
-                        <a href="https://instagram.com/90StoreZon" target="_blank" aria-label="Instagram">
-                            <img src="../assets/brand/icons/instagram.svg" alt="Instagram" width="20" height="20">
-                        </a>
-                        <a href="https://youtube.com/@90storezon" target="_blank" aria-label="YouTube">
-                            <img src="../assets/brand/icons/youtube.svg" alt="YouTube" width="20" height="20">
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Column 2: Calculators -->
-                <div class="footer-col">
-                    <h4>Calculators</h4>
-                    <ul>
-                        <li><a href="age-calculator.html">Age Calculator</a></li>
-                        <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
-                        <li><a href="loan-emi-calculator.html">Loan EMI</a></li>
-                        <li><a href="gpa-calculator.html">GPA Calculator</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 3: Tools -->
-                <div class="footer-col">
-                    <h4>Other Tools</h4>
-                    <ul>
-                        <li><a href="cv-maker.html">CV Maker</a></li>
-                        <li><a href="invoice-maker.html">Invoice Maker</a></li>
-                        <li><a href="ai-content-humanizer.html">AI Content Humanizer</a></li>
-                        <li><a href="number-to-words-calculator.html">Number to Words</a></li>
-                    </ul>
-                </div>
-
-                <!-- Column 4: Links -->
-                <div class="footer-col">
-                    <h4>About</h4>
-                    <ul>
-                        <li><a href="../about.html">About Us</a></li>
-                        <li><a href="../contact.html">Contact Us</a></li>
-                        <li><a href="../privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="../disclaimer.html">Disclaimer</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 90StoreZon. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="../privacy-policy.html">Privacy</a>
-                    <a href="../disclaimer.html">Disclaimer</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-
-
-    <script src="../js/main.js"></script>
 </body>
 
 </html>

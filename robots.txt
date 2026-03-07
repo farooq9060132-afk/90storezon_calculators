@@ -1,22 +1,5 @@
-# robots.txt for 90StoreZon - FINAL BEST CALCULATORS
-
 User-agent: *
-Allow: /
+Disallow:
 
 # Sitemap location
 Sitemap: https://90storezon.com/sitemap.xml
-
-# Crawl-delay (optional, adjust as needed)
-Crawl-delay: 1
-
-# Disallow specific paths if needed (currently allowing all)
-# Disallow: /admin/
-# Disallow: /private/
-
-# Allow all calculators
-Allow: /calculators/
-
-# Allow CSS and JS for proper rendering
-Allow: /css/
-Allow: /js/
-Allow: /assets/

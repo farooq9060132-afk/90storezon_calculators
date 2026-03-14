@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <link rel="icon" type="image/png" href="../assets/brand/icons/favicon.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Date Difference Calculator · business days & age</title>
     <!-- base styles (tool untouched) + extra content styling -->
     <style>
@@ -550,7 +550,7 @@
                     <span class="mode-chip" data-mode="countdown">Countdown</span>
                 </div>
                 <div class="action-row">
-                    <button class="btn btn-primary" id="calcBtn">⚡ Calculate</button>
+                    <button class="calc-btn" id="calcBtn">⚡ Calculate</button>
                     <button class="btn btn-outline" id="copyOutputBtn">📋 Copy</button>
                     <button class="btn btn-outline" id="clearBtn">🗑️ Clear</button>
                 </div>
@@ -582,7 +582,7 @@
                     </div>
                 </div>
                 <div class="sticky-bar">
-                    <button class="btn btn-primary" id="calcBottomBtn">Calculate</button>
+                    <button class="calc-btn" id="calcBottomBtn">Calculate</button>
                     <button class="btn btn-outline" id="copyBottomBtn">Copy</button>
                     <button class="btn btn-outline" id="clearBottomBtn">Clear</button>
                 </div>
@@ -633,7 +633,12 @@
         </div>
 
         <!-- ========== ADDED SEO BLOG CONTENT (strictly below the tool) ========== -->
-        <div class="seo-content">
+        <div id="result-section" class="result-box" style="display: none;">
+<h2>Result</h2>
+<p id="result-text">Your result will appear here.</p>
+<button type="button" id="share-btn" class="share-btn" onclick="shareResult()">&#128228; Share Result</button>
+</div>
+<div class="seo-content">
             <!-- SHORT INTRODUCTION (below tool, but actually above the footer; but user requested “above and below” – we put intro below tool but still before the detailed sections, which is fine) -->
             <h2>What is a Date Difference Calculator?</h2>
             <p>A <strong>Date Difference Calculator</strong> helps you quickly find the exact duration between two

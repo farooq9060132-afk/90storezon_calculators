@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/png" href="../assets/brand/icons/favicon.png">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>📄 CV Maker · build professional resume</title>
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -328,7 +328,7 @@
     <div class="preview-card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
         <h2 style="color: var(--primary);"><i class="fas fa-eye"></i> CV preview</h2>
-        <div><button class="primary" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button></div>
+        <div><button class="calc-btn" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Download PDF</button></div>
       </div>
       <div id="cvPreview"></div>
     </div>
@@ -336,7 +336,7 @@
 
   <!-- sticky bottom bar (mobile & desktop) -->
   <div class="sticky-actions">
-    <button class="primary" onclick="updatePreview()"><i class="fas fa-sync-alt"></i> Refresh preview</button>
+    <button class="calc-btn" onclick="updatePreview()"><i class="fas fa-sync-alt"></i> Refresh preview</button>
     <button onclick="saveDraft()"><i class="fas fa-save"></i> Save draft</button>
     <button onclick="loadDraft()"><i class="fas fa-folder-open"></i> Load draft</button>
     <button onclick="downloadJSON()"><i class="fas fa-download"></i> Export JSON</button>

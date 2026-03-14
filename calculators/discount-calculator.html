@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <link rel="icon" type="image/png" href="../assets/brand/icons/favicon.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>✅ Discount Calculator · full‑stack tool</title>
     <link rel="stylesheet" href="../css/style.css">
     <style>
@@ -816,7 +816,7 @@
 
                     <!-- STICKY ACTION BAR (mobile) -->
                     <div class="action-bar">
-                        <button class="btn btn-primary" @click="calc">🧮 Calculate</button>
+                        <button class="calc-btn" @click="calc">🧮 Calculate</button>
                         <button class="btn btn-clear" @click="clearAll">🗑️ Clear</button>
                         <button class="btn btn-copy" @click="copyResult">📋 Copy</button>
                     </div>
@@ -825,7 +825,7 @@
                 </div>
 
                 <!-- RESULT PANEL -->
-                <div class="result-panel">
+                <div class="result-box">
                     <div style="display: flex; justify-content: space-between;">
                         <h3 style="font-weight: 600;">📊 results</h3>
                         <span><button class="btn" style="padding:6px 14px; min-height:auto;" @click="exportCSV">📥
@@ -1000,7 +1000,7 @@
 
     <!-- Footer (unchanged) -->
     <footer class="footer">
-        <div class="container">
+        <div class="calculator-container">
             <div class="footer-grid">
                 <div class="footer-col">
                     <div class="footer-logo"><img src="../assets/brand/logo.png" alt="90StoreZon Logo"

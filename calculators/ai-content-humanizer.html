@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <link rel="icon" type="image/png" href="../assets/brand/icons/favicon.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🧠 AI Content Humanizer · natural writing</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -353,7 +353,7 @@
     </nav>
 
     <div class="main-content-wrapper">
-        <div class="app-container">
+        <div class="calculator-container">
             <!-- header -->
             <div class="tool-header">
                 <h1><i class="fas fa-brain"></i> AI Content Humanizer</h1>
@@ -363,7 +363,7 @@
             <!-- main grid input / output -->
             <div class="main-grid">
                 <!-- INPUT CARD -->
-                <div class="card input-area">
+                <div class="calculator-box input-area">
                     <h2 style="display: flex; gap: 0.6rem; margin-bottom: 1rem;"><i class="fas fa-paste"
                             style="color: var(--primary);"></i> Paste AI content</h2>
                     <textarea id="inputText"
@@ -378,7 +378,7 @@
 
                     <!-- main action buttons (row) -->
                     <div class="action-bar">
-                        <button class="primary" id="humanizeBtn"><i class="fas fa-magic"></i> Humanize Text</button>
+                        <button class="calc-btn" id="humanizeBtn"><i class="fas fa-magic"></i> Humanize Text</button>
                         <button id="paraphraseBtn"><i class="fas fa-sync-alt"></i> Paraphrase</button>
                         <button id="simplifyBtn"><i class="fas fa-align-left"></i> Simplify</button>
                         <button id="formalBtn"><i class="fas fa-briefcase"></i> Formal</button>
@@ -480,7 +480,7 @@
 
             <!-- sticky bottom bar for mobile (and desktop) -->
             <div class="sticky-mobile">
-                <button class="primary" onclick="humanizeText()"><i class="fas fa-magic"></i> Humanize</button>
+                <button class="calc-btn" onclick="humanizeText()"><i class="fas fa-magic"></i> Humanize</button>
                 <button onclick="clearAll()"><i class="fas fa-eraser"></i> Clear</button>
                 <button onclick="copyOutput()"><i class="fas fa-copy"></i> Copy</button>
                 <button onclick="downloadTxt()"><i class="fas fa-download"></i> .txt</button>
@@ -671,7 +671,7 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <div class="container">
+            <div class="calculator-container">
                 <div class="footer-grid">
                     <!-- Column 1: Brand -->
                     <div class="footer-col">

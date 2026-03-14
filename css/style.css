@@ -1278,3 +1278,111 @@ label {
     display: inline-block;
     min-width: 140px;
 }
+
+/* Universal Box Model for consistency */
+* {
+    box-sizing: border-box;
+}
+
+/* Base container limits width to avoid overly large elements */
+.calculator-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: sans-serif;
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
+.calculator-title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.calculator-box, .result-box {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    padding: 24px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.input-group {
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.input-group input, .input-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px; /* 16px or higher completely prevents iOS Safari zoom on focus */
+}
+
+.calc-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.result-box {
+    text-align: center;
+    border: 2px solid #28a745;
+    background-color: #f8fff9;
+}
+
+/* Share Button Styles */
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+    padding: 12px 24px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.share-btn:hover {
+    background-color: #218838;
+}
+
+/* Mobile Media Queries */
+@media screen and (max-width: 480px) {
+    .calculator-container {
+        padding: 15px;
+    }
+    .calculator-box, .result-box {
+        padding: 20px 15px;
+    }
+    .calculator-title {
+        font-size: 1.4rem;
+    }
+    .calc-btn, .share-btn {
+        padding: 14px;
+    }
+    .share-btn {
+        width: 100%; /* Makes share button easier to tap on mobile */
+    }
+}

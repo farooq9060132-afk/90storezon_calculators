@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Percentage Calculator — online & free | accurate percent of a number</title>
     <!-- Fonts & Icons (exactly as original) -->
     <link
@@ -435,7 +435,7 @@
 </head>
 
 <body>
-    <div class="invoice-app">
+    <div class="calculator-container">
         <!-- HEADER (100% untouched) -->
         <header class="tool-header">
             <h1>
@@ -475,7 +475,7 @@
         </div>
 
         <!-- ===== PERCENTAGE CALCULATOR (TOOL) – EXACT POSITION, ORIGINAL LAYOUT but replaced input fields ===== -->
-        <div class="calculator-card">
+        <div class="calculator-box">
             <h2 style="font-family: 'Montserrat', sans-serif; display: flex; gap: 10px; margin-bottom: 20px;">
                 <i class="fas fa-percent" style="color: var(--primary);"></i>
                 Percentage Calculator
@@ -485,30 +485,30 @@
 
             <div class="date-picker-grid" style="grid-template-columns: 1fr 1fr 1fr;">
                 <!-- three columns for percent -->
-                <div class="form-group">
+                <div class="input-group">
                     <label><i class="fas fa-percent"></i> % value</label>
                     <input type="number" class="form-control" id="percentInput" value="20" min="0" max="1000"
                         step="any">
                 </div>
-                <div class="form-group">
+                <div class="input-group">
                     <label><i class="fas fa-number"></i> Number (of)</label>
                     <input type="number" class="form-control" id="numberInput" value="200" min="0" step="any">
                 </div>
-                <div class="form-group">
+                <div class="input-group">
                     <label><i class="fas fa-equals"></i> Result</label>
                     <input type="text" class="form-control" id="resultDisplay" readonly value="40">
                 </div>
             </div>
 
             <div class="calc-actions">
-                <button class="btn btn-primary" id="calcPercentBtn"><i class="fas fa-calculator"></i> Calculate % of
+                <button class="calc-btn" id="calcPercentBtn"><i class="fas fa-calculator"></i> Calculate % of
                     number</button>
                 <button class="btn btn-outline" id="calcIncrease"><i class="fas fa-arrow-up"></i> % increase</button>
                 <button class="btn btn-outline" id="calcDecrease"><i class="fas fa-arrow-down"></i> % decrease</button>
                 <button class="btn btn-outline" id="resetPercent"><i class="fas fa-sync-alt"></i> Reset</button>
             </div>
 
-            <div class="result-panel" id="percentResultPanel">
+            <div class="result-box" id="percentResultPanel">
                 <strong style="font-size: 1.2rem;">🧮 Quick results</strong>
                 <div class="result-grid" style="grid-template-columns: repeat(4,1fr);">
                     <div class="result-item"><span class="result-value" id="percentOfVal">40</span>
@@ -533,7 +533,12 @@
         </div>
 
         <!-- ===== BELOW CALCULATOR – FULL SEO CONTENT (1200–1800 words style) ===== -->
-        <div class="seo-content">
+        <div id="result-section" class="result-box" style="display: none;">
+<h2>Result</h2>
+<p id="result-text">Your result will appear here.</p>
+<button type="button" id="share-btn" class="share-btn" onclick="shareResult()">&#128228; Share Result</button>
+</div>
+<div class="seo-content">
             <!-- 1. What is a Percentage Calculator -->
             <h2>What is a Percentage Calculator?</h2>
             <p>A <strong>percentage calculator</strong> is an online tool that instantly solves percentage problems:

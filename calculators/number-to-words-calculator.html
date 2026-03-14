@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <link rel="icon" type="image/png" href="../assets/brand/icons/favicon.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🔢 Number to Words Converter · real‑time</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -357,7 +357,7 @@
     </nav>
 
     <div class="main-content-wrapper">
-        <div class="container">
+        <div class="calculator-container">
             <!-- header -->
             <div class="tool-header">
                 <h1><i class="fas fa-calculator"></i> Number to Words Converter</h1>
@@ -367,7 +367,7 @@
             <!-- main grid: input | output -->
             <div class="main-grid">
                 <!-- LEFT INPUT CARD -->
-                <div class="card input-area">
+                <div class="calculator-box input-area">
                     <h2><i class="fas fa-pencil-alt"></i> Enter number</h2>
                     <div class="number-input-wrapper">
                         <input type="text" id="numberInput" placeholder="1,234,567.89" value="1,250.75"
@@ -381,7 +381,7 @@
 
                     <!-- main action row -->
                     <div class="action-bar">
-                        <button class="primary" id="convertBtn"><i class="fas fa-sync-alt"></i> Convert to
+                        <button class="calc-btn" id="convertBtn"><i class="fas fa-sync-alt"></i> Convert to
                             Words</button>
                         <button id="clearBtn"><i class="fas fa-eraser"></i> Clear</button>
                         <button id="copyOutputBtn"><i class="fas fa-copy"></i> Copy</button>
@@ -479,7 +479,7 @@
 
             <!-- sticky bottom bar (mobile & desktop) -->
             <div class="sticky-actions">
-                <button class="primary" onclick="convertNow()"><i class="fas fa-exchange-alt"></i> Convert</button>
+                <button class="calc-btn" onclick="convertNow()"><i class="fas fa-exchange-alt"></i> Convert</button>
                 <button onclick="copyResult()"><i class="fas fa-copy"></i> Copy</button>
                 <button onclick="document.getElementById('numberInput').value=''; updateStats();"><i
                         class="fas fa-backspace"></i> Clear</button>
@@ -701,7 +701,7 @@
     </div>
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
+        <div class="calculator-container">
             <div class="footer-grid">
                 <!-- Column 1: Brand -->
                 <div class="footer-col">

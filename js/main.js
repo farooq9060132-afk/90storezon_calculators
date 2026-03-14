@@ -390,3 +390,30 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
+
+async function shareResult() {
+    // Retrieve text output directly from the result element
+    const resultText = document.getElementById('result-text').innerText;
+    const shareData = {
+        title: document.title,
+        text: resultText,
+        url: window.location.href
+    };
+
+    if (navigator.share) {
+        try {
+            await navigator.share(shareData);
+        } catch (err) {
+            // User canceled or share failed silently
+            console.log('Share canceled or failed:', err);
+        }
+    } else {
+        // Fallback for browsers without Web Share API support
+        try {
+            await navigator.clipboard.writeText(`${shareData.text} \nCheck it out here: ${shareData.url}`);
+            alert('Result copied to clipboard!');
+        } catch (err) {
+            alert('Failed to copy result. Please copy it manually.');
+        }
+    }
+}

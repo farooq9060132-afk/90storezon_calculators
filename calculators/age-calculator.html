@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🎂 Age Calculator Pro - Exact Age in Years, Months, Days, Hours, Minutes & Seconds</title>
 
     <!-- Fonts & Icons -->
     <link
@@ -468,29 +467,8 @@
         .celebration-mode {
             background: linear-gradient(135deg, var(--celebration), var(--secondary));
             color: white;
-            animation: confetti 3s infinite;
             position: relative;
             overflow: hidden;
-        }
-
-        @keyframes confetti {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            25% {
-                opacity: 0.95;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            75% {
-                opacity: 0.95;
-            }
         }
 
         .celebration-mode .card-header i,
@@ -505,7 +483,7 @@
         /* Floating Action Button (Mobile) */
         .fab {
             position: fixed;
-            bottom: 24px;
+            bottom: 90px;
             right: 24px;
             width: 64px;
             height: 64px;
@@ -533,37 +511,47 @@
             }
         }
 
-        /* Sticky Bottom Bar */
-        .sticky-bottom {
-            position: sticky;
-            bottom: 0;
-            background: var(--surface);
-            border-top: 2px solid var(--border);
-            padding: 16px;
+        /* Bottom Action Bar - Fixed but doesn't stick while scrolling */
+        .bottom-action-bar {
+            width: 100%;
+            max-width: 500px;
+            margin: 40px auto 20px;
+            padding: 0 16px;
             display: flex;
             justify-content: space-around;
             gap: 12px;
             z-index: 90;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+            background: transparent;
         }
 
-        .sticky-bottom button {
+        .bottom-action-bar button {
             flex: 1;
             max-width: 120px;
-            background: var(--bg);
+            background: var(--surface);
             border: 2px solid var(--border);
             font-size: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
+            border-radius: 50px;
+            padding: 12px 16px;
+            color: var(--text);
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .sticky-bottom button:hover {
+        .bottom-action-bar button:hover {
             background: var(--primary);
             border-color: var(--primary);
             color: white;
+        }
+
+        @media (max-width: 767px) {
+            .bottom-action-bar {
+                display: flex;
+            }
         }
 
         /* Collapsible Panel */
@@ -730,15 +718,9 @@
             animation: slideIn 0.3s ease forwards;
         }
 
-        /* Confetti Canvas */
+        /* Confetti Canvas - Hidden */
         #confetti-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
+            display: none;
         }
 
         /* SEO Content Styles */
@@ -884,6 +866,42 @@
                 font-size: 1.1rem;
             }
         }
+
+        /* Responsive helpers */
+        .hide-mobile {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .hide-mobile {
+                display: inline;
+            }
+        }
+
+        .hide-desktop {
+            display: block;
+        }
+
+        @media (min-width: 1024px) {
+            .hide-desktop {
+                display: none;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+
+            .fab,
+            .bottom-action-bar,
+            .chip {
+                display: none !important;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid #000;
+            }
+        }
     </style>
 </head>
 
@@ -943,11 +961,12 @@
 
     <main class="calculator-container">
         <div id="result-section" class="result-box" style="display: none;">
-<h2>Result</h2>
-<p id="result-text">Your result will appear here.</p>
-<button type="button" id="share-btn" class="share-btn" onclick="shareResult()">&#128228; Share Result</button>
-</div>
-<section class="seo-content-section">
+            <h2>Result</h2>
+            <p id="result-text">Your result will appear here.</p>
+            <button type="button" id="share-btn" class="share-btn" onclick="shareResult()">&#128228; Share
+                Result</button>
+        </div>
+        <section class="seo-content-section">
             <h1>Age Calculator</h1>
             <div class="seo-intro-box">
                 <p>
@@ -1271,12 +1290,21 @@
             </div>
         </div>
 
+        <!-- Bottom Action Bar (Fixed but not sticky) -->
+        <div class="bottom-action-bar">
+            <button onclick="shareAge()"><i class="fas fa-share-alt"></i> Share</button>
+            <button onclick="saveFavorite()"><i class="fas fa-star"></i> Save</button>
+            <button onclick="copyAge()"><i class="fas fa-copy"></i> Copy</button>
+            <button onclick="exportPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
+        </div>
+
         <div id="result-section" class="result-box" style="display: none;">
-<h2>Result</h2>
-<p id="result-text">Your result will appear here.</p>
-<button type="button" id="share-btn" class="share-btn" onclick="shareResult()">&#128228; Share Result</button>
-</div>
-<article class="seo-content-section">
+            <h2>Result</h2>
+            <p id="result-text">Your result will appear here.</p>
+            <button type="button" id="share-btn" class="share-btn" onclick="shareResult()">&#128228; Share
+                Result</button>
+        </div>
+        <article class="seo-content-section">
             <h2>What is an Age Calculator?</h2>
             <p>
                 An <strong>Age Calculator</strong> is a sophisticated digital utility designed to compute the exact time
@@ -1503,14 +1531,6 @@
         <button class="fab" onclick="calculateAge()" aria-label="Calculate Age">
             <i class="fas fa-calculator"></i>
         </button>
-
-        <!-- Sticky Bottom Bar (Mobile) -->
-        <div class="sticky-bottom hide-desktop" id="stickyBar">
-            <button onclick="shareAge()"><i class="fas fa-share-alt"></i> Share</button>
-            <button onclick="saveFavorite()"><i class="fas fa-star"></i> Save</button>
-            <button onclick="copyAge()"><i class="fas fa-copy"></i> Copy</button>
-            <button onclick="exportPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
-        </div>
     </main>
 
     <script>
@@ -1753,52 +1773,10 @@
 
             if (birthMonth === currentMonth && birthDay === currentDay) {
                 document.querySelector('.card:nth-child(2)').classList.add('celebration-mode');
-                startConfetti();
-                playBirthdaySong();
+                // Removed confetti and song - just visual celebration
             } else {
                 document.querySelector('.card:nth-child(2)').classList.remove('celebration-mode');
-                stopConfetti();
             }
-        }
-
-        // Confetti
-        let confettiInterval;
-        function startConfetti() {
-            const canvas = document.getElementById('confetti-canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            const particles = [];
-            for (let i = 0; i < 100; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 5 + 2,
-                    speedY: Math.random() * 3 + 2,
-                    color: `hsl(${Math.random() * 360}, 100%, 50%)`
-                });
-            }
-
-            confettiInterval = setInterval(() => {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => {
-                    ctx.fillStyle = p.color;
-                    ctx.fillRect(p.x, p.y, p.size, p.size);
-                    p.y += p.speedY;
-                    if (p.y > canvas.height) {
-                        p.y = 0;
-                        p.x = Math.random() * canvas.width;
-                    }
-                });
-            }, 30);
-        }
-
-        function stopConfetti() {
-            clearInterval(confettiInterval);
-            const canvas = document.getElementById('confetti-canvas');
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
 
         // Live counter
@@ -2061,12 +2039,6 @@ Generated by Age Calculator Pro`;
             a.click();
         }
 
-        // Birthday song
-        function playBirthdaySong() {
-            // Simple beep simulation (in real app, use Web Audio API)
-            console.log('🎵 Happy Birthday to you! 🎵');
-        }
-
         // Calendar integration
         function addToCalendar() {
             const nextBirthday = document.getElementById('nextBirthday').textContent;
@@ -2133,43 +2105,6 @@ Generated by Age Calculator Pro`;
         });
     </script>
 
-    <style>
-        /* Responsive helpers */
-        .hide-mobile {
-            display: none;
-        }
-
-        @media (min-width: 768px) {
-            .hide-mobile {
-                display: inline;
-            }
-        }
-
-        .hide-desktop {
-            display: block;
-        }
-
-        @media (min-width: 1024px) {
-            .hide-desktop {
-                display: none;
-            }
-        }
-
-        /* Print styles */
-        @media print {
-
-            .fab,
-            .sticky-bottom,
-            .chip {
-                display: none !important;
-            }
-
-            .card {
-                box-shadow: none;
-                border: 1px solid #000;
-            }
-        }
-    </style>
     <!-- Footer -->
     <footer class="footer">
         <div class="calculator-container">

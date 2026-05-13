@@ -1,5 +1,5 @@
 /**
- * 90StoreZon - FINAL BEST CALCULATORS
+ * 90StoreZon - Free Online Calculators
  * Main JavaScript File
  */
 

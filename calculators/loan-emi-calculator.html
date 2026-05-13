@@ -1,11 +1,11 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <link rel="icon" type="image/png" href="../assets/brand/icons/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Loan EMI Calculator Â· fintech dashboard</title>
+    <title>Loan EMI Calculator · fintech dashboard</title>
     <link rel="stylesheet" href="../css/style.css">
     <style>
         /* ===== ORIGINAL STYLES (unchanged) ===== */
@@ -528,29 +528,29 @@
     <div class="seo-wrapper seo-above">
         <h1>Loan EMI Calculator</h1>
         <div class="intro-text">
-            <p>ğŸ“Š Instantly calculate your monthly loan installment â€“ whether itâ€™s a home loan, car loan, or personal
+            <p>?? Instantly calculate your monthly loan installment – whether it’s a home loan, car loan, or personal
                 loan. Just enter the amount, rate & tenure to see your EMI, total interest, and full repayment schedule.
                 Used by thousands to plan smarter.</p>
         </div>
     </div>
 
-    <!-- ########## CALCULATOR TOOL (EXACT ORIGINAL â€“ NOTHING CHANGED) ########## -->
+    <!-- ########## CALCULATOR TOOL (EXACT ORIGINAL – NOTHING CHANGED) ########## -->
     <div class="calculator-container" id="app">
         <div class="dashboard">
             <!-- main card: split layout -->
             <div class="split-layout">
                 <!-- INPUT CARD 40% -->
                 <div class="card">
-                    <div class="card-title"><span>ğŸ’° Loan details</span> <span class="badge"
+                    <div class="card-title"><span>?? Loan details</span> <span class="badge"
                             id="currencyBadge">USD</span></div>
                     <div class="input-group"><label>Currency</label>
                         <div class="input-wrapper"><select id="currency" onchange="updateCurrency()">
                                 <option value="USD" selected>$</option>
-                                <option value="PKR">â‚¨</option>
-                                <option value="INR">â‚¹</option>
-                                <option value="GBP">Â£</option>
-                                <option value="EUR">â‚¬</option>
-                                <option value="AED">Ø¯.Ø¥</option>
+                                <option value="PKR">?</option>
+                                <option value="INR">?</option>
+                                <option value="GBP">£</option>
+                                <option value="EUR">€</option>
+                                <option value="AED">?.?</option>
                             </select></div>
                     </div>
                     <div class="input-group"><label>Loan amount</label>
@@ -574,15 +574,15 @@
                     </div>
                     <div class="input-group"><label>Prepayment amount (opt)</label><input type="number"
                             id="prepayAmount" value="0" step="1000"></div>
-                    <div class="input-group"><label>Prepayment month (1â€‘based)</label><input type="number"
+                    <div class="input-group"><label>Prepayment month (1-based)</label><input type="number"
                             id="prepayMonth" value="12" min="1"></div>
-                    <div class="btn-group"><button class="btn primary" onclick="calculateAll()">âš¡ Calculate
+                    <div class="btn-group"><button class="btn primary" onclick="calculateAll()">? Calculate
                             EMI</button><button class="btn" onclick="resetAll()">Reset</button><button
-                            class="btn accent" onclick="toggleAdvanced()">ğŸ” Advanced mode</button></div>
-                    <div><button class="btn warning" onclick="downloadReport()">ğŸ“„ Download Report</button></div>
+                            class="btn accent" onclick="toggleAdvanced()">?? Advanced mode</button></div>
+                    <div><button class="btn warning" onclick="downloadReport()">?? Download Report</button></div>
                     <!-- mini affordability quick view -->
                     <div style="margin-top:1rem; background:#f3f4f6; border-radius:1rem; padding:1rem;">
-                        <div class="card-title" style="margin-bottom:0.5rem;">ğŸ’µ Affordability quick</div>
+                        <div class="card-title" style="margin-bottom:0.5rem;">?? Affordability quick</div>
                         <div class="row2"><label>Monthly income</label><input type="number" id="monthlyIncome"
                                 value="5000" step="100"></div>
                         <div class="row2"><label>Other EMIs</label><input type="number" id="otherEmi" value="500"></div>
@@ -594,7 +594,7 @@
                 </div>
                 <!-- RESULTS CARD 60% -->
                 <div class="card" style="display:flex; flex-direction:column;">
-                    <div class="card-title">ğŸ“Š EMI summary Â· <span id="curSym">$</span><span id="emiCounter"
+                    <div class="card-title">?? EMI summary · <span id="curSym">$</span><span id="emiCounter"
                             class="animated-counter">10,624</span>/month</div>
                     <div class="summary-grid">
                         <div class="stat-card"><span class="label">Monthly EMI</span><span class="value"
@@ -609,52 +609,52 @@
                     <!-- pie + bar mini -->
                     <div class="charts">
                         <div class="chart-box"><span style="font-weight:500;">Principal/Interest</span>
-                            <div id="pieChart" style="height:120px;">ğŸŸ¦ğŸŸ© (57.5% / 42.5%)</div>
+                            <div id="pieChart" style="height:120px;">???? (57.5% / 42.5%)</div>
                         </div>
                         <div class="chart-box"><span style="font-weight:500;">Balance reduction</span>
-                            <div id="balanceChart" style="height:120px;">ğŸ“‰ simulated</div>
+                            <div id="balanceChart" style="height:120px;">?? simulated</div>
                         </div>
                     </div>
                     <!-- Amortization table with scroll -->
                     <div style="display:flex; justify-content:space-between; margin-top:0.5rem;"><span
-                            class="card-title" style="margin-bottom:0;">ğŸ“… Amortization</span><span><button class="btn"
+                            class="card-title" style="margin-bottom:0;">?? Amortization</span><span><button class="btn"
                                 style="padding:0.25rem 1rem;" onclick="exportCSV()">CSV</button></span></div>
                     <div class="table-container" id="amortTable"></div>
                     <!-- prepayment impact row -->
                     <div id="prepayImpact"
                         style="background:#e0f2fe; padding:0.75rem; border-radius:0.75rem; margin-top:0.5rem; font-size:0.9rem;">
-                        ğŸ’° Prepay $50k at month12: save $13,240 interest, tenure reduces 8 months</div>
+                        ?? Prepay $50k at month12: save $13,240 interest, tenure reduces 8 months</div>
                 </div>
             </div>
             <!-- advanced panel -->
             <div class="advanced-grid card" id="advancedPanel">
                 <div>
-                    <div class="card-title">ğŸ”„ compare two loans</div>
+                    <div class="card-title">?? compare two loans</div>
                     <div>Rate A: <input id="compRateA" value="10" size="4">% vs B: <input id="compRateB" value="9"
                             size="4">%</div>
                     <div>Tenure A: <input id="compYearA" value="5" size="2">y B: <input id="compYearB" value="6"
                             size="2">y</div><button class="btn" onclick="compareLoans()">Compare</button>
-                    <p id="compResult">EMI diff: $84 lower with B Â· interest saved $16k</p>
+                    <p id="compResult">EMI diff: $84 lower with B · interest saved $16k</p>
                 </div>
                 <div>
-                    <div class="card-title">ğŸ“ˆ floating rate (simulate)</div><label>Change after month: <input
+                    <div class="card-title">?? floating rate (simulate)</div><label>Change after month: <input
                             id="floatMonth" value="18" size="2"></label><label>new rate: <input id="floatNewRate"
                             value="8" size="3">%</label><button class="btn" onclick="applyFloating()">Apply</button>
                 </div>
                 <div>
-                    <div class="card-title">ğŸ§¾ fee + GST impact</div><span>effective cost: <span
+                    <div class="card-title">?? fee + GST impact</div><span>effective cost: <span
                             id="effectiveCost">$500,000</span></span>
                 </div>
             </div>
             <!-- original minimal seo footer (unchanged) -->
             <footer class="seo-content">
-                <h2>ğŸ“˜ Loan EMI Calculator online â€” instant, precise</h2>
+                <h2>?? Loan EMI Calculator online — instant, precise</h2>
                 <p><strong>What is EMI?</strong> Equated Monthly Installment is your fixed monthly payment. Calculated
-                    as <code>EMI = P Ã— r Ã— (1+r)^n / ((1+r)^n â€“ 1)</code></p>
-                <p>Tenure impact: longer tenure â†’ lower EMI but higher interest. Prepayment reduces principal faster.
+                    as <code>EMI = P × r × (1+r)^n / ((1+r)^n – 1)</code></p>
+                <p>Tenure impact: longer tenure ? lower EMI but higher interest. Prepayment reduces principal faster.
                 </p>
-                <div class="faq-item"><strong>FAQ</strong> Â· How to reduce EMI burden? Increase tenure or prepay. Â· Is
-                    processing fee included? Yes, with GST. Â· Can I compare loans? Use advanced mode.</p>
+                <div class="faq-item"><strong>FAQ</strong> · How to reduce EMI burden? Increase tenure or prepay. · Is
+                    processing fee included? Yes, with GST. · Can I compare loans? Use advanced mode.</p>
                 </div>
                 <p>Target keywords: loan EMI calculator online, home loan EMI, car loan EMI calculator, EMI interest
                     calculator.</p>
@@ -665,8 +665,8 @@
     <!-- +++ BELOW CALCULATOR: COMPLETE SEO CONTENT (fully responsive, no tool changes) +++ -->
     <div class="seo-wrapper seo-below">
         <h2>What is a Loan EMI Calculator?</h2>
-        <p>A <strong>Loan EMI Calculator</strong> is a smart online tool that tells you the exact monthly payment youâ€™ll
-            make to repay a loan. You input the amount, interest rate, and tenure â€“ it instantly shows your EMI, total
+        <p>A <strong>Loan EMI Calculator</strong> is a smart online tool that tells you the exact monthly payment you’ll
+            make to repay a loan. You input the amount, interest rate, and tenure – it instantly shows your EMI, total
             interest, and a full year-by-year (or month-by-month) breakdown. No more guessing or complex spreadsheets.
         </p>
 
@@ -675,60 +675,60 @@
             <div class="step-card"><strong>Step 1</strong> Enter the loan amount (e.g., $500,000).</div>
             <div class="step-card"><strong>Step 2</strong> Type the annual interest rate (e.g., 10%).</div>
             <div class="step-card"><strong>Step 3</strong> Set the loan tenure in years and months.</div>
-            <div class="step-card"><strong>Step 4</strong> Click the <strong>âš¡ Calculate EMI</strong> button.</div>
+            <div class="step-card"><strong>Step 4</strong> Click the <strong>? Calculate EMI</strong> button.</div>
             <div class="step-card"><strong>Step 5</strong> Instantly see your monthly EMI, total interest, and full
                 repayment schedule.</div>
         </div>
 
         <h2>Features of This Loan EMI Calculator</h2>
         <div class="feature-grid">
-            <div class="feature-item"><strong>ğŸ’° Multiâ€‘currency</strong> (USD, PKR, INR, GBP, EUR, AED) â€“ symbol updates
+            <div class="feature-item"><strong>?? Multi-currency</strong> (USD, PKR, INR, GBP, EUR, AED) – symbol updates
                 everywhere.</div>
-            <div class="feature-item"><strong>ğŸ“‰ Prepayment & fees</strong> â€“ simulate partâ€‘payment, processing fee +
+            <div class="feature-item"><strong>?? Prepayment & fees</strong> – simulate part-payment, processing fee +
                 GST impact.</div>
-            <div class="feature-item"><strong>ğŸ“… Amortisation table</strong> â€“ monthâ€‘wise principal, interest, remaining
+            <div class="feature-item"><strong>?? Amortisation table</strong> – month-wise principal, interest, remaining
                 balance.</div>
-            <div class="feature-item"><strong>ğŸ’µ Affordability check</strong> â€“ safe EMI based on your income & existing
+            <div class="feature-item"><strong>?? Affordability check</strong> – safe EMI based on your income & existing
                 EMIs.</div>
-            <div class="feature-item"><strong>ğŸ”„ Compare loans</strong> â€“ evaluate two different rates/tenures side by
+            <div class="feature-item"><strong>?? Compare loans</strong> – evaluate two different rates/tenures side by
                 side.</div>
-            <div class="feature-item"><strong>ğŸ“¥ Download / CSV</strong> â€“ export report or amortisation table.</div>
+            <div class="feature-item"><strong>?? Download / CSV</strong> – export report or amortisation table.</div>
         </div>
 
         <h2>Benefits of Using an Online EMI Calculator</h2>
         <div class="benefit-grid">
-            <div class="benefit-item">âœ” <strong>Zero errors</strong> â€“ manual math often miscalculates interest.</div>
-            <div class="benefit-item">âœ” <strong>Lightning fast</strong> â€“ results in milliseconds.</div>
-            <div class="benefit-item">âœ” <strong>Budget better</strong> â€“ know exactly your monthly commitment.</div>
-            <div class="benefit-item">âœ” <strong>Compare lenders</strong> â€“ test different offers to find the cheapest.
+            <div class="benefit-item">? <strong>Zero errors</strong> – manual math often miscalculates interest.</div>
+            <div class="benefit-item">? <strong>Lightning fast</strong> – results in milliseconds.</div>
+            <div class="benefit-item">? <strong>Budget better</strong> – know exactly your monthly commitment.</div>
+            <div class="benefit-item">? <strong>Compare lenders</strong> – test different offers to find the cheapest.
             </div>
-            <div class="benefit-item">âœ” <strong>Prepayment insight</strong> â€“ see savings from extra payments.</div>
+            <div class="benefit-item">? <strong>Prepayment insight</strong> – see savings from extra payments.</div>
         </div>
 
         <h2>How EMI is Calculated (Formula Explanation)</h2>
         <p>EMI is derived using the standard formula used by all banks:</p>
         <p style="background:#ecf3fa; padding:1rem; border-radius:1rem; font-family: monospace; font-size:1.2rem;">EMI =
-            P Ã— r Ã— (1+r)<sup>n</sup> / ((1+r)<sup>n</sup> â€“ 1)</p>
-        <p><strong>P</strong> = Principal loan amount Â· <strong>r</strong> = monthly interest rate (annual rate Ã· 12 Ã·
-            100) Â· <strong>n</strong> = total months. Our calculator does the heavy lifting and also builds a complete
+            P × r × (1+r)<sup>n</sup> / ((1+r)<sup>n</sup> – 1)</p>
+        <p><strong>P</strong> = Principal loan amount · <strong>r</strong> = monthly interest rate (annual rate ÷ 12 ÷
+            100) · <strong>n</strong> = total months. Our calculator does the heavy lifting and also builds a complete
             amortization schedule.</p>
 
         <h2>Examples of Loan EMI Calculations</h2>
-        <h3>ğŸ¡ Home loan</h3>
-        <p>$300,000 Â· 7% p.a. Â· 20 years â†’ EMI â‰ˆ $2,326 Â· total interest â‰ˆ $258,000</p>
-        <h3>ğŸš— Car loan</h3>
-        <p>$25,000 Â· 9% p.a. Â· 5 years â†’ EMI â‰ˆ $519 Â· total interest â‰ˆ $6,140</p>
-        <h3>ğŸ’³ Personal loan with prepayment</h3>
-        <p>$10,000 at 12% for 3 years: EMI â‰ˆ $332. Prepay $2,000 at month 12 â†’ save ~$500 interest & finish 7 months
+        <h3>?? Home loan</h3>
+        <p>$300,000 · 7% p.a. · 20 years ? EMI ˜ $2,326 · total interest ˜ $258,000</p>
+        <h3>?? Car loan</h3>
+        <p>$25,000 · 9% p.a. · 5 years ? EMI ˜ $519 · total interest ˜ $6,140</p>
+        <h3>?? Personal loan with prepayment</h3>
+        <p>$10,000 at 12% for 3 years: EMI ˜ $332. Prepay $2,000 at month 12 ? save ~$500 interest & finish 7 months
             earlier.</p>
 
         <h2>Where EMI Calculations Are Used</h2>
         <ul>
-            <li><strong>ğŸ¡ Home loans</strong> â€“ large amounts, long tenure (10â€“30 years).</li>
-            <li><strong>ğŸš— Car / auto loans</strong> â€“ usually 3â€“7 years, fixed rates.</li>
-            <li><strong>ğŸ’³ Personal loans</strong> â€“ short to medium term, unsecured.</li>
-            <li><strong>ğŸ¢ Business loans</strong> â€“ working capital, equipment finance.</li>
-            <li><strong>ğŸ“± Consumer durables / 0% EMI</strong> â€“ verify actual cost.</li>
+            <li><strong>?? Home loans</strong> – large amounts, long tenure (10–30 years).</li>
+            <li><strong>?? Car / auto loans</strong> – usually 3–7 years, fixed rates.</li>
+            <li><strong>?? Personal loans</strong> – short to medium term, unsecured.</li>
+            <li><strong>?? Business loans</strong> – working capital, equipment finance.</li>
+            <li><strong>?? Consumer durables / 0% EMI</strong> – verify actual cost.</li>
         </ul>
 
         <h2>Frequently Asked Questions (FAQ)</h2>
@@ -738,17 +738,17 @@
                 NBFCs. It matches lender calculations when parameters are identical.
             </div>
             <div>
-                <h4>2. Whatâ€™s the difference between fixed and floating rate?</h4> Fixed stays constant; floating
-                changes with market. Our calculator works for fixed; use the â€œfloating simulateâ€ in advanced mode for
+                <h4>2. What’s the difference between fixed and floating rate?</h4> Fixed stays constant; floating
+                changes with market. Our calculator works for fixed; use the “floating simulate” in advanced mode for
                 estimates.
             </div>
             <div>
-                <h4>3. Does the calculator include processing fees?</h4> Yes â€“ you can enter a fee % and GST. The
+                <h4>3. Does the calculator include processing fees?</h4> Yes – you can enter a fee % and GST. The
                 effective cost is shown in the advanced panel.
             </div>
             <div>
                 <h4>4. How does prepayment affect my loan?</h4> Extra payment reduces principal faster, lowering total
-                interest and shortening tenure. The â€œprepayment impactâ€ line shows exact savings.
+                interest and shortening tenure. The “prepayment impact” line shows exact savings.
             </div>
             <div>
                 <h4>5. Can I use this for a car loan or education loan?</h4> Absolutely. Any loan with monthly
@@ -756,26 +756,26 @@
             </div>
             <div>
                 <h4>6. Why is my EMI different from what the bank quoted?</h4> Banks might include insurance or other
-                fees. Doubleâ€‘check rate and tenure; our tool shows pure principal + interest.
+                fees. Double-check rate and tenure; our tool shows pure principal + interest.
             </div>
             <div>
-                <h4>7. What is an amortisation schedule?</h4> Itâ€™s a table showing each paymentâ€™s split between interest
+                <h4>7. What is an amortisation schedule?</h4> It’s a table showing each payment’s split between interest
                 and principal, plus the remaining balance after every month.
             </div>
             <div>
-                <h4>8. Is this calculator mobileâ€‘friendly?</h4> Yes, fully responsive on phones, tablets, and desktops â€“
+                <h4>8. Is this calculator mobile-friendly?</h4> Yes, fully responsive on phones, tablets, and desktops –
                 try it!
             </div>
         </div>
 
         <h2>Conclusion</h2>
-        <p>A <strong>Loan EMI Calculator</strong> is your financial ally â€“ it removes guesswork, reveals the true cost
-            of a loan, and helps you negotiate better terms. Whether youâ€™re buying a house, a car, or funding a dream,
-            use this tool to stay in control. [Internal Link â€“ will be added later] and explore more calculators like
-            [Internal Link â€“ will be added later] to manage your finances smarter.</p>
+        <p>A <strong>Loan EMI Calculator</strong> is your financial ally – it removes guesswork, reveals the true cost
+            of a loan, and helps you negotiate better terms. Whether you’re buying a house, a car, or funding a dream,
+            use this tool to stay in control. [Internal Link – will be added later] and explore more calculators like
+            [Internal Link – will be added later] to manage your finances smarter.</p>
         <hr>
-        <p style="font-size:1rem; color:#3d596b;"><strong>Related:</strong> calculate EMI online Â· loan EMI calculator
-            with interest Â· monthly EMI calculator Â· bank loan EMI calculator Â· EMI interest calculator.</p>
+        <p style="font-size:1rem; color:#3d596b;"><strong>Related:</strong> calculate EMI online · loan EMI calculator
+            with interest · monthly EMI calculator · bank loan EMI calculator · EMI interest calculator.</p>
     </div>
 
     <!-- ORIGINAL FOOTER (100% UNCHANGED) -->
@@ -786,7 +786,7 @@
                     <div class="footer-logo"><img src="../assets/brand/logo.png" alt="90StoreZon Logo"
                             class="footer-logo-img"></div>
                     <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools.
-                        Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
+                        Our MISSION is to simplify your daily calculations with our free online calculators.</p>
                     <div class="social-links"><a href="https://facebook.com/90StoreZon" target="_blank"
                             aria-label="Facebook"><img src="../assets/brand/icons/facebook.svg" alt="Facebook"
                                 width="20" height="20"></a><a href="https://instagram.com/90StoreZon" target="_blank"
@@ -842,7 +842,7 @@
             }
             function updateCurrency() {
                 const sel = document.getElementById('currency');
-                const symMap = { USD: '$', PKR: 'â‚¨', INR: 'â‚¹', GBP: 'Â£', EUR: 'â‚¬', AED: 'Ø¯.Ø¥' };
+                const symMap = { USD: '$', PKR: '?', INR: '?', GBP: '£', EUR: '€', AED: '?.?' };
                 currencySymbol = symMap[sel.value] || '$';
                 document.getElementById('amountPrefix').innerText = currencySymbol;
                 document.getElementById('curSym').innerText = currencySymbol;
@@ -903,7 +903,7 @@
 
                 let principalPct = (P / totalPayment * 100).toFixed(1);
                 let interestPct = (totalInterest / totalPayment * 100).toFixed(1);
-                document.getElementById('pieChart').innerHTML = `ğŸŸ¦ principal ${principalPct}%  ğŸŸ© interest ${interestPct}%`;
+                document.getElementById('pieChart').innerHTML = `?? principal ${principalPct}%  ?? interest ${interestPct}%`;
 
                 let schedule = res.schedule;
                 let html = '<table><tr><th>Month</th><th>EMI</th><th>Principal</th><th>Interest</th><th>Balance</th></tr>';
@@ -916,7 +916,7 @@
                 const noPrepay = computeEMI(P, rate, totalMonths, 0, 9999);
                 let savedInterest = noPrepay.totalInterest - totalInterest;
                 let tenureChange = noPrepay.schedule.length - res.schedule.length;
-                document.getElementById('prepayImpact').innerHTML = `ğŸ’° Prepay $${prepay} at month ${prepayMonth}: save ${formatMoney(savedInterest)} interest, tenure reduces ${Math.abs(tenureChange)} months`;
+                document.getElementById('prepayImpact').innerHTML = `?? Prepay $${prepay} at month ${prepayMonth}: save ${formatMoney(savedInterest)} interest, tenure reduces ${Math.abs(tenureChange)} months`;
 
                 let fee = P * feePct / 100;
                 let gst = fee * gstPct / 100;
@@ -957,10 +957,10 @@
                 let resB = computeEMI(P, rateB, yearB * 12);
                 let diffEmi = resA.emi - resB.emi;
                 let diffInt = resA.totalInterest - resB.totalInterest;
-                document.getElementById('compResult').innerHTML = `EMI diff: ${formatMoney(Math.abs(diffEmi))} ${diffEmi > 0 ? 'higher with A' : 'higher with B'} Â· interest diff ${formatMoney(Math.abs(diffInt))}`;
+                document.getElementById('compResult').innerHTML = `EMI diff: ${formatMoney(Math.abs(diffEmi))} ${diffEmi > 0 ? 'higher with A' : 'higher with B'} · interest diff ${formatMoney(Math.abs(diffInt))}`;
             };
             window.applyFloating = function () { alert('Floating simulation: recalc with new rate after month. (simplified)'); };
-            window.downloadReport = function () { alert('ğŸ“¥ PDF report generated (demo)'); };
+            window.downloadReport = function () { alert('?? PDF report generated (demo)'); };
             window.exportCSV = function () { alert('CSV exported (mock)'); };
 
             window.onload = function () {

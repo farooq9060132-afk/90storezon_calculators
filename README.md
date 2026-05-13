@@ -1,4 +1,4 @@
-# 90StoreZon - FINAL BEST CALCULATORS
+# 90StoreZon - Free Online Calculators
 
 A professional, SEO-optimized website featuring 10 essential online calculators built with HTML, CSS, and Vanilla JavaScript.
 
@@ -46,7 +46,7 @@ A professional, SEO-optimized website featuring 10 essential online calculators 
 - Secondary Color: #3b50f7
 - Background: Clean white with gradient accents
 
-## 🧮 The FINAL BEST CALCULATORS
+## 🧮 our free online calculators
 
 1. **Age Calculator** ✅ (Fully Functional)
 2. **Percentage Calculator** (Placeholder)
@@ -176,5 +176,5 @@ For questions or support, visit the contact page or reach out through:
 
 ---
 
-**90StoreZon - FINAL BEST CALCULATORS**
+**90StoreZon - Free Online Calculators**
 *Your trusted source for free online calculation tools*

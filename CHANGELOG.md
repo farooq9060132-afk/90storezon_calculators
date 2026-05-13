@@ -1,6 +1,6 @@
 # Changelog - 90StoreZon
 
-All notable changes to the FINAL BEST CALCULATORS project will be documented in this file.
+All notable changes to our free online calculators project will be documented in this file.
 
 ---
 
@@ -184,5 +184,5 @@ For questions about updates or changes:
 
 ---
 
-**90StoreZon - FINAL BEST CALCULATORS**
+**90StoreZon - Free Online Calculators**
 *Keeping track of improvements and updates*

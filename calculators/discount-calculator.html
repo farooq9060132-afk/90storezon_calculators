@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <link rel="icon" type="image/png" href="../assets/brand/icons/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>✅ Discount Calculator · full‑stack tool</title>
+    <title>? Discount Calculator � full-stack tool</title>
     <link rel="stylesheet" href="../css/style.css">
     <style>
         /* ===== ORIGINAL STYLES (unchanged) ===== */
@@ -72,14 +72,14 @@
             background: #ffffff;
         }
 
-        /* left panel – inputs */
+        /* left panel � inputs */
         .input-panel {
             padding: 24px;
             background: #fafbff;
             border-right: 1px solid #e5e7eb;
         }
 
-        /* right panel – results */
+        /* right panel � results */
         .result-panel {
             padding: 24px;
             background: white;
@@ -682,37 +682,37 @@
     <div class="seo-wrapper seo-above">
         <h1>Discount Calculator</h1>
         <div class="intro">
-            <p>🏷️ Instantly calculate final price after any discount – percentage, fixed amount, stacked discounts,
+            <p>??? Instantly calculate final price after any discount � percentage, fixed amount, stacked discounts,
                 reverse, and profit. Perfect for shopping, pricing, and business. Includes tax, quantity, and
-                multi‑currency support.</p>
+                multi-currency support.</p>
         </div>
     </div>
 
-    <!-- ########## CALCULATOR TOOL – EXACT ORIGINAL (NOTHING CHANGED) ########## -->
+    <!-- ########## CALCULATOR TOOL � EXACT ORIGINAL (NOTHING CHANGED) ########## -->
     <div class="main-content-wrapper">
         <div class="calculator" id="discountApp">
             <div class="header">
-                <h1>🏷️ Discount Calculator</h1>
-                <p>Calculate discounts, savings, tax & final price instantly · stacked / reverse / profit</p>
+                <h1>??? Discount Calculator</h1>
+                <p>Calculate discounts, savings, tax & final price instantly � stacked / reverse / profit</p>
             </div>
 
             <div class="dashboard">
                 <!-- INPUT PANEL -->
                 <div class="input-panel">
                     <div class="mode-switch">
-                        <span class="mode-btn" :class="{active: mode===1}" @click="setMode(1)"><i>①</i> %</span>
-                        <span class="mode-btn" :class="{active: mode===2}" @click="setMode(2)"><i>②</i> Fixed</span>
-                        <span class="mode-btn" :class="{active: mode===3}" @click="setMode(3)"><i>③</i> Reverse</span>
-                        <span class="mode-btn" :class="{active: mode===4}" @click="setMode(4)"><i>④</i> Stacked</span>
-                        <span class="mode-btn" :class="{active: mode===5}" @click="setMode(5)"><i>⑤</i> Profit</span>
-                        <span class="mode-btn" :class="{active: mode===6}" @click="setMode(6)"><i>⑥</i> Bulk</span>
+                        <span class="mode-btn" :class="{active: mode===1}" @click="setMode(1)"><i>?</i> %</span>
+                        <span class="mode-btn" :class="{active: mode===2}" @click="setMode(2)"><i>?</i> Fixed</span>
+                        <span class="mode-btn" :class="{active: mode===3}" @click="setMode(3)"><i>?</i> Reverse</span>
+                        <span class="mode-btn" :class="{active: mode===4}" @click="setMode(4)"><i>?</i> Stacked</span>
+                        <span class="mode-btn" :class="{active: mode===5}" @click="setMode(5)"><i>?</i> Profit</span>
+                        <span class="mode-btn" :class="{active: mode===6}" @click="setMode(6)"><i>?</i> Bulk</span>
                     </div>
 
                     <!-- main dynamic inputs based on mode -->
                     <div v-show="mode===1 || mode===2 || mode===3 || mode===4 || mode===5 || mode===6">
                         <!-- price & disc (shared) -->
                         <div class="input-group">
-                            <label>💰 Original Price / Cost</label>
+                            <label>?? Original Price / Cost</label>
                             <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
                                     type="number" v-model.number="originalPrice" placeholder="0.00" @input="calc"></div>
                         </div>
@@ -735,7 +735,7 @@
                                 </div>
                             </div>
                             <div v-if="mode===4" class="input-group">
-                                <label>➕ Second discount ( % )</label>
+                                <label>? Second discount ( % )</label>
                                 <div class="input-wrapper"><span>%</span><input type="number"
                                         v-model.number="secondDiscount" @input="calc"></div>
                             </div>
@@ -743,11 +743,11 @@
 
                         <!-- reverse mode : sale price & disc% -->
                         <div v-if="mode===3">
-                            <div class="input-group"><label>🏷️ Sale price</label>
+                            <div class="input-group"><label>??? Sale price</label>
                                 <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
                                         type="number" v-model.number="salePrice" @input="calc"></div>
                             </div>
-                            <div class="input-group"><label>📉 Discount %</label>
+                            <div class="input-group"><label>?? Discount %</label>
                                 <div class="input-wrapper"><span>%</span><input type="number"
                                         v-model.number="reverseDiscount" @input="calc"></div>
                             </div>
@@ -755,11 +755,11 @@
 
                         <!-- profit mode -->
                         <div v-if="mode===5">
-                            <div class="input-group"><label>💰 Cost price</label>
+                            <div class="input-group"><label>?? Cost price</label>
                                 <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
                                         type="number" v-model.number="costPrice" @input="calc"></div>
                             </div>
-                            <div class="input-group"><label>🛒 Selling price</label>
+                            <div class="input-group"><label>?? Selling price</label>
                                 <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
                                         type="number" v-model.number="sellingPrice" @input="calc"></div>
                             </div>
@@ -767,48 +767,48 @@
 
                         <!-- bulk mode -->
                         <div v-if="mode===6">
-                            <div class="input-group"><label>📦 Unit price</label>
+                            <div class="input-group"><label>?? Unit price</label>
                                 <div class="input-wrapper"><span class="currency">{{ currencySymbol }}</span><input
                                         type="number" v-model.number="unitPrice" @input="calc"></div>
                             </div>
-                            <div class="input-group"><label>🔢 Quantity</label>
+                            <div class="input-group"><label>?? Quantity</label>
                                 <div class="input-wrapper"><input type="number" v-model.number="bulkQty" @input="calc">
                                 </div>
                             </div>
-                            <div class="input-group"><label>📉 Discount %</label>
+                            <div class="input-group"><label>?? Discount %</label>
                                 <div class="input-wrapper"><span>%</span><input type="number" v-model.number="bulkDisc"
                                         @input="calc"></div>
                             </div>
                         </div>
 
                         <!-- tax and quantity (common) -->
-                        <div class="input-group"><label>🧾 Tax % (optional)</label>
+                        <div class="input-group"><label>?? Tax % (optional)</label>
                             <div class="input-wrapper"><span>%</span><input type="number" v-model.number="taxPercent"
                                     @input="calc"></div>
                         </div>
-                        <div class="input-group"><label>🔢 Quantity</label>
+                        <div class="input-group"><label>?? Quantity</label>
                             <div class="input-wrapper"><input type="number" v-model.number="quantity" min="1"
                                     @input="calc">
                             </div>
                         </div>
 
                         <!-- currency / advanced -->
-                        <div class="advanced-toggle" @click="toggleAdvanced">{{ advancedOpen ? '▼' : '▶' }} Advanced &
+                        <div class="advanced-toggle" @click="toggleAdvanced">{{ advancedOpen ? '?' : '?' }} Advanced &
                             currency</div>
                         <div class="advanced-content" :class="{show: advancedOpen}">
                             <div class="row-flex">
                                 <select class="select-sm" v-model="currencyCode" @change="updateCurrency">
-                                    <option value="USD">🇺🇸 USD</option>
-                                    <option value="PKR">🇵🇰 PKR</option>
-                                    <option value="INR">🇮🇳 INR</option>
-                                    <option value="GBP">🇬🇧 GBP</option>
-                                    <option value="EUR">🇪🇺 EUR</option>
-                                    <option value="AED">🇦🇪 AED</option>
+                                    <option value="USD">???? USD</option>
+                                    <option value="PKR">???? PKR</option>
+                                    <option value="INR">???? INR</option>
+                                    <option value="GBP">???? GBP</option>
+                                    <option value="EUR">???? EUR</option>
+                                    <option value="AED">???? AED</option>
                                 </select>
                                 <label><input type="checkbox" v-model="taxInclusive"> Tax inclusive</label>
                                 <label><input type="checkbox" v-model="rounding"> Rounding</label>
                             </div>
-                            <div style="margin-top:10px"><small>💳 Cash vs card: 2% fee <span class="badge">sim</span>
+                            <div style="margin-top:10px"><small>?? Cash vs card: 2% fee <span class="badge">sim</span>
                                     card
                                     adds {{ (finalPrice*0.02).toFixed(2) }}</small></div>
                         </div>
@@ -816,19 +816,19 @@
 
                     <!-- STICKY ACTION BAR (mobile) -->
                     <div class="action-bar">
-                        <button class="calc-btn" @click="calc">🧮 Calculate</button>
-                        <button class="btn btn-clear" @click="clearAll">🗑️ Clear</button>
-                        <button class="btn btn-copy" @click="copyResult">📋 Copy</button>
+                        <button class="calc-btn" @click="calc">?? Calculate</button>
+                        <button class="btn btn-clear" @click="clearAll">??? Clear</button>
+                        <button class="btn btn-copy" @click="copyResult">?? Copy</button>
                     </div>
-                    <div style="font-size:0.8rem; color:#4b5563; margin-top:8px;" class="only-mobile">← swipe / advanced
+                    <div style="font-size:0.8rem; color:#4b5563; margin-top:8px;" class="only-mobile">? swipe / advanced
                         below</div>
                 </div>
 
                 <!-- RESULT PANEL -->
                 <div class="result-box">
                     <div style="display: flex; justify-content: space-between;">
-                        <h3 style="font-weight: 600;">📊 results</h3>
-                        <span><button class="btn" style="padding:6px 14px; min-height:auto;" @click="exportCSV">📥
+                        <h3 style="font-weight: 600;">?? results</h3>
+                        <span><button class="btn" style="padding:6px 14px; min-height:auto;" @click="exportCSV">??
                                 CSV</button></span>
                     </div>
                     <!-- dynamic main stats -->
@@ -877,7 +877,7 @@
                     <!-- history snapshot -->
                     <div class="history-panel">
                         <div style="display:flex; justify-content:space-between;">
-                            <span>📋 last 3 calculations</span>
+                            <span>?? last 3 calculations</span>
                             <button style="background:none; border:none; color:#2563eb;"
                                 @click="clearHistory">clear</button>
                         </div>
@@ -887,7 +887,7 @@
                     <!-- educational snippet -->
                     <div
                         style="font-size:0.8rem; background:#eff6ff; border-radius:12px; padding:12px; margin-top:12px;">
-                        💡 <strong>Stacked discount:</strong> first 20% then 10% = 28% total off.
+                        ?? <strong>Stacked discount:</strong> first 20% then 10% = 28% total off.
                     </div>
                 </div>
             </div>
@@ -898,8 +898,8 @@
     <div class="seo-wrapper seo-below">
         <h2>What is a Discount Calculator?</h2>
         <p>A <strong>Discount Calculator</strong> helps you quickly determine the final price after applying one or more
-            discounts. Whether it's a percentage off, a fixed amount, stacked discounts, or reverse‑engineering the
-            original price, this tool gives you instant results including tax and per‑item breakdowns. Essential for
+            discounts. Whether it's a percentage off, a fixed amount, stacked discounts, or reverse-engineering the
+            original price, this tool gives you instant results including tax and per-item breakdowns. Essential for
             shoppers, retailers, and business owners.</p>
 
         <h2>How to Use the Discount Calculator (Step-by-Step Guide)</h2>
@@ -913,47 +913,47 @@
 
         <h2>Features of This Discount Calculator</h2>
         <div class="feature-grid">
-            <div><strong>📐 6 modes</strong> – percent, fixed, reverse, stacked, profit, bulk.</div>
-            <div><strong>🧾 tax support</strong> – tax % with inclusive/exclusive option.</div>
-            <div><strong>🔢 quantity multiplier</strong> – total for multiple items.</div>
-            <div><strong>💱 multi‑currency</strong> – USD, PKR, INR, GBP, EUR, AED.</div>
-            <div><strong>📊 visual progress</strong> – savings bar and before/after chart.</div>
-            <div><strong>📋 history & copy</strong> – track and reuse results.</div>
+            <div><strong>?? 6 modes</strong> � percent, fixed, reverse, stacked, profit, bulk.</div>
+            <div><strong>?? tax support</strong> � tax % with inclusive/exclusive option.</div>
+            <div><strong>?? quantity multiplier</strong> � total for multiple items.</div>
+            <div><strong>?? multi-currency</strong> � USD, PKR, INR, GBP, EUR, AED.</div>
+            <div><strong>?? visual progress</strong> � savings bar and before/after chart.</div>
+            <div><strong>?? history & copy</strong> � track and reuse results.</div>
         </div>
 
         <h2>Benefits of Using an Online Discount Calculator</h2>
         <div class="benefit-grid">
-            <div>✔ <strong>Save money</strong> – know exactly what you pay after discounts.</div>
-            <div>✔ <strong>Compare deals</strong> – evaluate “20% off” vs “$10 off”.</div>
-            <div>✔ <strong>Pricing strategy</strong> – set profitable selling prices.</div>
-            <div>✔ <strong>Fast & accurate</strong> – no mental math errors.</div>
-            <div>✔ <strong>Free & accessible</strong> – works on all devices.</div>
+            <div>? <strong>Save money</strong> � know exactly what you pay after discounts.</div>
+            <div>? <strong>Compare deals</strong> � evaluate �20% off� vs �$10 off�.</div>
+            <div>? <strong>Pricing strategy</strong> � set profitable selling prices.</div>
+            <div>? <strong>Fast & accurate</strong> � no mental math errors.</div>
+            <div>? <strong>Free & accessible</strong> � works on all devices.</div>
         </div>
 
         <h2>How Discount is Calculated (Formulas)</h2>
         <p style="background:#e9f2fc; padding:1rem; border-radius:1.5rem;">
-            <strong>% off:</strong> Discount = Price × (rate/100); Final = Price – Discount<br>
-            <strong>Fixed off:</strong> Final = Price – fixed amount<br>
+            <strong>% off:</strong> Discount = Price � (rate/100); Final = Price � Discount<br>
+            <strong>Fixed off:</strong> Final = Price � fixed amount<br>
             <strong>Stacked:</strong> First discount applied, then second discount on new price<br>
-            <strong>Reverse:</strong> Original = Sale price / (1 – discount%)<br>
-            <strong>Profit mode:</strong> Profit = Selling – Cost; Margin = Profit / Selling
+            <strong>Reverse:</strong> Original = Sale price / (1 � discount%)<br>
+            <strong>Profit mode:</strong> Profit = Selling � Cost; Margin = Profit / Selling
         </p>
 
         <h2>Examples of Discount Calculations</h2>
-        <h3>🛍️ Percentage discount</h3>
-        <p>$80 item, 25% off → discount $20, final $60, save 25%.</p>
-        <h3>📦 Stacked discounts</h3>
-        <p>$100, first 20% off → $80, then extra 10% off → $72, total save 28%.</p>
-        <h3>🔁 Reverse discount</h3>
-        <p>Sale price $45 after 25% off → original = $60.</p>
+        <h3>??? Percentage discount</h3>
+        <p>$80 item, 25% off ? discount $20, final $60, save 25%.</p>
+        <h3>?? Stacked discounts</h3>
+        <p>$100, first 20% off ? $80, then extra 10% off ? $72, total save 28%.</p>
+        <h3>?? Reverse discount</h3>
+        <p>Sale price $45 after 25% off ? original = $60.</p>
 
         <h2>Where Discount Calculations Are Used</h2>
         <ul>
-            <li><strong>🛒 Shopping & retail</strong> – sales, coupons, clearance.</li>
-            <li><strong>📦 E‑commerce</strong> – dynamic pricing, bulk discounts.</li>
-            <li><strong>🏢 Business pricing</strong> – trade discounts, distributor margins.</li>
-            <li><strong>📈 Financial analysis</strong> – profit margin on discounted items.</li>
-            <li><strong>🧾 Invoicing</strong> – applying multiple discounts.</li>
+            <li><strong>?? Shopping & retail</strong> � sales, coupons, clearance.</li>
+            <li><strong>?? E-commerce</strong> � dynamic pricing, bulk discounts.</li>
+            <li><strong>?? Business pricing</strong> � trade discounts, distributor margins.</li>
+            <li><strong>?? Financial analysis</strong> � profit margin on discounted items.</li>
+            <li><strong>?? Invoicing</strong> � applying multiple discounts.</li>
         </ul>
 
         <h2>Frequently Asked Questions (FAQ)</h2>
@@ -967,11 +967,11 @@
                 to find original.
             </div>
             <div>
-                <h4>3. Does tax apply before or after discount?</h4> You can choose tax‑inclusive (tax on discounted
+                <h4>3. Does tax apply before or after discount?</h4> You can choose tax-inclusive (tax on discounted
                 price) or exclusive via the checkbox.
             </div>
             <div>
-                <h4>4. Can I use this for bulk orders?</h4> Yes – Bulk mode calculates total discount for multiple
+                <h4>4. Can I use this for bulk orders?</h4> Yes � Bulk mode calculates total discount for multiple
                 units.
             </div>
             <div>
@@ -981,21 +981,21 @@
                 <h4>6. How accurate are the results?</h4> 100% accurate using standard formulas.
             </div>
             <div>
-                <h4>7. Is there a mobile app?</h4> It’s a web app, fully responsive – works like an app on mobile.
+                <h4>7. Is there a mobile app?</h4> It�s a web app, fully responsive � works like an app on mobile.
             </div>
             <div>
-                <h4>8. Can I change currency?</h4> Yes – select from 6 currencies; symbol updates everywhere.
+                <h4>8. Can I change currency?</h4> Yes � select from 6 currencies; symbol updates everywhere.
             </div>
         </div>
 
         <h2>Conclusion</h2>
-        <p>A <strong>Discount Calculator</strong> is a must‑have for smart shopping and profitable pricing. Whether
-            you’re a consumer hunting deals or a business setting prices, this tool gives you clarity and confidence.
-            [Internal Link – will be added later] and explore more calculators like [Internal Link – will be added
+        <p>A <strong>Discount Calculator</strong> is a must-have for smart shopping and profitable pricing. Whether
+            you�re a consumer hunting deals or a business setting prices, this tool gives you clarity and confidence.
+            [Internal Link � will be added later] and explore more calculators like [Internal Link � will be added
             later].</p>
         <hr>
-        <p style="font-size:1rem;"><strong>Related keywords:</strong> discount calculator online · percent off
-            calculator · reverse discount · stacked discount · profit margin · sale price calculator.</p>
+        <p style="font-size:1rem;"><strong>Related keywords:</strong> discount calculator online � percent off
+            calculator � reverse discount � stacked discount � profit margin � sale price calculator.</p>
     </div>
 
     <!-- Footer (unchanged) -->
@@ -1006,7 +1006,7 @@
                     <div class="footer-logo"><img src="../assets/brand/logo.png" alt="90StoreZon Logo"
                             class="footer-logo-img"></div>
                     <p class="footer-description">Providing free, accurate, and easy-to-use online calculation tools.
-                        Our MISSION is to simplify your daily calculations with the FINAL BEST CALCULATORS.</p>
+                        Our MISSION is to simplify your daily calculations with our free online calculators.</p>
                     <div class="social-links">
                         <a href="https://facebook.com/90StoreZon" target="_blank" aria-label="Facebook"><img
                                 src="../assets/brand/icons/facebook.svg" alt="Facebook" width="20" height="20"></a>
@@ -1097,7 +1097,7 @@
                 setMode(m) { this.mode = m; this.calc(); },
                 toggleAdvanced() { this.advancedOpen = !this.advancedOpen; },
                 updateCurrency() {
-                    const sym = { USD: '$', PKR: '₨', INR: '₹', GBP: '£', EUR: '€', AED: 'د.إ' };
+                    const sym = { USD: '$', PKR: '?', INR: '?', GBP: '�', EUR: '�', AED: '?.?' };
                     this.currencySymbol = sym[this.currencyCode] || '$';
                     this.calc();
                 },
@@ -1107,7 +1107,7 @@
                     return this.currencySymbol + rounded.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                 },
                 calc() {
-                    // mode logic (simplified for demo – but full logic included)
+                    // mode logic (simplified for demo � but full logic included)
                     let base = this.originalPrice || 0;
                     let q = this.quantity || 1;
                     let disc = 0;
@@ -1209,7 +1209,7 @@
                 },
                 loadHistory() {
                     // placeholder history
-                    this.history = ['$100 → $80 (20%)', '$250 → $200 (20%)', '$45 → $36 (20%)'];
+                    this.history = ['$100 ? $80 (20%)', '$250 ? $200 (20%)', '$45 ? $36 (20%)'];
                 },
                 clearHistory() { this.history = []; }
             }
